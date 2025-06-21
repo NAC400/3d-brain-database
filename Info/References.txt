@@ -1,0 +1,9 @@
+https://neuroanatomy.ca/3Dmodels.html (5 total models; sketchfab)
+
+https://www.brainfacts.org/3d-brain#intro=false&focus=Brain-limbic_system-hypothalamus&zoom=true (Original animation model)
+
+Sources: 
+
+- Sketchfab
+- cgtrader
+- Free3D

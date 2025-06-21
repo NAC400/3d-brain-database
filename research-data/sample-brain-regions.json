@@ -1,0 +1,209 @@
+{
+  "brainRegions": [
+    {
+      "id": "ctx-frontal",
+      "name": "Frontal Cortex",
+      "anatomicalId": "CTX-FRONTAL",
+      "description": "The frontal cortex is responsible for executive functions, decision-making, and personality.",
+      "position": [0, 0.8, 0.2],
+      "scale": [1.2, 0.8, 1.0],
+      "color": "#3b82f6",
+      "parent": null,
+      "children": [
+        "ctx-frontal-dlpfc",
+        "ctx-frontal-mpfc",
+        "ctx-frontal-ofc"
+      ],
+      "researchData": [
+        {
+          "study": "Working Memory Study 2023",
+          "dataType": "ACTIVATION",
+          "values": {
+            "activation_level": 0.85,
+            "peak_coordinates": [0, 0.9, 0.3],
+            "volume": 1240
+          },
+          "confidence": 0.92
+        }
+      ]
+    },
+    {
+      "id": "ctx-frontal-dlpfc",
+      "name": "Dorsolateral Prefrontal Cortex",
+      "anatomicalId": "CTX-FRONTAL-DLPFC",
+      "description": "Critical for working memory and cognitive control.",
+      "position": [0.4, 0.9, 0.3],
+      "scale": [0.6, 0.4, 0.5],
+      "color": "#1e40af",
+      "parent": "ctx-frontal",
+      "children": [],
+      "researchData": [
+        {
+          "study": "Cognitive Control fMRI",
+          "dataType": "ACTIVATION",
+          "values": {
+            "activation_level": 0.78,
+            "peak_coordinates": [0.4, 0.9, 0.3],
+            "volume": 850
+          },
+          "confidence": 0.89
+        }
+      ]
+    },
+    {
+      "id": "bg-striatum",
+      "name": "Striatum",
+      "anatomicalId": "BG-STRIATUM",
+      "description": "Part of the basal ganglia involved in motor control and reward processing.",
+      "position": [0.3, 0.1, 0],
+      "scale": [0.4, 0.3, 0.4],
+      "color": "#8b5cf6",
+      "parent": "basal-ganglia",
+      "children": [
+        "bg-striatum-caudate",
+        "bg-striatum-putamen"
+      ],
+      "researchData": [
+        {
+          "study": "Reward Processing DTI",
+          "dataType": "CONNECTIVITY",
+          "values": {
+            "fa_value": 0.62,
+            "md_value": 0.0008,
+            "connectivity_strength": 0.74
+          },
+          "confidence": 0.91
+        }
+      ]
+    },
+    {
+      "id": "hippocampus-left",
+      "name": "Left Hippocampus",
+      "anatomicalId": "HIP-L",
+      "description": "Critical for memory formation and spatial navigation (left hemisphere).",
+      "position": [0.8, -0.3, 0],
+      "scale": [0.3, 0.8, 0.2],
+      "color": "#ec4899",
+      "parent": null,
+      "children": [
+        "hippocampus-left-ca1",
+        "hippocampus-left-ca3",
+        "hippocampus-left-dg"
+      ],
+      "researchData": [
+        {
+          "study": "Memory Encoding Study",
+          "dataType": "ACTIVATION",
+          "values": {
+            "activation_level": 0.92,
+            "peak_coordinates": [0.8, -0.3, 0],
+            "volume": 1150
+          },
+          "confidence": 0.95
+        },
+        {
+          "study": "Alzheimer's Progression",
+          "dataType": "STRUCTURAL",
+          "values": {
+            "volume_mm3": 3245,
+            "atrophy_rate": -0.02,
+            "cortical_thickness": 2.8
+          },
+          "confidence": 0.88
+        }
+      ]
+    },
+    {
+      "id": "amygdala-right",
+      "name": "Right Amygdala",
+      "anatomicalId": "AMY-R",
+      "description": "Involved in emotion processing, fear responses, and memory consolidation.",
+      "position": [-0.6, -0.2, -0.3],
+      "scale": [0.25, 0.3, 0.2],
+      "color": "#f59e0b",
+      "parent": null,
+      "children": [
+        "amygdala-right-central",
+        "amygdala-right-basal",
+        "amygdala-right-lateral"
+      ],
+      "researchData": [
+        {
+          "study": "Fear Conditioning fMRI",
+          "dataType": "ACTIVATION",
+          "values": {
+            "activation_level": 0.87,
+            "peak_coordinates": [-0.6, -0.2, -0.3],
+            "volume": 780
+          },
+          "confidence": 0.93
+        }
+      ]
+    },
+    {
+      "id": "thalamus",
+      "name": "Thalamus",
+      "anatomicalId": "TH",
+      "description": "Relay station for sensory and motor signals to the cortex.",
+      "position": [0, 0, 0],
+      "scale": [0.3, 0.4, 0.3],
+      "color": "#06b6d4",
+      "parent": null,
+      "children": [
+        "thalamus-vpl",
+        "thalamus-vpm",
+        "thalamus-mgn",
+        "thalamus-lgn"
+      ],
+      "researchData": [
+        {
+          "study": "Sensory Processing Study",
+          "dataType": "CONNECTIVITY",
+          "values": {
+            "connectivity_strength": 0.82,
+            "network_efficiency": 0.76
+          },
+          "confidence": 0.90
+        }
+      ]
+    },
+    {
+      "id": "cerebellum",
+      "name": "Cerebellum",
+      "anatomicalId": "CB",
+      "description": "Important for motor control, balance, coordination, and cognitive functions.",
+      "position": [0, -0.8, -0.5],
+      "scale": [0.8, 0.6, 0.4],
+      "color": "#84cc16",
+      "parent": null,
+      "children": [
+        "cerebellum-anterior",
+        "cerebellum-posterior",
+        "cerebellum-flocculonodular"
+      ],
+      "researchData": [
+        {
+          "study": "Motor Learning Task",
+          "dataType": "ACTIVATION",
+          "values": {
+            "activation_level": 0.79,
+            "peak_coordinates": [0, -0.8, -0.5],
+            "volume": 2340
+          },
+          "confidence": 0.87
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2024-01-15",
+    "coordinateSystem": "MNI152",
+    "units": {
+      "position": "normalized_coordinates",
+      "volume": "mm3",
+      "activation": "z_score"
+    },
+    "description": "Sample brain regions data for 3D Brain Research Platform development and testing"
+  }
+} 
