@@ -1,0 +1,105 @@
+Possible Platform Names:
+BRAINS: "Brain Region Annotation and Interactive Neuroimaging System"
+MIND: "Multilayer Interactive Neuroanatomical Database"
+
+Name for Later patch with customization:
+🧠 MAPPED
+- Multilayer Anatomical Platform for Personalized Exploration and Discovery
+- Perfect for your “notebook mode” + modular 3D viewer + educational goals.
+
+Project Core Components
+1. 3D Brain Model Viewer
+Tech Stack Options:
+
+- Unity (best for cross-platform interactive 3D + VR support)
+
+- Three.js (JavaScript-based, for web-based 3D apps)
+
+- Unreal Engine (high visual fidelity, if realism is key)
+
+Brain Data Sources:
+
+- Allen Brain Atlas (neuroanatomy & gene expression)
+
+- Human Connectome Project (high-res scans)
+
+- OpenNeuro, NeuroMorpho.org (for neuron structure)
+
+- 3D Models: Zygote Body, Sketchfab (licenses may apply)
+
+2. Visual Layer Switching
+Toggle modes:
+
+- Lobe outlines
+
+- Functional areas (e.g., V1–V5, Broca's, Wernicke's, etc.)
+
+- Structural anatomy (cerebellum, brainstem, corpus callosum, etc.)
+
+- Vascular structures (Circle of Willis, veins, arteries)
+
+Implementation: Use shader layers and texture masking, or different meshes/modules.
+
+3. Information System
+Each part/area clickable or selectable, bringing up:
+
+- Neural functions
+
+- Known disorders (e.g., damage to V1 = cortical blindness)
+
+- Neural correlates of cognitive/emotional states
+
+- Links to academic references or summaries
+
+Consider a Markdown-style editor or dynamic pop-up cards for readability and annotation.
+
+4. Custom User Instances
+Like a “notebook mode”:
+
+- Start with a basic model
+
+- Add layers, highlights, notes, custom information
+
+- Save/share profiles (maybe using SQLite or Firebase for cloud storage)
+
+- Exportable JSON or project files
+
+Suggested Folder Structure:
+BrainApp/
+├── assets/
+│   ├── models/ (3D meshes for lobes, vasculature, etc.)
+│   ├── textures/
+│   └── shaders/
+├── src/
+│   ├── components/
+│   ├── scenes/
+│   ├── ui/
+│   └── data/
+│       └── brainInfo.json
+├── public/
+├── docs/
+└── user_data/
+
+Long-term Data Features
+Integrate with:
+
+- PubMed APIs for live research links
+
+- Google Scholar, Semantic Scholar scraping (careful with TOS)
+
+- Neural correlates databases (see: BrainMap.org, Neurosynth)
+
+Tagging system for linking brain parts ↔ functions ↔ pathologies
+
+First Seps:
+1. Choose your base engine (Unity or web-based).
+
+2. Acquire or create a segmented 3D brain model.
+
+3. Load it and enable clicking/hovering on regions.
+
+4. Create a basic info panel system (pulling from local JSON).
+
+5. Build the toggle/layer system.
+
+6. Create a user mode with save/load capabilities.
