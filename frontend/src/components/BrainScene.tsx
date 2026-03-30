@@ -1,26 +1,56 @@
 import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Html } from '@react-three/drei';
+import { OrbitControls, Environment, Html, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
 import { useBrainStore } from '../store/brainStore';
 import BrainModel from './BrainModel';
-import LoadingSpinner from './LoadingSpinner';
+import ClippingController from './ClippingController';
 
+// ---------------------------------------------------------------------------
+// GLB load progress bar — shown inside the Canvas via Html
+// ---------------------------------------------------------------------------
+const ProgressFallback: React.FC = () => {
+  const { progress, active } = useProgress();
+  if (!active) return null;
+  return (
+    <Html center>
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+        fontFamily: 'sans-serif',
+      }}>
+        <div style={{ color: '#60a5fa', fontSize: 13, letterSpacing: 0.5 }}>
+          Loading brain model…
+        </div>
+        <div style={{ width: 200, height: 3, background: 'rgba(255,255,255,0.1)', borderRadius: 2, overflow: 'hidden' }}>
+          <div style={{
+            width: `${progress}%`,
+            height: '100%',
+            background: 'linear-gradient(90deg,#3b82f6,#60a5fa)',
+            borderRadius: 2,
+            transition: 'width 0.2s',
+          }} />
+        </div>
+        <div style={{ color: '#475569', fontSize: 11 }}>{Math.round(progress)}%</div>
+      </div>
+    </Html>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// BrainScene
+// ---------------------------------------------------------------------------
 const BrainScene: React.FC = () => {
-  const { isLoading } = useBrainStore();
   const controlsRef = useRef<any>(null);
 
   return (
     /*
      * Inline styles only — no Tailwind. The parent (App.tsx grid middle row) has
      * position:relative, so inset:0 here stretches this div to fill it completely.
-     * Using inline styles avoids Tailwind class-generation issues that caused the
-     * "thin strip" bug in earlier versions.
      */
     <div
       style={{
         position: 'absolute',
-        inset: 0,               // top:0 right:0 bottom:0 left:0
+        inset: 0,
         width: '100%',
         height: '100%',
         overflow: 'hidden',
@@ -29,8 +59,6 @@ const BrainScene: React.FC = () => {
       <Canvas
         style={{ display: 'block', width: '100%', height: '100%' }}
         camera={{
-          // Direct lateral view — camera is at eye level with the brain center,
-          // looking straight at it. No vertical offset = brain appears centered.
           position: [0, 0, 4.5],
           fov: 50,
           near: 0.01,
@@ -41,14 +69,21 @@ const BrainScene: React.FC = () => {
           alpha: true,
           powerPreference: 'high-performance',
         }}
+        // "demand" only re-renders when invalidate() is called or Three.js objects change.
+        // The OrbitControls and BrainModel both call invalidate automatically via R3F internals,
+        // so interaction stays responsive while idle frames are skipped.
+        frameloop="demand"
       >
+        {/* Clipping plane controller — reads store, updates gl.clippingPlanes */}
+        <ClippingController />
+
         {/* Lighting */}
         <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 8, 5]}  intensity={1.2} />
+        <directionalLight position={[5, 8, 5]}   intensity={1.2} />
         <directionalLight position={[-5, -3, -5]} intensity={0.4} />
-        <pointLight       position={[0, 10, 0]}  intensity={0.6} />
+        <pointLight       position={[0, 10, 0]}   intensity={0.6} />
 
-        <Suspense fallback={<LoadingFallback />}>
+        <Suspense fallback={<ProgressFallback />}>
           <Environment preset="studio" />
           <BrainModel />
         </Suspense>
@@ -77,30 +112,8 @@ const BrainScene: React.FC = () => {
           }}
         />
       </Canvas>
-
-      {/* React-side loading overlay */}
-      {isLoading && (
-        <div
-          style={{
-            position: 'absolute', inset: 0,
-            background: 'rgba(15,23,42,0.85)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            zIndex: 50,
-          }}
-        >
-          <LoadingSpinner />
-        </div>
-      )}
     </div>
   );
 };
-
-const LoadingFallback: React.FC = () => (
-  <Html center>
-    <div style={{ color: '#3b82f6', fontFamily: 'sans-serif', fontSize: 14, whiteSpace: 'nowrap' }}>
-      Loading brain model…
-    </div>
-  </Html>
-);
 
 export default BrainScene;

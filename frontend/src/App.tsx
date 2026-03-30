@@ -1,20 +1,13 @@
 import React from 'react';
 import BrainScene from './components/BrainScene';
+import RegionInfoPanel from './components/RegionInfoPanel';
+import ControlsToolbar from './components/ControlsToolbar';
 import { useBrainStore } from './store/brainStore';
 
 const App: React.FC = () => {
   const { sourcePanel, setSourcePanelOpen } = useBrainStore();
 
   return (
-    /*
-     * CSS Grid layout: header / canvas / footer.
-     * gridTemplateRows: 'auto 1fr auto' means:
-     *   - header: exactly as tall as its content
-     *   - canvas: ALL remaining viewport height (1fr = 1 fraction of leftover space)
-     *   - footer: exactly as tall as its content
-     * Unlike flexbox, `1fr` gives the middle row a REAL, EXPLICIT pixel height,
-     * so `height: 100%` on any nested element actually works.
-     */
     <div
       style={{
         display: 'grid',
@@ -84,11 +77,11 @@ const App: React.FC = () => {
         </nav>
       </header>
 
-      {/* ── Canvas area — fills the 1fr row completely ── */}
+      {/* ── Canvas area ── */}
       <div style={{ position: 'relative', overflow: 'hidden' }}>
         <BrainScene />
 
-        {/* Sidebar toggle */}
+        {/* Sources toggle button */}
         {!sourcePanel.isOpen && (
           <button
             onClick={() => setSourcePanelOpen(true)}
@@ -106,7 +99,7 @@ const App: React.FC = () => {
           </button>
         )}
 
-        {/* Sidebar */}
+        {/* Sources sidebar */}
         {sourcePanel.isOpen && (
           <aside
             style={{
@@ -133,31 +126,25 @@ const App: React.FC = () => {
             <p style={{ fontSize: 12, color: '#475569' }}>Source panel — coming soon.</p>
           </aside>
         )}
+
+        {/* Region info panel (right side, appears on click) */}
+        <RegionInfoPanel />
       </div>
 
-      {/* ── Toolbar / Footer ── */}
+      {/* ── Footer / Controls Toolbar ── */}
       <footer
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 16,
-          padding: '8px 24px',
+          padding: '0 24px',
+          height: 44,
           borderTop: '1px solid rgba(30,64,175,0.4)',
           background: 'rgba(15,23,42,0.97)',
-          fontSize: 11,
           zIndex: 40,
+          overflow: 'hidden',
         }}
       >
-        <span style={{ color: '#3b82f6', fontWeight: 600, letterSpacing: 1, textTransform: 'uppercase' }}>
-          Controls
-        </span>
-        <span style={{ color: '#334155' }}>|</span>
-        <span style={{ color: '#475569' }}>
-          Drag: rotate &nbsp;·&nbsp; Shift+drag: pan &nbsp;·&nbsp; Scroll: zoom &nbsp;·&nbsp; Click region: select
-        </span>
-        <span style={{ marginLeft: 'auto', color: '#334155' }}>
-          MAPPED v2 &nbsp;·&nbsp; 141 regions
-        </span>
+        <ControlsToolbar />
       </footer>
     </div>
   );
