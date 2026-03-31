@@ -12,6 +12,7 @@ export interface Source {
   abstract?:   string;
   journal?:    string;
   year?:       number;
+  pmid?:       string;       // PubMed ID — used to lazily fetch abstract via EFetch
   tags:        string[];
   isGlobal:    boolean;      // shared to global atlas
   createdAt:   string;       // ISO date string
