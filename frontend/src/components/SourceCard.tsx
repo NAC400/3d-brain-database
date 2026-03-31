@@ -11,7 +11,7 @@ interface Props {
 
 const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, compact = false }) => {
   const [expanded, setExpanded] = useState(false);
-  const { removeSource, removeStructureLink, setSelectedRegion, setCameraTarget, regionCentroids } = useBrainStore();
+  const { removeSource, removeStructureLink, setSelectedRegion, setCameraTarget, regionCentroids, setViewingSourceId } = useBrainStore();
 
   const ZOOM_DISTANCE = 0.6;
 
@@ -34,7 +34,8 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
             style={{ fontSize: 12, fontWeight: 600, color: '#e2e8f0', lineHeight: 1.4, cursor: 'pointer' }}
-            onClick={() => { setExpanded(!expanded); onSelect?.(); }}
+            onClick={() => { setViewingSourceId(source.id); onSelect?.(); }}
+            title="Open source detail"
           >
             {source.title}
           </div>

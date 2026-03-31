@@ -276,6 +276,15 @@ const BrainModel: React.FC = () => {
       dirs[mesh.name] = dir.normalize();
     }
 
+    // Mean-centre the explode directions so the visual centroid of all pieces
+    // stays at the world origin when exploded. Without this, a single-hemisphere
+    // model drifts because all dirs are biased to one side.
+    const meshNames = Object.keys(dirs);
+    const meanDir = new THREE.Vector3();
+    for (const name of meshNames) meanDir.add(dirs[name]);
+    meanDir.divideScalar(meshNames.length);
+    for (const name of meshNames) dirs[name].sub(meanDir);
+
     // World-space bounds: (vertex_mm - keptCenterMm) * BRAIN_SCALE
     const bounds: BrainBounds = {
       xMin: (keptBox.min.x - keptCenterMm.x) * BRAIN_SCALE,

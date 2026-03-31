@@ -325,22 +325,6 @@ const ControlsToolbar: React.FC = () => {
         {mode === 'layers' && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexWrap: 'nowrap', flexShrink: 0 }}>
 
-            {/* Clear filter badge */}
-            {activeCategories.size > 0 && (
-              <button
-                onClick={() => Array.from(activeCategories).forEach((c) => toggleCategory(c))}
-                title="Clear filter — show all regions"
-                style={{
-                  padding: '2px 8px', borderRadius: 4, fontSize: 9, fontWeight: 700,
-                  background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.35)',
-                  color: '#f87171', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
-                  letterSpacing: 0.3,
-                }}
-              >
-                ✕ Clear ({activeCategories.size})
-              </button>
-            )}
-
             {CATEGORY_GROUPS.map((group) => {
               const isActive   = groupIsActive(group);
               const isOpen     = openGroup === group.id;
@@ -374,6 +358,22 @@ const ControlsToolbar: React.FC = () => {
                 </button>
               );
             })}
+
+            {/* Clear filter badge — after group buttons */}
+            {activeCategories.size > 0 && (
+              <button
+                onClick={() => Array.from(activeCategories).forEach((c) => toggleCategory(c))}
+                title="Clear filter — show all regions"
+                style={{
+                  padding: '2px 8px', borderRadius: 4, fontSize: 9, fontWeight: 700,
+                  background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.35)',
+                  color: '#f87171', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
+                  letterSpacing: 0.3, marginLeft: 4,
+                }}
+              >
+                ✕ Clear ({activeCategories.size})
+              </button>
+            )}
           </div>
         )}
 

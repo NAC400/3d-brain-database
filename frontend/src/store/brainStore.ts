@@ -109,9 +109,10 @@ export interface BrainState {
   sourcePanel: SourcePanelState;
 
   // --- Research / Pillar 2 ---
-  sources:        Source[];
-  structureLinks: StructureLink[];
+  sources:           Source[];
+  structureLinks:    StructureLink[];
   researchPanelOpen: boolean;
+  viewingSourceId:   string | null;  // source open in full-page viewer
 
   // --- Annotations ---
   annotations: any[];
@@ -154,7 +155,8 @@ export interface BrainState {
   addStructureLink:   (link: StructureLink) => void;
   removeStructureLink:(id: string) => void;
   setResearchPanelOpen: (open: boolean) => void;
-  getSourcesForRegion:(meshName: string) => Source[];
+  setViewingSourceId:   (id: string | null) => void;
+  getSourcesForRegion: (meshName: string) => Source[];
 }
 
 // ---------------------------------------------------------------------------
@@ -201,6 +203,7 @@ export const useBrainStore = create<BrainState>((set, get) => ({
   sources: [],
   structureLinks: [],
   researchPanelOpen: false,
+  viewingSourceId: null,
 
   // Annotations
   annotations: [],
@@ -318,6 +321,7 @@ export const useBrainStore = create<BrainState>((set, get) => ({
       structureLinks: state.structureLinks.filter((l) => l.id !== id),
     })),
   setResearchPanelOpen: (open) => set({ researchPanelOpen: open }),
+  setViewingSourceId: (id) => set({ viewingSourceId: id }),
   getSourcesForRegion: (meshName) => {
     const { structureLinks, sources } = get();
     const linkedIds = new Set(

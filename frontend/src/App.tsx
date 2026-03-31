@@ -4,6 +4,7 @@ import RegionInfoPanel from './components/RegionInfoPanel';
 import ControlsToolbar from './components/ControlsToolbar';
 import RegionSearch from './components/RegionSearch';
 import ResearchPanel from './components/ResearchPanel';
+import SourceViewer from './components/SourceViewer';
 import { useBrainStore } from './store/brainStore';
 
 const App: React.FC = () => {
@@ -110,6 +111,9 @@ const App: React.FC = () => {
         {/* Research sidebar */}
         <ResearchPanel />
       </div>
+
+      {/* Source detail viewer — full-screen overlay */}
+      <SourceViewer />
 
       {/* ── Footer / Controls Toolbar ── */}
       <footer
