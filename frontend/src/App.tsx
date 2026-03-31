@@ -2,10 +2,12 @@ import React from 'react';
 import BrainScene from './components/BrainScene';
 import RegionInfoPanel from './components/RegionInfoPanel';
 import ControlsToolbar from './components/ControlsToolbar';
+import RegionSearch from './components/RegionSearch';
+import ResearchPanel from './components/ResearchPanel';
 import { useBrainStore } from './store/brainStore';
 
 const App: React.FC = () => {
-  const { sourcePanel, setSourcePanelOpen } = useBrainStore();
+  const { researchPanelOpen, setResearchPanelOpen } = useBrainStore();
 
   return (
     <div
@@ -29,9 +31,10 @@ const App: React.FC = () => {
           borderBottom: '1px solid rgba(30,64,175,0.6)',
           background: 'rgba(15,23,42,0.97)',
           zIndex: 40,
+          gap: 16,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
           <div style={{
             width: 28, height: 28, borderRadius: '50%',
             background: 'linear-gradient(135deg,#3b82f6,#1e40af)',
@@ -48,8 +51,13 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <nav style={{ display: 'flex', gap: 4 }}>
-          {['Explore', 'Research', 'Community'].map((label) => (
+        {/* Region search bar — centre of header */}
+        <div style={{ flex: 1, maxWidth: 360 }}>
+          <RegionSearch />
+        </div>
+
+        <nav style={{ display: 'flex', gap: 4, flexShrink: 0 }}>
+          {(['Explore', 'Community'] as const).map((label) => (
             <button
               key={label}
               style={{
@@ -60,7 +68,6 @@ const App: React.FC = () => {
                 color: '#94a3b8',
                 fontSize: 13,
                 cursor: 'pointer',
-                transition: 'background 0.15s, color 0.15s',
               }}
               onMouseEnter={(e) => {
                 (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.08)';
@@ -74,61 +81,34 @@ const App: React.FC = () => {
               {label}
             </button>
           ))}
+          <button
+            onClick={() => setResearchPanelOpen(!researchPanelOpen)}
+            style={{
+              padding: '6px 14px',
+              borderRadius: 6,
+              border: `1px solid ${researchPanelOpen ? 'rgba(59,130,246,0.5)' : 'transparent'}`,
+              background: researchPanelOpen ? 'rgba(59,130,246,0.15)' : 'transparent',
+              color: researchPanelOpen ? '#60a5fa' : '#94a3b8',
+              fontSize: 13,
+              cursor: 'pointer',
+            }}
+          >
+            Research
+          </button>
         </nav>
       </header>
 
       {/* ── Canvas area ── */}
-      <div style={{ position: 'relative', overflow: 'hidden' }}>
-        <BrainScene />
+      <div style={{ display: 'flex', overflow: 'hidden', position: 'relative' }}>
+        {/* 3-D viewport */}
+        <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+          <BrainScene />
+          {/* Region info panel (overlaid, right side of viewport) */}
+          <RegionInfoPanel />
+        </div>
 
-        {/* Sources toggle button */}
-        {!sourcePanel.isOpen && (
-          <button
-            onClick={() => setSourcePanelOpen(true)}
-            style={{
-              position: 'absolute', top: 16, left: 16, zIndex: 40,
-              padding: '6px 14px', fontSize: 12,
-              background: 'rgba(15,23,42,0.85)',
-              border: '1px solid rgba(59,130,246,0.5)',
-              borderRadius: 8, color: '#3b82f6',
-              cursor: 'pointer',
-              boxShadow: '0 0 8px rgba(59,130,246,0.2)',
-            }}
-          >
-            Sources
-          </button>
-        )}
-
-        {/* Sources sidebar */}
-        {sourcePanel.isOpen && (
-          <aside
-            style={{
-              position: 'absolute', top: 0, left: 0, bottom: 0, zIndex: 30,
-              width: 300,
-              background: 'rgba(15,23,42,0.9)',
-              borderRight: '1px solid rgba(59,130,246,0.3)',
-              backdropFilter: 'blur(10px)',
-              padding: 20,
-              overflowY: 'auto',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: 1.5, color: '#3b82f6', textTransform: 'uppercase' }}>
-                Research Sources
-              </span>
-              <button
-                onClick={() => setSourcePanelOpen(false)}
-                style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: 16 }}
-              >
-                ×
-              </button>
-            </div>
-            <p style={{ fontSize: 12, color: '#475569' }}>Source panel — coming soon.</p>
-          </aside>
-        )}
-
-        {/* Region info panel (right side, appears on click) */}
-        <RegionInfoPanel />
+        {/* Research sidebar */}
+        <ResearchPanel />
       </div>
 
       {/* ── Footer / Controls Toolbar ── */}

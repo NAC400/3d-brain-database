@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import type { Source, StructureLink } from '../types/source';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -36,14 +37,24 @@ export interface SourcePanelState {
 }
 
 export const ALL_CATEGORIES = [
-  'Cortex',
-  'Basal Ganglia',
-  'Limbic',
+  'Telencephalon – Frontal Lobe',
+  'Telencephalon – Parietal Lobe',
+  'Telencephalon – Temporal Lobe',
+  'Telencephalon – Occipital Lobe',
+  'Telencephalon – Limbic Lobe',
+  'Telencephalon – Insula',
+  'Telencephalon – Hippocampus & Amygdala',
+  'Telencephalon – Basal Ganglia',
+  'Telencephalon – Cerebral Nuclei',
+  'Telencephalon – Olfactory / Paleocortex',
+  'Telencephalon – Cortex (Other)',
   'Diencephalon',
-  'Brainstem',
-  'Cerebellum',
-  'White Matter & Ventricles',
-  'Subcortical',
+  'Mesencephalon (Midbrain)',
+  'Metencephalon (Pons)',
+  'Metencephalon (Cerebellum)',
+  'Myelencephalon (Medulla)',
+  'White Matter',
+  'Ventricles & CSF',
 ] as const;
 
 export type Category = typeof ALL_CATEGORIES[number];
@@ -76,10 +87,17 @@ export interface BrainState {
   clippingEnabled: boolean;        // true when at least one plane is active (derived, kept for compat)
 
   // --- Full-brain mirror ---
-  showMirroredHemisphere: boolean;   // renders the GLB mirrored across X to form a full brain
+  showMirroredHemisphere: boolean;
 
   // --- World-space bounds (set once GLB loads) ---
   brainBounds: BrainBounds | null;
+
+  // --- Camera target (drives animated zoom-to-region) ---
+  // Position + lookAt in world space. CameraController inside Canvas reads this.
+  cameraTarget: { position: [number,number,number]; lookAt: [number,number,number] } | null;
+
+  // --- Per-mesh world-space centroids (set by BrainModel after GLB loads) ---
+  regionCentroids: Record<string, [number,number,number]>;
 
   // --- Region data ---
   brainRegions: BrainRegion[];
@@ -87,6 +105,11 @@ export interface BrainState {
 
   // --- Source / research panel ---
   sourcePanel: SourcePanelState;
+
+  // --- Research / Pillar 2 ---
+  sources:        Source[];
+  structureLinks: StructureLink[];
+  researchPanelOpen: boolean;
 
   // --- Annotations ---
   annotations: any[];
@@ -110,6 +133,8 @@ export interface BrainState {
 
   setShowMirroredHemisphere: (show: boolean) => void;
   setBrainBounds:            (bounds: BrainBounds) => void;
+  setCameraTarget:           (target: BrainState['cameraTarget']) => void;
+  setRegionCentroids:        (centroids: Record<string, [number,number,number]>) => void;
 
   loadBrainRegions:   (regions: BrainRegion[]) => void;
 
@@ -118,13 +143,22 @@ export interface BrainState {
 
   addAnnotation:    (annotation: any) => void;
   removeAnnotation: (id: string) => void;
+
+  // Research actions
+  addSource:          (source: Source) => void;
+  removeSource:       (id: string) => void;
+  updateSource:       (id: string, updates: Partial<Source>) => void;
+  addStructureLink:   (link: StructureLink) => void;
+  removeStructureLink:(id: string) => void;
+  setResearchPanelOpen: (open: boolean) => void;
+  getSourcesForRegion:(meshName: string) => Source[];
 }
 
 // ---------------------------------------------------------------------------
 // Store
 // ---------------------------------------------------------------------------
 
-export const useBrainStore = create<BrainState>((set) => ({
+export const useBrainStore = create<BrainState>((set, get) => ({
   // Visual
   selectedRegion: null,
   hoveredRegion:  null,
@@ -148,12 +182,21 @@ export const useBrainStore = create<BrainState>((set) => ({
   showMirroredHemisphere: false,
   brainBounds: null,
 
+  // Camera
+  cameraTarget: null,
+  regionCentroids: {},
+
   // Data
   brainRegions: [],
   regionMap:    {},
 
   // Source panel
   sourcePanel: { isOpen: false, selectedSourceId: null },
+
+  // Research
+  sources: [],
+  structureLinks: [],
+  researchPanelOpen: false,
 
   // Annotations
   annotations: [],
@@ -224,6 +267,8 @@ export const useBrainStore = create<BrainState>((set) => ({
 
   setShowMirroredHemisphere: (show) => set({ showMirroredHemisphere: show }),
   setBrainBounds: (bounds) => set({ brainBounds: bounds }),
+  setCameraTarget: (target) => set({ cameraTarget: target }),
+  setRegionCentroids: (centroids) => set({ regionCentroids: centroids }),
 
   loadBrainRegions: (regions) => {
     const map: Record<string, BrainRegion> = {};
@@ -246,4 +291,36 @@ export const useBrainStore = create<BrainState>((set) => ({
     set((state) => ({
       annotations: state.annotations.filter((a) => a.id !== id),
     })),
+
+  // Research
+  addSource: (source) =>
+    set((state) => ({ sources: [...state.sources, source] })),
+  removeSource: (id) =>
+    set((state) => ({
+      sources: state.sources.filter((s) => s.id !== id),
+      structureLinks: state.structureLinks.filter((l) => l.sourceId !== id),
+    })),
+  updateSource: (id, updates) =>
+    set((state) => ({
+      sources: state.sources.map((s) => s.id === id ? { ...s, ...updates } : s),
+    })),
+  addStructureLink: (link) =>
+    set((state) => ({ structureLinks: [...state.structureLinks, link] })),
+  removeStructureLink: (id) =>
+    set((state) => ({
+      structureLinks: state.structureLinks.filter((l) => l.id !== id),
+    })),
+  setResearchPanelOpen: (open) => set({ researchPanelOpen: open }),
+  getSourcesForRegion: (meshName) => {
+    const { structureLinks, sources } = get();
+    const linkedIds = new Set(
+      structureLinks
+        .filter((l: StructureLink) => l.regionMeshName === meshName)
+        .map((l: StructureLink) => l.sourceId)
+    );
+    return sources.filter((s: Source) => linkedIds.has(s.id));
+  },
 }));
+
+// Re-export types for convenience
+export type { Source, StructureLink };

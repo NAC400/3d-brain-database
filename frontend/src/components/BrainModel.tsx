@@ -207,7 +207,7 @@ const MirroredHemisphere: React.FC<MirroredProps> = ({ meshes, groupOffset, base
 
 const BrainModel: React.FC = () => {
   const { scene } = useGLTF(MODEL_URL);
-  const { loadBrainRegions, setLoading, setBrainBounds, showMirroredHemisphere } = useBrainStore();
+  const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, showMirroredHemisphere } = useBrainStore();
 
   const meshes = useMemo(() => {
     const result: THREE.Mesh[] = [];
@@ -288,6 +288,21 @@ const BrainModel: React.FC = () => {
 
   // Push computed world-space bounds into the store (used by slider min/max)
   useEffect(() => { setBrainBounds(bounds); }, [bounds, setBrainBounds]);
+
+  // Push per-mesh world-space centroids (used by camera zoom-to-region)
+  useEffect(() => {
+    const centroids: Record<string, [number,number,number]> = {};
+    for (const mesh of filteredMeshes) {
+      const c = new THREE.Vector3();
+      mesh.geometry.boundingBox!.getCenter(c);
+      // world = (c - keptCenterMm) * BRAIN_SCALE  ≡  c * BRAIN_SCALE + groupOffset
+      const wx = c.x * BRAIN_SCALE + groupOffset.x;
+      const wy = c.y * BRAIN_SCALE + groupOffset.y;
+      const wz = c.z * BRAIN_SCALE + groupOffset.z;
+      centroids[mesh.name] = [wx, wy, wz];
+    }
+    setRegionCentroids(centroids);
+  }, [filteredMeshes, groupOffset, setRegionCentroids]);
 
   // Load enriched region data from regions.json, then register with the store
   useEffect(() => {

@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { useBrainStore } from '../store/brainStore';
 import BrainModel from './BrainModel';
 import ClippingController from './ClippingController';
+import CameraController from './CameraController';
 
 // ---------------------------------------------------------------------------
 // GLB load progress bar — shown inside the Canvas via Html
@@ -76,6 +77,9 @@ const BrainScene: React.FC = () => {
       >
         {/* Clipping plane controller — reads store, updates gl.clippingPlanes */}
         <ClippingController />
+
+        {/* Camera animation controller — reads cameraTarget from store, lerps camera */}
+        <CameraController />
 
         {/* Lighting */}
         <ambientLight intensity={0.5} />

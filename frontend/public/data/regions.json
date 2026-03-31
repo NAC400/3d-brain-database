@@ -9,7 +9,7 @@
       "depth": 9,
       "parentId": 10306,
       "parentName": "paleocortex (semicortex)",
-      "category": "Cortex"
+      "category": "Telencephalon – Olfactory / Paleocortex"
     },
     {
       "meshName": "AON_10308",
@@ -20,7 +20,7 @@
       "depth": 9,
       "parentId": 10306,
       "parentName": "paleocortex (semicortex)",
-      "category": "Cortex"
+      "category": "Telencephalon – Olfactory / Paleocortex"
     },
     {
       "meshName": "Pir_10311",
@@ -31,7 +31,7 @@
       "depth": 9,
       "parentId": 10306,
       "parentName": "paleocortex (semicortex)",
-      "category": "Cortex"
+      "category": "Telencephalon – Olfactory / Paleocortex"
     },
     {
       "meshName": "FI_10329",
@@ -42,7 +42,7 @@
       "depth": 9,
       "parentId": 10327,
       "parentName": "peripaleocortex",
-      "category": "Cortex"
+      "category": "Telencephalon – Insula"
     },
     {
       "meshName": "TI_10330",
@@ -53,7 +53,7 @@
       "depth": 9,
       "parentId": 10327,
       "parentName": "peripaleocortex",
-      "category": "Cortex"
+      "category": "Telencephalon – Insula"
     },
     {
       "meshName": "CaH_10335",
@@ -64,7 +64,7 @@
       "depth": 10,
       "parentId": 10334,
       "parentName": "caudate nucleus",
-      "category": "Basal Ganglia"
+      "category": "Telencephalon – Basal Ganglia"
     },
     {
       "meshName": "CaB_10336",
@@ -75,7 +75,7 @@
       "depth": 10,
       "parentId": 10334,
       "parentName": "caudate nucleus",
-      "category": "Basal Ganglia"
+      "category": "Telencephalon – Basal Ganglia"
     },
     {
       "meshName": "CaT_10337",
@@ -86,7 +86,7 @@
       "depth": 10,
       "parentId": 10334,
       "parentName": "caudate nucleus",
-      "category": "Basal Ganglia"
+      "category": "Telencephalon – Basal Ganglia"
     },
     {
       "meshName": "Pu_10338",
@@ -97,7 +97,7 @@
       "depth": 9,
       "parentId": 10333,
       "parentName": "striatum",
-      "category": "Basal Ganglia"
+      "category": "Telencephalon – Basal Ganglia"
     },
     {
       "meshName": "NAC_10339",
@@ -108,7 +108,7 @@
       "depth": 9,
       "parentId": 10333,
       "parentName": "striatum",
-      "category": "Basal Ganglia"
+      "category": "Telencephalon – Basal Ganglia"
     },
     {
       "meshName": "GPe_10343",
@@ -119,7 +119,7 @@
       "depth": 9,
       "parentId": 10342,
       "parentName": "globus pallidus",
-      "category": "Basal Ganglia"
+      "category": "Telencephalon – Basal Ganglia"
     },
     {
       "meshName": "GPi_10344",
@@ -130,7 +130,7 @@
       "depth": 9,
       "parentId": 10342,
       "parentName": "globus pallidus",
-      "category": "Basal Ganglia"
+      "category": "Telencephalon – Basal Ganglia"
     },
     {
       "meshName": "Cla_10346",
@@ -141,7 +141,7 @@
       "depth": 7,
       "parentId": 10331,
       "parentName": "cerebral nuclei",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "BF_10349",
@@ -152,7 +152,7 @@
       "depth": 7,
       "parentId": 10331,
       "parentName": "cerebral nuclei",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "SEP_10350",
@@ -163,7 +163,7 @@
       "depth": 8,
       "parentId": 10349,
       "parentName": "basal forebrain",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "AMY_10361",
@@ -174,7 +174,7 @@
       "depth": 7,
       "parentId": 10331,
       "parentName": "cerebral nuclei",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "AAA_10362",
@@ -185,7 +185,7 @@
       "depth": 8,
       "parentId": 10361,
       "parentName": "amygdaloid complex",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "CEN_10363",
@@ -196,7 +196,7 @@
       "depth": 8,
       "parentId": 10361,
       "parentName": "amygdaloid complex",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "La_10367",
@@ -207,7 +207,7 @@
       "depth": 9,
       "parentId": 10366,
       "parentName": "basolateral nuclear group",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "BL_10368",
@@ -218,7 +218,7 @@
       "depth": 9,
       "parentId": 10366,
       "parentName": "basolateral nuclear group",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "BM_10369",
@@ -229,7 +229,7 @@
       "depth": 9,
       "parentId": 10366,
       "parentName": "basolateral nuclear group",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "CoA_10374",
@@ -240,7 +240,7 @@
       "depth": 10,
       "parentId": 10373,
       "parentName": "cortical amygdaloid nuclei",
-      "category": "Cortex"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "CoP_10375",
@@ -251,7 +251,7 @@
       "depth": 10,
       "parentId": 10373,
       "parentName": "cortical amygdaloid nuclei",
-      "category": "Cortex"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "Me_10376",
@@ -262,7 +262,7 @@
       "depth": 9,
       "parentId": 10372,
       "parentName": "corticomedial nuclear group",
-      "category": "Subcortical"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "AHA_10377",
@@ -273,7 +273,7 @@
       "depth": 9,
       "parentId": 10372,
       "parentName": "corticomedial nuclear group",
-      "category": "Limbic"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "BNST_10384",
@@ -284,7 +284,7 @@
       "depth": 8,
       "parentId": 10383,
       "parentName": "extended amygdala",
-      "category": "Limbic"
+      "category": "Telencephalon – Cerebral Nuclei"
     },
     {
       "meshName": "THM_10390",
@@ -559,7 +559,7 @@
       "depth": 4,
       "parentId": 10156,
       "parentName": "forebrain (prosencephalon)",
-      "category": "White Matter & Ventricles"
+      "category": "White Matter"
     },
     {
       "meshName": "ac_10559",
@@ -570,7 +570,7 @@
       "depth": 6,
       "parentId": 10558,
       "parentName": "forebrain commissural fiber tracts",
-      "category": "White Matter & Ventricles"
+      "category": "White Matter"
     },
     {
       "meshName": "cc_10561",
@@ -581,7 +581,7 @@
       "depth": 6,
       "parentId": 10558,
       "parentName": "forebrain commissural fiber tracts",
-      "category": "White Matter & Ventricles"
+      "category": "White Matter"
     },
     {
       "meshName": "fx_10576",
@@ -592,7 +592,7 @@
       "depth": 6,
       "parentId": 10568,
       "parentName": "forebrain ipsilateral fiber tracts",
-      "category": "White Matter & Ventricles"
+      "category": "Telencephalon – Hippocampus & Amygdala"
     },
     {
       "meshName": "mtt_10586",
@@ -603,7 +603,7 @@
       "depth": 6,
       "parentId": 10568,
       "parentName": "forebrain ipsilateral fiber tracts",
-      "category": "White Matter & Ventricles"
+      "category": "White Matter"
     },
     {
       "meshName": "ot_10589",
@@ -614,7 +614,7 @@
       "depth": 6,
       "parentId": 10568,
       "parentName": "forebrain ipsilateral fiber tracts",
-      "category": "White Matter & Ventricles"
+      "category": "White Matter"
     },
     {
       "meshName": "aLV_10597",
@@ -625,7 +625,7 @@
       "depth": 6,
       "parentId": 10596,
       "parentName": "lateral ventricles",
-      "category": "White Matter & Ventricles"
+      "category": "Ventricles & CSF"
     },
     {
       "meshName": "bLV_10598",
@@ -636,7 +636,7 @@
       "depth": 6,
       "parentId": 10596,
       "parentName": "lateral ventricles",
-      "category": "White Matter & Ventricles"
+      "category": "Ventricles & CSF"
     },
     {
       "meshName": "pLV_10599",
@@ -647,7 +647,7 @@
       "depth": 6,
       "parentId": 10596,
       "parentName": "lateral ventricles",
-      "category": "White Matter & Ventricles"
+      "category": "Ventricles & CSF"
     },
     {
       "meshName": "iLV_10600",
@@ -658,7 +658,7 @@
       "depth": 6,
       "parentId": 10596,
       "parentName": "lateral ventricles",
-      "category": "White Matter & Ventricles"
+      "category": "Ventricles & CSF"
     },
     {
       "meshName": "3V_10602",
@@ -669,7 +669,7 @@
       "depth": 5,
       "parentId": 10595,
       "parentName": "ventricles of forebrain",
-      "category": "White Matter & Ventricles"
+      "category": "Ventricles & CSF"
     },
     {
       "meshName": "CBV_10658",
@@ -680,7 +680,7 @@
       "depth": 8,
       "parentId": 10657,
       "parentName": "cerebellar cortex",
-      "category": "Cerebellum"
+      "category": "Metencephalon (Cerebellum)"
     },
     {
       "meshName": "CbDN_10660",
@@ -691,7 +691,7 @@
       "depth": 7,
       "parentId": 10656,
       "parentName": "cerebellum",
-      "category": "Cerebellum"
+      "category": "Metencephalon (Cerebellum)"
     },
     {
       "meshName": "HWM_10668",
@@ -702,7 +702,7 @@
       "depth": 4,
       "parentId": 10653,
       "parentName": "hindbrain (rhombencephalon)",
-      "category": "Brainstem"
+      "category": "White Matter"
     },
     {
       "meshName": "olt_12073",
@@ -713,7 +713,7 @@
       "depth": 6,
       "parentId": 10568,
       "parentName": "forebrain ipsilateral fiber tracts",
-      "category": "White Matter & Ventricles"
+      "category": "Telencephalon – Olfactory / Paleocortex"
     },
     {
       "meshName": "PrCG_12114",
@@ -724,7 +724,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "SFG_12115",
@@ -735,7 +735,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "MFG_12116",
@@ -746,7 +746,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "IFGtr_12118",
@@ -757,7 +757,7 @@
       "depth": 8,
       "parentId": 12117,
       "parentName": "inferior frontal gyrus",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "IFGop_12119",
@@ -768,7 +768,7 @@
       "depth": 8,
       "parentId": 12117,
       "parentName": "inferior frontal gyrus",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "ReG_12121",
@@ -779,7 +779,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "MOrG_12122",
@@ -790,7 +790,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "AOrG_12123",
@@ -801,7 +801,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "POrG_12124",
@@ -812,7 +812,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "LOrG_12125",
@@ -823,7 +823,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "PCLr_12126",
@@ -834,7 +834,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "FrO_12127",
@@ -845,7 +845,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "PoCG_12132",
@@ -856,7 +856,7 @@
       "depth": 7,
       "parentId": 12131,
       "parentName": "parietal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Parietal Lobe"
     },
     {
       "meshName": "SPL_12133",
@@ -867,7 +867,7 @@
       "depth": 7,
       "parentId": 12131,
       "parentName": "parietal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Parietal Lobe"
     },
     {
       "meshName": "SMG_12135",
@@ -878,7 +878,7 @@
       "depth": 8,
       "parentId": 12134,
       "parentName": "inferior parietal lobule",
-      "category": "Subcortical"
+      "category": "Telencephalon – Parietal Lobe"
     },
     {
       "meshName": "AnG_12136",
@@ -889,7 +889,7 @@
       "depth": 8,
       "parentId": 12134,
       "parentName": "inferior parietal lobule",
-      "category": "Subcortical"
+      "category": "Telencephalon – Parietal Lobe"
     },
     {
       "meshName": "PrCun_12137",
@@ -900,7 +900,7 @@
       "depth": 7,
       "parentId": 12131,
       "parentName": "parietal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Occipital Lobe"
     },
     {
       "meshName": "PCLc_12138",
@@ -911,7 +911,7 @@
       "depth": 7,
       "parentId": 12131,
       "parentName": "parietal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Parietal Lobe"
     },
     {
       "meshName": "STG_12140",
@@ -922,7 +922,7 @@
       "depth": 7,
       "parentId": 12139,
       "parentName": "temporal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Temporal Lobe"
     },
     {
       "meshName": "MTG_12141",
@@ -933,7 +933,7 @@
       "depth": 7,
       "parentId": 12139,
       "parentName": "temporal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Temporal Lobe"
     },
     {
       "meshName": "ITG_12142",
@@ -944,7 +944,7 @@
       "depth": 7,
       "parentId": 12139,
       "parentName": "temporal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Temporal Lobe"
     },
     {
       "meshName": "FuGt_12143",
@@ -955,7 +955,7 @@
       "depth": 7,
       "parentId": 12139,
       "parentName": "temporal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Temporal Lobe"
     },
     {
       "meshName": "TTG_12144",
@@ -966,7 +966,7 @@
       "depth": 7,
       "parentId": 12139,
       "parentName": "temporal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Temporal Lobe"
     },
     {
       "meshName": "PLT_12145",
@@ -977,7 +977,7 @@
       "depth": 7,
       "parentId": 12139,
       "parentName": "temporal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Temporal Lobe"
     },
     {
       "meshName": "TP_12146",
@@ -988,7 +988,7 @@
       "depth": 7,
       "parentId": 12139,
       "parentName": "temporal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Temporal Lobe"
     },
     {
       "meshName": "PLP_12147",
@@ -999,7 +999,7 @@
       "depth": 7,
       "parentId": 12139,
       "parentName": "temporal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Temporal Lobe"
     },
     {
       "meshName": "OP_12149",
@@ -1010,7 +1010,7 @@
       "depth": 7,
       "parentId": 12148,
       "parentName": "occipital lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Occipital Lobe"
     },
     {
       "meshName": "Cun_12150",
@@ -1021,7 +1021,7 @@
       "depth": 7,
       "parentId": 12148,
       "parentName": "occipital lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Occipital Lobe"
     },
     {
       "meshName": "LiG_12151",
@@ -1032,7 +1032,7 @@
       "depth": 7,
       "parentId": 12148,
       "parentName": "occipital lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Occipital Lobe"
     },
     {
       "meshName": "FuGo_12152",
@@ -1043,7 +1043,7 @@
       "depth": 7,
       "parentId": 12148,
       "parentName": "occipital lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Occipital Lobe"
     },
     {
       "meshName": "IOG_12153",
@@ -1054,7 +1054,7 @@
       "depth": 7,
       "parentId": 12148,
       "parentName": "occipital lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Occipital Lobe"
     },
     {
       "meshName": "SOG_12154",
@@ -1065,7 +1065,7 @@
       "depth": 7,
       "parentId": 12148,
       "parentName": "occipital lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Occipital Lobe"
     },
     {
       "meshName": "CgGr_12157",
@@ -1076,7 +1076,7 @@
       "depth": 8,
       "parentId": 12156,
       "parentName": "cingulate gyrus",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "CgGc_12158",
@@ -1087,7 +1087,7 @@
       "depth": 8,
       "parentId": 12156,
       "parentName": "cingulate gyrus",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "IsCPH_12159",
@@ -1098,7 +1098,7 @@
       "depth": 7,
       "parentId": 12155,
       "parentName": "limbic lobe",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "SCG_12160",
@@ -1109,7 +1109,7 @@
       "depth": 7,
       "parentId": 12155,
       "parentName": "limbic lobe",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "APH_12163",
@@ -1120,7 +1120,7 @@
       "depth": 8,
       "parentId": 12162,
       "parentName": "parahippocampal gyrus",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "PPH_12164",
@@ -1131,7 +1131,7 @@
       "depth": 8,
       "parentId": 12162,
       "parentName": "parahippocampal gyrus",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "AG_12166",
@@ -1142,7 +1142,7 @@
       "depth": 9,
       "parentId": 12165,
       "parentName": "uncus of parahippocampal gyrus",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "HiH_12171",
@@ -1153,7 +1153,7 @@
       "depth": 8,
       "parentId": 12170,
       "parentName": "hippocampal gyrus (formation)",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "HiB_12173",
@@ -1164,7 +1164,7 @@
       "depth": 8,
       "parentId": 12170,
       "parentName": "hippocampal gyrus (formation)",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "HiT_12174",
@@ -1175,7 +1175,7 @@
       "depth": 8,
       "parentId": 12170,
       "parentName": "hippocampal gyrus (formation)",
-      "category": "Limbic"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "LIG_12177",
@@ -1186,7 +1186,7 @@
       "depth": 7,
       "parentId": 12176,
       "parentName": "insular lobe",
-      "category": "Cortex"
+      "category": "Telencephalon – Insula"
     },
     {
       "meshName": "SIG_12178",
@@ -1197,7 +1197,7 @@
       "depth": 7,
       "parentId": 12176,
       "parentName": "insular lobe",
-      "category": "Cortex"
+      "category": "Telencephalon – Insula"
     },
     {
       "meshName": "LI_12179",
@@ -1208,7 +1208,7 @@
       "depth": 5,
       "parentId": 10609,
       "parentName": "surface structures of forebrain",
-      "category": "Subcortical"
+      "category": "Telencephalon – Insula"
     },
     {
       "meshName": "PTR_12181",
@@ -1219,7 +1219,7 @@
       "depth": 5,
       "parentId": 10649,
       "parentName": "gray matter of midbrain",
-      "category": "Brainstem"
+      "category": "Mesencephalon (Midbrain)"
     },
     {
       "meshName": "MTg_12195",
@@ -1230,7 +1230,7 @@
       "depth": 5,
       "parentId": 10649,
       "parentName": "gray matter of midbrain",
-      "category": "Brainstem"
+      "category": "Mesencephalon (Midbrain)"
     },
     {
       "meshName": "RN_12247",
@@ -1241,7 +1241,7 @@
       "depth": 6,
       "parentId": 12195,
       "parentName": "midbrain tegmentum",
-      "category": "Brainstem"
+      "category": "Mesencephalon (Midbrain)"
     },
     {
       "meshName": "SN_12251",
@@ -1252,7 +1252,7 @@
       "depth": 6,
       "parentId": 12195,
       "parentName": "midbrain tegmentum",
-      "category": "Brainstem"
+      "category": "Mesencephalon (Midbrain)"
     },
     {
       "meshName": "SC_12292",
@@ -1263,7 +1263,7 @@
       "depth": 6,
       "parentId": 12291,
       "parentName": "midbrain tectum",
-      "category": "Brainstem"
+      "category": "Mesencephalon (Midbrain)"
     },
     {
       "meshName": "IC_12305",
@@ -1274,7 +1274,7 @@
       "depth": 6,
       "parentId": 12291,
       "parentName": "midbrain tectum",
-      "category": "Brainstem"
+      "category": "Mesencephalon (Midbrain)"
     },
     {
       "meshName": "cpd_12330",
@@ -1285,7 +1285,7 @@
       "depth": 5,
       "parentId": 10650,
       "parentName": "white matter of midbrain",
-      "category": "Brainstem"
+      "category": "Mesencephalon (Midbrain)"
     },
     {
       "meshName": "scp_12354",
@@ -1296,7 +1296,7 @@
       "depth": 5,
       "parentId": 10650,
       "parentName": "white matter of midbrain",
-      "category": "Cerebellum"
+      "category": "Metencephalon (Cerebellum)"
     },
     {
       "meshName": "Aq_12369",
@@ -1307,7 +1307,7 @@
       "depth": 5,
       "parentId": 10651,
       "parentName": "ventricle of midbrain",
-      "category": "Brainstem"
+      "category": "Mesencephalon (Midbrain)"
     },
     {
       "meshName": "CBPV_12384",
@@ -1318,7 +1318,7 @@
       "depth": 9,
       "parentId": 10659,
       "parentName": "cerebellar hemisphere",
-      "category": "Cerebellum"
+      "category": "Metencephalon (Cerebellum)"
     },
     {
       "meshName": "CBL_12390",
@@ -1329,7 +1329,7 @@
       "depth": 9,
       "parentId": 10659,
       "parentName": "cerebellar hemisphere",
-      "category": "Cerebellum"
+      "category": "Metencephalon (Cerebellum)"
     },
     {
       "meshName": "PnBa_12405",
@@ -1340,7 +1340,7 @@
       "depth": 7,
       "parentId": 10661,
       "parentName": "pons",
-      "category": "Brainstem"
+      "category": "Metencephalon (Pons)"
     },
     {
       "meshName": "PnTg_12416",
@@ -1351,7 +1351,7 @@
       "depth": 7,
       "parentId": 10661,
       "parentName": "pons",
-      "category": "Brainstem"
+      "category": "Metencephalon (Pons)"
     },
     {
       "meshName": "MoPy_12535",
@@ -1362,7 +1362,7 @@
       "depth": 6,
       "parentId": 10662,
       "parentName": "myelencephalon (medulla oblongata)",
-      "category": "Brainstem"
+      "category": "Myelencephalon (Medulla)"
     },
     {
       "meshName": "MoTg_12538",
@@ -1373,7 +1373,7 @@
       "depth": 6,
       "parentId": 10662,
       "parentName": "myelencephalon (medulla oblongata)",
-      "category": "Brainstem"
+      "category": "Myelencephalon (Medulla)"
     },
     {
       "meshName": "IO_12600",
@@ -1384,7 +1384,7 @@
       "depth": 8,
       "parentId": 12595,
       "parentName": "precerebellar nuclei",
-      "category": "Cerebellum"
+      "category": "Myelencephalon (Medulla)"
     },
     {
       "meshName": "icp_12741",
@@ -1395,7 +1395,7 @@
       "depth": 5,
       "parentId": 10668,
       "parentName": "white matter of hindbrain",
-      "category": "Cerebellum"
+      "category": "Metencephalon (Cerebellum)"
     },
     {
       "meshName": "mcp_12768",
@@ -1406,7 +1406,7 @@
       "depth": 5,
       "parentId": 10668,
       "parentName": "white matter of hindbrain",
-      "category": "Cerebellum"
+      "category": "Metencephalon (Cerebellum)"
     },
     {
       "meshName": "4V_12805",
@@ -1417,7 +1417,7 @@
       "depth": 5,
       "parentId": 10669,
       "parentName": "ventricles of hindbrain",
-      "category": "Brainstem"
+      "category": "Ventricles & CSF"
     },
     {
       "meshName": "cec_12826",
@@ -1428,7 +1428,7 @@
       "depth": 5,
       "parentId": 10669,
       "parentName": "ventricles of hindbrain",
-      "category": "Brainstem"
+      "category": "Myelencephalon (Medulla)"
     },
     {
       "meshName": "MiN_13045",
@@ -1450,7 +1450,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "PaO_13230",
@@ -1461,7 +1461,7 @@
       "depth": 7,
       "parentId": 12131,
       "parentName": "parietal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Parietal Lobe"
     },
     {
       "meshName": "PuPV_146034754",
@@ -1472,7 +1472,7 @@
       "depth": 10,
       "parentId": 10338,
       "parentName": "putamen",
-      "category": "Basal Ganglia"
+      "category": "Telencephalon – Basal Ganglia"
     },
     {
       "meshName": "PaCG_146034872",
@@ -1483,7 +1483,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Cortex"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "RoG_146034876",
@@ -1494,7 +1494,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "FMG_146034884",
@@ -1505,7 +1505,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "FP_146034888",
@@ -1516,7 +1516,7 @@
       "depth": 7,
       "parentId": 12113,
       "parentName": "frontal lobe",
-      "category": "Subcortical"
+      "category": "Telencephalon – Frontal Lobe"
     },
     {
       "meshName": "PRG_146034892",
@@ -1527,7 +1527,7 @@
       "depth": 8,
       "parentId": 12143,
       "parentName": "occipitotemporal (fusiform) gyrus, temporal part",
-      "category": "Subcortical"
+      "category": "Telencephalon – Limbic Lobe"
     },
     {
       "meshName": "or_266441621",
@@ -1538,7 +1538,7 @@
       "depth": 6,
       "parentId": 10568,
       "parentName": "forebrain ipsilateral fiber tracts",
-      "category": "White Matter & Ventricles"
+      "category": "White Matter"
     },
     {
       "meshName": "xLV_266441657",
@@ -1549,7 +1549,7 @@
       "depth": 6,
       "parentId": 10596,
       "parentName": "lateral ventricles",
-      "category": "White Matter & Ventricles"
+      "category": "Ventricles & CSF"
     }
   ]
 }
