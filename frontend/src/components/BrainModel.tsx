@@ -9,11 +9,11 @@ const MODEL_URL = '/models/brain.glb';
 
 // The brain.glb has vertices in MNI millimeter space (~200mm wide).
 // Scale 0.01 converts mm → ~2 scene units, fitting the default camera.
-const BRAIN_SCALE = 0.01;
+export const BRAIN_SCALE = 0.01;
 
 // At scale 0.01, explode offset of 2 mm == 0.02 scene units — too small.
 // Use 200 mm so visual explode distance is 200*0.01 = 2 scene units.
-const EXPLODE_SCALE = 200;
+export const EXPLODE_SCALE = 200;
 
 useGLTF.preload(MODEL_URL);
 
@@ -36,7 +36,7 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
     hoveredRegion,
     explodeAmount,
     isolatedRegion,
-    hiddenCategories,
+    activeCategories,
     regionMap,
     setSelectedRegion,
     setHoveredRegion,
@@ -47,8 +47,11 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
   const isHovered  = hoveredRegion  === meshName;
   const isIsolated = isolatedRegion !== null;
   const regionData = regionMap[meshName];
-  const isCategoryHidden = regionData ? hiddenCategories.has(regionData.category) : false;
-  const isVisible  = !isCategoryHidden && (isolatedRegion === null || isolatedRegion === meshName);
+  // Opt-in filter: empty = all visible; non-empty = only selected categories visible
+  const isCategoryFiltered = regionData
+    ? (activeCategories.size > 0 && !activeCategories.has(regionData.category))
+    : false;
+  const isVisible  = !isCategoryFiltered && (isolatedRegion === null || isolatedRegion === meshName);
 
   // Clone material once per mesh so mutations don't bleed between meshes
   const material = useMemo(() => {
@@ -207,7 +210,7 @@ const MirroredHemisphere: React.FC<MirroredProps> = ({ meshes, groupOffset, base
 
 const BrainModel: React.FC = () => {
   const { scene } = useGLTF(MODEL_URL);
-  const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, showMirroredHemisphere } = useBrainStore();
+  const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, setRegionCentroidDirs, showMirroredHemisphere } = useBrainStore();
 
   const meshes = useMemo(() => {
     const result: THREE.Mesh[] = [];
@@ -289,20 +292,24 @@ const BrainModel: React.FC = () => {
   // Push computed world-space bounds into the store (used by slider min/max)
   useEffect(() => { setBrainBounds(bounds); }, [bounds, setBrainBounds]);
 
-  // Push per-mesh world-space centroids (used by camera zoom-to-region)
+  // Push per-mesh world-space centroids + normalised dirs (used by camera zoom-to-region)
   useEffect(() => {
     const centroids: Record<string, [number,number,number]> = {};
+    const dirs: Record<string, [number,number,number]> = {};
     for (const mesh of filteredMeshes) {
       const c = new THREE.Vector3();
       mesh.geometry.boundingBox!.getCenter(c);
-      // world = (c - keptCenterMm) * BRAIN_SCALE  ≡  c * BRAIN_SCALE + groupOffset
       const wx = c.x * BRAIN_SCALE + groupOffset.x;
       const wy = c.y * BRAIN_SCALE + groupOffset.y;
       const wz = c.z * BRAIN_SCALE + groupOffset.z;
       centroids[mesh.name] = [wx, wy, wz];
+      // Store the normalised outward dir so consumers can compute exploded position
+      const d = centroidDirs[mesh.name];
+      if (d) dirs[mesh.name] = [d.x, d.y, d.z];
     }
     setRegionCentroids(centroids);
-  }, [filteredMeshes, groupOffset, setRegionCentroids]);
+    setRegionCentroidDirs(dirs);
+  }, [filteredMeshes, groupOffset, centroidDirs, setRegionCentroids, setRegionCentroidDirs]);
 
   // Load enriched region data from regions.json, then register with the store
   useEffect(() => {

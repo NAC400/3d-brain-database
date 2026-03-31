@@ -1,8 +1,13 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useBrainStore } from '../store/brainStore';
 
-// Distance from the region centroid the camera pulls back to for the zoom view
-const ZOOM_DISTANCE = 0.6;
+// Camera pull-back distance from the exploded centroid
+const ZOOM_DISTANCE  = 0.5;
+// Explode level applied when zooming to a searched region
+const SEARCH_EXPLODE = 0.35;
+// Must match BrainModel constants: world shift = dir * explode * EXPLODE_SCALE * BRAIN_SCALE
+const EXPLODE_SCALE  = 200;
+const BRAIN_SCALE    = 0.01;
 
 const RegionSearch: React.FC = () => {
   const [query, setQuery]       = useState('');
@@ -15,7 +20,10 @@ const RegionSearch: React.FC = () => {
     setSelectedRegion,
     setIsolatedRegion,
     regionCentroids,
+    regionCentroidDirs,
     setCameraTarget,
+    setExplodeAmount,
+    explodeAmount,
   } = useBrainStore();
 
   // Fuzzy match — filter by name or acronym substring (case-insensitive)
@@ -41,21 +49,32 @@ const RegionSearch: React.FC = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  // Returns the world-space centroid of a mesh accounting for explode offset.
+  // centroid = base world pos + dir * explode * EXPLODE_SCALE * BRAIN_SCALE
+  const explodedCentroid = (meshName: string, explode: number): [number,number,number] | null => {
+    const c = regionCentroids[meshName];
+    if (!c) return null;
+    const d = regionCentroidDirs[meshName];
+    if (!d) return c;
+    const shift = explode * EXPLODE_SCALE * BRAIN_SCALE;
+    return [c[0] + d[0] * shift, c[1] + d[1] * shift, c[2] + d[2] * shift];
+  };
+
   const selectRegion = (meshName: string) => {
     setQuery('');
     setOpen(false);
-
-    // Highlight the region
     setSelectedRegion(meshName);
 
-    // Compute camera zoom target from stored world-space centroid
-    const centroid = regionCentroids[meshName];
-    if (centroid) {
-      const [cx, cy, cz] = centroid;
-      // Pull back along +Z from the centroid so the region is centred in view
+    // Apply explode so the region separates from its neighbours for visibility
+    const targetExplode = Math.max(explodeAmount, SEARCH_EXPLODE);
+    setExplodeAmount(targetExplode);
+
+    const ec = explodedCentroid(meshName, targetExplode);
+    if (ec) {
+      const [ex, ey, ez] = ec;
       setCameraTarget({
-        position: [cx, cy, cz + ZOOM_DISTANCE],
-        lookAt:   [cx, cy, cz],
+        position: [ex, ey, ez + ZOOM_DISTANCE],
+        lookAt:   [ex, ey, ez],
       });
     }
   };
@@ -67,12 +86,16 @@ const RegionSearch: React.FC = () => {
     setQuery('');
     setOpen(false);
 
-    const centroid = regionCentroids[meshName];
-    if (centroid) {
-      const [cx, cy, cz] = centroid;
+    // Isolated region: keep current explode (or bump to SEARCH_EXPLODE)
+    const targetExplode = Math.max(explodeAmount, SEARCH_EXPLODE);
+    setExplodeAmount(targetExplode);
+
+    const ec = explodedCentroid(meshName, targetExplode);
+    if (ec) {
+      const [ex, ey, ez] = ec;
       setCameraTarget({
-        position: [cx, cy, cz + ZOOM_DISTANCE],
-        lookAt:   [cx, cy, cz],
+        position: [ex, ey, ez + ZOOM_DISTANCE],
+        lookAt:   [ex, ey, ez],
       });
     }
   };

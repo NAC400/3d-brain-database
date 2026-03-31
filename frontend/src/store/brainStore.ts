@@ -78,8 +78,8 @@ export interface BrainState {
   explodeAmount:  number;          // 0 = assembled, 1 = fully exploded
   isolatedRegion: string | null;
 
-  // --- Layer visibility ---
-  hiddenCategories: Set<string>;
+  // --- Layer visibility (opt-in: empty = all visible, non-empty = only these visible) ---
+  activeCategories: Set<string>;
 
   // --- Clipping planes ---
   clippingPlanes:  ClippingPlanes;
@@ -97,7 +97,9 @@ export interface BrainState {
   cameraTarget: { position: [number,number,number]; lookAt: [number,number,number] } | null;
 
   // --- Per-mesh world-space centroids (set by BrainModel after GLB loads) ---
-  regionCentroids: Record<string, [number,number,number]>;
+  regionCentroids:    Record<string, [number,number,number]>;
+  // Per-mesh normalised outward directions (mm, pre-scale) — used to compute exploded centroid
+  regionCentroidDirs: Record<string, [number,number,number]>;
 
   // --- Region data ---
   brainRegions: BrainRegion[];
@@ -123,7 +125,7 @@ export interface BrainState {
   setExplodeAmount:   (amount: number) => void;
   setIsolatedRegion:  (regionId: string | null) => void;
 
-  toggleCategory:     (category: string) => void;
+  toggleCategory:     (category: string) => void;  // toggles opt-in selection
   setCategoryVisible: (category: string, visible: boolean) => void;
 
   setClippingPlane:   (axis: keyof ClippingPlanes, value: number) => void;
@@ -135,6 +137,7 @@ export interface BrainState {
   setBrainBounds:            (bounds: BrainBounds) => void;
   setCameraTarget:           (target: BrainState['cameraTarget']) => void;
   setRegionCentroids:        (centroids: Record<string, [number,number,number]>) => void;
+  setRegionCentroidDirs:     (dirs: Record<string, [number,number,number]>) => void;
 
   loadBrainRegions:   (regions: BrainRegion[]) => void;
 
@@ -169,8 +172,8 @@ export const useBrainStore = create<BrainState>((set, get) => ({
   explodeAmount:  0,
   isolatedRegion: null,
 
-  // Layer visibility (all visible by default)
-  hiddenCategories: new Set<string>(),
+  // Layer visibility (empty = all visible; opt-in: adding a category shows only those)
+  activeCategories: new Set<string>(),
 
   // Clipping — default values are -2 (outside brain bounds) so enabling a plane
   // doesn't immediately cut the brain; user slides right to start cutting.
@@ -185,6 +188,7 @@ export const useBrainStore = create<BrainState>((set, get) => ({
   // Camera
   cameraTarget: null,
   regionCentroids: {},
+  regionCentroidDirs: {},
 
   // Data
   brainRegions: [],
@@ -211,20 +215,22 @@ export const useBrainStore = create<BrainState>((set, get) => ({
     set({ explodeAmount: Math.max(0, Math.min(1, amount)) }),
   setIsolatedRegion: (regionId) => set({ isolatedRegion: regionId }),
 
+  // Opt-in toggle: select/deselect a category for focused viewing
   toggleCategory: (category) =>
     set((state) => {
-      const next = new Set(state.hiddenCategories);
+      const next = new Set(state.activeCategories);
       if (next.has(category)) next.delete(category);
       else next.add(category);
-      return { hiddenCategories: next };
+      return { activeCategories: next };
     }),
 
+  // Explicitly show/hide a category relative to current selection
   setCategoryVisible: (category, visible) =>
     set((state) => {
-      const next = new Set(state.hiddenCategories);
-      if (visible) next.delete(category);
-      else next.add(category);
-      return { hiddenCategories: next };
+      const next = new Set(state.activeCategories);
+      if (visible) next.add(category);
+      else next.delete(category);
+      return { activeCategories: next };
     }),
 
   setClippingPlane: (axis, value) =>
@@ -269,6 +275,7 @@ export const useBrainStore = create<BrainState>((set, get) => ({
   setBrainBounds: (bounds) => set({ brainBounds: bounds }),
   setCameraTarget: (target) => set({ cameraTarget: target }),
   setRegionCentroids: (centroids) => set({ regionCentroids: centroids }),
+  setRegionCentroidDirs: (dirs) => set({ regionCentroidDirs: dirs }),
 
   loadBrainRegions: (regions) => {
     const map: Record<string, BrainRegion> = {};
