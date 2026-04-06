@@ -50,26 +50,16 @@ export async function fetchByPMIDs(pmids: string[]): Promise<PubMedResult[]> {
     });
 }
 
-// Fetch full abstract for a single PMID via EFetch (XML mode — more reliable than plain text)
+// Fetch full abstract via Europe PMC — mirrors PubMed with proper CORS headers.
+// NCBI EFetch does not set Access-Control-Allow-Origin, so browser fetch() is blocked.
+// Europe PMC REST API: https://europepmc.org/RestfulWebService
 export async function fetchAbstract(pmid: string): Promise<string> {
   const res = await fetch(
-    `${BASE}/efetch.fcgi?db=pubmed&id=${pmid}&rettype=abstract&retmode=xml`
+    `https://www.ebi.ac.uk/europepmc/webservices/rest/article/MED/${pmid}?format=json`
   );
   if (!res.ok) return '';
-  const xml = await res.text();
-  // Extract all <AbstractText> elements (structured abstracts have multiple)
-  const matches = xml.match(/<AbstractText[^>]*>([\s\S]*?)<\/AbstractText>/g);
-  if (!matches || matches.length === 0) return '';
-  return matches
-    .map((m) =>
-      m
-        .replace(/<AbstractText[^>]*>/g, '')
-        .replace(/<\/AbstractText>/g, '')
-        .replace(/<[^>]+>/g, '')   // strip any nested tags (e.g. <i>, <b>)
-        .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
-        .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
-        .trim()
-    )
-    .filter(Boolean)
-    .join(' ');
+  const json = await res.json();
+  // abstractText may contain residual HTML tags (e.g. <p>, <b>)
+  const raw: string = json.result?.abstractText ?? '';
+  return raw.replace(/<[^>]+>/g, '').trim();
 }
