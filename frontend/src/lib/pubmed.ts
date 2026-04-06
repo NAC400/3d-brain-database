@@ -50,16 +50,17 @@ export async function fetchByPMIDs(pmids: string[]): Promise<PubMedResult[]> {
     });
 }
 
-// Fetch full abstract via Europe PMC — mirrors PubMed with proper CORS headers.
-// NCBI EFetch does not set Access-Control-Allow-Origin, so browser fetch() is blocked.
-// Europe PMC REST API: https://europepmc.org/RestfulWebService
+// Fetch full abstract via Europe PMC search API (resultType=core includes abstractText).
+// The /article endpoint returns a LITE record with no abstract; the search endpoint
+// with resultType=core returns the full record including abstractText.
+// Europe PMC has proper CORS headers; NCBI EFetch does not.
 export async function fetchAbstract(pmid: string): Promise<string> {
   const res = await fetch(
-    `https://www.ebi.ac.uk/europepmc/webservices/rest/article/MED/${pmid}?format=json`
+    `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=ext_id:${pmid}&resultType=core&format=json`
   );
   if (!res.ok) return '';
   const json = await res.json();
-  // abstractText may contain residual HTML tags (e.g. <p>, <b>)
-  const raw: string = json.result?.abstractText ?? '';
-  return raw.replace(/<[^>]+>/g, '').trim();
+  const raw: string = json.resultList?.result?.[0]?.abstractText ?? '';
+  // Strip HTML tags (e.g. <h4>, <p>, <b>) that Europe PMC uses for structured abstracts
+  return raw.replace(/<[^>]+>/g, ' ').replace(/\s{2,}/g, ' ').trim();
 }
