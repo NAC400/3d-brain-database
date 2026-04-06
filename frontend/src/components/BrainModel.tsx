@@ -4,8 +4,45 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useBrainStore } from '../store/brainStore';
 import type { BrainRegion, BrainBounds } from '../store/brainStore';
+import { fetchAllenStructures, getAllenDescriptions } from '../lib/allenApi';
 
 const MODEL_URL = '/models/brain.glb';
+
+// ---------------------------------------------------------------------------
+// Derive finer sub-categories from the Allen hierarchy already in regions.json.
+// regions.json stores parentName for each structure (sourced from Allen API),
+// so we can walk the name/parentName chain without an extra API call.
+// This replaces the flat 'Diencephalon' and 'Mesencephalon (Midbrain)' buckets
+// with the expanded structure from the Allen structure_id_path tree.
+// ---------------------------------------------------------------------------
+function refineCategory(
+  category: string,
+  name: string,
+  parentName: string | null,
+): string {
+  const n = name.toLowerCase();
+  const p = (parentName ?? '').toLowerCase();
+
+  if (category === 'Diencephalon') {
+    // Order matters: check epithalamus and subthalamus before thalamus
+    // to avoid false positives from "ventral thalamus" → subthalamus pathway.
+    if (n.includes('epithalamus') || p.includes('epithalamus'))   return 'Diencephalon – Epithalamus';
+    if (n.includes('subthalamus') || p.includes('subthalamus'))   return 'Diencephalon – Subthalamus';
+    if (n.includes('hypothalamus') || p.includes('hypothalamus')) return 'Diencephalon – Hypothalamus';
+    if (n.includes('thalamus') || p.includes('thalamus'))         return 'Diencephalon – Thalamus';
+    return 'Diencephalon';
+  }
+
+  if (category === 'Mesencephalon (Midbrain)') {
+    if (n.includes('substantia nigra') || p.includes('substantia nigra')) return 'Mesencephalon – Substantia Nigra';
+    if (n.includes('tectum') || p.includes('tectum') ||
+        n.includes('superior colliculus') || n.includes('inferior colliculus')) return 'Mesencephalon – Tectum';
+    if (n.includes('tegmentum') || p.includes('tegmentum'))               return 'Mesencephalon – Tegmentum';
+    return 'Mesencephalon (Midbrain)';
+  }
+
+  return category;
+}
 
 // The brain.glb has vertices in MNI millimeter space (~200mm wide).
 // Scale 0.01 converts mm → ~2 scene units, fitting the default camera.
@@ -210,7 +247,7 @@ const MirroredHemisphere: React.FC<MirroredProps> = ({ meshes, groupOffset, base
 
 const BrainModel: React.FC = () => {
   const { scene } = useGLTF(MODEL_URL);
-  const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, setRegionCentroidDirs, showMirroredHemisphere } = useBrainStore();
+  const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, setRegionCentroidDirs, setRegionDescriptions, showMirroredHemisphere } = useBrainStore();
 
   const meshes = useMemo(() => {
     const result: THREE.Mesh[] = [];
@@ -320,13 +357,24 @@ const BrainModel: React.FC = () => {
     setRegionCentroidDirs(dirs);
   }, [filteredMeshes, groupOffset, centroidDirs, setRegionCentroids, setRegionCentroidDirs]);
 
-  // Load enriched region data from regions.json, then register with the store
+  // Load enriched region data from regions.json, register with the store,
+  // then fetch anatomical descriptions from the Allen Brain Atlas API.
   useEffect(() => {
     setLoading(true);
     fetch('/data/regions.json')
       .then((r) => r.json())
       .then((json) => {
-        loadBrainRegions(json.regions as BrainRegion[]);
+        // Apply hierarchy-derived subcategories for Diencephalon / Mesencephalon
+        const regions = (json.regions as BrainRegion[]).map((r) => ({
+          ...r,
+          category: refineCategory(r.category, r.name, r.parentName),
+        }));
+        loadBrainRegions(regions);
+        // Fire-and-forget: fetch Allen descriptions in background
+        const labelIds = regions.map((r) => r.labelId).filter((id) => id > 0);
+        fetchAllenStructures(labelIds).then(() => {
+          setRegionDescriptions(getAllenDescriptions(labelIds));
+        });
       })
       .catch(() => {
         // Fallback: register mesh names only (no rich data)
@@ -344,7 +392,7 @@ const BrainModel: React.FC = () => {
         loadBrainRegions(fallback);
       })
       .finally(() => setLoading(false));
-  }, [filteredMeshes, loadBrainRegions, setLoading]);
+  }, [filteredMeshes, loadBrainRegions, setLoading, setRegionDescriptions]);
 
   return (
     <>

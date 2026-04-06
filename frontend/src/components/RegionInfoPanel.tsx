@@ -2,7 +2,7 @@ import React from 'react';
 import { useBrainStore } from '../store/brainStore';
 
 const RegionInfoPanel: React.FC = () => {
-  const { selectedRegion, regionMap, setSelectedRegion, setIsolatedRegion, isolatedRegion } =
+  const { selectedRegion, regionMap, setSelectedRegion, setIsolatedRegion, isolatedRegion, regionDescriptions } =
     useBrainStore();
 
   const region = selectedRegion ? regionMap[selectedRegion] : null;
@@ -10,6 +10,7 @@ const RegionInfoPanel: React.FC = () => {
   if (!region) return null;
 
   const isIsolated = isolatedRegion === selectedRegion;
+  const description = region.labelId ? regionDescriptions[region.labelId] : undefined;
 
   return (
     <div
@@ -91,6 +92,24 @@ const RegionInfoPanel: React.FC = () => {
           <span style={{ color: '#cbd5e1' }}>{region.labelId}</span>
         </div>
       </div>
+
+      {/* Anatomical description from Allen Atlas */}
+      {description && (
+        <div style={{
+          background: 'rgba(15,23,42,0.6)',
+          border: '1px solid rgba(59,130,246,0.15)',
+          borderRadius: 6,
+          padding: '8px 10px',
+          marginBottom: 12,
+        }}>
+          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 0.8, color: '#3b82f6', textTransform: 'uppercase', marginBottom: 4 }}>
+            Description
+          </div>
+          <p style={{ fontSize: 10, color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
+            {description}
+          </p>
+        </div>
+      )}
 
       {/* Divider */}
       <div style={{ borderTop: '1px solid rgba(30,64,175,0.3)', marginBottom: 12 }} />

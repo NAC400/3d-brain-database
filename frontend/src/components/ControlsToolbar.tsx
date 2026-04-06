@@ -31,12 +31,23 @@ const CATEGORY_GROUPS: CategoryGroup[] = [
     ],
   },
   {
+    // Diencephalon now expanded into 4 subdivisions + catch-all
     id: 'diencephalon', label: 'Diencephalon', color: '#3b82f6',
-    children: ['Diencephalon'],
+    children: [
+      'Diencephalon – Thalamus',
+      'Diencephalon – Hypothalamus',
+      'Diencephalon – Epithalamus',
+      'Diencephalon – Subthalamus',
+      'Diencephalon',
+    ],
   },
   {
+    // Brainstem now includes Mesencephalon subdivisions
     id: 'brainstem', label: 'Brainstem', color: '#10b981',
     children: [
+      'Mesencephalon – Tectum',
+      'Mesencephalon – Tegmentum',
+      'Mesencephalon – Substantia Nigra',
       'Mesencephalon (Midbrain)',
       'Metencephalon (Pons)',
       'Myelencephalon (Medulla)',
@@ -56,10 +67,15 @@ const CATEGORY_GROUPS: CategoryGroup[] = [
   },
 ];
 
-// Strip "Telencephalon – " prefix for compact sub-labels
-const shortLabel = (cat: string) => cat.replace(/^Telencephalon\s*[–-]\s*/i, '');
+// Strip group prefixes for compact sub-labels in popovers
+const shortLabel = (cat: string) =>
+  cat
+    .replace(/^Telencephalon\s*[–-]\s*/i, '')
+    .replace(/^Diencephalon\s*[–-]\s*/i, '')
+    .replace(/^Mesencephalon\s*[–-]\s*/i, '');
 
 const SUB_COLORS: Record<string, string> = {
+  // Telencephalon
   'Telencephalon – Frontal Lobe':           '#f59e0b',
   'Telencephalon – Parietal Lobe':          '#a78bfa',
   'Telencephalon – Temporal Lobe':          '#ec4899',
@@ -71,9 +87,20 @@ const SUB_COLORS: Record<string, string> = {
   'Telencephalon – Cerebral Nuclei':        '#a3e635',
   'Telencephalon – Olfactory / Paleocortex':'#34d399',
   'Telencephalon – Cortex (Other)':         '#fbbf24',
-  'Mesencephalon (Midbrain)':               '#10b981',
-  'Metencephalon (Pons)':                   '#6ee7b7',
-  'Myelencephalon (Medulla)':               '#059669',
+  // Diencephalon subdivisions
+  'Diencephalon – Thalamus':               '#3b82f6',
+  'Diencephalon – Hypothalamus':           '#818cf8',
+  'Diencephalon – Epithalamus':            '#c084fc',
+  'Diencephalon – Subthalamus':            '#60a5fa',
+  'Diencephalon':                          '#93c5fd',
+  // Mesencephalon subdivisions
+  'Mesencephalon – Tectum':               '#10b981',
+  'Mesencephalon – Tegmentum':            '#6ee7b7',
+  'Mesencephalon – Substantia Nigra':     '#059669',
+  'Mesencephalon (Midbrain)':             '#34d399',
+  // Pons / Medulla
+  'Metencephalon (Pons)':                 '#6ee7b7',
+  'Myelencephalon (Medulla)':             '#059669',
 };
 
 // ---------------------------------------------------------------------------

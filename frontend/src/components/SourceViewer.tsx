@@ -10,22 +10,103 @@ const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36
 // Citation format generators
 // ---------------------------------------------------------------------------
 
-/** Best-effort "Last, F." from a full name string */
-const formatAuthorAPA = (name: string): string => {
-  const parts = name.trim().split(' ');
-  if (parts.length < 2) return name;
-  const last = parts[parts.length - 1];
-  const initials = parts.slice(0, -1).map((p) => p[0] + '.').join(' ');
-  return `${last}, ${initials}`;
+/**
+ * Detect PubMed "LastName Initials" format (e.g. "Cheron G", "van den Berg AM").
+ * The last token is all uppercase letters (1–4 chars = initials block).
+ */
+const isPubMedFormat = (name: string): boolean => {
+  const parts = name.trim().split(/\s+/);
+  return parts.length >= 2 && /^[A-Z]{1,4}$/.test(parts[parts.length - 1]);
 };
 
-const formatAuthorMLA = (name: string, isFirst: boolean): string => {
-  if (!isFirst) return name;
-  const parts = name.trim().split(' ');
+/** Extract the last name from any author format. */
+const getLastName = (name: string): string => {
+  const parts = name.trim().split(/\s+/);
   if (parts.length < 2) return name;
-  const last = parts[parts.length - 1];
+  // PubMed "Cheron G" → last name is everything except final token
+  return isPubMedFormat(name) ? parts.slice(0, -1).join(' ') : parts[parts.length - 1];
+};
+
+/**
+ * APA 7th: "Last, F. M."
+ * PubMed "Cheron G"   → "Cheron, G."
+ * Natural "Gary Cheron" → "Cheron, G."
+ */
+const formatAuthorAPA = (name: string): string => {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length < 2) return name;
+  if (isPubMedFormat(name)) {
+    const lastName = parts.slice(0, -1).join(' ');
+    const initials = parts[parts.length - 1].split('').map((c) => `${c}.`).join(' ');
+    return `${lastName}, ${initials}`;
+  }
+  const lastName = parts[parts.length - 1];
+  const initials = parts.slice(0, -1).map((p) => `${p[0]}.`).join(' ');
+  return `${lastName}, ${initials}`;
+};
+
+/**
+ * APA 7th author list with correct ampersand / ellipsis rules:
+ * 1 author  → "Last, F."
+ * 2–20      → "Last, F., ... & Last, F."
+ * 21+       → first 19 authors + "... Last, F." (no ampersand per APA 7)
+ */
+const buildAPAAuthors = (authors: string[]): string => {
+  if (authors.length === 0) return '';
+  const fmt = authors.map(formatAuthorAPA);
+  if (authors.length === 1) return fmt[0];
+  if (authors.length <= 20) {
+    return fmt.slice(0, -1).join(', ') + ', & ' + fmt[fmt.length - 1];
+  }
+  // 21+ authors
+  return fmt.slice(0, 19).join(', ') + ', . . . ' + fmt[fmt.length - 1];
+};
+
+/**
+ * MLA 9th first-author format: "Last, First" (or "Last, I." for PubMed)
+ * Subsequent authors stay as-is (natural order).
+ */
+const formatAuthorMLAFirst = (name: string): string => {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length < 2) return name;
+  if (isPubMedFormat(name)) {
+    const lastName = parts.slice(0, -1).join(' ');
+    const initials = parts[parts.length - 1].split('').map((c) => `${c}.`).join(' ');
+    return `${lastName}, ${initials}`;
+  }
+  const lastName = parts[parts.length - 1];
   const first = parts.slice(0, -1).join(' ');
-  return `${last}, ${first}`;
+  return `${lastName}, ${first}`;
+};
+
+/**
+ * Vancouver: "Last AB" (no periods after initials)
+ * PubMed "Cheron G" → already correct
+ * Natural "Gary Cheron" → "Cheron G"
+ */
+const formatAuthorVancouver = (name: string): string => {
+  if (isPubMedFormat(name)) return name; // already "Last Initials"
+  const parts = name.trim().split(/\s+/);
+  if (parts.length < 2) return name;
+  const lastName = parts[parts.length - 1];
+  const inits = parts.slice(0, -1).map((p) => p[0]).join('');
+  return `${lastName} ${inits}`;
+};
+
+/**
+ * BibTeX: "Last, First Middle" or "Last, I." for PubMed
+ */
+const formatAuthorBibTeX = (name: string): string => {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length < 2) return name;
+  if (isPubMedFormat(name)) {
+    const lastName = parts.slice(0, -1).join(' ');
+    const initials = parts[parts.length - 1].split('').map((c) => `${c}.`).join(' ');
+    return `${lastName}, ${initials}`;
+  }
+  const lastName = parts[parts.length - 1];
+  const first = parts.slice(0, -1).join(' ');
+  return `${lastName}, ${first}`;
 };
 
 const buildCitations = (source: Source): Record<string, string> => {
@@ -34,44 +115,49 @@ const buildCitations = (source: Source): Record<string, string> => {
   const yr = year ?? 'n.d.';
   const jnl = journal ?? '';
 
-  // APA 7th
-  const apaAuthors = authors.length
-    ? authors.slice(0, 20).map(formatAuthorAPA).join(', ') + (authors.length > 20 ? ', ...' : '')
-    : '';
+  // APA 7th — Purdue OWL spec
+  const apaAuthors = buildAPAAuthors(authors);
   const apa = `${apaAuthors}${apaAuthors ? ' ' : ''}(${yr}). ${title}.${jnl ? ` *${jnl}*.` : ''}${doiStr ? ` ${doiStr}` : ''}`;
 
   // MLA 9th
-  const mlaFirst = authors[0] ? formatAuthorMLA(authors[0], true) : '';
-  const mlaRest = authors.slice(1, 3).join(', ');
+  const mlaFirst = authors[0] ? formatAuthorMLAFirst(authors[0]) : '';
+  const mlaOthers = authors.slice(1, 3).map((a) => {
+    // Non-first MLA authors in natural order
+    if (isPubMedFormat(a)) {
+      const parts = a.trim().split(/\s+/);
+      const ln = parts.slice(0, -1).join(' ');
+      const ini = parts[parts.length - 1].split('').map((c) => `${c}.`).join(' ');
+      return `${ini} ${ln}`;
+    }
+    return a;
+  });
   const mlaEtAl = authors.length > 3 ? ', et al.' : '';
-  const mlaAuthors = [mlaFirst, mlaRest].filter(Boolean).join(', ') + mlaEtAl;
+  const mlaAuthors = [mlaFirst, ...mlaOthers].filter(Boolean).join(', ') + mlaEtAl;
   const mla = `${mlaAuthors}${mlaAuthors ? '. ' : ''}"${title}."${jnl ? ` *${jnl}*,` : ''} ${yr}.${doiStr ? ` ${doiStr}.` : ''}`;
 
-  // Vancouver
-  const vanAuthors = authors.slice(0, 6).map((a) => {
-    const parts = a.trim().split(' ');
-    if (parts.length < 2) return a;
-    const last = parts[parts.length - 1];
-    const inits = parts.slice(0, -1).map((p) => p[0]).join('');
-    return `${last} ${inits}`;
-  }).join(', ') + (authors.length > 6 ? ', et al.' : '');
+  // Vancouver (up to 6 authors, then et al.)
+  const vanList = authors.slice(0, 6).map(formatAuthorVancouver);
+  const vanAuthors = vanList.join(', ') + (authors.length > 6 ? ', et al.' : '');
   const van = `${vanAuthors}${vanAuthors ? '. ' : ''}${title}.${jnl ? ` ${jnl}.` : ''} ${yr}.${doiStr ? ` doi:${doi}` : ''}`;
 
-  // Chicago
-  const chicFirst = authors[0] ? formatAuthorMLA(authors[0], true) : '';
-  const chicRest = authors.slice(1).join(', ');
-  const chicAuthors = [chicFirst, chicRest].filter(Boolean).join(', ');
+  // Chicago author-date (similar to APA but no initials period spacing requirement)
+  const chicFirst = authors[0] ? formatAuthorMLAFirst(authors[0]) : '';
+  const chicRest = authors.slice(1).map((a) => {
+    if (isPubMedFormat(a)) {
+      const parts = a.trim().split(/\s+/);
+      const ln = parts.slice(0, -1).join(' ');
+      const ini = parts[parts.length - 1].split('').map((c) => `${c}.`).join(' ');
+      return `${ini} ${ln}`;
+    }
+    return a;
+  });
+  const chicAuthors = [chicFirst, ...chicRest].filter(Boolean).join(', ');
   const chic = `${chicAuthors}${chicAuthors ? '. ' : ''}"${title}."${jnl ? ` *${jnl}*` : ''} (${yr}).${doiStr ? ` ${doiStr}.` : ''}`;
 
   // BibTeX
-  const key = (authors[0]?.split(' ').pop() ?? 'Author') + yr;
-  const bibtexAuthors = authors.map((a) => {
-    const parts = a.trim().split(' ');
-    if (parts.length < 2) return a;
-    const last = parts[parts.length - 1];
-    const first = parts.slice(0, -1).join(' ');
-    return `${last}, ${first}`;
-  }).join(' and ');
+  const firstLastName = authors[0] ? getLastName(authors[0]) : 'Author';
+  const key = firstLastName.replace(/\s+/g, '') + yr;
+  const bibtexAuthors = authors.map(formatAuthorBibTeX).join(' and ');
   const bibtex =
 `@article{${key},
   author  = {${bibtexAuthors}},

@@ -50,13 +50,26 @@ export async function fetchByPMIDs(pmids: string[]): Promise<PubMedResult[]> {
     });
 }
 
-// Fetch full abstract for a single PMID via EFetch
+// Fetch full abstract for a single PMID via EFetch (XML mode — more reliable than plain text)
 export async function fetchAbstract(pmid: string): Promise<string> {
   const res = await fetch(
-    `${BASE}/efetch.fcgi?db=pubmed&id=${pmid}&rettype=abstract&retmode=text`
+    `${BASE}/efetch.fcgi?db=pubmed&id=${pmid}&rettype=abstract&retmode=xml`
   );
   if (!res.ok) return '';
-  const text = await res.text();
-  // Strip header lines, return body text
-  return text.split('\n').slice(4).join('\n').trim();
+  const xml = await res.text();
+  // Extract all <AbstractText> elements (structured abstracts have multiple)
+  const matches = xml.match(/<AbstractText[^>]*>([\s\S]*?)<\/AbstractText>/g);
+  if (!matches || matches.length === 0) return '';
+  return matches
+    .map((m) =>
+      m
+        .replace(/<AbstractText[^>]*>/g, '')
+        .replace(/<\/AbstractText>/g, '')
+        .replace(/<[^>]+>/g, '')   // strip any nested tags (e.g. <i>, <b>)
+        .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+        .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+        .trim()
+    )
+    .filter(Boolean)
+    .join(' ');
 }

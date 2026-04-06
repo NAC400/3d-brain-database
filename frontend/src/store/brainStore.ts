@@ -48,8 +48,17 @@ export const ALL_CATEGORIES = [
   'Telencephalon – Cerebral Nuclei',
   'Telencephalon – Olfactory / Paleocortex',
   'Telencephalon – Cortex (Other)',
-  'Diencephalon',
-  'Mesencephalon (Midbrain)',
+  // Diencephalon — subdivided from Allen hierarchy (parentName chain)
+  'Diencephalon – Thalamus',
+  'Diencephalon – Hypothalamus',
+  'Diencephalon – Epithalamus',
+  'Diencephalon – Subthalamus',
+  'Diencephalon',                     // catch-all for unclassified diencephalic structures
+  // Mesencephalon — subdivided from Allen hierarchy
+  'Mesencephalon – Tectum',
+  'Mesencephalon – Tegmentum',
+  'Mesencephalon – Substantia Nigra',
+  'Mesencephalon (Midbrain)',          // catch-all
   'Metencephalon (Pons)',
   'Metencephalon (Cerebellum)',
   'Myelencephalon (Medulla)',
@@ -120,6 +129,9 @@ export interface BrainState {
   // --- Annotations ---
   annotations: any[];
 
+  // --- Allen descriptions (labelId → anatomical description) ---
+  regionDescriptions: Record<number, string>;
+
   // --- Actions ---
   setSelectedRegion:  (regionId: string | null) => void;
   setHoveredRegion:   (regionId: string | null) => void;
@@ -142,6 +154,7 @@ export interface BrainState {
   setCameraTarget:           (target: BrainState['cameraTarget']) => void;
   setRegionCentroids:        (centroids: Record<string, [number,number,number]>) => void;
   setRegionCentroidDirs:     (dirs: Record<string, [number,number,number]>) => void;
+  setRegionDescriptions:     (descs: Record<number, string>) => void;
 
   loadBrainRegions:   (regions: BrainRegion[]) => void;
 
@@ -195,6 +208,9 @@ export const useBrainStore = create<BrainState>((set, get) => ({
   cameraTarget: null,
   regionCentroids: {},
   regionCentroidDirs: {},
+
+  // Allen descriptions
+  regionDescriptions: {},
 
   // Data
   brainRegions: [],
@@ -286,6 +302,7 @@ export const useBrainStore = create<BrainState>((set, get) => ({
   setCameraTarget: (target) => set({ cameraTarget: target }),
   setRegionCentroids: (centroids) => set({ regionCentroids: centroids }),
   setRegionCentroidDirs: (dirs) => set({ regionCentroidDirs: dirs }),
+  setRegionDescriptions: (descs) => set({ regionDescriptions: descs }),
 
   loadBrainRegions: (regions) => {
     const map: Record<string, BrainRegion> = {};
