@@ -1,13 +1,26 @@
 import React, { useEffect, useRef } from 'react';
 import { useBrainStore } from '../store/brainStore';
+import type { BrainState } from '../store/brainStore';
 
-const FEATURES = [
+interface Feature {
+  icon:       string;
+  title:      string;
+  desc:       string;
+  badge:      string;
+  badgeColor: string;
+  page:       BrainState['appPage'];
+  cta:        string;
+}
+
+const FEATURES: Feature[] = [
   {
     icon: '🧠',
     title: '3D Brain Explorer',
     desc: 'Navigate a fully segmented 141-region Allen Atlas model. Isolate, explode, layer, and cross-section any anatomical structure in real time.',
     badge: 'Live',
     badgeColor: '#22d3ee',
+    page: 'explorer',
+    cta: 'Open Explorer →',
   },
   {
     icon: '📚',
@@ -15,18 +28,22 @@ const FEATURES = [
     desc: 'Import papers via PubMed or DOI. Link sources directly to brain regions, fetch abstracts, and cite in APA, MLA, Vancouver, Chicago, or BibTeX.',
     badge: 'Live',
     badgeColor: '#22d3ee',
+    page: 'library',
+    cta: 'Open Library →',
   },
   {
     icon: '🌐',
     title: 'Community Atlas',
     desc: 'Share verified region–source links with the global neuroscience community. Collaborate on annotating the human brain with peer-reviewed evidence.',
-    badge: 'Coming soon',
-    badgeColor: '#475569',
+    badge: 'Live',
+    badgeColor: '#22d3ee',
+    page: 'community',
+    cta: 'View Atlas →',
   },
 ];
 
 const HomePage: React.FC = () => {
-  const { setAppPage, sources, structureLinks } = useBrainStore();
+  const { setAppPage, sources, structureLinks, user } = useBrainStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Subtle animated particle background
@@ -112,23 +129,26 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button
-            onClick={() => setAppPage('explorer')}
-            style={{
-              padding: '7px 18px', borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: 'pointer',
-              background: 'transparent', border: '1px solid rgba(59,130,246,0.35)',
-              color: '#60a5fa',
-            }}
-          >Explorer</button>
-          <button
-            onClick={() => setAppPage('library')}
-            style={{
-              padding: '7px 18px', borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: 'pointer',
-              background: 'transparent', border: '1px solid rgba(100,116,139,0.25)',
-              color: '#94a3b8',
-            }}
-          >Library</button>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <button onClick={() => setAppPage('explorer')} style={{ padding: '7px 18px', borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(59,130,246,0.35)', color: '#60a5fa' }}>
+            Explorer
+          </button>
+          <button onClick={() => setAppPage('library')} style={{ padding: '7px 18px', borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(100,116,139,0.25)', color: '#94a3b8' }}>
+            Library
+          </button>
+          <button onClick={() => setAppPage('community')} style={{ padding: '7px 18px', borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(100,116,139,0.25)', color: '#94a3b8' }}>
+            Community
+          </button>
+          <div style={{ width: 1, height: 18, background: 'rgba(30,64,175,0.4)' }} />
+          {user ? (
+            <button onClick={() => setAppPage('auth')} style={{ padding: '7px 16px', borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: 'pointer', background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)', color: '#60a5fa' }}>
+              {user.email.split('@')[0]}
+            </button>
+          ) : (
+            <button onClick={() => setAppPage('auth')} style={{ padding: '7px 18px', borderRadius: 7, fontSize: 12, fontWeight: 700, cursor: 'pointer', background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.4)', color: '#60a5fa' }}>
+              Sign In
+            </button>
+          )}
         </div>
       </header>
 
@@ -230,29 +250,41 @@ const HomePage: React.FC = () => {
         maxWidth: 1100, margin: '0 auto', width: '100%',
       }}>
         {FEATURES.map((f) => (
-          <div
+          <button
             key={f.title}
+            onClick={() => setAppPage(f.page)}
             style={{
               background: 'rgba(15,23,42,0.7)',
               border: '1px solid rgba(59,130,246,0.12)',
               borderRadius: 14, padding: '28px 24px',
               backdropFilter: 'blur(8px)',
+              cursor: 'pointer',
+              textAlign: 'left',
+              transition: 'border-color 0.15s, background 0.15s',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)';
+              e.currentTarget.style.background  = 'rgba(15,23,42,0.9)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(59,130,246,0.12)';
+              e.currentTarget.style.background  = 'rgba(15,23,42,0.7)';
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
               <span style={{ fontSize: 24 }}>{f.icon}</span>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9' }}>{f.title}</div>
-                <span style={{
-                  fontSize: 9, fontWeight: 700, letterSpacing: 1.2, textTransform: 'uppercase',
-                  color: f.badgeColor, borderRadius: 3,
-                }}>{f.badge}</span>
+                <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: 1.2, textTransform: 'uppercase', color: f.badgeColor }}>
+                  {f.badge}
+                </span>
               </div>
             </div>
-            <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7, margin: 0 }}>
+            <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7, margin: '0 0 16px' }}>
               {f.desc}
             </p>
-          </div>
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#3b82f6' }}>{f.cta}</span>
+          </button>
         ))}
       </div>
 

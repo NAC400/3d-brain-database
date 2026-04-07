@@ -232,6 +232,77 @@ const SubPopover: React.FC<PopoverProps> = ({ group, activeCategories, toggleCat
 };
 
 // ---------------------------------------------------------------------------
+// Keyboard shortcuts popover
+// ---------------------------------------------------------------------------
+
+const SHORTCUTS = [
+  { key: 'R',   desc: 'Reset camera to default position' },
+  { key: 'E',   desc: 'Toggle explode view' },
+  { key: 'L',   desc: 'Toggle research panel' },
+  { key: 'S',   desc: 'Focus region search bar' },
+  { key: 'H',   desc: 'Toggle highlight/paint mode' },
+  { key: 'Esc', desc: 'Deselect region & exit isolation' },
+  { key: 'Dbl-click', desc: 'Isolate / un-isolate a region' },
+  { key: 'Right-click', desc: 'Open context menu on a region' },
+];
+
+const ShortcutsPopover: React.FC<{ anchorRef: React.RefObject<HTMLButtonElement | null>; onClose: () => void }> = ({ anchorRef, onClose }) => {
+  const popRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState<{ left: number; bottom: number }>({ left: 0, bottom: 0 });
+
+  useEffect(() => {
+    if (anchorRef.current) {
+      const rect = anchorRef.current.getBoundingClientRect();
+      setPos({ left: rect.right - 280, bottom: window.innerHeight - rect.top + 8 });
+    }
+  }, [anchorRef]);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (
+        popRef.current && !popRef.current.contains(e.target as Node) &&
+        anchorRef.current && !anchorRef.current.contains(e.target as Node)
+      ) onClose();
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [onClose, anchorRef]);
+
+  return (
+    <div
+      ref={popRef}
+      style={{
+        position: 'fixed', left: pos.left, bottom: pos.bottom,
+        zIndex: 500, width: 280,
+        background: 'rgba(15,23,42,0.97)',
+        border: '1px solid rgba(59,130,246,0.35)',
+        borderRadius: 10, padding: '14px 16px',
+        boxShadow: '0 -8px 32px rgba(0,0,0,0.7)',
+        backdropFilter: 'blur(12px)',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <span style={{ fontSize: 11, fontWeight: 700, color: '#60a5fa', letterSpacing: 0.5 }}>KEYBOARD SHORTCUTS</span>
+        <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0 }}>×</button>
+      </div>
+      {SHORTCUTS.map(({ key, desc }) => (
+        <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+          <kbd style={{
+            display: 'inline-block', minWidth: 52, padding: '2px 6px', borderRadius: 4,
+            background: 'rgba(30,41,59,0.9)', border: '1px solid rgba(59,130,246,0.25)',
+            color: '#94a3b8', fontSize: 10, fontWeight: 700, textAlign: 'center',
+            fontFamily: 'monospace', flexShrink: 0, letterSpacing: 0.3,
+          }}>
+            {key}
+          </kbd>
+          <span style={{ fontSize: 11, color: '#64748b' }}>{desc}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ---------------------------------------------------------------------------
 // Axis config for cross-section
 // ---------------------------------------------------------------------------
 
@@ -255,8 +326,10 @@ const ControlsToolbar: React.FC = () => {
     brainBounds,
   } = useBrainStore();
 
-  const [mode, setMode]           = useState<'layers' | 'crosssection'>('layers');
-  const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [mode, setMode]             = useState<'layers' | 'crosssection'>('layers');
+  const [openGroup, setOpenGroup]   = useState<string | null>(null);
+  const [showShortcuts, setShowShortcuts] = useState(false);
+  const shortcutsBtnRef = useRef<HTMLButtonElement | null>(null);
 
   // One ref per group button so the popover can anchor to it
   const btnRefs = useRef<Record<string, React.RefObject<HTMLButtonElement | null>>>({});
@@ -464,6 +537,26 @@ const ControlsToolbar: React.FC = () => {
             )}
           </div>
         )}
+
+        {/* ── Shortcuts button ── */}
+        <div style={{ marginLeft: 'auto', flexShrink: 0, paddingLeft: 12 }}>
+          <button
+            ref={shortcutsBtnRef}
+            onClick={() => setShowShortcuts(!showShortcuts)}
+            title="Keyboard shortcuts"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              width: 26, height: 26, borderRadius: '50%',
+              border: `1px solid ${showShortcuts ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.3)'}`,
+              background: showShortcuts ? 'rgba(59,130,246,0.15)' : 'transparent',
+              color: showShortcuts ? '#60a5fa' : '#475569',
+              fontSize: 12, fontWeight: 700, cursor: 'pointer',
+            }}
+          >
+            ?
+          </button>
+        </div>
+
       </div>
 
       {/* ── Sub-category popover (rendered outside the toolbar to avoid overflow) ── */}
@@ -480,6 +573,14 @@ const ControlsToolbar: React.FC = () => {
           />
         );
       })()}
+
+      {/* ── Keyboard shortcuts popover ── */}
+      {showShortcuts && (
+        <ShortcutsPopover
+          anchorRef={shortcutsBtnRef}
+          onClose={() => setShowShortcuts(false)}
+        />
+      )}
     </>
   );
 };

@@ -137,31 +137,34 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
     }
     ref.current.visible = true;
 
-    // Opacity: dim non-selected regions when a selection is active
+    // Opacity: when a region is selected, background regions fade to near-invisible
+    // so the selected region pops clearly. 0.06 is almost gone but still shows
+    // the brain's overall shape as context.
     const targetOpacity = isSelected
       ? 1.0
       : isHovered
-        ? 0.95
+        ? 0.85
         : isIsolated
           ? 1.0
           : selectedRegion !== null
-            ? 0.2
+            ? 0.06          // was 0.2 — much stronger fade for contrast
             : 1.0;
 
     const prevOpacity = material.opacity;
-    material.opacity    = THREE.MathUtils.lerp(material.opacity, targetOpacity, 0.12);
-    material.depthWrite = material.opacity > 0.5;
+    // Faster lerp (0.18 vs 0.12) so the transition feels snappier
+    material.opacity    = THREE.MathUtils.lerp(material.opacity, targetOpacity, 0.18);
+    material.depthWrite = material.opacity > 0.15;
 
-    // Emissive highlight on hover / select
+    // Emissive highlight — selected region gets a strong blue-white glow
     const targetEmissive = isSelected
-      ? new THREE.Color(0.35, 0.35, 0.1)
+      ? new THREE.Color(0.5, 0.5, 0.2)   // brighter yellow-white glow
       : isHovered
-        ? new THREE.Color(0.15, 0.15, 0.05)
+        ? new THREE.Color(0.2, 0.2, 0.1)
         : new THREE.Color(0, 0, 0);
     const prevR = material.emissive.r;
     const prevG = material.emissive.g;
     const prevB = material.emissive.b;
-    material.emissive.lerp(targetEmissive, 0.15);
+    material.emissive.lerp(targetEmissive, 0.18);
 
     // Keep rendering while lerp animations are still running
     const opacityDelta  = Math.abs(material.opacity - prevOpacity);

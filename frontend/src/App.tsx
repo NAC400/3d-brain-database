@@ -99,6 +99,25 @@ const App: React.FC = () => {
           </div>
         )}
 
+        {/* Research panel toggle — only in explorer */}
+        {appPage === 'explorer' && (
+          <button
+            onClick={() => setResearchPanelOpen(!researchPanelOpen)}
+            title="Toggle Research Panel (L)"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer', flexShrink: 0,
+              border: `1px solid ${researchPanelOpen ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.25)'}`,
+              background: researchPanelOpen ? 'rgba(59,130,246,0.15)' : 'transparent',
+              color: researchPanelOpen ? '#60a5fa' : '#94a3b8',
+              fontWeight: researchPanelOpen ? 700 : 400,
+            }}
+          >
+            <span style={{ fontSize: 13 }}>📋</span>
+            Research
+          </button>
+        )}
+
         {/* Library title placeholder to keep layout balanced */}
         {appPage === 'library' && (
           <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 8, color: '#475569', fontSize: 13 }}>
@@ -110,81 +129,54 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {/* Nav tabs + Research toggle */}
-        <nav style={{ display: 'flex', gap: 4, flexShrink: 0, alignItems: 'center' }}>
+        {/* Nav — top-level pages only, no page-specific controls here */}
+        <nav style={{ display: 'flex', gap: 2, flexShrink: 0, alignItems: 'center' }}>
 
-          {/* Page tabs */}
-          <button
-            onClick={() => setAppPage('explorer')}
-            style={{
-              padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-              border: `1px solid ${appPage === 'explorer' ? 'rgba(59,130,246,0.5)' : 'transparent'}`,
-              background: appPage === 'explorer' ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: appPage === 'explorer' ? '#60a5fa' : '#94a3b8',
-              fontWeight: appPage === 'explorer' ? 700 : 400,
-            }}
-          >
-            Explorer
-          </button>
-          <button
-            onClick={() => setAppPage('library')}
-            style={{
-              padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-              border: `1px solid ${appPage === 'library' ? 'rgba(59,130,246,0.5)' : 'transparent'}`,
-              background: appPage === 'library' ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: appPage === 'library' ? '#60a5fa' : '#94a3b8',
-              fontWeight: appPage === 'library' ? 700 : 400,
-            }}
-          >
-            Library
-          </button>
-
-          {/* Divider */}
-          <div style={{ width: 1, height: 18, background: 'rgba(30,64,175,0.4)', margin: '0 4px' }} />
-
-          {/* Research sidebar toggle — only relevant in explorer */}
-          {appPage === 'explorer' && (
+          {(['explorer', 'library', 'community'] as const).map((page) => (
             <button
-              onClick={() => setResearchPanelOpen(!researchPanelOpen)}
-              title="Toggle research sources panel"
+              key={page}
+              onClick={() => setAppPage(page)}
               style={{
                 padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-                border: `1px solid ${researchPanelOpen ? 'rgba(59,130,246,0.5)' : 'transparent'}`,
-                background: researchPanelOpen ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: researchPanelOpen ? '#60a5fa' : '#94a3b8',
+                border: `1px solid ${appPage === page ? 'rgba(59,130,246,0.5)' : 'transparent'}`,
+                background: appPage === page ? 'rgba(59,130,246,0.15)' : 'transparent',
+                color: appPage === page ? '#60a5fa' : '#94a3b8',
+                fontWeight: appPage === page ? 700 : 400,
+                textTransform: 'capitalize',
               }}
             >
-              Sources
+              {page}
+            </button>
+          ))}
+
+          <div style={{ width: 1, height: 18, background: 'rgba(30,64,175,0.4)', margin: '0 6px' }} />
+
+          {/* Account button — shows username when signed in */}
+          {useBrainStore.getState().user ? (
+            <button
+              onClick={() => setAppPage('auth')}
+              style={{
+                padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
+                border: '1px solid rgba(59,130,246,0.35)',
+                background: 'rgba(59,130,246,0.12)',
+                color: '#60a5fa', fontWeight: 600,
+              }}
+            >
+              {useBrainStore.getState().user!.email.split('@')[0]}
+            </button>
+          ) : (
+            <button
+              onClick={() => setAppPage('auth')}
+              style={{
+                padding: '6px 16px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
+                border: '1px solid rgba(59,130,246,0.4)',
+                background: 'rgba(59,130,246,0.15)',
+                color: '#60a5fa', fontWeight: 700,
+              }}
+            >
+              Sign In
             </button>
           )}
-
-          <button
-            onClick={() => setAppPage('community')}
-            style={{
-              padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-              border: `1px solid ${appPage === 'community' ? 'rgba(59,130,246,0.5)' : 'transparent'}`,
-              background: appPage === 'community' ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: appPage === 'community' ? '#60a5fa' : '#94a3b8',
-              fontWeight: appPage === 'community' ? 700 : 400,
-            }}
-          >
-            Community
-          </button>
-
-          <div style={{ width: 1, height: 18, background: 'rgba(30,64,175,0.4)', margin: '0 4px' }} />
-
-          <button
-            onClick={() => setAppPage('auth')}
-            style={{
-              padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-              border: `1px solid ${appPage === 'auth' ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.2)'}`,
-              background: appPage === 'auth' ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: appPage === 'auth' ? '#60a5fa' : '#64748b',
-              fontWeight: 600,
-            }}
-          >
-            Sign In
-          </button>
         </nav>
       </header>
 

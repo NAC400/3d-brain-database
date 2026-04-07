@@ -166,7 +166,7 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 // GlobalAtlasPage
 // ---------------------------------------------------------------------------
 const GlobalAtlasPage: React.FC = () => {
-  const { brainRegions, sources, structureLinks, user, setAppPage } = useBrainStore();
+  const { brainRegions, sources, structureLinks, user, setAppPage, setSelectedRegion } = useBrainStore();
   const [contributions, setContributions] = useState<GlobalContribution[]>([]);
   const [loading, setLoading]     = useState(true);
   const [showContribute, setShowContribute] = useState(false);
@@ -206,9 +206,9 @@ const GlobalAtlasPage: React.FC = () => {
 
   // Top regions by contribution count
   const topRegions = useMemo(() => {
-    const counts: Record<string, { name: string; count: number }> = {};
+    const counts: Record<string, { name: string; meshName: string; count: number }> = {};
     for (const c of contributions) {
-      if (!counts[c.mesh_name]) counts[c.mesh_name] = { name: c.region_name, count: 0 };
+      if (!counts[c.mesh_name]) counts[c.mesh_name] = { name: c.region_name, meshName: c.mesh_name, count: 0 };
       counts[c.mesh_name].count++;
     }
     return Object.values(counts).sort((a, b) => b.count - a.count).slice(0, 8);
@@ -273,14 +273,19 @@ const GlobalAtlasPage: React.FC = () => {
             const green = Math.round((1 - intensity) * 80);
             const color = intensity > 0 ? `rgb(${red},${green},30)` : 'rgba(30,41,59,0.6)';
             return (
-              <div key={r.meshName} title={`${r.name}: ${Math.round(intensity * 100)}% coverage`} style={{
-                padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
-                background: color, color: intensity > 0.3 ? '#fff' : '#334155',
-                border: `1px solid ${intensity > 0 ? 'rgba(255,100,50,0.3)' : 'rgba(30,41,59,0.4)'}`,
-                cursor: 'default',
-              }}>
+              <button
+                key={r.meshName}
+                title={`${r.name}: ${Math.round(intensity * 100)}% coverage — click to explore in 3D`}
+                onClick={() => { setSelectedRegion(r.meshName); setAppPage('explorer'); }}
+                style={{
+                  padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
+                  background: color, color: intensity > 0.3 ? '#fff' : '#334155',
+                  border: `1px solid ${intensity > 0 ? 'rgba(255,100,50,0.3)' : 'rgba(30,41,59,0.4)'}`,
+                  cursor: 'pointer',
+                }}
+              >
                 {r.acronym}
-              </div>
+              </button>
             );
           })}
         </div>
@@ -332,13 +337,17 @@ const GlobalAtlasPage: React.FC = () => {
                         {c.authors}{c.journal ? ` · ${c.journal}` : ''}{c.year ? ` · ${c.year}` : ''}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <span style={{
-                          padding: '2px 8px', borderRadius: 4, fontSize: 10, fontWeight: 600,
-                          background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.25)',
-                          color: '#22d3ee',
-                        }}>
+                        <button
+                          title={`Explore ${c.region_name} in 3D viewer`}
+                          onClick={() => { setSelectedRegion(c.mesh_name); setAppPage('explorer'); }}
+                          style={{
+                            padding: '2px 8px', borderRadius: 4, fontSize: 10, fontWeight: 600,
+                            background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.25)',
+                            color: '#22d3ee', cursor: 'pointer',
+                          }}
+                        >
                           {c.region_name}
-                        </span>
+                        </button>
                         {c.ai_score > 0 && (
                           <span style={{ fontSize: 10, color: '#475569' }}>
                             AI: {c.ai_score}/100
@@ -367,11 +376,17 @@ const GlobalAtlasPage: React.FC = () => {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {topRegions.map((r, i) => (
-                <div key={r.name} style={{
-                  display: 'flex', alignItems: 'center', gap: 10,
-                  padding: '10px 14px', borderRadius: 8,
-                  background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.12)',
-                }}>
+                <button
+                  key={r.name}
+                  title={`Explore ${r.name} in 3D viewer`}
+                  onClick={() => { setSelectedRegion(r.meshName); setAppPage('explorer'); }}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10,
+                    padding: '10px 14px', borderRadius: 8,
+                    background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.12)',
+                    cursor: 'pointer', textAlign: 'left', width: '100%',
+                  }}
+                >
                   <span style={{ fontSize: 11, color: '#334155', width: 18, textAlign: 'center', fontWeight: 700 }}>{i+1}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 12, color: '#e2e8f0', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
@@ -382,7 +397,7 @@ const GlobalAtlasPage: React.FC = () => {
                   }}>
                     <div style={{ height: '100%', width: `${heatmap[Object.keys(heatmap).find((k) => k.includes(r.name.slice(0,4))) ?? ''] ?? 0}%`, background: '#3b82f6' }} />
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}
