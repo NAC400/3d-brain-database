@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import type { Source, StructureLink, Note } from '../types/source';
 
 // ---------------------------------------------------------------------------
@@ -209,7 +210,9 @@ export interface BrainState {
 // Store
 // ---------------------------------------------------------------------------
 
-export const useBrainStore = create<BrainState>((set, get) => ({
+export const useBrainStore = create<BrainState>()(
+  persist(
+    (set, get) => ({
   // Visual
   selectedRegion: null,
   hoveredRegion:  null,
@@ -451,7 +454,23 @@ export const useBrainStore = create<BrainState>((set, get) => ({
 
   // --- Context menu ---
   setContextMenu: (menu) => set({ contextMenu: menu }),
-}));
+}),
+{
+  name: 'mapped-brain-store',   // localStorage key
+  storage: createJSONStorage(() => localStorage),
+
+  // Only persist user-data fields — not 3D runtime state (centroids, bounds, etc.)
+  // activeCategories is a Set and is intentionally excluded (resets to empty = all visible)
+  partialize: (state) => ({
+    sources:         state.sources,
+    structureLinks:  state.structureLinks,
+    structureNotes:  state.structureNotes,
+    highlightColors: state.highlightColors,
+    user:            state.user,
+  }),
+}
+)
+);
 
 // Re-export types for convenience
 export type { Source, StructureLink };
