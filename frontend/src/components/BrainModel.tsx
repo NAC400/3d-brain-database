@@ -440,7 +440,9 @@ const BrainModel: React.FC = () => {
       {/* Mirrored hemisphere (visual only, no interactivity) */}
       {showMirroredHemisphere && (
         <MirroredHemisphere
-          meshes={filteredMeshes}
+          meshes={filteredMeshes.filter(
+            (m) => Object.keys(regionMap).length === 0 || regionMap[m.name]
+          )}
           groupOffset={groupOffset}
           basePositions={basePositions}
           centroidDirs={centroidDirs}

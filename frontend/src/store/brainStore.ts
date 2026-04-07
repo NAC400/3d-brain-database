@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import type { Source, StructureLink, Note } from '../types/source';
+import type { Source, StructureLink, Note, Project } from '../types/source';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -141,6 +141,14 @@ export interface BrainState {
   // Whether highlight-paint mode is active
   highlightMode: boolean;
 
+  // --- Projects ---
+  projects:           Project[];
+  activeProjectId:    string | null;
+  addProject:         (project: Project) => void;
+  removeProject:      (id: string) => void;
+  updateProject:      (id: string, updates: Partial<Project>) => void;
+  setActiveProjectId: (id: string | null) => void;
+
   // --- Auth / user state (Phase 3A) ---
   user: { id: string; email: string; plan: 'free' | 'pro' | 'institutional' } | null;
   isAuthLoading: boolean;
@@ -197,6 +205,7 @@ export interface BrainState {
   removeStructureNote: (meshName: string, noteId: string) => void;
   setHighlightColor:   (meshName: string, color: string | null) => void;
   setHighlightMode:    (active: boolean) => void;
+  clearAllHighlights:  () => void;
 
   // Auth actions (Phase 3A)
   setUser:         (user: BrainState['user']) => void;
@@ -267,6 +276,10 @@ export const useBrainStore = create<BrainState>()(
   structureNotes: {},
   highlightColors: {},
   highlightMode: false,
+
+  // Projects
+  projects: [],
+  activeProjectId: null,
 
   // Auth
   user: null,
@@ -447,6 +460,18 @@ export const useBrainStore = create<BrainState>()(
     }),
 
   setHighlightMode: (active) => set({ highlightMode: active }),
+  clearAllHighlights: () => set({ highlightColors: {} }),
+
+  // --- Project actions ---
+  addProject: (project) =>
+    set((state) => ({ projects: [...state.projects, project] })),
+  removeProject: (id) =>
+    set((state) => ({ projects: state.projects.filter((p) => p.id !== id) })),
+  updateProject: (id, updates) =>
+    set((state) => ({
+      projects: state.projects.map((p) => p.id === id ? { ...p, ...updates } : p),
+    })),
+  setActiveProjectId: (id) => set({ activeProjectId: id }),
 
   // --- Auth actions ---
   setUser:        (user)    => set({ user }),
@@ -467,6 +492,8 @@ export const useBrainStore = create<BrainState>()(
     structureNotes:  state.structureNotes,
     highlightColors: state.highlightColors,
     user:            state.user,
+    projects:        state.projects,
+    activeProjectId: state.activeProjectId,
   }),
 }
 )

@@ -15,7 +15,7 @@ interface Props {
 const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
 
 const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
-  const { addSource, addStructureLink, regionMap, brainRegions } = useBrainStore();
+  const { addSource, addStructureLink, regionMap, brainRegions, projects, activeProjectId } = useBrainStore();
 
   const [mode, setMode]         = useState<Mode>('doi');
   const [doi, setDoi]           = useState('');
@@ -32,6 +32,8 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
   const [abstract, setAbstract] = useState('');
   const [manualDoi, setManualDoi] = useState('');
   const [tags, setTags]       = useState('');
+
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(activeProjectId ?? null);
 
   // Region linking
   const [linkedRegion, setLinkedRegion] = useState(prelinkedRegion ?? '');
@@ -61,6 +63,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
       isGlobal: false,
       createdAt: new Date().toISOString(),
       notes: [],
+      projectId: selectedProjectId,
     };
     addSource(source);
 
@@ -220,6 +223,20 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
             <input value={manualDoi} onChange={(e) => setManualDoi(e.target.value)} placeholder="DOI (optional)" style={inputStyle} />
             <textarea value={abstract} onChange={(e) => setAbstract(e.target.value)} placeholder="Abstract (optional)" rows={4} style={{ ...inputStyle, resize: 'vertical', fontFamily: 'inherit' }} />
           </div>
+        )}
+
+        {/* Project selector */}
+        {projects.length > 0 && (
+          <select
+            value={selectedProjectId ?? ''}
+            onChange={(e) => setSelectedProjectId(e.target.value || null)}
+            style={{ ...inputStyle, marginBottom: 8 }}
+          >
+            <option value="">Unfiled (no project)</option>
+            {projects.map((p) => (
+              <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
+          </select>
         )}
 
         {/* Tags (all modes) */}

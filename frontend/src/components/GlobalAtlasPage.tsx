@@ -180,23 +180,23 @@ const GlobalAtlasPage: React.FC = () => {
   }, []);
 
   // Heatmap: count contributions per region, normalised 0–1
-  const heatmap = useMemo(() => {
+  const { heatmap, rawCounts } = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const c of contributions) counts[c.mesh_name] = (counts[c.mesh_name] ?? 0) + 1;
     const max = Math.max(1, ...Object.values(counts));
     const norm: Record<string, number> = {};
     for (const [k, v] of Object.entries(counts)) norm[k] = v / max;
-    return norm;
+    return { heatmap: norm, rawCounts: counts };
   }, [contributions]);
 
   // Also include local links as part of the local heatmap
-  const localHeatmap = useMemo(() => {
+  const { localHeatmap, localRawCounts } = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const l of structureLinks) counts[l.regionMeshName] = (counts[l.regionMeshName] ?? 0) + 1;
     const max = Math.max(1, ...Object.values(counts));
     const norm: Record<string, number> = {};
     for (const [k, v] of Object.entries(counts)) norm[k] = v / max;
-    return norm;
+    return { localHeatmap: norm, localRawCounts: counts };
   }, [structureLinks]);
 
   const filtered = contributions.filter((c) =>
@@ -262,9 +262,9 @@ const GlobalAtlasPage: React.FC = () => {
         background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.15)',
         marginBottom: 28,
       }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, letterSpacing: 0.6 }}>RESEARCH COVERAGE HEATMAP</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, letterSpacing: 0.6 }}>RESEARCH DENSITY HEATMAP</div>
         <p style={{ fontSize: 11, color: '#475569', marginBottom: 14 }}>
-          Regions below are coloured by research coverage: <span style={{ color: '#ef4444' }}>bright red</span> = most studied, <span style={{ color: '#334155' }}>dim</span> = under-researched. The 3D viewer will reflect these colours when you return to the Explorer.
+          Regions below are coloured by relative research density: <span style={{ color: '#ef4444' }}>bright red</span> = highest source count relative to other regions, <span style={{ color: '#334155' }}>dim</span> = fewer sources. Hover any chip to see the actual source count.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {brainRegions.map((r) => {
@@ -275,7 +275,13 @@ const GlobalAtlasPage: React.FC = () => {
             return (
               <button
                 key={r.meshName}
-                title={`${r.name}: ${Math.round(intensity * 100)}% coverage — click to explore in 3D`}
+                title={(() => {
+                  const g = rawCounts[r.meshName];
+                  const l = localRawCounts[r.meshName];
+                  if (g) return `${r.name}: ${g} global source${g !== 1 ? 's' : ''} — click to explore in 3D`;
+                  if (l) return `${r.name}: ${l} local source${l !== 1 ? 's' : ''} — click to explore in 3D`;
+                  return `${r.name}: no sources yet — click to explore in 3D`;
+                })()}
                 onClick={() => { setSelectedRegion(r.meshName); setAppPage('explorer'); }}
                 style={{
                   padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,

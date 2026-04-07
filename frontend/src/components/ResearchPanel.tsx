@@ -10,13 +10,14 @@ const ResearchPanel: React.FC = () => {
     selectedRegion, regionMap,
     sources, structureLinks,
     researchPanelOpen, setResearchPanelOpen,
+    activeProjectId,
   } = useBrainStore();
 
   const [tab, setTab]               = useState<Tab>('region');
   const [searchQuery, setSearchQuery] = useState('');
   const [addModalOpen, setAddModalOpen] = useState(false);
 
-  // Sources linked to the currently selected region
+  // Sources linked to the currently selected region, filtered by active project
   const regionSources = useMemo(() => {
     if (!selectedRegion) return [];
     const ids = new Set(
@@ -24,26 +25,33 @@ const ResearchPanel: React.FC = () => {
         .filter((l) => l.regionMeshName === selectedRegion)
         .map((l) => l.sourceId)
     );
-    return sources.filter((s) => ids.has(s.id));
-  }, [selectedRegion, sources, structureLinks]);
+    let filtered = sources.filter((s) => ids.has(s.id));
+    if (activeProjectId) filtered = filtered.filter((s) => s.projectId === activeProjectId || !s.projectId);
+    return filtered;
+  }, [selectedRegion, sources, structureLinks, activeProjectId]);
 
-  // All sources (sorted newest first)
-  const allSources = useMemo(() =>
-    [...sources].sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
-    [sources]
-  );
+  // All sources (sorted newest first), filtered by active project
+  const allSources = useMemo(() => {
+    const pool = activeProjectId
+      ? sources.filter((s) => s.projectId === activeProjectId || !s.projectId)
+      : sources;
+    return [...pool].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  }, [sources, activeProjectId]);
 
   // Search results across title + authors + abstract + tags
   const searchResults = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     if (!q) return [];
-    return sources.filter((s) =>
+    const pool = activeProjectId
+      ? sources.filter((s) => s.projectId === activeProjectId || !s.projectId)
+      : sources;
+    return pool.filter((s) =>
       s.title.toLowerCase().includes(q) ||
       s.authors.join(' ').toLowerCase().includes(q) ||
       (s.abstract ?? '').toLowerCase().includes(q) ||
       s.tags.some((t) => t.toLowerCase().includes(q))
     );
-  }, [sources, searchQuery]);
+  }, [sources, searchQuery, activeProjectId]);
 
   const selectedRegionData = selectedRegion ? regionMap[selectedRegion] : null;
 
@@ -57,7 +65,12 @@ const ResearchPanel: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         background: 'rgba(15,23,42,0.97)',
-        borderLeft: '1px solid rgba(59,130,246,0.25)',
+        borderLeft: selectedRegionData
+          ? `2px solid ${selectedRegionData.color}99`
+          : '1px solid rgba(59,130,246,0.25)',
+        boxShadow: selectedRegionData
+          ? `inset 4px 0 16px ${selectedRegionData.color}14`
+          : 'none',
         overflow: 'hidden',
         zIndex: 20,
       }}>
@@ -69,12 +82,32 @@ const ResearchPanel: React.FC = () => {
           flexShrink: 0,
         }}>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, color: '#3b82f6', textTransform: 'uppercase' }}>
-              Research Sources
-            </div>
-            <div style={{ fontSize: 10, color: '#334155', marginTop: 1 }}>
-              {sources.length} source{sources.length !== 1 ? 's' : ''} · {structureLinks.length} link{structureLinks.length !== 1 ? 's' : ''}
-            </div>
+            {selectedRegionData ? (
+              <>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                  <span style={{
+                    width: 9, height: 9, borderRadius: '50%',
+                    background: selectedRegionData.color, flexShrink: 0,
+                    boxShadow: `0 0 5px ${selectedRegionData.color}`,
+                  }} />
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>
+                    {selectedRegionData.name}
+                  </div>
+                </div>
+                <div style={{ fontSize: 10, color: '#475569', marginTop: 2, paddingLeft: 16 }}>
+                  Research Sources · {sources.length} total
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, color: '#3b82f6', textTransform: 'uppercase' }}>
+                  Research Sources
+                </div>
+                <div style={{ fontSize: 10, color: '#334155', marginTop: 1 }}>
+                  {sources.length} source{sources.length !== 1 ? 's' : ''} · {structureLinks.length} link{structureLinks.length !== 1 ? 's' : ''}
+                </div>
+              </>
+            )}
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
             <button

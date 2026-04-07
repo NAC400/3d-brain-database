@@ -9,6 +9,7 @@ const LibraryPage: React.FC = () => {
     sources, structureLinks,
     setViewingSourceId, removeSource,
     setAppPage,
+    projects, activeProjectId, setActiveProjectId,
   } = useBrainStore();
 
   const [search, setSearch]       = useState('');
@@ -26,6 +27,7 @@ const LibraryPage: React.FC = () => {
     const q = search.trim().toLowerCase();
     return sources
       .filter((s) => {
+        if (activeProjectId && s.projectId !== activeProjectId && s.projectId != null) return false;
         if (filterTag && !s.tags.includes(filterTag)) return false;
         if (!q) return true;
         return (
@@ -42,7 +44,7 @@ const LibraryPage: React.FC = () => {
         if (sortBy === 'title') return a.title.localeCompare(b.title);
         return 0;
       });
-  }, [sources, search, sortBy, filterTag]);
+  }, [sources, search, sortBy, filterTag, activeProjectId]);
 
   const getLinkedCount = (id: string) =>
     structureLinks.filter((l) => l.sourceId === id).length;
@@ -61,6 +63,37 @@ const LibraryPage: React.FC = () => {
         flexShrink: 0,
         flexWrap: 'wrap',
       }}>
+        {/* Project filter chips */}
+        {projects.length > 0 && (
+          <div style={{ display: 'flex', gap: 5, alignItems: 'center', width: '100%', marginBottom: 4 }}>
+            <button
+              onClick={() => setActiveProjectId(null)}
+              style={{
+                padding: '3px 10px', borderRadius: 20, fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                border: `1px solid ${!activeProjectId ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
+                background: !activeProjectId ? 'rgba(59,130,246,0.15)' : 'transparent',
+                color: !activeProjectId ? '#60a5fa' : '#475569',
+              }}
+            >All</button>
+            {projects.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => setActiveProjectId(activeProjectId === p.id ? null : p.id)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 5,
+                  padding: '3px 10px', borderRadius: 20, fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                  border: `1px solid ${activeProjectId === p.id ? p.color + '80' : 'rgba(100,116,139,0.2)'}`,
+                  background: activeProjectId === p.id ? p.color + '22' : 'transparent',
+                  color: activeProjectId === p.id ? p.color : '#475569',
+                }}
+              >
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: p.color, flexShrink: 0 }} />
+                {p.name}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Search */}
         <div style={{ position: 'relative', flex: 1, minWidth: 200, maxWidth: 400 }}>
           <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: '#475569', fontSize: 13 }}>⌕</span>

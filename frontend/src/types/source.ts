@@ -2,6 +2,15 @@
 // Source & StructureLink types — Pillar 2 Academic Research Engine
 // ---------------------------------------------------------------------------
 
+export interface Project {
+  id:           string;
+  name:         string;
+  description?: string;
+  mode:         'private' | 'community';
+  color:        string;       // hex color for UI accent
+  createdAt:    string;       // ISO date string
+}
+
 /** A single markdown note with version history. */
 export interface NoteVersion {
   content:   string;
@@ -32,6 +41,7 @@ export interface Source {
   createdAt:   string;       // ISO date string
   notes:       Note[];       // markdown notes attached to this source
   highlightColor?: string;   // custom color for linked brain regions
+  projectId?:  string | null; // null/undefined = "Unfiled"
 }
 
 // Links a Source to one or more brain region mesh names
