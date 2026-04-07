@@ -90,6 +90,7 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
   const isIsolated = isolatedRegion !== null;
   const regionData = regionMap[meshName];
   const customColor = highlightColors[meshName];
+
   // Opt-in filter: empty = all visible; non-empty = only selected categories visible
   const isCategoryFiltered = regionData
     ? (activeCategories.size > 0 && !activeCategories.has(regionData.category))
@@ -287,7 +288,7 @@ const MirroredHemisphere: React.FC<MirroredProps> = ({ meshes, groupOffset, base
 
 const BrainModel: React.FC = () => {
   const { scene } = useGLTF(MODEL_URL);
-  const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, setRegionCentroidDirs, setRegionDescriptions, showMirroredHemisphere } = useBrainStore();
+  const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, setRegionCentroidDirs, setRegionDescriptions, showMirroredHemisphere, regionMap } = useBrainStore();
 
   const meshes = useMemo(() => {
     const result: THREE.Mesh[] = [];
@@ -456,14 +457,18 @@ const BrainModel: React.FC = () => {
           }
         }}
       >
-        {filteredMeshes.map((mesh) => (
-          <RegionMesh
-            key={mesh.name}
-            mesh={mesh}
-            basePosition={basePositions[mesh.name] ?? new THREE.Vector3()}
-            centroidDir={centroidDirs[mesh.name]  ?? new THREE.Vector3(0, 1, 0)}
-          />
-        ))}
+        {filteredMeshes
+          // Once regions.json is loaded, skip any mesh with no anatomical entry —
+          // these are GLB artifacts that have no regionMap record.
+          .filter((mesh) => Object.keys(regionMap).length === 0 || regionMap[mesh.name])
+          .map((mesh) => (
+            <RegionMesh
+              key={mesh.name}
+              mesh={mesh}
+              basePosition={basePositions[mesh.name] ?? new THREE.Vector3()}
+              centroidDir={centroidDirs[mesh.name]  ?? new THREE.Vector3(0, 1, 0)}
+            />
+          ))}
       </group>
     </>
   );

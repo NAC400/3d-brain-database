@@ -19,7 +19,7 @@ const App: React.FC = () => {
     researchPanelOpen, setResearchPanelOpen,
     sources, structureLinks,
     setSelectedRegion, setExplodeAmount, explodeAmount,
-    setHighlightMode,
+    highlightMode, setHighlightMode,
   } = useBrainStore();
 
   // ── Keyboard shortcuts ──
@@ -28,7 +28,7 @@ const App: React.FC = () => {
       const tag = (e.target as HTMLElement).tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       switch (e.key.toLowerCase()) {
-        case 'r': useBrainStore.getState().setCameraTarget(null); break;
+        case 'r': useBrainStore.getState().setCameraTarget({ position: [0, 0, 4.5], lookAt: [0, 0, 0] }); break;
         case 'e': setExplodeAmount(explodeAmount > 0 ? 0 : 0.5); break;
         case 'l': setResearchPanelOpen(!researchPanelOpen); break;
         case 's': document.querySelector<HTMLInputElement>('input[placeholder*="Search brain"]')?.focus(); break;
@@ -184,9 +184,53 @@ const App: React.FC = () => {
       {appPage === 'explorer' && (
         <div style={{ display: 'flex', overflow: 'hidden', position: 'relative' }}>
           {/* 3-D viewport */}
-          <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+          <div style={{
+            flex: 1, position: 'relative', overflow: 'hidden',
+            outline: highlightMode ? '2px solid rgba(34,211,238,0.6)' : 'none',
+            outlineOffset: '-2px',
+          }}>
             <BrainScene />
             <RegionInfoPanel />
+
+            {/* Paint mode active badge */}
+            {highlightMode && (
+              <div style={{
+                position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)',
+                zIndex: 50, display: 'flex', alignItems: 'center', gap: 8,
+                padding: '7px 16px', borderRadius: 20,
+                background: 'rgba(6,182,212,0.15)',
+                border: '1px solid rgba(34,211,238,0.6)',
+                backdropFilter: 'blur(8px)',
+                boxShadow: '0 0 20px rgba(34,211,238,0.2)',
+                pointerEvents: 'none',
+              }}>
+                <span style={{ fontSize: 14 }}>🖌</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#22d3ee', letterSpacing: 0.5 }}>
+                  PAINT MODE
+                </span>
+                <span style={{ fontSize: 11, color: '#0891b2' }}>
+                  — click any region to apply colour
+                </span>
+              </div>
+            )}
+
+            {/* Exit paint mode button — bottom-left corner */}
+            {highlightMode && (
+              <button
+                onClick={() => setHighlightMode(false)}
+                style={{
+                  position: 'absolute', bottom: 16, left: 16, zIndex: 50,
+                  display: 'flex', alignItems: 'center', gap: 6,
+                  padding: '6px 14px', borderRadius: 8,
+                  background: 'rgba(6,182,212,0.15)',
+                  border: '1px solid rgba(34,211,238,0.5)',
+                  color: '#22d3ee', fontSize: 12, fontWeight: 700, cursor: 'pointer',
+                  backdropFilter: 'blur(8px)',
+                }}
+              >
+                ✕ Exit Paint Mode
+              </button>
+            )}
           </div>
           {/* Research sidebar */}
           <ResearchPanel />
