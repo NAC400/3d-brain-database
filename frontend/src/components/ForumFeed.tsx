@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useBrainStore } from '../store/brainStore';
 import {
   fetchForumPosts, createForumPost, upvoteForumPost,
@@ -29,6 +29,29 @@ function flairColor(email: string): string {
   return FLAIR_COLORS[h];
 }
 
+function makeId(): string {
+  return Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
+
+// Whether a Supabase error is "table does not exist"
+function isTableMissingError(err: unknown): boolean {
+  if (!err) return false;
+  const msg = (err as any)?.message ?? '';
+  return (
+    msg.includes('relation') && msg.includes('does not exist') ||
+    msg.includes('schema cache') ||
+    msg.includes("table") ||
+    (err as any)?.code === '42P01'
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Local in-memory store (session-scoped fallback when Supabase tables missing)
+// We use a module-level ref so posts survive tab switches within the same session.
+// ---------------------------------------------------------------------------
+const _localPosts: ForumPost[] = [];
+const _localComments: Record<string, ForumComment[]> = {};
+
 // ---------------------------------------------------------------------------
 // Avatar
 // ---------------------------------------------------------------------------
@@ -44,9 +67,93 @@ const Avatar: React.FC<{ email: string; size?: number }> = ({ email, size = 28 }
 );
 
 // ---------------------------------------------------------------------------
+// SQL setup banner (shown when tables are missing)
+// ---------------------------------------------------------------------------
+const SQL_SCHEMA = `-- Run this in your Supabase SQL editor:
+
+create table forum_posts (
+  id          uuid primary key default gen_random_uuid(),
+  user_id     uuid references auth.users not null,
+  user_email  text,
+  title       text not null,
+  body        text,
+  region_name text,
+  mesh_name   text,
+  tags        text[],
+  upvotes     int default 0,
+  created_at  timestamptz default now()
+);
+alter table forum_posts enable row level security;
+create policy "Anyone can read posts"
+  on forum_posts for select using (true);
+create policy "Auth users can insert posts"
+  on forum_posts for insert with check (auth.uid() = user_id);
+create policy "Authors can update posts"
+  on forum_posts for update using (auth.uid() = user_id);
+
+create table forum_comments (
+  id          uuid primary key default gen_random_uuid(),
+  post_id     uuid references forum_posts on delete cascade not null,
+  user_id     uuid references auth.users not null,
+  user_email  text,
+  body        text not null,
+  upvotes     int default 0,
+  created_at  timestamptz default now()
+);
+alter table forum_comments enable row level security;
+create policy "Anyone can read comments"
+  on forum_comments for select using (true);
+create policy "Auth users can insert comments"
+  on forum_comments for insert with check (auth.uid() = user_id);`;
+
+const SetupBanner: React.FC = () => {
+  const [copied, setCopied] = useState(false);
+  return (
+    <div style={{
+      background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.25)',
+      borderRadius: 10, padding: '14px 16px', marginBottom: 16,
+    }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#fbbf24', marginBottom: 6 }}>
+        Forum tables not found in Supabase
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 10, lineHeight: 1.6 }}>
+        Posts are saved locally for this session only. To enable full persistence, run the SQL below in your{' '}
+        <strong style={{ color: '#fbbf24' }}>Supabase Dashboard → SQL Editor</strong>.
+      </div>
+      <div style={{ position: 'relative' }}>
+        <pre style={{
+          fontSize: 10, color: '#94a3b8', background: 'rgba(7,11,22,0.7)',
+          border: '1px solid rgba(59,130,246,0.15)', borderRadius: 6,
+          padding: '10px 12px', overflowX: 'auto', margin: 0,
+          lineHeight: 1.6, maxHeight: 180, overflowY: 'auto',
+        }}>
+          {SQL_SCHEMA}
+        </pre>
+        <button
+          onClick={() => { navigator.clipboard.writeText(SQL_SCHEMA); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
+          style={{
+            position: 'absolute', top: 8, right: 8,
+            padding: '3px 8px', borderRadius: 4, fontSize: 9, fontWeight: 600, cursor: 'pointer',
+            background: copied ? 'rgba(34,197,94,0.2)' : 'rgba(59,130,246,0.2)',
+            border: `1px solid ${copied ? 'rgba(34,197,94,0.4)' : 'rgba(59,130,246,0.35)'}`,
+            color: copied ? '#4ade80' : '#60a5fa',
+          }}
+        >
+          {copied ? 'Copied!' : 'Copy SQL'}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// ---------------------------------------------------------------------------
 // New Post Modal
 // ---------------------------------------------------------------------------
-const NewPostModal: React.FC<{ onClose: () => void; onPosted: () => void }> = ({ onClose, onPosted }) => {
+const NewPostModal: React.FC<{
+  onClose: () => void;
+  onPosted: (post?: ForumPost) => void;
+  useLocal: boolean;
+}> = ({ onClose, onPosted, useLocal }) => {
   const { user, brainRegions } = useBrainStore();
   const [title, setTitle]       = useState('');
   const [body, setBody]         = useState('');
@@ -69,6 +176,29 @@ const NewPostModal: React.FC<{ onClose: () => void; onPosted: () => void }> = ({
     if (!title.trim()) { setError('Title is required.'); return; }
     if (!user)         { setError('You must be signed in to post.'); return; }
     setSubmitting(true); setError('');
+
+    const tagList = tags.split(',').map((t) => t.trim()).filter(Boolean);
+
+    if (useLocal) {
+      // Local fallback
+      const post: ForumPost = {
+        id: makeId(),
+        user_id: user.id,
+        user_email: user.email,
+        title: title.trim(),
+        body: body.trim() || undefined,
+        region_name: linkedName || undefined,
+        mesh_name: linkedMesh || undefined,
+        tags: tagList,
+        upvotes: 0,
+        created_at: new Date().toISOString(),
+      };
+      _localPosts.unshift(post);
+      onPosted(post);
+      onClose();
+      return;
+    }
+
     const { error: err } = await createForumPost({
       user_id:     user.id,
       user_email:  user.email,
@@ -76,7 +206,7 @@ const NewPostModal: React.FC<{ onClose: () => void; onPosted: () => void }> = ({
       body:        body.trim() || undefined,
       region_name: linkedName || undefined,
       mesh_name:   linkedMesh || undefined,
-      tags:        tags.split(',').map((t) => t.trim()).filter(Boolean),
+      tags:        tagList,
     });
     setSubmitting(false);
     if (err) { setError((err as any).message); return; }
@@ -102,7 +232,7 @@ const NewPostModal: React.FC<{ onClose: () => void; onPosted: () => void }> = ({
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          placeholder="Share your insights, questions, or findings… (Markdown supported)"
+          placeholder="Share your insights, questions, or findings…"
           rows={6}
           style={{ ...inputStyle, resize: 'vertical', fontFamily: 'inherit', lineHeight: 1.6 }}
         />
@@ -146,6 +276,12 @@ const NewPostModal: React.FC<{ onClose: () => void; onPosted: () => void }> = ({
           </div>
         )}
 
+        {useLocal && (
+          <div style={{ fontSize: 10, color: '#64748b', marginBottom: 10 }}>
+            Running in local mode — post will be saved for this session only.
+          </div>
+        )}
+
         <button
           onClick={handleSubmit}
           disabled={submitting || !user}
@@ -166,24 +302,44 @@ const NewPostModal: React.FC<{ onClose: () => void; onPosted: () => void }> = ({
 // ---------------------------------------------------------------------------
 // Comment thread
 // ---------------------------------------------------------------------------
-const CommentThread: React.FC<{ postId: string; postUserId: string }> = ({ postId }) => {
+const CommentThread: React.FC<{ postId: string; useLocal: boolean }> = ({ postId, useLocal }) => {
   const { user } = useBrainStore();
-  const [comments, setComments]   = useState<ForumComment[]>([]);
-  const [loading, setLoading]     = useState(true);
-  const [body, setBody]           = useState('');
+  const [comments, setComments]     = useState<ForumComment[]>([]);
+  const [loading, setLoading]       = useState(true);
+  const [body, setBody]             = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    setComments(await fetchForumComments(postId));
+    if (useLocal) {
+      setComments(_localComments[postId] ?? []);
+    } else {
+      setComments(await fetchForumComments(postId));
+    }
     setLoading(false);
-  }, [postId]);
+  }, [postId, useLocal]);
 
   useEffect(() => { load(); }, [load]);
 
   const handleComment = async () => {
     if (!body.trim() || !user) return;
     setSubmitting(true);
+    if (useLocal) {
+      const c: ForumComment = {
+        id: makeId(),
+        post_id: postId,
+        user_id: user.id,
+        user_email: user.email,
+        body: body.trim(),
+        upvotes: 0,
+        created_at: new Date().toISOString(),
+      };
+      _localComments[postId] = [...(_localComments[postId] ?? []), c];
+      setBody('');
+      setSubmitting(false);
+      load();
+      return;
+    }
     await createForumComment({ post_id: postId, user_id: user.id, user_email: user.email, body: body.trim() });
     setBody('');
     setSubmitting(false);
@@ -250,7 +406,11 @@ const CommentThread: React.FC<{ postId: string; postUserId: string }> = ({ postI
 // ---------------------------------------------------------------------------
 // Post card
 // ---------------------------------------------------------------------------
-const PostCard: React.FC<{ post: ForumPost; onUpvote: (id: string, current: number) => void }> = ({ post, onUpvote }) => {
+const PostCard: React.FC<{
+  post: ForumPost;
+  useLocal: boolean;
+  onUpvote: (id: string, current: number) => void;
+}> = ({ post, useLocal, onUpvote }) => {
   const { setSelectedRegion, setAppPage } = useBrainStore();
   const [expanded, setExpanded] = useState(false);
 
@@ -259,7 +419,6 @@ const PostCard: React.FC<{ post: ForumPost; onUpvote: (id: string, current: numb
       background: 'rgba(15,23,42,0.85)', border: '1px solid rgba(59,130,246,0.12)',
       borderRadius: 10, padding: '14px 16px', marginBottom: 10,
     }}>
-      {/* Vote + content layout */}
       <div style={{ display: 'flex', gap: 12 }}>
         {/* Upvote column */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, flexShrink: 0 }}>
@@ -277,14 +436,12 @@ const PostCard: React.FC<{ post: ForumPost; onUpvote: (id: string, current: numb
 
         {/* Main content */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          {/* Header row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 4 }}>
             <Avatar email={post.user_email} size={20} />
             <span style={{ fontSize: 10, color: '#64748b' }}>{post.user_email.split('@')[0]}</span>
             <span style={{ fontSize: 9, color: '#334155' }}>· {timeAgo(post.created_at)}</span>
           </div>
 
-          {/* Title */}
           <div
             onClick={() => setExpanded((e) => !e)}
             style={{ fontSize: 13, fontWeight: 600, color: '#f1f5f9', cursor: 'pointer', lineHeight: 1.4, marginBottom: 5 }}
@@ -292,7 +449,6 @@ const PostCard: React.FC<{ post: ForumPost; onUpvote: (id: string, current: numb
             {post.title}
           </div>
 
-          {/* Tags + region */}
           <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginBottom: expanded ? 8 : 0 }}>
             {post.region_name && (
               <button
@@ -310,14 +466,12 @@ const PostCard: React.FC<{ post: ForumPost; onUpvote: (id: string, current: numb
             ))}
           </div>
 
-          {/* Body (expanded) */}
           {expanded && post.body && (
             <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.7, marginBottom: 8, whiteSpace: 'pre-wrap' }}>
               {post.body}
             </div>
           )}
 
-          {/* Footer */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 6 }}>
             <button
               onClick={() => setExpanded((e) => !e)}
@@ -327,7 +481,7 @@ const PostCard: React.FC<{ post: ForumPost; onUpvote: (id: string, current: numb
             </button>
           </div>
 
-          {expanded && <CommentThread postId={post.id} postUserId={post.user_id} />}
+          {expanded && <CommentThread postId={post.id} useLocal={useLocal} />}
         </div>
       </div>
     </div>
@@ -339,23 +493,59 @@ const PostCard: React.FC<{ post: ForumPost; onUpvote: (id: string, current: numb
 // ---------------------------------------------------------------------------
 const ForumFeed: React.FC = () => {
   const { user, setAppPage } = useBrainStore();
-  const [posts, setPosts]       = useState<ForumPost[]>([]);
-  const [loading, setLoading]   = useState(true);
-  const [search, setSearch]     = useState('');
-  const [showNew, setShowNew]   = useState(false);
+  const [posts, setPosts]     = useState<ForumPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch]   = useState('');
+  const [showNew, setShowNew] = useState(false);
+  // true = Supabase tables don't exist, fall back to local state
+  const [useLocal, setUseLocal] = useState(false);
+  const initialised = useRef(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    setPosts(await fetchForumPosts(100));
+    if (!isSupabaseConfigured()) {
+      // No Supabase at all — always local
+      setUseLocal(true);
+      setPosts([..._localPosts]);
+      setLoading(false);
+      return;
+    }
+    try {
+      const data = await fetchForumPosts(100);
+      setUseLocal(false);
+      setPosts(data);
+    } catch (err: unknown) {
+      if (isTableMissingError(err)) {
+        setUseLocal(true);
+        setPosts([..._localPosts]);
+      }
+    }
     setLoading(false);
   }, []);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    if (!initialised.current) { initialised.current = true; load(); }
+  }, [load]);
 
   const handleUpvote = async (id: string, current: number) => {
+    if (useLocal) {
+      setPosts((prev) => prev.map((p) => p.id === id ? { ...p, upvotes: current + 1 } : p));
+      const idx = _localPosts.findIndex((p) => p.id === id);
+      if (idx !== -1) _localPosts[idx].upvotes = current + 1;
+      return;
+    }
     await upvoteForumPost(id, current);
     setPosts((prev) => prev.map((p) => p.id === id ? { ...p, upvotes: current + 1 } : p));
   };
+
+  const handlePosted = useCallback((post?: ForumPost) => {
+    if (post) {
+      // local post returned directly from modal
+      setPosts((prev) => [post, ...prev]);
+    } else {
+      load();
+    }
+  }, [load]);
 
   const filtered = posts.filter((p) =>
     !search ||
@@ -399,9 +589,11 @@ const ForumFeed: React.FC = () => {
         }}
       />
 
+      {/* Banners */}
+      {useLocal && isSupabaseConfigured() && <SetupBanner />}
       {!isSupabaseConfigured() && (
-        <div style={{ padding: '12px 16px', borderRadius: 8, marginBottom: 16, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', color: '#fbbf24', fontSize: 12 }}>
-          Supabase not configured — forum posts won't persist. Add <code>REACT_APP_SUPABASE_URL</code> and <code>REACT_APP_SUPABASE_ANON_KEY</code> to enable the community forum.
+        <div style={{ padding: '10px 14px', borderRadius: 8, marginBottom: 16, background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.2)', color: '#fbbf24', fontSize: 11 }}>
+          Supabase not configured — forum runs in local mode (session only). Add <code>REACT_APP_SUPABASE_URL</code> and <code>REACT_APP_SUPABASE_ANON_KEY</code> to enable persistence.
         </div>
       )}
 
@@ -409,18 +601,21 @@ const ForumFeed: React.FC = () => {
         <div style={{ textAlign: 'center', color: '#334155', padding: 40 }}>Loading posts…</div>
       ) : filtered.length === 0 ? (
         <div style={{ textAlign: 'center', padding: 40, background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10, color: '#334155', fontSize: 13 }}>
-          {posts.length === 0
-            ? 'No posts yet. Start the conversation!'
-            : `No posts match "${search}"`
-          }
+          {posts.length === 0 ? 'No posts yet. Start the conversation!' : `No posts match "${search}"`}
         </div>
       ) : (
         filtered.map((post) => (
-          <PostCard key={post.id} post={post} onUpvote={handleUpvote} />
+          <PostCard key={post.id} post={post} useLocal={useLocal} onUpvote={handleUpvote} />
         ))
       )}
 
-      {showNew && <NewPostModal onClose={() => setShowNew(false)} onPosted={load} />}
+      {showNew && (
+        <NewPostModal
+          onClose={() => setShowNew(false)}
+          onPosted={handlePosted}
+          useLocal={useLocal}
+        />
+      )}
     </div>
   );
 };

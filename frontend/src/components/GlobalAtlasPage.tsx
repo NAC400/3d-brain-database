@@ -10,17 +10,15 @@ import ForumFeed from './ForumFeed';
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-/** Maps a 0–1 intensity to a heatmap color: blue → cyan → green → yellow → orange → red */
+/** Maps a 0–1 intensity to a monochromatic red heatmap: pale rose → deep crimson */
 function heatmapColor(t: number): string {
   if (t <= 0) return 'rgba(30,41,59,0.55)';
-  // 5-stop gradient: 0=blue, 0.25=cyan, 0.5=green, 0.75=yellow, 1=red
+  // 4-stop red scale: pale pink → rose → vivid red → deep crimson
   const stops: [number, number, number][] = [
-    [59, 130, 246],   // blue
-    [34, 211, 238],   // cyan
-    [34, 197, 94],    // green
-    [234, 179, 8],    // yellow
-    [249, 115, 22],   // orange
-    [239, 68, 68],    // red
+    [254, 205, 211],  // #fecdd3 pale rose
+    [251, 113, 133],  // #fb7185 rose
+    [225,  29,  72],  // #e11d48 vivid red
+    [136,  19,  55],  // #881337 deep crimson
   ];
   const scaled = t * (stops.length - 1);
   const i = Math.min(Math.floor(scaled), stops.length - 2);
@@ -327,7 +325,7 @@ const GlobalAtlasPage: React.FC = () => {
         <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, letterSpacing: 0.6 }}>RESEARCH DENSITY HEATMAP</div>
         <p style={{ fontSize: 11, color: '#475569', marginBottom: 14 }}>
           Regions coloured by relative research density —{' '}
-          <span style={{ color: '#3b82f6' }}>blue</span> → <span style={{ color: '#22d3ee' }}>cyan</span> → <span style={{ color: '#22c55e' }}>green</span> → <span style={{ color: '#eab308' }}>yellow</span> → <span style={{ color: '#ef4444' }}>red</span> = low → high.
+          <span style={{ color: '#fb7185' }}>pale rose</span> → <span style={{ color: '#e11d48' }}>red</span> → <span style={{ color: '#881337' }}>deep crimson</span> = low → high.
           Hover a chip to see actual source count. Click to explore in the 3D viewer.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
