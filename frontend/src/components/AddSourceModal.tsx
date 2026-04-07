@@ -60,6 +60,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
       tags: (tags.split(',').map((t) => t.trim()).filter(Boolean)),
       isGlobal: false,
       createdAt: new Date().toISOString(),
+      notes: [],
     };
     addSource(source);
 

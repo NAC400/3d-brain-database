@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useBrainStore } from '../store/brainStore';
+import type { Note } from '../types/source';
+import { NoteList } from './NoteEditor';
+
+const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
 
 const RegionInfoPanel: React.FC = () => {
-  const { selectedRegion, regionMap, setSelectedRegion, setIsolatedRegion, isolatedRegion, regionDescriptions } =
-    useBrainStore();
+  const {
+    selectedRegion, regionMap, setSelectedRegion, setIsolatedRegion, isolatedRegion,
+    regionDescriptions, structureNotes, addStructureNote, updateStructureNote, removeStructureNote,
+    highlightColors, setHighlightColor, highlightMode, setHighlightMode,
+  } = useBrainStore();
+
+  const [showNotes, setShowNotes] = useState(false);
 
   const region = selectedRegion ? regionMap[selectedRegion] : null;
 
@@ -11,6 +20,15 @@ const RegionInfoPanel: React.FC = () => {
 
   const isIsolated = isolatedRegion === selectedRegion;
   const description = region.labelId ? regionDescriptions[region.labelId] : undefined;
+  const notes = structureNotes[region.meshName] ?? [];
+  const highlightColor = highlightColors[region.meshName];
+
+  const addNote = () => {
+    const now = new Date().toISOString();
+    const note: Note = { id: genId(), content: '', createdAt: now, updatedAt: now, versions: [] };
+    addStructureNote(region.meshName, note);
+    setShowNotes(true);
+  };
 
   return (
     <div
@@ -115,20 +133,15 @@ const RegionInfoPanel: React.FC = () => {
       <div style={{ borderTop: '1px solid rgba(30,64,175,0.3)', marginBottom: 12 }} />
 
       {/* Action buttons */}
-      <div style={{ display: 'flex', gap: 8 }}>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
         <button
           onClick={() => setIsolatedRegion(isIsolated ? null : selectedRegion)}
           style={{
-            flex: 1,
-            padding: '6px 0',
-            borderRadius: 6,
+            flex: 1, padding: '6px 0', borderRadius: 6,
             border: '1px solid rgba(59,130,246,0.4)',
             background: isIsolated ? 'rgba(59,130,246,0.25)' : 'rgba(59,130,246,0.08)',
             color: isIsolated ? '#93c5fd' : '#3b82f6',
-            fontSize: 11,
-            cursor: 'pointer',
-            fontWeight: 600,
-            letterSpacing: 0.4,
+            fontSize: 11, cursor: 'pointer', fontWeight: 600, letterSpacing: 0.4,
           }}
         >
           {isIsolated ? 'Show All' : 'Isolate'}
@@ -136,20 +149,75 @@ const RegionInfoPanel: React.FC = () => {
         <button
           onClick={() => { setSelectedRegion(null); setIsolatedRegion(null); }}
           style={{
-            flex: 1,
-            padding: '6px 0',
-            borderRadius: 6,
+            flex: 1, padding: '6px 0', borderRadius: 6,
             border: '1px solid rgba(100,116,139,0.3)',
-            background: 'transparent',
-            color: '#64748b',
-            fontSize: 11,
-            cursor: 'pointer',
-            fontWeight: 600,
-            letterSpacing: 0.4,
+            background: 'transparent', color: '#64748b',
+            fontSize: 11, cursor: 'pointer', fontWeight: 600, letterSpacing: 0.4,
           }}
         >
           Deselect
         </button>
+      </div>
+
+      {/* Highlight color + paint mode */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+        <span style={{ fontSize: 10, color: '#475569', fontWeight: 600, letterSpacing: 0.4 }}>Highlight</span>
+        <input
+          type="color"
+          value={highlightColor ?? region.color}
+          onChange={(e) => setHighlightColor(region.meshName, e.target.value)}
+          title="Custom highlight color"
+          style={{ width: 22, height: 22, borderRadius: 4, border: 'none', cursor: 'pointer', background: 'none' }}
+        />
+        {highlightColor && (
+          <button
+            onClick={() => setHighlightColor(region.meshName, null)}
+            style={{
+              fontSize: 9, padding: '2px 6px', borderRadius: 3,
+              background: 'transparent', border: '1px solid rgba(100,116,139,0.2)',
+              color: '#475569', cursor: 'pointer',
+            }}
+          >Reset</button>
+        )}
+        <button
+          onClick={() => setHighlightMode(!highlightMode)}
+          title="Toggle paint mode — click regions to set their colour"
+          style={{
+            marginLeft: 'auto', fontSize: 9, padding: '2px 7px', borderRadius: 3,
+            background: highlightMode ? 'rgba(34,211,238,0.15)' : 'transparent',
+            border: `1px solid ${highlightMode ? 'rgba(34,211,238,0.4)' : 'rgba(100,116,139,0.2)'}`,
+            color: highlightMode ? '#22d3ee' : '#475569', cursor: 'pointer', fontWeight: 600,
+          }}
+        >
+          {highlightMode ? '🖌 Painting' : '🖌 Paint'}
+        </button>
+      </div>
+
+      {/* Structure notes */}
+      <div>
+        <button
+          onClick={() => setShowNotes(!showNotes)}
+          style={{
+            width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            background: 'none', border: 'none', color: '#475569', cursor: 'pointer',
+            fontSize: 10, fontWeight: 700, letterSpacing: 0.6, padding: '4px 0',
+            textTransform: 'uppercase',
+          }}
+        >
+          <span>Notes {notes.length > 0 ? `(${notes.length})` : ''}</span>
+          <span style={{ fontSize: 8 }}>{showNotes ? '▲' : '▾'}</span>
+        </button>
+        {showNotes && (
+          <div style={{ marginTop: 6 }}>
+            <NoteList
+              notes={notes}
+              onAdd={addNote}
+              onSave={(id, content) => updateStructureNote(region.meshName, id, content)}
+              onDelete={(id) => removeStructureNote(region.meshName, id)}
+              compact
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BrainScene from './components/BrainScene';
 import RegionInfoPanel from './components/RegionInfoPanel';
 import ControlsToolbar from './components/ControlsToolbar';
@@ -7,14 +7,38 @@ import ResearchPanel from './components/ResearchPanel';
 import SourceViewer from './components/SourceViewer';
 import HomePage from './components/HomePage';
 import LibraryPage from './components/LibraryPage';
+import ContextMenu from './components/ContextMenu';
 import { useBrainStore } from './store/brainStore';
+
+const LazyGlobalAtlasPage = React.lazy(() => import('./components/GlobalAtlasPage'));
+const LazyAuthPage        = React.lazy(() => import('./components/AuthPage'));
 
 const App: React.FC = () => {
   const {
     appPage, setAppPage,
     researchPanelOpen, setResearchPanelOpen,
     sources, structureLinks,
+    setSelectedRegion, setExplodeAmount, explodeAmount,
+    setHighlightMode,
   } = useBrainStore();
+
+  // ── Keyboard shortcuts ──
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement).tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      switch (e.key.toLowerCase()) {
+        case 'r': useBrainStore.getState().setCameraTarget(null); break;
+        case 'e': setExplodeAmount(explodeAmount > 0 ? 0 : 0.5); break;
+        case 'l': setResearchPanelOpen(!researchPanelOpen); break;
+        case 's': document.querySelector<HTMLInputElement>('input[placeholder*="Search brain"]')?.focus(); break;
+        case 'h': setHighlightMode(!useBrainStore.getState().highlightMode); break;
+        case 'escape': setSelectedRegion(null); useBrainStore.getState().setIsolatedRegion(null); break;
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [explodeAmount, researchPanelOpen, setExplodeAmount, setResearchPanelOpen, setSelectedRegion, setHighlightMode]);
 
   // ── Home page — full screen, no app chrome ──
   if (appPage === 'home') {
@@ -134,8 +158,32 @@ const App: React.FC = () => {
             </button>
           )}
 
-          <button style={{ padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'not-allowed', border: 'none', background: 'transparent', color: '#334155' }}>
+          <button
+            onClick={() => setAppPage('community')}
+            style={{
+              padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
+              border: `1px solid ${appPage === 'community' ? 'rgba(59,130,246,0.5)' : 'transparent'}`,
+              background: appPage === 'community' ? 'rgba(59,130,246,0.15)' : 'transparent',
+              color: appPage === 'community' ? '#60a5fa' : '#94a3b8',
+              fontWeight: appPage === 'community' ? 700 : 400,
+            }}
+          >
             Community
+          </button>
+
+          <div style={{ width: 1, height: 18, background: 'rgba(30,64,175,0.4)', margin: '0 4px' }} />
+
+          <button
+            onClick={() => setAppPage('auth')}
+            style={{
+              padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
+              border: `1px solid ${appPage === 'auth' ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.2)'}`,
+              background: appPage === 'auth' ? 'rgba(59,130,246,0.15)' : 'transparent',
+              color: appPage === 'auth' ? '#60a5fa' : '#64748b',
+              fontWeight: 600,
+            }}
+          >
+            Sign In
           </button>
         </nav>
       </header>
@@ -155,6 +203,13 @@ const App: React.FC = () => {
 
       {appPage === 'library' && <LibraryPage />}
 
+      {(appPage === 'community' || appPage === 'auth') && (
+        <React.Suspense fallback={<div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', color:'#475569' }}>Loading…</div>}>
+          {appPage === 'community' && <LazyGlobalAtlasPage />}
+          {appPage === 'auth' && <LazyAuthPage />}
+        </React.Suspense>
+      )}
+
       {/* ── Footer toolbar — only in explorer ── */}
       {appPage === 'explorer' && (
         <footer style={{
@@ -170,6 +225,9 @@ const App: React.FC = () => {
 
       {/* Source detail viewer — full-screen overlay, works on any page */}
       <SourceViewer />
+
+      {/* Right-click context menu — rendered at document level */}
+      <ContextMenu />
     </div>
   );
 };

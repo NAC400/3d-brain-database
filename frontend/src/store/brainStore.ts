@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Source, StructureLink } from '../types/source';
+import type { Source, StructureLink, Note } from '../types/source';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -124,13 +124,28 @@ export interface BrainState {
   viewingSourceId:   string | null;  // source open in full-page viewer
 
   // --- App page routing ---
-  appPage: 'home' | 'explorer' | 'library';
+  appPage: 'home' | 'explorer' | 'library' | 'community' | 'auth';
 
   // --- Annotations ---
   annotations: any[];
 
   // --- Allen descriptions (labelId → anatomical description) ---
   regionDescriptions: Record<number, string>;
+
+  // --- Annotation/Note system (Phase 2D) ---
+  // Notes keyed by meshName — separate from source notes which live on Source.notes[]
+  structureNotes: Record<string, Note[]>;
+  // Per-mesh custom highlight color (overrides default region color when set)
+  highlightColors: Record<string, string>;
+  // Whether highlight-paint mode is active
+  highlightMode: boolean;
+
+  // --- Auth / user state (Phase 3A) ---
+  user: { id: string; email: string; plan: 'free' | 'pro' | 'institutional' } | null;
+  isAuthLoading: boolean;
+
+  // --- Context menu ---
+  contextMenu: { meshName: string; x: number; y: number } | null;
 
   // --- Actions ---
   setSelectedRegion:  (regionId: string | null) => void;
@@ -172,8 +187,22 @@ export interface BrainState {
   removeStructureLink:(id: string) => void;
   setResearchPanelOpen: (open: boolean) => void;
   setViewingSourceId:   (id: string | null) => void;
-  setAppPage:           (page: 'home' | 'explorer' | 'library') => void;
+  setAppPage:           (page: BrainState['appPage']) => void;
   getSourcesForRegion: (meshName: string) => Source[];
+
+  // Annotation actions (Phase 2D)
+  addStructureNote:    (meshName: string, note: Note) => void;
+  updateStructureNote: (meshName: string, noteId: string, content: string) => void;
+  removeStructureNote: (meshName: string, noteId: string) => void;
+  setHighlightColor:   (meshName: string, color: string | null) => void;
+  setHighlightMode:    (active: boolean) => void;
+
+  // Auth actions (Phase 3A)
+  setUser:         (user: BrainState['user']) => void;
+  setAuthLoading:  (loading: boolean) => void;
+
+  // Context menu
+  setContextMenu:  (menu: BrainState['contextMenu']) => void;
 }
 
 // ---------------------------------------------------------------------------
@@ -230,6 +259,18 @@ export const useBrainStore = create<BrainState>((set, get) => ({
 
   // Annotations
   annotations: [],
+
+  // Phase 2D
+  structureNotes: {},
+  highlightColors: {},
+  highlightMode: false,
+
+  // Auth
+  user: null,
+  isAuthLoading: false,
+
+  // Context menu
+  contextMenu: null,
 
   // --- Actions ---
   setSelectedRegion: (regionId) => set({ selectedRegion: regionId }),
@@ -356,6 +397,60 @@ export const useBrainStore = create<BrainState>((set, get) => ({
     );
     return sources.filter((s: Source) => linkedIds.has(s.id));
   },
+
+  // --- Annotation / note actions ---
+  addStructureNote: (meshName, note) =>
+    set((state) => ({
+      structureNotes: {
+        ...state.structureNotes,
+        [meshName]: [...(state.structureNotes[meshName] ?? []), note],
+      },
+    })),
+
+  updateStructureNote: (meshName, noteId, content) =>
+    set((state) => {
+      const notes = state.structureNotes[meshName] ?? [];
+      return {
+        structureNotes: {
+          ...state.structureNotes,
+          [meshName]: notes.map((n: Note) => {
+            if (n.id !== noteId) return n;
+            const now = new Date().toISOString();
+            return {
+              ...n,
+              content,
+              updatedAt: now,
+              versions: [...n.versions, { content: n.content, savedAt: now }],
+            };
+          }),
+        },
+      };
+    }),
+
+  removeStructureNote: (meshName, noteId) =>
+    set((state) => ({
+      structureNotes: {
+        ...state.structureNotes,
+        [meshName]: (state.structureNotes[meshName] ?? []).filter((n: Note) => n.id !== noteId),
+      },
+    })),
+
+  setHighlightColor: (meshName, color) =>
+    set((state) => {
+      const next = { ...state.highlightColors };
+      if (color === null) delete next[meshName];
+      else next[meshName] = color;
+      return { highlightColors: next };
+    }),
+
+  setHighlightMode: (active) => set({ highlightMode: active }),
+
+  // --- Auth actions ---
+  setUser:        (user)    => set({ user }),
+  setAuthLoading: (loading) => set({ isAuthLoading: loading }),
+
+  // --- Context menu ---
+  setContextMenu: (menu) => set({ contextMenu: menu }),
 }));
 
 // Re-export types for convenience

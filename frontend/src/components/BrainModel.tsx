@@ -77,6 +77,11 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
     regionMap,
     setSelectedRegion,
     setHoveredRegion,
+    setIsolatedRegion,
+    highlightColors,
+    highlightMode,
+    setHighlightColor,
+    setContextMenu,
   } = useBrainStore();
 
   const meshName   = mesh.name;
@@ -84,6 +89,7 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
   const isHovered  = hoveredRegion  === meshName;
   const isIsolated = isolatedRegion !== null;
   const regionData = regionMap[meshName];
+  const customColor = highlightColors[meshName];
   // Opt-in filter: empty = all visible; non-empty = only selected categories visible
   const isCategoryFiltered = regionData
     ? (activeCategories.size > 0 && !activeCategories.has(regionData.category))
@@ -95,9 +101,21 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
     const src = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
     const mat = (src as THREE.MeshStandardMaterial).clone();
     mat.transparent = true;
-    mat.side = THREE.DoubleSide; // IJK→RAS transform can flip winding; DoubleSide avoids invisible faces
+    mat.side = THREE.DoubleSide;
     return mat;
   }, [mesh]);
+
+  // Apply custom highlight color when set
+  useEffect(() => {
+    if (customColor) {
+      material.color.set(customColor);
+    } else {
+      // Reset to original material color
+      const src = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+      material.color.copy((src as THREE.MeshStandardMaterial).color);
+    }
+    invalidate();
+  }, [customColor, material, mesh, invalidate]);
 
   useFrame(() => {
     if (!ref.current) return;
@@ -162,12 +180,31 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
       position={basePosition}
       onClick={(e) => {
         e.stopPropagation();
-        setSelectedRegion(isSelected ? null : meshName);
+        if (highlightMode) {
+          // In paint mode, clicking cycles through a highlight colour
+          const colours = ['#ef4444','#f97316','#eab308','#22c55e','#06b6d4','#8b5cf6','#ec4899'];
+          const idx = colours.indexOf(customColor ?? '');
+          setHighlightColor(meshName, colours[(idx + 1) % colours.length]);
+        } else {
+          setSelectedRegion(isSelected ? null : meshName);
+        }
+      }}
+      onDoubleClick={(e) => {
+        e.stopPropagation();
+        setSelectedRegion(meshName);
+        setIsolatedRegion(isolatedRegion === meshName ? null : meshName);
+      }}
+      onContextMenu={(e) => {
+        e.stopPropagation();
+        // @ts-ignore — nativeEvent exists on R3F events
+        const native = (e as any).nativeEvent as MouseEvent;
+        if (native) native.preventDefault();
+        setContextMenu({ meshName, x: (e as any).clientX ?? 0, y: (e as any).clientY ?? 0 });
       }}
       onPointerOver={(e) => {
         e.stopPropagation();
         setHoveredRegion(meshName);
-        document.body.style.cursor = 'pointer';
+        document.body.style.cursor = highlightMode ? 'crosshair' : 'pointer';
       }}
       onPointerOut={() => {
         setHoveredRegion(null);

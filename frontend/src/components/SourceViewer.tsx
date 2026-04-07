@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useBrainStore } from '../store/brainStore';
 import type { StructureLink } from '../store/brainStore';
-import type { Source } from '../types/source';
+import type { Source, Note } from '../types/source';
 import { fetchAbstract } from '../lib/pubmed';
+import { NoteList } from './NoteEditor';
 
 const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
 
@@ -172,7 +173,7 @@ const buildCitations = (source: Source): Record<string, string> => {
 // SourceViewer component
 // ---------------------------------------------------------------------------
 
-type ContentTab = 'abstract' | 'paper' | 'cite' | 'regions';
+type ContentTab = 'abstract' | 'paper' | 'cite' | 'regions' | 'notes';
 
 const SourceViewer: React.FC = () => {
   const {
@@ -260,12 +261,79 @@ const SourceViewer: React.FC = () => {
     setTimeout(() => setCopied(false), 1800);
   };
 
+  const noteCount = source.notes?.length ?? 0;
+
   const TAB_DEFS: { id: ContentTab; label: string }[] = [
     { id: 'abstract', label: 'Abstract' },
     { id: 'paper',    label: 'Full Paper' },
     { id: 'regions',  label: `Regions (${linkedRegions.length})` },
+    { id: 'notes',    label: `Notes${noteCount > 0 ? ` (${noteCount})` : ''}` },
     { id: 'cite',     label: 'Cite' },
   ];
+
+  const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+
+  const addNote = () => {
+    const now = new Date().toISOString();
+    const note: Note = { id: genId(), content: '', createdAt: now, updatedAt: now, versions: [] };
+    updateSource(source.id, { notes: [...(source.notes ?? []), note] });
+  };
+
+  const saveNote = (noteId: string, content: string) => {
+    const now = new Date().toISOString();
+    updateSource(source.id, {
+      notes: (source.notes ?? []).map((n) => {
+        if (n.id !== noteId) return n;
+        return { ...n, content, updatedAt: now, versions: [...n.versions, { content: n.content, savedAt: now }] };
+      }),
+    });
+  };
+
+  const deleteNote = (noteId: string) => {
+    updateSource(source.id, { notes: (source.notes ?? []).filter((n) => n.id !== noteId) });
+  };
+
+  const exportPDF = async () => {
+    const { jsPDF } = await import('jspdf');
+    const doc = new jsPDF();
+    const margin = 15;
+    let y = margin;
+    const lh = 7;
+    const wrap = (text: string, maxW: number): string[] => doc.splitTextToSize(text, maxW);
+
+    doc.setFontSize(16); doc.setFont('helvetica', 'bold');
+    doc.text(source.title, margin, y); y += lh * 2;
+
+    doc.setFontSize(10); doc.setFont('helvetica', 'normal');
+    if (source.authors.length) { doc.text(source.authors.slice(0,6).join(', ') + (source.authors.length > 6 ? ' et al.' : ''), margin, y); y += lh; }
+    if (source.journal) { doc.text(source.journal + (source.year ? ` (${source.year})` : ''), margin, y); y += lh; }
+    if (source.doi) { doc.text(`DOI: ${source.doi}`, margin, y); y += lh; }
+    y += lh;
+
+    if (source.abstract) {
+      doc.setFont('helvetica', 'bold'); doc.text('Abstract', margin, y); y += lh;
+      doc.setFont('helvetica', 'normal');
+      wrap(source.abstract, 180).forEach((l) => { doc.text(l, margin, y); y += lh; if (y > 270) { doc.addPage(); y = margin; } });
+      y += lh;
+    }
+
+    if ((source.notes ?? []).length > 0) {
+      doc.setFont('helvetica', 'bold'); doc.text('Notes', margin, y); y += lh;
+      doc.setFont('helvetica', 'normal');
+      for (const note of source.notes ?? []) {
+        wrap(note.content, 180).forEach((l) => { doc.text(l, margin, y); y += lh; if (y > 270) { doc.addPage(); y = margin; } });
+        y += lh / 2;
+      }
+      y += lh;
+    }
+
+    doc.setFont('helvetica', 'bold'); doc.text('APA Citation', margin, y); y += lh;
+    doc.setFont('helvetica', 'normal');
+    wrap(citations['APA'], 180).forEach((l) => { doc.text(l, margin, y); y += lh; });
+
+    const filename = source.title.slice(0, 40).replace(/[^a-z0-9]/gi, '_') + '.pdf';
+    doc.save(filename);
+  };
 
   const inputStyle: React.CSSProperties = {
     width: '100%', boxSizing: 'border-box',
@@ -332,6 +400,16 @@ const SourceViewer: React.FC = () => {
               Open Paper ↗
             </a>
           )}
+          <button
+            onClick={exportPDF}
+            style={{
+              padding: '5px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600,
+              background: 'rgba(168,85,247,0.12)', border: '1px solid rgba(168,85,247,0.35)',
+              color: '#c084fc', cursor: 'pointer',
+            }}
+          >
+            Export PDF
+          </button>
         </div>
       </div>
 
@@ -541,6 +619,21 @@ const SourceViewer: React.FC = () => {
                   </div>
                 )}
               </div>
+            </div>
+          )}
+
+          {/* ── Notes tab ── */}
+          {tab === 'notes' && (
+            <div>
+              <p style={{ fontSize: 12, color: '#475569', marginBottom: 16 }}>
+                Markdown-supported notes attached to this source. Supports **bold**, *italic*, `code`, # headings, and - lists.
+              </p>
+              <NoteList
+                notes={source.notes ?? []}
+                onAdd={addNote}
+                onSave={saveNote}
+                onDelete={deleteNote}
+              />
             </div>
           )}
 
