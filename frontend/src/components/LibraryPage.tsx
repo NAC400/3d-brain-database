@@ -27,7 +27,7 @@ const LibraryPage: React.FC = () => {
     const q = search.trim().toLowerCase();
     return sources
       .filter((s) => {
-        if (activeProjectId && s.projectId !== activeProjectId && s.projectId != null) return false;
+        if (activeProjectId && s.projectId !== activeProjectId) return false;
         if (filterTag && !s.tags.includes(filterTag)) return false;
         if (!q) return true;
         return (

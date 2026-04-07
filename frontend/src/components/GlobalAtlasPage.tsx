@@ -5,10 +5,34 @@ import {
   type GlobalContribution,
 } from '../lib/supabase';
 import { verifyRelevance, isGroqConfigured } from '../lib/groqVerification';
+import ForumFeed from './ForumFeed';
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
+/** Maps a 0–1 intensity to a heatmap color: blue → cyan → green → yellow → orange → red */
+function heatmapColor(t: number): string {
+  if (t <= 0) return 'rgba(30,41,59,0.55)';
+  // 5-stop gradient: 0=blue, 0.25=cyan, 0.5=green, 0.75=yellow, 1=red
+  const stops: [number, number, number][] = [
+    [59, 130, 246],   // blue
+    [34, 211, 238],   // cyan
+    [34, 197, 94],    // green
+    [234, 179, 8],    // yellow
+    [249, 115, 22],   // orange
+    [239, 68, 68],    // red
+  ];
+  const scaled = t * (stops.length - 1);
+  const i = Math.min(Math.floor(scaled), stops.length - 2);
+  const f = scaled - i;
+  const [r1, g1, b1] = stops[i];
+  const [r2, g2, b2] = stops[i + 1];
+  const r = Math.round(r1 + (r2 - r1) * f);
+  const g = Math.round(g1 + (g2 - g1) * f);
+  const b = Math.round(b1 + (b2 - b1) * f);
+  return `rgb(${r},${g},${b})`;
+}
+
 function timeAgo(iso: string): string {
   const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
   if (s < 60)   return `${s}s ago`;
@@ -171,6 +195,7 @@ const GlobalAtlasPage: React.FC = () => {
   const [loading, setLoading]     = useState(true);
   const [showContribute, setShowContribute] = useState(false);
   const [search, setSearch]       = useState('');
+  const [tab, setTab]             = useState<'atlas' | 'forum'>('atlas');
 
   useEffect(() => {
     setLoading(true);
@@ -226,7 +251,44 @@ const GlobalAtlasPage: React.FC = () => {
   );
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px', maxWidth: 1100, margin: '0 auto', width: '100%' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+
+      {/* Tab bar */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 4,
+        padding: '0 32px',
+        borderBottom: '1px solid rgba(30,41,59,0.8)',
+        background: 'rgba(15,23,42,0.97)',
+        flexShrink: 0,
+      }}>
+        {([
+          { id: 'atlas', label: 'Atlas & Contributions' },
+          { id: 'forum', label: 'Forum' },
+        ] as { id: 'atlas' | 'forum'; label: string }[]).map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setTab(t.id)}
+            style={{
+              padding: '12px 16px', fontSize: 12, fontWeight: tab === t.id ? 700 : 400, cursor: 'pointer',
+              background: 'transparent', border: 'none',
+              color: tab === t.id ? '#60a5fa' : '#475569',
+              borderBottom: tab === t.id ? '2px solid #3b82f6' : '2px solid transparent',
+              marginBottom: -1,
+            }}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Forum tab */}
+      {tab === 'forum' && (
+        <ForumFeed />
+      )}
+
+      {/* Atlas tab */}
+      {tab === 'atlas' && (
+      <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px', maxWidth: 1100, margin: '0 auto', width: '100%' }}>
 
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 28 }}>
@@ -264,14 +326,16 @@ const GlobalAtlasPage: React.FC = () => {
       }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, letterSpacing: 0.6 }}>RESEARCH DENSITY HEATMAP</div>
         <p style={{ fontSize: 11, color: '#475569', marginBottom: 14 }}>
-          Regions below are coloured by relative research density: <span style={{ color: '#ef4444' }}>bright red</span> = highest source count relative to other regions, <span style={{ color: '#334155' }}>dim</span> = fewer sources. Hover any chip to see the actual source count.
+          Regions coloured by relative research density —{' '}
+          <span style={{ color: '#3b82f6' }}>blue</span> → <span style={{ color: '#22d3ee' }}>cyan</span> → <span style={{ color: '#22c55e' }}>green</span> → <span style={{ color: '#eab308' }}>yellow</span> → <span style={{ color: '#ef4444' }}>red</span> = low → high.
+          Hover a chip to see actual source count. Click to explore in the 3D viewer.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {brainRegions.map((r) => {
             const intensity = heatmap[r.meshName] ?? localHeatmap[r.meshName] ?? 0;
-            const red   = Math.round(intensity * 220 + 20);
-            const green = Math.round((1 - intensity) * 80);
-            const color = intensity > 0 ? `rgb(${red},${green},30)` : 'rgba(30,41,59,0.6)';
+            const color = heatmapColor(intensity);
+            const textColor = intensity > 0.35 ? '#fff' : '#475569';
+            const borderColor = intensity > 0 ? `${color.replace('rgb', 'rgba').replace(')', ',0.45)')}` : 'rgba(30,41,59,0.4)';
             return (
               <button
                 key={r.meshName}
@@ -285,8 +349,8 @@ const GlobalAtlasPage: React.FC = () => {
                 onClick={() => { setSelectedRegion(r.meshName); setAppPage('explorer'); }}
                 style={{
                   padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
-                  background: color, color: intensity > 0.3 ? '#fff' : '#334155',
-                  border: `1px solid ${intensity > 0 ? 'rgba(255,100,50,0.3)' : 'rgba(30,41,59,0.4)'}`,
+                  background: color, color: textColor,
+                  border: `1px solid ${borderColor}`,
                   cursor: 'pointer',
                 }}
               >
@@ -411,6 +475,9 @@ const GlobalAtlasPage: React.FC = () => {
       </div>
 
       {showContribute && <ContributeModal onClose={() => setShowContribute(false)} />}
+      </div>
+      )} {/* end atlas tab */}
+
     </div>
   );
 };

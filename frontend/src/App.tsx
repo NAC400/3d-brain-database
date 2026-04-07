@@ -23,6 +23,7 @@ const App: React.FC = () => {
     highlightMode, setHighlightMode, clearAllHighlights,
     selectedRegion,
     projects, activeProjectId, setActiveProjectId,
+    explorerMode, setExplorerMode,
   } = useBrainStore();
 
   // ── Keyboard shortcuts ──
@@ -36,7 +37,11 @@ const App: React.FC = () => {
         case 'l': setResearchPanelOpen(!researchPanelOpen); break;
         case 's': document.querySelector<HTMLInputElement>('input[placeholder*="Search brain"]')?.focus(); break;
         case 'h': setHighlightMode(!useBrainStore.getState().highlightMode); break;
-        case 'escape': setSelectedRegion(null); useBrainStore.getState().setIsolatedRegion(null); break;
+        case 'escape':
+          setSelectedRegion(null);
+          useBrainStore.getState().setIsolatedRegion(null);
+          if (useBrainStore.getState().highlightMode) setHighlightMode(false);
+          break;
       }
     };
     window.addEventListener('keydown', handler);
@@ -112,21 +117,50 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {/* Research panel toggle — only in explorer */}
+        {/* Explorer mode toggle + Research panel toggle — only in explorer */}
         {appPage === 'explorer' && (
-          <button
-            onClick={() => setResearchPanelOpen(!researchPanelOpen)}
-            title="Toggle Research Panel (L)"
-            style={{
-              padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer', flexShrink: 0,
-              border: `1px solid ${researchPanelOpen ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.25)'}`,
-              background: researchPanelOpen ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: researchPanelOpen ? '#60a5fa' : '#94a3b8',
-              fontWeight: researchPanelOpen ? 700 : 400,
-            }}
-          >
-            Research{selectedRegionSourceCount > 0 ? ` (${selectedRegionSourceCount})` : ''}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+            {/* Personal / Community toggle */}
+            <div style={{
+              display: 'flex', borderRadius: 6, overflow: 'hidden',
+              border: '1px solid rgba(59,130,246,0.3)',
+            }}>
+              {(['personal', 'community'] as const).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => setExplorerMode(m)}
+                  title={m === 'personal' ? 'Your personal sources & notes' : 'Community-verified sources from the global atlas'}
+                  style={{
+                    padding: '5px 12px', fontSize: 11, fontWeight: explorerMode === m ? 700 : 400, cursor: 'pointer',
+                    border: 'none',
+                    background: explorerMode === m
+                      ? m === 'community' ? 'rgba(34,211,238,0.2)' : 'rgba(59,130,246,0.2)'
+                      : 'transparent',
+                    color: explorerMode === m
+                      ? m === 'community' ? '#22d3ee' : '#60a5fa'
+                      : '#64748b',
+                  }}
+                >
+                  {m === 'personal' ? 'Personal' : 'Community'}
+                </button>
+              ))}
+            </div>
+
+            {/* Research panel button */}
+            <button
+              onClick={() => setResearchPanelOpen(!researchPanelOpen)}
+              title="Toggle Research Panel (L)"
+              style={{
+                padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
+                border: `1px solid ${researchPanelOpen ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.25)'}`,
+                background: researchPanelOpen ? 'rgba(59,130,246,0.15)' : 'transparent',
+                color: researchPanelOpen ? '#60a5fa' : '#94a3b8',
+                fontWeight: researchPanelOpen ? 700 : 400,
+              }}
+            >
+              Research{selectedRegionSourceCount > 0 ? ` (${selectedRegionSourceCount})` : ''}
+            </button>
+          </div>
         )}
 
         {/* Library title */}

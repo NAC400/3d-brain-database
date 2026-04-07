@@ -141,6 +141,10 @@ export interface BrainState {
   // Whether highlight-paint mode is active
   highlightMode: boolean;
 
+  // --- Explorer mode ---
+  explorerMode: 'personal' | 'community';
+  setExplorerMode: (mode: 'personal' | 'community') => void;
+
   // --- Projects ---
   projects:           Project[];
   activeProjectId:    string | null;
@@ -276,6 +280,9 @@ export const useBrainStore = create<BrainState>()(
   structureNotes: {},
   highlightColors: {},
   highlightMode: false,
+
+  // Explorer mode
+  explorerMode: 'personal',
 
   // Projects
   projects: [],
@@ -461,6 +468,9 @@ export const useBrainStore = create<BrainState>()(
 
   setHighlightMode: (active) => set({ highlightMode: active }),
   clearAllHighlights: () => set({ highlightColors: {} }),
+
+  // --- Explorer mode ---
+  setExplorerMode: (mode) => set({ explorerMode: mode }),
 
   // --- Project actions ---
   addProject: (project) =>

@@ -107,3 +107,97 @@ export async function fetchContributionsByRegion(meshName: string): Promise<Glob
     .eq('verified', true);
   return data ?? [];
 }
+
+// ---------------------------------------------------------------------------
+// Forum (Phase 3D)
+// ---------------------------------------------------------------------------
+// Required SQL (run in Supabase SQL editor):
+//
+// create table forum_posts (
+//   id          uuid primary key default gen_random_uuid(),
+//   user_id     uuid references auth.users not null,
+//   user_email  text,
+//   title       text not null,
+//   body        text,
+//   region_name text,
+//   mesh_name   text,
+//   tags        text[],
+//   upvotes     int default 0,
+//   created_at  timestamptz default now()
+// );
+// alter table forum_posts enable row level security;
+// create policy "Anyone can read posts" on forum_posts for select using (true);
+// create policy "Auth users can insert posts" on forum_posts for insert with check (auth.uid() = user_id);
+// create policy "Authors can update posts" on forum_posts for update using (auth.uid() = user_id);
+//
+// create table forum_comments (
+//   id          uuid primary key default gen_random_uuid(),
+//   post_id     uuid references forum_posts on delete cascade not null,
+//   user_id     uuid references auth.users not null,
+//   user_email  text,
+//   body        text not null,
+//   upvotes     int default 0,
+//   created_at  timestamptz default now()
+// );
+// alter table forum_comments enable row level security;
+// create policy "Anyone can read comments" on forum_comments for select using (true);
+// create policy "Auth users can insert comments" on forum_comments for insert with check (auth.uid() = user_id);
+
+export interface ForumPost {
+  id:          string;
+  user_id:     string;
+  user_email:  string;
+  title:       string;
+  body?:       string;
+  region_name?: string;
+  mesh_name?:  string;
+  tags?:       string[];
+  upvotes:     number;
+  created_at:  string;
+  comment_count?: number;  // joined/computed
+}
+
+export interface ForumComment {
+  id:         string;
+  post_id:    string;
+  user_id:    string;
+  user_email: string;
+  body:       string;
+  upvotes:    number;
+  created_at: string;
+}
+
+export async function fetchForumPosts(limit = 50): Promise<ForumPost[]> {
+  if (!supabase) return [];
+  const { data } = await supabase
+    .from('forum_posts')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(limit);
+  return data ?? [];
+}
+
+export async function createForumPost(post: Omit<ForumPost, 'id' | 'created_at' | 'upvotes' | 'comment_count'>) {
+  if (!supabase) return { error: { message: 'Supabase not configured.' } };
+  return supabase.from('forum_posts').insert({ ...post, upvotes: 0 });
+}
+
+export async function upvoteForumPost(id: string, currentUpvotes: number) {
+  if (!supabase) return { error: { message: 'Supabase not configured.' } };
+  return supabase.from('forum_posts').update({ upvotes: currentUpvotes + 1 }).eq('id', id);
+}
+
+export async function fetchForumComments(postId: string): Promise<ForumComment[]> {
+  if (!supabase) return [];
+  const { data } = await supabase
+    .from('forum_comments')
+    .select('*')
+    .eq('post_id', postId)
+    .order('created_at', { ascending: true });
+  return data ?? [];
+}
+
+export async function createForumComment(comment: Omit<ForumComment, 'id' | 'created_at' | 'upvotes'>) {
+  if (!supabase) return { error: { message: 'Supabase not configured.' } };
+  return supabase.from('forum_comments').insert({ ...comment, upvotes: 0 });
+}
