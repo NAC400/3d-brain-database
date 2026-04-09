@@ -77,16 +77,18 @@ const App: React.FC = () => {
       height: '100vh',
       width: '100vw',
       overflow: 'hidden',
-      backgroundColor: '#0f172a',
+      backgroundColor: '#050b18',
       color: '#f8fafc',
     }}>
 
       {/* ── Header ── */}
       <header style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '10px 24px',
-        borderBottom: '1px solid rgba(30,64,175,0.6)',
-        background: 'rgba(15,23,42,0.97)',
+        padding: '11px 28px',
+        borderBottom: '1px solid rgba(59,130,246,0.08)',
+        background: 'rgba(5,11,24,0.88)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
         zIndex: 40, gap: 16,
       }}>
 
@@ -99,14 +101,24 @@ const App: React.FC = () => {
           }}
         >
           <div style={{
-            width: 28, height: 28, borderRadius: '50%',
-            background: 'linear-gradient(135deg,#3b82f6,#1e40af)',
-            boxShadow: '0 0 10px rgba(59,130,246,0.5)',
-            flexShrink: 0,
-          }} />
+            width: 30, height: 30, borderRadius: '50%', flexShrink: 0, position: 'relative',
+            background: 'linear-gradient(135deg, #60a5fa, #3b82f6, #1d4ed8)',
+            boxShadow: '0 0 18px rgba(59,130,246,0.5), 0 0 36px rgba(59,130,246,0.15)',
+          }}>
+            <div style={{
+              position: 'absolute', top: 4, left: 5, width: 10, height: 7,
+              borderRadius: '50%', background: 'rgba(255,255,255,0.35)',
+              transform: 'rotate(-20deg)',
+            }} />
+          </div>
           <div style={{ textAlign: 'left' }}>
-            <div style={{ fontWeight: 700, fontSize: 16, letterSpacing: 2, color: '#e0eaff' }}>MAPPED</div>
-            <div style={{ fontSize: 10, color: '#64748b', letterSpacing: 1 }}>3D BRAIN RESEARCH PLATFORM</div>
+            <div style={{
+              fontWeight: 800, fontSize: 15, letterSpacing: 3, color: '#ddeaff',
+              textShadow: '0 0 20px rgba(59,130,246,0.35)',
+            }}>MAPPED</div>
+            <div style={{ fontSize: 9, color: '#2a3d56', letterSpacing: 1.5, fontWeight: 500 }}>
+              3D BRAIN RESEARCH PLATFORM
+            </div>
           </div>
         </button>
 
@@ -232,7 +244,7 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {/* Nav — top-level pages only, no page-specific controls here */}
+        {/* Nav — top-level pages only */}
         <nav style={{ display: 'flex', gap: 2, flexShrink: 0, alignItems: 'center' }}>
 
           {(['explorer', 'library', 'community'] as const).map((page) => (
@@ -240,28 +252,44 @@ const App: React.FC = () => {
               key={page}
               onClick={() => setAppPage(page)}
               style={{
-                padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-                border: `1px solid ${appPage === page ? 'rgba(59,130,246,0.5)' : 'transparent'}`,
-                background: appPage === page ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: appPage === page ? '#60a5fa' : '#94a3b8',
+                padding: '6px 16px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
+                border: 'none',
+                background: appPage === page ? 'rgba(59,130,246,0.14)' : 'transparent',
+                color: appPage === page ? '#60a5fa' : '#4d6080',
                 fontWeight: appPage === page ? 700 : 400,
                 textTransform: 'capitalize',
+                transition: 'color 0.15s ease, background 0.15s ease',
+                position: 'relative',
+              }}
+              onMouseEnter={(e) => {
+                if (appPage !== page) e.currentTarget.style.color = '#94a3b8';
+              }}
+              onMouseLeave={(e) => {
+                if (appPage !== page) e.currentTarget.style.color = '#4d6080';
               }}
             >
               {page}
+              {/* Active underline */}
+              {appPage === page && (
+                <span style={{
+                  position: 'absolute', bottom: -1, left: '20%', right: '20%',
+                  height: 2, borderRadius: 1,
+                  background: 'linear-gradient(90deg, #3b82f6, #22d3ee)',
+                }} />
+              )}
             </button>
           ))}
 
-          <div style={{ width: 1, height: 18, background: 'rgba(30,64,175,0.4)', margin: '0 6px' }} />
+          <div style={{ width: 1, height: 18, background: 'rgba(59,130,246,0.15)', margin: '0 8px' }} />
 
-          {/* Account button — shows username when signed in */}
+          {/* Account button */}
           {useBrainStore.getState().user ? (
             <button
               onClick={() => setAppPage('auth')}
               style={{
-                padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-                border: '1px solid rgba(59,130,246,0.35)',
-                background: 'rgba(59,130,246,0.12)',
+                padding: '6px 16px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
+                border: '1px solid rgba(59,130,246,0.28)',
+                background: 'rgba(59,130,246,0.1)',
                 color: '#60a5fa', fontWeight: 600,
               }}
             >
@@ -271,10 +299,10 @@ const App: React.FC = () => {
             <button
               onClick={() => setAppPage('auth')}
               style={{
-                padding: '6px 16px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-                border: '1px solid rgba(59,130,246,0.4)',
-                background: 'rgba(59,130,246,0.15)',
-                color: '#60a5fa', fontWeight: 700,
+                padding: '6px 18px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
+                border: '1px solid rgba(59,130,246,0.32)',
+                background: 'linear-gradient(135deg, rgba(59,130,246,0.14), rgba(37,99,235,0.18))',
+                color: '#60a5fa', fontWeight: 600,
               }}
             >
               Sign In
@@ -368,8 +396,10 @@ const App: React.FC = () => {
         <footer style={{
           display: 'flex', alignItems: 'center',
           padding: '0 24px', height: 44,
-          borderTop: '1px solid rgba(30,64,175,0.4)',
-          background: 'rgba(15,23,42,0.97)',
+          borderTop: '1px solid rgba(59,130,246,0.08)',
+          background: 'rgba(5,11,24,0.9)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
           zIndex: 40, overflow: 'hidden',
         }}>
           <ControlsToolbar />
