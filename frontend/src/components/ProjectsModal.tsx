@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useBrainStore } from '../store/brainStore';
+import { newId } from '../lib/id';
 import type { Project } from '../types/source';
 
-const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+const genId = newId;
 
 const PRESET_COLORS = [
   '#3b82f6', '#8b5cf6', '#ec4899', '#10b981',

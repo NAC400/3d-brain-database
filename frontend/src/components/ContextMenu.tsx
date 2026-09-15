@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useBrainStore } from '../store/brainStore';
+import { newId } from '../lib/id';
 
 const ContextMenu: React.FC = () => {
   const {
@@ -25,7 +26,7 @@ const ContextMenu: React.FC = () => {
   const region = regionMap[meshName];
   if (!region) return null;
 
-  const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const genId = newId;
 
   const linked = structureLinks.filter((l) => l.regionMeshName === meshName);
   const firstSource = linked.length > 0 ? sources.find((s) => s.id === linked[0].sourceId) : null;

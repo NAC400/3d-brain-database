@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useBrainStore } from '../store/brainStore';
+import { newId } from '../lib/id';
 import type { Note } from '../types/source';
 import { NoteList } from './NoteEditor';
 
-const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+const genId = newId;
 
 const RegionInfoPanel: React.FC = () => {
   const {

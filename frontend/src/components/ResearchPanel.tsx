@@ -53,7 +53,7 @@ const ContribCard: React.FC<{ contrib: GlobalContribution }> = ({ contrib }) => 
             color: '#22d3ee',
           }}>verified</span>
         )}
-        {contrib.ai_score > 0 && (
+        {(contrib.ai_score ?? 0) > 0 && (
           <span style={{
             padding: '1px 6px', borderRadius: 3, fontSize: 9,
             background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)',

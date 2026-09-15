@@ -4,6 +4,7 @@ import type { Source, StructureLink } from '../store/brainStore';
 import type { PubMedResult } from '../types/source';
 import { searchPubMed } from '../lib/pubmed';
 import { lookupDOI } from '../lib/crossref';
+import { newId } from '../lib/id';
 
 type Mode = 'doi' | 'pubmed' | 'manual';
 
@@ -12,7 +13,7 @@ interface Props {
   prelinkedRegion?: string;   // mesh name to pre-link on save
 }
 
-const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+const genId = newId;
 
 const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
   const { addSource, addStructureLink, regionMap, brainRegions, projects, activeProjectId } = useBrainStore();

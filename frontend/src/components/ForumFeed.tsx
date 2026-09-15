@@ -534,8 +534,10 @@ const ForumFeed: React.FC = () => {
       if (idx !== -1) _localPosts[idx].upvotes = current + 1;
       return;
     }
-    await upvoteForumPost(id, current);
-    setPosts((prev) => prev.map((p) => p.id === id ? { ...p, upvotes: current + 1 } : p));
+    await upvoteForumPost(id);
+    // The database RPC is the authority: reload because a second click removes
+    // a vote and concurrent votes may have changed the counter.
+    load();
   };
 
   const handlePosted = useCallback((post?: ForumPost) => {

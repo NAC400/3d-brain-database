@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useBrainStore } from '../store/brainStore';
+import { newId } from '../lib/id';
 import type { StructureLink } from '../store/brainStore';
 import type { Source, Note } from '../types/source';
 import { fetchAbstract } from '../lib/pubmed';
 import { NoteList } from './NoteEditor';
 
-const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+const genId = newId;
 
 // ---------------------------------------------------------------------------
 // Citation format generators
@@ -271,7 +272,7 @@ const SourceViewer: React.FC = () => {
     { id: 'cite',     label: 'Cite' },
   ];
 
-  const genId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const genId = newId;
 
   const addNote = () => {
     const now = new Date().toISOString();

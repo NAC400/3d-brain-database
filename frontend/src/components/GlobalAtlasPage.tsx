@@ -4,7 +4,6 @@ import {
   fetchGlobalContributions, submitGlobalContribution, isSupabaseConfigured,
   type GlobalContribution,
 } from '../lib/supabase';
-import { verifyRelevance, isGroqConfigured } from '../lib/groqVerification';
 import ForumFeed from './ForumFeed';
 
 // ---------------------------------------------------------------------------
@@ -39,12 +38,6 @@ function timeAgo(iso: string): string {
   return `${Math.floor(s/86400)}d ago`;
 }
 
-const TIER_COLOR: Record<string, string> = {
-  approve: '#22c55e',
-  review:  '#f59e0b',
-  reject:  '#ef4444',
-};
-
 // ---------------------------------------------------------------------------
 // Contribute modal
 // ---------------------------------------------------------------------------
@@ -53,7 +46,6 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [sourceId, setSourceId]     = useState('');
   const [meshName, setMeshName]     = useState('');
   const [status, setStatus]         = useState<'idle'|'verifying'|'submitting'|'done'|'error'>('idle');
-  const [verResult, setVerResult]   = useState<{ score: number; explanation: string; tier: string } | null>(null);
   const [errorMsg, setErrorMsg]     = useState('');
 
   const source = sources.find((s) => s.id === sourceId);
@@ -62,27 +54,7 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const handleSubmit = async () => {
     if (!source || !region) { setErrorMsg('Select a source and a region.'); return; }
     if (!user)               { setErrorMsg('You must be signed in to contribute.'); return; }
-    setErrorMsg(''); setStatus('verifying'); setVerResult(null);
-
-    let aiScore = 50;
-    let tier: string = 'review';
-
-    if (isGroqConfigured) {
-      const result = await verifyRelevance(source.title, source.abstract ?? '', region.name);
-      if (result) {
-        aiScore = result.score;
-        tier    = result.tier;
-        setVerResult(result);
-      }
-    }
-
-    if (tier === 'reject') {
-      setStatus('error');
-      setErrorMsg(`AI relevance score: ${aiScore}/100. This source doesn't appear relevant enough to ${region.name} to be contributed to the global atlas.`);
-      return;
-    }
-
-    setStatus('submitting');
+    setErrorMsg(''); setStatus('submitting');
     const { error } = await submitGlobalContribution({
       user_id:     user.id,
       source_id:   source.id,
@@ -94,8 +66,6 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       year:        source.year,
       doi:         source.doi,
       abstract:    source.abstract,
-      verified:    tier === 'approve',
-      ai_score:    aiScore,
     });
 
     if (error) { setStatus('error'); setErrorMsg(error.message); }
@@ -120,11 +90,7 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <div style={{ textAlign: 'center', padding: '24px 0' }}>
             <div style={{ fontSize: 32, marginBottom: 12 }}>✅</div>
             <div style={{ fontSize: 15, fontWeight: 600, color: '#34d399', marginBottom: 8 }}>Contribution submitted!</div>
-            {verResult && (
-              <div style={{ fontSize: 12, color: '#64748b' }}>
-                AI relevance score: <strong style={{ color: TIER_COLOR[verResult.tier] }}>{verResult.score}/100</strong> — {verResult.explanation}
-              </div>
-            )}
+            <div style={{ fontSize: 12, color: '#64748b' }}>Your contribution is pending curator review.</div>
             <button onClick={onClose} style={{ marginTop: 20, padding: '8px 24px', borderRadius: 6, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)', color: '#60a5fa', cursor: 'pointer', fontWeight: 600 }}>Close</button>
           </div>
         ) : (
@@ -144,14 +110,6 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               </select>
             </div>
 
-            {verResult && (
-              <div style={{ padding: '10px 14px', borderRadius: 8, marginBottom: 14, background: `${TIER_COLOR[verResult.tier]}15`, border: `1px solid ${TIER_COLOR[verResult.tier]}44` }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: TIER_COLOR[verResult.tier], marginBottom: 4 }}>
-                  AI Score: {verResult.score}/100 ({verResult.tier === 'approve' ? 'Auto-approve' : 'Flagged for review'})
-                </div>
-                <div style={{ fontSize: 11, color: '#94a3b8' }}>{verResult.explanation}</div>
-              </div>
-            )}
 
             {errorMsg && (
               <div style={{ padding: '8px 12px', borderRadius: 6, marginBottom: 14, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171', fontSize: 12 }}>
@@ -416,7 +374,7 @@ const GlobalAtlasPage: React.FC = () => {
                         >
                           {c.region_name}
                         </button>
-                        {c.ai_score > 0 && (
+                        {(c.ai_score ?? 0) > 0 && (
                           <span style={{ fontSize: 10, color: '#475569' }}>
                             AI: {c.ai_score}/100
                           </span>

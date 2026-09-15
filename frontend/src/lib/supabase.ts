@@ -76,15 +76,22 @@ export interface GlobalContribution {
   doi?:        string;
   abstract?:   string;
   verified:    boolean;
-  ai_score:    number;          // Groq relevance score 0–100
+  ai_score:    number | null;   // assigned by a trusted server-side reviewer
+  status:      'pending' | 'approved' | 'rejected';
   created_at:  string;
 }
 
 export async function submitGlobalContribution(
-  contribution: Omit<GlobalContribution, 'id' | 'created_at'>
+  contribution: Omit<GlobalContribution, 'id' | 'created_at' | 'verified' | 'status' | 'ai_score'>
 ) {
   if (!supabase) return { error: { message: 'Supabase not configured.' } };
-  return supabase.from('global_contributions').insert(contribution);
+  // Publication and AI scoring are deliberately server-side moderation actions.
+  // The browser can only submit a pending, unverified contribution.
+  return supabase.from('global_contributions').insert({
+    ...contribution,
+    verified: false,
+    status: 'pending',
+  });
 }
 
 export async function fetchGlobalContributions(limit = 50): Promise<GlobalContribution[]> {
@@ -182,9 +189,9 @@ export async function createForumPost(post: Omit<ForumPost, 'id' | 'created_at' 
   return supabase.from('forum_posts').insert({ ...post, upvotes: 0 });
 }
 
-export async function upvoteForumPost(id: string, currentUpvotes: number) {
+export async function upvoteForumPost(id: string) {
   if (!supabase) return { error: { message: 'Supabase not configured.' } };
-  return supabase.from('forum_posts').update({ upvotes: currentUpvotes + 1 }).eq('id', id);
+  return supabase.rpc('toggle_post_vote', { target_post_id: id });
 }
 
 export async function fetchForumComments(postId: string): Promise<ForumComment[]> {
