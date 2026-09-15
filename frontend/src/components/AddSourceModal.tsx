@@ -62,6 +62,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
       volume: partial.volume,
       issue: partial.issue,
       pages: partial.pages,
+      fullTextUrls: partial.fullTextUrls,
       pmid: partial.pmid,
       tags: (tags.split(',').map((t) => t.trim()).filter(Boolean)),
       isGlobal: false,

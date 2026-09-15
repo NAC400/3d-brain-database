@@ -4,8 +4,12 @@ export interface FullTextResult {
   source: string | null;
 }
 
-export async function findOpenAccessPdf(pmid?: string): Promise<FullTextResult> {
-  if (!pmid) return { pdfUrl: null, source: null };
+export async function findOpenAccessPdf(pmid?: string, publisherPdfUrls: string[] = []): Promise<FullTextResult> {
+  if (!pmid) {
+    return publisherPdfUrls[0]
+      ? { pdfUrl: publisherPdfUrls[0], source: 'the publisher-provided Crossref link' }
+      : { pdfUrl: null, source: null };
+  }
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 12_000);
   try {
@@ -14,13 +18,19 @@ export async function findOpenAccessPdf(pmid?: string): Promise<FullTextResult> 
       `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${query}&resultType=core&format=json`,
       { signal: controller.signal },
     );
-    if (!response.ok) return { pdfUrl: null, source: null };
+    if (!response.ok) return publisherPdfUrls[0]
+      ? { pdfUrl: publisherPdfUrls[0], source: 'the publisher-provided Crossref link' }
+      : { pdfUrl: null, source: null };
     const json = await response.json();
     const urls = json.resultList?.result?.[0]?.fullTextUrlList?.fullTextUrl ?? [];
     const pdf = urls.find((item: any) => String(item.documentStyle).toLowerCase() === 'pdf' && typeof item.url === 'string');
-    return pdf ? { pdfUrl: pdf.url, source: pdf.site ?? 'Europe PMC' } : { pdfUrl: null, source: null };
+    return pdf ? { pdfUrl: pdf.url, source: pdf.site ?? 'Europe PMC' } : publisherPdfUrls[0]
+      ? { pdfUrl: publisherPdfUrls[0], source: 'the publisher-provided Crossref link' }
+      : { pdfUrl: null, source: null };
   } catch {
-    return { pdfUrl: null, source: null };
+    return publisherPdfUrls[0]
+      ? { pdfUrl: publisherPdfUrls[0], source: 'the publisher-provided Crossref link' }
+      : { pdfUrl: null, source: null };
   } finally {
     window.clearTimeout(timeout);
   }

@@ -38,6 +38,7 @@ export interface Source {
   volume?:     string;
   issue?:      string;
   pages?:      string;
+  fullTextUrls?: string[];   // publisher-provided PDF links from Crossref metadata
   pmid?:       string;       // PubMed ID — used to lazily fetch abstract via EFetch
   tags:        string[];
   isGlobal:    boolean;      // shared to global atlas

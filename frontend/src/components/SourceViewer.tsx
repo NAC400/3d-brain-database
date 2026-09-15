@@ -357,7 +357,7 @@ const SourceViewer: React.FC = () => {
   const downloadOfficialPdf = async () => {
     setFullTextMessage(''); setFullTextLoading(true);
     try {
-      const result = await findOpenAccessPdf(source.pmid);
+      const result = await findOpenAccessPdf(source.pmid, source.fullTextUrls);
       if (!result.pdfUrl) {
         setFullTextMessage('A legal full-text PDF is not available from our sources, but you may be able to find it elsewhere 😉');
         return;
@@ -555,11 +555,11 @@ const SourceViewer: React.FC = () => {
             <div>
               <button
                 onClick={downloadOfficialPdf}
-                disabled={fullTextLoading || !source.pmid}
-                title={source.pmid ? 'Download a legally available open-access PDF when Europe PMC provides one' : 'A PubMed ID is required to look up an open-access PDF'}
-                style={{ padding: '10px 14px', borderRadius: 7, marginBottom: 12, border: '1px solid rgba(16,185,129,0.4)', background: 'rgba(16,185,129,0.12)', color: '#34d399', cursor: source.pmid ? 'pointer' : 'not-allowed', opacity: source.pmid ? 1 : 0.5, fontSize: 12, fontWeight: 700 }}
+                disabled={fullTextLoading || (!source.pmid && !(source.fullTextUrls?.length))}
+                title={source.pmid || source.fullTextUrls?.length ? 'Download an open-access or publisher-provided PDF when available' : 'A PubMed ID or publisher PDF link is required'}
+                style={{ padding: '10px 14px', borderRadius: 7, marginBottom: 12, border: '1px solid rgba(16,185,129,0.4)', background: 'rgba(16,185,129,0.12)', color: '#34d399', cursor: source.pmid || source.fullTextUrls?.length ? 'pointer' : 'not-allowed', opacity: source.pmid || source.fullTextUrls?.length ? 1 : 0.5, fontSize: 12, fontWeight: 700 }}
               >
-                {fullTextLoading ? 'Looking for open-access PDF…' : 'Download Open-Access PDF'}
+                {fullTextLoading ? 'Looking for available PDF…' : 'Download Available PDF'}
               </button>
               {fullTextMessage && <div style={{ marginBottom: 14, padding: '10px 12px', borderRadius: 7, background: 'rgba(30,41,59,0.5)', border: '1px solid rgba(59,130,246,0.16)', color: '#94a3b8', fontSize: 12 }}>{fullTextMessage}</div>}
               {source.doi ? (
