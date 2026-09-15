@@ -41,6 +41,9 @@ export async function lookupDOI(doi: string): Promise<CrossRefResult | null> {
   const abstract: string = w.abstract
     ? w.abstract.replace(/<[^>]+>/g, '').trim()  // strip JATS XML tags
     : '';
+  const fullTextUrls: string[] = (w.link ?? [])
+    .filter((link: any) => link['content-type'] === 'application/pdf' && typeof link.URL === 'string')
+    .map((link: any) => link.URL);
 
   return {
     title,
@@ -50,5 +53,9 @@ export async function lookupDOI(doi: string): Promise<CrossRefResult | null> {
     doi: cleanDoi,
     url: w.URL ?? `https://doi.org/${cleanDoi}`,
     abstract: abstract || undefined,
+    volume: w.volume ? String(w.volume) : undefined,
+    issue: w.issue ? String(w.issue) : undefined,
+    pages: w.page ? String(w.page) : undefined,
+    fullTextUrls,
   };
 }

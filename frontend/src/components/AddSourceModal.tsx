@@ -59,6 +59,9 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
       abstract: partial.abstract,
       journal: partial.journal,
       year: partial.year,
+      volume: partial.volume,
+      issue: partial.issue,
+      pages: partial.pages,
       pmid: partial.pmid,
       tags: (tags.split(',').map((t) => t.trim()).filter(Boolean)),
       isGlobal: false,
@@ -113,6 +116,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
     saveSource({
       title: r.title, authors: r.authors, journal: r.journal,
       year: r.year, doi: r.doi,
+      volume: r.volume, issue: r.issue, pages: r.pages,
       // ESummary doesn't return abstracts — store pmid so SourceViewer can fetch via EFetch
       abstract: r.abstract || undefined,
       pmid: r.pmid,

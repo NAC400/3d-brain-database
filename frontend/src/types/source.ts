@@ -35,6 +35,9 @@ export interface Source {
   abstract?:   string;
   journal?:    string;
   year?:       number;
+  volume?:     string;
+  issue?:      string;
+  pages?:      string;
   pmid?:       string;       // PubMed ID — used to lazily fetch abstract via EFetch
   tags:        string[];
   isGlobal:    boolean;      // shared to global atlas
@@ -63,6 +66,9 @@ export interface PubMedResult {
   year:     number;
   abstract: string;
   doi?:     string;
+  volume?:  string;
+  issue?:   string;
+  pages?:   string;
 }
 
 // Result from CrossRef DOI lookup
@@ -74,4 +80,8 @@ export interface CrossRefResult {
   doi:      string;
   url:      string;
   abstract?: string;
+  volume?: string;
+  issue?: string;
+  pages?: string;
+  fullTextUrls?: string[];
 }

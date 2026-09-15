@@ -4,6 +4,7 @@ import { newId } from '../lib/id';
 import type { StructureLink } from '../store/brainStore';
 import type { Source, Note } from '../types/source';
 import { fetchAbstract } from '../lib/pubmed';
+import { downloadPdf, findOpenAccessPdf } from '../lib/fullText';
 import { NoteList } from './NoteEditor';
 
 const genId = newId;
@@ -112,14 +113,18 @@ const formatAuthorBibTeX = (name: string): string => {
 };
 
 const buildCitations = (source: Source): Record<string, string> => {
-  const { title, authors, journal, year, doi } = source;
+  const { title, authors, journal, year, doi, volume, issue, pages } = source;
   const doiStr = doi ? `https://doi.org/${doi}` : '';
   const yr = year ?? 'n.d.';
   const jnl = journal ?? '';
+  const issuePart = issue ? `(${issue})` : '';
+  const journalDetails = jnl
+    ? ` ${jnl}${volume ? `, ${volume}${issuePart}` : ''}${pages ? `, ${pages}` : ''}.`
+    : '';
 
   // APA 7th — Purdue OWL spec
   const apaAuthors = buildAPAAuthors(authors);
-  const apa = `${apaAuthors}${apaAuthors ? ' ' : ''}(${yr}). ${title}.${jnl ? ` *${jnl}*.` : ''}${doiStr ? ` ${doiStr}` : ''}`;
+  const apa = `${apaAuthors}${apaAuthors ? ' ' : ''}(${yr}). ${title}.${journalDetails}${doiStr ? ` ${doiStr}` : ''}`;
 
   // MLA 9th
   const mlaFirst = authors[0] ? formatAuthorMLAFirst(authors[0]) : '';
@@ -135,12 +140,12 @@ const buildCitations = (source: Source): Record<string, string> => {
   });
   const mlaEtAl = authors.length > 3 ? ', et al.' : '';
   const mlaAuthors = [mlaFirst, ...mlaOthers].filter(Boolean).join(', ') + mlaEtAl;
-  const mla = `${mlaAuthors}${mlaAuthors ? '. ' : ''}"${title}."${jnl ? ` *${jnl}*,` : ''} ${yr}.${doiStr ? ` ${doiStr}.` : ''}`;
+  const mla = `${mlaAuthors}${mlaAuthors ? '. ' : ''}"${title}."${jnl ? ` ${jnl},` : ''}${volume ? ` vol. ${volume},` : ''}${issue ? ` no. ${issue},` : ''} ${yr}${pages ? `, pp. ${pages}` : ''}.${doiStr ? ` ${doiStr}.` : ''}`;
 
   // Vancouver (up to 6 authors, then et al.)
   const vanList = authors.slice(0, 6).map(formatAuthorVancouver);
   const vanAuthors = vanList.join(', ') + (authors.length > 6 ? ', et al.' : '');
-  const van = `${vanAuthors}${vanAuthors ? '. ' : ''}${title}.${jnl ? ` ${jnl}.` : ''} ${yr}.${doiStr ? ` doi:${doi}` : ''}`;
+  const van = `${vanAuthors}${vanAuthors ? '. ' : ''}${title}.${jnl ? ` ${jnl}.` : ''} ${yr}${volume ? `;${volume}${issuePart}` : ''}${pages ? `:${pages}` : ''}.${doiStr ? ` doi:${doi}` : ''}`;
 
   // Chicago author-date (similar to APA but no initials period spacing requirement)
   const chicFirst = authors[0] ? formatAuthorMLAFirst(authors[0]) : '';
@@ -154,7 +159,7 @@ const buildCitations = (source: Source): Record<string, string> => {
     return a;
   });
   const chicAuthors = [chicFirst, ...chicRest].filter(Boolean).join(', ');
-  const chic = `${chicAuthors}${chicAuthors ? '. ' : ''}"${title}."${jnl ? ` *${jnl}*` : ''} (${yr}).${doiStr ? ` ${doiStr}.` : ''}`;
+  const chic = `${chicAuthors}${chicAuthors ? '. ' : ''}"${title}."${jnl ? ` ${jnl}` : ''}${volume ? ` ${volume}` : ''}${issuePart ? issuePart : ''} (${yr})${pages ? `: ${pages}` : ''}.${doiStr ? ` ${doiStr}.` : ''}`;
 
   // BibTeX
   const firstLastName = authors[0] ? getLastName(authors[0]) : 'Author';
@@ -190,24 +195,30 @@ const SourceViewer: React.FC = () => {
   const [citeFormat, setCiteFormat]     = useState<string>('APA');
   const [copied, setCopied]             = useState(false);
   const [abstractLoading, setAbstractLoading] = useState(false);
+  const [abstractError, setAbstractError] = useState('');
+  const [fullTextMessage, setFullTextMessage] = useState('');
+  const [fullTextLoading, setFullTextLoading] = useState(false);
   const [regionSearch, setRegionSearch] = useState('');
   const [regionDropOpen, setRegionDropOpen] = useState(false);
 
   const source = sources.find((s) => s.id === viewingSourceId);
 
-  // Auto-fetch abstract via EFetch if source has a pmid but no abstract
+  const loadAbstract = async () => {
+    if (!source?.pmid) return;
+    setAbstractLoading(true); setAbstractError('');
+    const result = await fetchAbstract(source.pmid);
+    if (result.abstract) updateSource(source.id, { abstract: result.abstract });
+    else setAbstractError(result.error ?? 'Abstract could not be retrieved.');
+    setAbstractLoading(false);
+  };
+
+  // Auto-fetch abstract via Europe PMC when a PubMed import has no abstract.
   useEffect(() => {
     if (!source) return;
     if (source.abstract) return;
     if (!source.pmid) return;
     let cancelled = false;
-    setAbstractLoading(true);
-    fetchAbstract(source.pmid).then((text) => {
-      if (cancelled || !text) return;
-      updateSource(source.id, { abstract: text });
-    }).finally(() => {
-      if (!cancelled) setAbstractLoading(false);
-    });
+    loadAbstract().then(() => { if (cancelled) return; });
     return () => { cancelled = true; };
   }, [source?.id, source?.pmid, source?.abstract]);
 
@@ -302,8 +313,15 @@ const SourceViewer: React.FC = () => {
     const lh = 7;
     const wrap = (text: string, maxW: number): string[] => doc.splitTextToSize(text, maxW);
 
+    const pageBottom = 280;
+    const ensureSpace = (lines = 1) => { if (y + lines * lh > pageBottom) { doc.addPage(); y = margin; } };
+    const addWrapped = (text: string) => {
+      const lines = wrap(text, 180);
+      lines.forEach((line) => { ensureSpace(); doc.text(line, margin, y); y += lh; });
+    };
+
     doc.setFontSize(16); doc.setFont('helvetica', 'bold');
-    doc.text(source.title, margin, y); y += lh * 2;
+    wrap(source.title, 180).forEach((line) => { ensureSpace(); doc.text(line, margin, y); y += lh; }); y += lh;
 
     doc.setFontSize(10); doc.setFont('helvetica', 'normal');
     if (source.authors.length) { doc.text(source.authors.slice(0,6).join(', ') + (source.authors.length > 6 ? ' et al.' : ''), margin, y); y += lh; }
@@ -314,7 +332,7 @@ const SourceViewer: React.FC = () => {
     if (source.abstract) {
       doc.setFont('helvetica', 'bold'); doc.text('Abstract', margin, y); y += lh;
       doc.setFont('helvetica', 'normal');
-      wrap(source.abstract, 180).forEach((l) => { doc.text(l, margin, y); y += lh; if (y > 270) { doc.addPage(); y = margin; } });
+      addWrapped(source.abstract);
       y += lh;
     }
 
@@ -322,7 +340,7 @@ const SourceViewer: React.FC = () => {
       doc.setFont('helvetica', 'bold'); doc.text('Notes', margin, y); y += lh;
       doc.setFont('helvetica', 'normal');
       for (const note of source.notes ?? []) {
-        wrap(note.content, 180).forEach((l) => { doc.text(l, margin, y); y += lh; if (y > 270) { doc.addPage(); y = margin; } });
+        addWrapped(note.content);
         y += lh / 2;
       }
       y += lh;
@@ -330,10 +348,28 @@ const SourceViewer: React.FC = () => {
 
     doc.setFont('helvetica', 'bold'); doc.text('APA Citation', margin, y); y += lh;
     doc.setFont('helvetica', 'normal');
-    wrap(citations['APA'], 180).forEach((l) => { doc.text(l, margin, y); y += lh; });
+    addWrapped(citations['APA']);
 
     const filename = source.title.slice(0, 40).replace(/[^a-z0-9]/gi, '_') + '.pdf';
     doc.save(filename);
+  };
+
+  const downloadOfficialPdf = async () => {
+    setFullTextMessage(''); setFullTextLoading(true);
+    try {
+      const result = await findOpenAccessPdf(source.pmid);
+      if (!result.pdfUrl) {
+        setFullTextMessage('A legal full-text PDF is not available from our sources, but you may be able to find it elsewhere 😉');
+        return;
+      }
+      const filename = source.title.slice(0, 80).replace(/[^a-z0-9]/gi, '_') + '.pdf';
+      await downloadPdf(result.pdfUrl, filename);
+      setFullTextMessage(`Downloaded the open-access PDF from ${result.source ?? 'an approved source'}.`);
+    } catch {
+      setFullTextMessage('A legal full-text PDF was located but could not be downloaded by this browser. You can try the Full Paper links instead. 😉');
+    } finally {
+      setFullTextLoading(false);
+    }
   };
 
   const inputStyle: React.CSSProperties = {
@@ -409,7 +445,7 @@ const SourceViewer: React.FC = () => {
               color: '#c084fc', cursor: 'pointer',
             }}
           >
-            Export PDF
+            Export Research Summary
           </button>
         </div>
       </div>
@@ -501,9 +537,14 @@ const SourceViewer: React.FC = () => {
                   border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10,
                   color: '#334155', fontSize: 13,
                 }}>
-                  {source.pmid
-                    ? 'Abstract could not be retrieved from PubMed.'
-                    : 'No abstract stored. Add one by editing this source, or use DOI/PubMed import.'}
+                  <div>{source.pmid
+                    ? abstractError || 'Abstract could not be retrieved from PubMed.'
+                    : 'No abstract stored. Add one by editing this source, or use DOI/PubMed import.'}</div>
+                  {source.pmid && (
+                    <button onClick={loadAbstract} style={{ marginTop: 12, padding: '6px 12px', borderRadius: 6, border: '1px solid rgba(59,130,246,0.35)', background: 'rgba(59,130,246,0.12)', color: '#60a5fa', cursor: 'pointer', fontSize: 11 }}>
+                      Retry abstract lookup
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -512,6 +553,15 @@ const SourceViewer: React.FC = () => {
           {/* ── Full paper tab ── */}
           {tab === 'paper' && (
             <div>
+              <button
+                onClick={downloadOfficialPdf}
+                disabled={fullTextLoading || !source.pmid}
+                title={source.pmid ? 'Download a legally available open-access PDF when Europe PMC provides one' : 'A PubMed ID is required to look up an open-access PDF'}
+                style={{ padding: '10px 14px', borderRadius: 7, marginBottom: 12, border: '1px solid rgba(16,185,129,0.4)', background: 'rgba(16,185,129,0.12)', color: '#34d399', cursor: source.pmid ? 'pointer' : 'not-allowed', opacity: source.pmid ? 1 : 0.5, fontSize: 12, fontWeight: 700 }}
+              >
+                {fullTextLoading ? 'Looking for open-access PDF…' : 'Download Open-Access PDF'}
+              </button>
+              {fullTextMessage && <div style={{ marginBottom: 14, padding: '10px 12px', borderRadius: 7, background: 'rgba(30,41,59,0.5)', border: '1px solid rgba(59,130,246,0.16)', color: '#94a3b8', fontSize: 12 }}>{fullTextMessage}</div>}
               {source.doi ? (
                 <div>
                   <p style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
