@@ -16,7 +16,10 @@ Supabase CLI, never copied piecemeal from UI components.
 
 ## Deploy
 
-Install and authenticate the Supabase CLI, link the intended project, then run:
+For a new project, first run [`schema.sql`](schema.sql) in the Supabase SQL
+Editor. It creates the original profiles, sources, structure-links, and
+annotations tables. Then install and authenticate the Supabase CLI, link the
+intended project, and apply the production-foundation migration:
 
 ```powershell
 supabase db push
