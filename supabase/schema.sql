@@ -38,21 +38,33 @@ create table if not exists public.sources (
   tags        text[] not null default '{}',
   is_global   boolean not null default false,  -- contributed to global atlas
   created_at  timestamptz not null default now(),
-  -- Full-text search vector (auto-updated by trigger below)
-  fts         tsvector generated always as (
-    to_tsvector('english',
-      coalesce(title,'') || ' ' ||
-      coalesce(abstract,'') || ' ' ||
-      coalesce(journal,'') || ' ' ||
-      coalesce(array_to_string(authors,' '),'') || ' ' ||
-      coalesce(array_to_string(tags,' '),'')
-    )
-  ) stored
+  -- Full-text search vector (maintained by trigger below). A generated column
+  -- cannot use array_to_string on current Supabase Postgres versions.
+  fts         tsvector not null default ''::tsvector
 );
 
 create index if not exists sources_fts_idx on public.sources using gin(fts);
 create index if not exists sources_user_idx on public.sources(user_id);
 create index if not exists sources_doi_idx  on public.sources(doi) where doi is not null;
+
+create or replace function public.set_sources_fts()
+returns trigger language plpgsql as $$
+begin
+  new.fts := to_tsvector('english',
+    coalesce(new.title,'') || ' ' ||
+    coalesce(new.abstract,'') || ' ' ||
+    coalesce(new.journal,'') || ' ' ||
+    coalesce(array_to_string(new.authors,' '),'') || ' ' ||
+    coalesce(array_to_string(new.tags,' '),'')
+  );
+  return new;
+end;
+$$;
+
+drop trigger if exists sources_fts_update on public.sources;
+create trigger sources_fts_update
+  before insert or update of title, abstract, journal, authors, tags on public.sources
+  for each row execute procedure public.set_sources_fts();
 
 alter table public.sources enable row level security;
 -- Users can CRUD their own sources; everyone can read global ones
