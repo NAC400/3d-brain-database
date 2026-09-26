@@ -19,6 +19,8 @@ create table if not exists public.profiles (
 );
 
 alter table public.profiles enable row level security;
+drop policy if exists "Users can read own profile" on public.profiles;
+drop policy if exists "Users can update own profile" on public.profiles;
 create policy "Users can read own profile"  on public.profiles for select using (auth.uid() = id);
 create policy "Users can update own profile" on public.profiles for update using (auth.uid() = id);
 
@@ -68,6 +70,10 @@ create trigger sources_fts_update
 
 alter table public.sources enable row level security;
 -- Users can CRUD their own sources; everyone can read global ones
+drop policy if exists "Read own or global sources" on public.sources;
+drop policy if exists "Insert own sources" on public.sources;
+drop policy if exists "Update own sources" on public.sources;
+drop policy if exists "Delete own sources" on public.sources;
 create policy "Read own or global sources"
   on public.sources for select
   using (auth.uid() = user_id or is_global = true);
@@ -98,6 +104,8 @@ create index if not exists structure_links_source_idx on public.structure_links(
 create index if not exists structure_links_region_idx on public.structure_links(region_mesh_name);
 
 alter table public.structure_links enable row level security;
+drop policy if exists "Read links for accessible sources" on public.structure_links;
+drop policy if exists "Manage own links" on public.structure_links;
 create policy "Read links for accessible sources"
   on public.structure_links for select
   using (
@@ -134,6 +142,7 @@ create index if not exists annotations_user_idx   on public.annotations(user_id)
 create index if not exists annotations_region_idx on public.annotations(region_mesh_name);
 
 alter table public.annotations enable row level security;
+drop policy if exists "Users manage own annotations" on public.annotations;
 create policy "Users manage own annotations"
   on public.annotations for all
   using (auth.uid() = user_id);
