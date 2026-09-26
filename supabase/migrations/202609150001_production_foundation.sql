@@ -26,6 +26,12 @@ begin
 end;
 $$;
 
+-- Create profile rows for accounts that existed before this trigger was added.
+insert into public.profiles (id, display_name)
+select id, coalesce(raw_user_meta_data ->> 'display_name', split_part(email, '@', 1))
+from auth.users
+on conflict (id) do nothing;
+
 drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
@@ -134,7 +140,9 @@ create policy "Users manage own region highlights" on public.region_highlights f
 create table if not exists public.global_contributions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.profiles(id) on delete cascade default auth.uid(),
-  source_id uuid not null references public.sources(id) on delete cascade,
+  -- text preserves the identifiers used by the original community-table setup.
+  -- New source UUIDs are stored as text and verified by policy below.
+  source_id text not null,
   region_name text not null,
   mesh_name text not null,
   title text not null,
@@ -152,15 +160,27 @@ create table if not exists public.global_contributions (
   reviewed_at timestamptz,
   unique(source_id, mesh_name)
 );
+-- Bring the original Global Atlas table forward without changing or deleting
+-- existing contributions.
+alter table public.global_contributions
+  add column if not exists status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  add column if not exists reviewer_id uuid references public.profiles(id) on delete set null,
+  add column if not exists review_note text,
+  add column if not exists reviewed_at timestamptz,
+  add column if not exists ai_score integer check (ai_score between 0 and 100),
+  add column if not exists verified boolean not null default false;
+update public.global_contributions set status = 'approved' where verified = true and status = 'pending';
 create index if not exists global_contributions_region_idx on public.global_contributions(mesh_name);
 create index if not exists global_contributions_status_idx on public.global_contributions(status, created_at desc);
 alter table public.global_contributions enable row level security;
+drop policy if exists "Anyone can read verified" on public.global_contributions;
+drop policy if exists "Auth users can insert" on public.global_contributions;
 create policy "Anyone reads approved contributions" on public.global_contributions for select
   using (verified = true or auth.uid() = user_id or public.is_staff());
 create policy "Users submit pending contributions" on public.global_contributions for insert
   with check (
     auth.uid() = user_id and verified = false and status = 'pending'
-    and exists (select 1 from public.sources s where s.id = source_id and s.user_id = auth.uid())
+    and exists (select 1 from public.sources s where s.id::text = source_id and s.user_id = auth.uid())
   );
 create policy "Users edit own pending contributions" on public.global_contributions for update
   using (auth.uid() = user_id and status = 'pending')
@@ -196,6 +216,8 @@ alter table public.forum_posts
 create index if not exists forum_posts_created_idx on public.forum_posts(created_at desc);
 create index if not exists forum_posts_mesh_idx on public.forum_posts(mesh_name);
 alter table public.forum_posts enable row level security;
+drop policy if exists "Anyone can read posts" on public.forum_posts;
+drop policy if exists "Auth users can insert posts" on public.forum_posts;
 drop policy if exists "Authors can update posts" on public.forum_posts;
 create policy "Anyone reads visible posts" on public.forum_posts for select using (not is_hidden or public.is_staff());
 create policy "Authenticated users create posts" on public.forum_posts for insert with check (auth.uid() = user_id);
@@ -222,6 +244,8 @@ alter table public.forum_comments
   add column if not exists updated_at timestamptz not null default now();
 create index if not exists forum_comments_post_idx on public.forum_comments(post_id, created_at);
 alter table public.forum_comments enable row level security;
+drop policy if exists "Anyone can read comments" on public.forum_comments;
+drop policy if exists "Auth users can insert comments" on public.forum_comments;
 create policy "Anyone reads visible comments" on public.forum_comments for select using (not is_hidden or public.is_staff());
 create policy "Authenticated users create comments" on public.forum_comments for insert
   with check (auth.uid() = user_id and exists (select 1 from public.forum_posts p where p.id = post_id and not p.is_hidden));
