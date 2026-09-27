@@ -72,6 +72,24 @@ export interface PubMedResult {
   pages?:   string;
 }
 
+/** A result returned by one of MAPPED's supported research discovery services. */
+export interface ResearchSearchResult {
+  id: string;
+  provider: 'PubMed' | 'Crossref';
+  title: string;
+  authors: string[];
+  journal: string;
+  year: number;
+  abstract?: string;
+  doi?: string;
+  url: string;
+  pmid?: string;
+  volume?: string;
+  issue?: string;
+  pages?: string;
+  fullTextUrls?: string[];
+}
+
 // Result from CrossRef DOI lookup
 export interface CrossRefResult {
   title:    string;

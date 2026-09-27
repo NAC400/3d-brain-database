@@ -3,7 +3,8 @@
  * Docs: https://www.ncbi.nlm.nih.gov/books/NBK25501/
  */
 
-import type { PubMedResult } from '../types/source';
+import type { PubMedResult, ResearchSearchResult } from '../types/source';
+import { lookupDOI } from './crossref';
 
 const BASE = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
 
@@ -23,6 +24,16 @@ export async function searchPubMed(query: string, maxResults = 10): Promise<PubM
 }
 
 // Fetch PubMed metadata for a list of PMIDs
+export async function searchPubMedResearch(query: string, maxResults = 10): Promise<ResearchSearchResult[]> {
+  const results = await searchPubMed(query, maxResults);
+  return results.map((result) => ({
+    id: `pubmed-${result.pmid}`,
+    provider: 'PubMed' as const,
+    ...result,
+    url: result.doi ? `https://doi.org/${result.doi}` : `https://pubmed.ncbi.nlm.nih.gov/${result.pmid}`,
+  }));
+}
+
 export async function fetchByPMIDs(pmids: string[]): Promise<PubMedResult[]> {
   if (pmids.length === 0) return [];
   const summaryRes = await fetch(
@@ -59,20 +70,28 @@ export async function fetchByPMIDs(pmids: string[]): Promise<PubMedResult[]> {
 // Europe PMC has proper CORS headers; NCBI EFetch does not.
 export type AbstractResult = { abstract: string; error?: string };
 
-export async function fetchAbstract(pmid: string): Promise<AbstractResult> {
+export async function fetchAbstract(pmid?: string, doi?: string): Promise<AbstractResult> {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 12_000);
   try {
-    const query = encodeURIComponent(`EXT_ID:${pmid} AND SRC:MED`);
-    const res = await fetch(
-      `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${query}&resultType=core&format=json`,
-      { signal: controller.signal },
-    );
-    if (!res.ok) return { abstract: '', error: `Europe PMC returned ${res.status}.` };
-    const json = await res.json();
-    const raw: string = json.resultList?.result?.[0]?.abstractText ?? '';
-    const abstract = raw.replace(/<[^>]+>/g, ' ').replace(/\s{2,}/g, ' ').trim();
-    return abstract ? { abstract } : { abstract: '', error: 'No abstract is available from Europe PMC for this record.' };
+    if (pmid) {
+      const query = encodeURIComponent(`EXT_ID:${pmid} AND SRC:MED`);
+      const res = await fetch(
+        `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${query}&resultType=core&format=json`,
+        { signal: controller.signal },
+      );
+      if (res.ok) {
+        const json = await res.json();
+        const raw: string = json.resultList?.result?.[0]?.abstractText ?? '';
+        const abstract = raw.replace(/<[^>]+>/g, ' ').replace(/\s{2,}/g, ' ').trim();
+        if (abstract) return { abstract };
+      }
+    }
+    if (doi) {
+      const result = await lookupDOI(doi);
+      if (result?.abstract) return { abstract: result.abstract };
+    }
+    return { abstract: '', error: 'No abstract is available from PubMed, Europe PMC, or Crossref for this record.' };
   } catch (error) {
     return {
       abstract: '',

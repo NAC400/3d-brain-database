@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useBrainStore } from '../store/brainStore';
 import type { Source, StructureLink } from '../store/brainStore';
-import type { PubMedResult } from '../types/source';
-import { searchPubMed } from '../lib/pubmed';
-import { lookupDOI } from '../lib/crossref';
+import type { ResearchSearchResult } from '../types/source';
+import { searchPubMedResearch } from '../lib/pubmed';
+import { lookupDOI, searchCrossref } from '../lib/crossref';
 import { newId } from '../lib/id';
 
-type Mode = 'doi' | 'pubmed' | 'manual';
+type Mode = 'doi' | 'search' | 'manual';
+type SearchProvider = 'all' | 'pubmed' | 'crossref' | 'scholar';
 
 interface Props {
   onClose: () => void;
@@ -20,8 +21,9 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
 
   const [mode, setMode]         = useState<Mode>('doi');
   const [doi, setDoi]           = useState('');
-  const [pmQuery, setPmQuery]   = useState('');
-  const [pmResults, setPmResults] = useState<PubMedResult[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchProvider, setSearchProvider] = useState<SearchProvider>('all');
+  const [searchResults, setSearchResults] = useState<ResearchSearchResult[]>([]);
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState('');
 
@@ -100,28 +102,38 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
     } finally { setLoading(false); }
   };
 
-  // PubMed search
-  const handlePubMedSearch = async () => {
-    if (!pmQuery.trim()) return;
+  const handleResearchSearch = async () => {
+    if (!searchQuery.trim()) return;
+    if (searchProvider === 'scholar') {
+      window.open(`https://scholar.google.com/scholar?q=${encodeURIComponent(searchQuery.trim())}`, '_blank', 'noopener,noreferrer');
+      return;
+    }
     setLoading(true); setError('');
     try {
-      const results = await searchPubMed(pmQuery.trim(), 8);
-      setPmResults(results);
-      if (results.length === 0) setError('No PubMed results found.');
+      const query = searchQuery.trim();
+      const requests = searchProvider === 'pubmed'
+        ? [searchPubMedResearch(query, 10)]
+        : searchProvider === 'crossref'
+          ? [searchCrossref(query, 10)]
+          : [searchPubMedResearch(query, 8), searchCrossref(query, 8)];
+      const settled = await Promise.allSettled(requests);
+      const results = settled.flatMap((result) => result.status === 'fulfilled' ? result.value : []);
+      setSearchResults(results);
+      if (!results.length) setError('No results found in the selected databases.');
     } catch (e: any) {
-      setError(e.message ?? 'PubMed search failed.');
+      setError(e.message ?? 'Research search failed.');
     } finally { setLoading(false); }
   };
 
-  const importPubMed = (r: PubMedResult) => {
+  const importSearchResult = (r: ResearchSearchResult) => {
     saveSource({
       title: r.title, authors: r.authors, journal: r.journal,
       year: r.year, doi: r.doi,
       volume: r.volume, issue: r.issue, pages: r.pages,
-      // ESummary doesn't return abstracts — store pmid so SourceViewer can fetch via EFetch
       abstract: r.abstract || undefined,
       pmid: r.pmid,
-      url: r.doi ? `https://doi.org/${r.doi}` : `https://pubmed.ncbi.nlm.nih.gov/${r.pmid}`,
+      url: r.url,
+      fullTextUrls: r.fullTextUrls,
     });
   };
 
@@ -167,12 +179,12 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
         <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
           {([
             { id: 'doi',    label: 'DOI Lookup' },
-            { id: 'pubmed', label: 'PubMed Search' },
+            { id: 'search', label: 'Research Search' },
             { id: 'manual', label: 'Manual Entry' },
           ] as { id: Mode; label: string }[]).map((m) => (
             <button
               key={m.id}
-              onClick={() => { setMode(m.id); setError(''); setPmResults([]); }}
+              onClick={() => { setMode(m.id); setError(''); setSearchResults([]); }}
               style={{
                 flex: 1, padding: '7px 0', borderRadius: 6, fontSize: 11, fontWeight: 600,
                 border: `1px solid ${mode === m.id ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
@@ -198,20 +210,27 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
           </div>
         )}
 
-        {/* PubMed mode */}
-        {mode === 'pubmed' && (
+        {/* Multi-database search mode */}
+        {mode === 'search' && (
           <div>
             <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-              <input value={pmQuery} onChange={(e) => setPmQuery(e.target.value)} placeholder="e.g. thalamus working memory fMRI" style={{ ...inputStyle, flex: 1, marginBottom: 0 }} onKeyDown={(e) => e.key === 'Enter' && handlePubMedSearch()} />
-              <button onClick={handlePubMedSearch} disabled={loading} style={{ padding: '8px 16px', borderRadius: 6, fontSize: 11, fontWeight: 600, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)', color: '#60a5fa', cursor: 'pointer', flexShrink: 0 }}>
+              <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="e.g. thalamus working memory fMRI" style={{ ...inputStyle, flex: 1, marginBottom: 0 }} onKeyDown={(e) => e.key === 'Enter' && handleResearchSearch()} />
+              <button onClick={handleResearchSearch} disabled={loading} style={{ padding: '8px 16px', borderRadius: 6, fontSize: 11, fontWeight: 600, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)', color: '#60a5fa', cursor: 'pointer', flexShrink: 0 }}>
                 {loading ? '…' : 'Search'}
               </button>
             </div>
-            {pmResults.map((r) => (
-              <div key={r.pmid} style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(59,130,246,0.15)', borderRadius: 6, padding: '10px 12px', marginBottom: 8, cursor: 'pointer' }} onClick={() => importPubMed(r)}>
+            <select value={searchProvider} onChange={(e) => setSearchProvider(e.target.value as SearchProvider)} style={{ ...inputStyle, marginBottom: 12 }}>
+              <option value="all">All supported databases (PubMed + Crossref)</option>
+              <option value="pubmed">PubMed</option>
+              <option value="crossref">Crossref</option>
+              <option value="scholar">Google Scholar (opens Google Scholar)</option>
+            </select>
+            {searchProvider === 'scholar' && <div style={{ fontSize: 10, color: '#64748b', marginBottom: 10 }}>Google Scholar does not offer a supported browser import API, so this opens its results in a new tab.</div>}
+            {searchResults.map((r) => (
+              <div key={r.id} style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(59,130,246,0.15)', borderRadius: 6, padding: '10px 12px', marginBottom: 8, cursor: 'pointer' }} onClick={() => importSearchResult(r)}>
                 <div style={{ fontSize: 11, fontWeight: 600, color: '#e2e8f0', marginBottom: 3 }}>{r.title}</div>
                 <div style={{ fontSize: 10, color: '#64748b' }}>{r.authors.slice(0,3).join(', ')}{r.authors.length>3?' et al.':''} · {r.journal} · {r.year}</div>
-                <div style={{ fontSize: 9, color: '#3b82f6', marginTop: 4 }}>Click to import ↗</div>
+                <div style={{ fontSize: 9, color: '#3b82f6', marginTop: 4 }}>{r.provider} · Click to import ↗</div>
               </div>
             ))}
           </div>
@@ -276,7 +295,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
 
         {error && <div style={{ fontSize: 11, color: '#f87171', marginBottom: 10 }}>{error}</div>}
 
-        {/* Save button (manual mode only — doi/pubmed save on import) */}
+        {/* Save button (manual mode only — DOI/search results save on import) */}
         {mode === 'manual' && (
           <button
             onClick={handleManualSave}

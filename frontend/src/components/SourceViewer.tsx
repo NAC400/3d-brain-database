@@ -202,22 +202,23 @@ const SourceViewer: React.FC = () => {
   const source = sources.find((s) => s.id === viewingSourceId);
   const sourceId = source?.id;
   const sourcePmid = source?.pmid;
+  const sourceDoi = source?.doi;
   const sourceAbstract = source?.abstract;
 
   const loadAbstract = useCallback(async () => {
-    if (!sourceId || !sourcePmid) return;
+    if (!sourceId || (!sourcePmid && !sourceDoi)) return;
     setAbstractLoading(true); setAbstractError('');
-    const result = await fetchAbstract(sourcePmid);
+    const result = await fetchAbstract(sourcePmid, sourceDoi);
     if (result.abstract) updateSource(sourceId, { abstract: result.abstract });
     else setAbstractError(result.error ?? 'Abstract could not be retrieved.');
     setAbstractLoading(false);
-  }, [sourceId, sourcePmid, updateSource]);
+  }, [sourceId, sourcePmid, sourceDoi, updateSource]);
 
   // Auto-fetch abstract via Europe PMC when a PubMed import has no abstract.
   useEffect(() => {
-    if (!sourceId || sourceAbstract || !sourcePmid) return;
+    if (!sourceId || sourceAbstract || (!sourcePmid && !sourceDoi)) return;
     void loadAbstract();
-  }, [sourceId, sourceAbstract, sourcePmid, loadAbstract]);
+  }, [sourceId, sourceAbstract, sourcePmid, sourceDoi, loadAbstract]);
 
   if (!source) return null;
 
@@ -302,68 +303,21 @@ const SourceViewer: React.FC = () => {
     updateSource(source.id, { notes: (source.notes ?? []).filter((n) => n.id !== noteId) });
   };
 
-  const exportPDF = async () => {
-    const { jsPDF } = await import('jspdf');
-    const doc = new jsPDF();
-    const margin = 15;
-    let y = margin;
-    const lh = 7;
-    const wrap = (text: string, maxW: number): string[] => doc.splitTextToSize(text, maxW);
-
-    const pageBottom = 280;
-    const ensureSpace = (lines = 1) => { if (y + lines * lh > pageBottom) { doc.addPage(); y = margin; } };
-    const addWrapped = (text: string) => {
-      const lines = wrap(text, 180);
-      lines.forEach((line) => { ensureSpace(); doc.text(line, margin, y); y += lh; });
-    };
-
-    doc.setFontSize(16); doc.setFont('helvetica', 'bold');
-    wrap(source.title, 180).forEach((line) => { ensureSpace(); doc.text(line, margin, y); y += lh; }); y += lh;
-
-    doc.setFontSize(10); doc.setFont('helvetica', 'normal');
-    if (source.authors.length) { doc.text(source.authors.slice(0,6).join(', ') + (source.authors.length > 6 ? ' et al.' : ''), margin, y); y += lh; }
-    if (source.journal) { doc.text(source.journal + (source.year ? ` (${source.year})` : ''), margin, y); y += lh; }
-    if (source.doi) { doc.text(`DOI: ${source.doi}`, margin, y); y += lh; }
-    y += lh;
-
-    if (source.abstract) {
-      doc.setFont('helvetica', 'bold'); doc.text('Abstract', margin, y); y += lh;
-      doc.setFont('helvetica', 'normal');
-      addWrapped(source.abstract);
-      y += lh;
-    }
-
-    if ((source.notes ?? []).length > 0) {
-      doc.setFont('helvetica', 'bold'); doc.text('Notes', margin, y); y += lh;
-      doc.setFont('helvetica', 'normal');
-      for (const note of source.notes ?? []) {
-        addWrapped(note.content);
-        y += lh / 2;
-      }
-      y += lh;
-    }
-
-    doc.setFont('helvetica', 'bold'); doc.text('APA Citation', margin, y); y += lh;
-    doc.setFont('helvetica', 'normal');
-    addWrapped(citations['APA']);
-
-    const filename = source.title.slice(0, 40).replace(/[^a-z0-9]/gi, '_') + '.pdf';
-    doc.save(filename);
-  };
-
   const downloadOfficialPdf = async () => {
     setFullTextMessage(''); setFullTextLoading(true);
     try {
-      const result = await findOpenAccessPdf(source.pmid, source.fullTextUrls);
+      const result = await findOpenAccessPdf(source.pmid, source.fullTextUrls, source.doi);
       if (!result.pdfUrl) {
-        setFullTextMessage('A legal full-text PDF is not available from our sources, but you may be able to find it elsewhere 😉');
+        setFullTextMessage('An open-access PDF is not available from our sources. Try the publisher page, your institution’s library, or request a copy from the authors.');
         return;
       }
       const filename = source.title.slice(0, 80).replace(/[^a-z0-9]/gi, '_') + '.pdf';
-      await downloadPdf(result.pdfUrl, filename);
-      setFullTextMessage(`Downloaded the open-access PDF from ${result.source ?? 'an approved source'}.`);
+      const outcome = await downloadPdf(result.pdfUrl, filename);
+      setFullTextMessage(outcome === 'downloaded'
+        ? `Downloaded the open-access PDF from ${result.source ?? 'an approved source'}.`
+        : `Opened the verified PDF from ${result.source ?? 'an approved source'} in a new tab. Use your browser’s download control to save it.`);
     } catch {
-      setFullTextMessage('A legal full-text PDF was located but could not be downloaded by this browser. You can try the Full Paper links instead. 😉');
+      setFullTextMessage('We could not open a downloadable PDF from this source. Try the publisher page or your institution’s library.');
     } finally {
       setFullTextLoading(false);
     }
@@ -435,14 +389,16 @@ const SourceViewer: React.FC = () => {
             </a>
           )}
           <button
-            onClick={exportPDF}
+            onClick={downloadOfficialPdf}
+            disabled={fullTextLoading || (!source.pmid && !source.doi && !(source.fullTextUrls?.length))}
+            title="Download an open-access or publisher-provided PDF when available"
             style={{
               padding: '5px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600,
-              background: 'rgba(168,85,247,0.12)', border: '1px solid rgba(168,85,247,0.35)',
-              color: '#c084fc', cursor: 'pointer',
+              background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.35)',
+              color: '#34d399', cursor: fullTextLoading ? 'wait' : 'pointer',
             }}
           >
-            Export Research Summary
+            {fullTextLoading ? 'Finding PDF…' : 'Download PDF'}
           </button>
         </div>
       </div>
@@ -534,10 +490,10 @@ const SourceViewer: React.FC = () => {
                   border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10,
                   color: '#334155', fontSize: 13,
                 }}>
-                  <div>{source.pmid
-                    ? abstractError || 'Abstract could not be retrieved from PubMed.'
-                    : 'No abstract stored. Add one by editing this source, or use DOI/PubMed import.'}</div>
-                  {source.pmid && (
+                  <div>{source.pmid || source.doi
+                    ? abstractError || 'Abstract could not be retrieved from the available research databases.'
+                    : 'No abstract stored. Add one by editing this source, or use DOI/research search import.'}</div>
+                  {(source.pmid || source.doi) && (
                     <button onClick={loadAbstract} style={{ marginTop: 12, padding: '6px 12px', borderRadius: 6, border: '1px solid rgba(59,130,246,0.35)', background: 'rgba(59,130,246,0.12)', color: '#60a5fa', cursor: 'pointer', fontSize: 11 }}>
                       Retry abstract lookup
                     </button>
@@ -552,9 +508,9 @@ const SourceViewer: React.FC = () => {
             <div>
               <button
                 onClick={downloadOfficialPdf}
-                disabled={fullTextLoading || (!source.pmid && !(source.fullTextUrls?.length))}
-                title={source.pmid || source.fullTextUrls?.length ? 'Download an open-access or publisher-provided PDF when available' : 'A PubMed ID or publisher PDF link is required'}
-                style={{ padding: '10px 14px', borderRadius: 7, marginBottom: 12, border: '1px solid rgba(16,185,129,0.4)', background: 'rgba(16,185,129,0.12)', color: '#34d399', cursor: source.pmid || source.fullTextUrls?.length ? 'pointer' : 'not-allowed', opacity: source.pmid || source.fullTextUrls?.length ? 1 : 0.5, fontSize: 12, fontWeight: 700 }}
+                disabled={fullTextLoading || (!source.pmid && !source.doi && !(source.fullTextUrls?.length))}
+                title={source.pmid || source.doi || source.fullTextUrls?.length ? 'Download an open-access or publisher-provided PDF when available' : 'A PubMed ID, DOI, or publisher PDF link is required'}
+                style={{ padding: '10px 14px', borderRadius: 7, marginBottom: 12, border: '1px solid rgba(16,185,129,0.4)', background: 'rgba(16,185,129,0.12)', color: '#34d399', cursor: source.pmid || source.doi || source.fullTextUrls?.length ? 'pointer' : 'not-allowed', opacity: source.pmid || source.doi || source.fullTextUrls?.length ? 1 : 0.5, fontSize: 12, fontWeight: 700 }}
               >
                 {fullTextLoading ? 'Looking for available PDF…' : 'Download Available PDF'}
               </button>
