@@ -63,7 +63,7 @@ const AuthPage: React.FC = () => {
         }
       } else if (mode === 'signup') {
         if (result.data.user?.identities?.length === 0) {
-          setMessage('If an account already exists for this email, sign in or reset its password.');
+          setMessage('This email may already be registered. Sign in, or use “Forgot password?” to reset your password.');
           setMode('signin');
         } else {
           setMessage('Account created. Check your email to verify it, then sign in.');
