@@ -111,14 +111,6 @@ function BrainModel({ onBrainLoad }: { onBrainLoad: (loaded: boolean) => void })
         shininess: 20
       });
 
-      // White matter material
-      const whiteMaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        shininess: 40,
-        transparent: true,
-        opacity: 0.7
-      });
-
       // Create realistic brain geometry
       const brainShape = new THREE.Shape();
       // Brain outline (sagittal view inspired)

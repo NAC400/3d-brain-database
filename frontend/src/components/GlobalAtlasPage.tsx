@@ -42,7 +42,7 @@ function timeAgo(iso: string): string {
 // Contribute modal
 // ---------------------------------------------------------------------------
 const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const { sources, structureLinks, brainRegions, user } = useBrainStore();
+  const { sources, brainRegions, user } = useBrainStore();
   const [sourceId, setSourceId]     = useState('');
   const [meshName, setMeshName]     = useState('');
   const [status, setStatus]         = useState<'idle'|'verifying'|'submitting'|'done'|'error'>('idle');

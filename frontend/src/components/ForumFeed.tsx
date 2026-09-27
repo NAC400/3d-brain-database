@@ -38,7 +38,7 @@ function isTableMissingError(err: unknown): boolean {
   if (!err) return false;
   const msg = (err as any)?.message ?? '';
   return (
-    msg.includes('relation') && msg.includes('does not exist') ||
+    (msg.includes('relation') && msg.includes('does not exist')) ||
     msg.includes('schema cache') ||
     msg.includes("table") ||
     (err as any)?.code === '42P01'

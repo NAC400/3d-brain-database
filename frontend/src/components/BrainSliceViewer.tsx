@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useTexture, Html } from '@react-three/drei';
+import { OrbitControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface BrainSliceProps {
@@ -291,4 +291,4 @@ export function BrainSliceViewer({
       </div>
     </div>
   );
-} 
+}

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
@@ -302,4 +302,3 @@ export function Interactive3DBrain({ title = "Interactive 3D Brain Model" }: Int
   );
 }
 
- 

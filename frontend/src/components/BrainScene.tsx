@@ -2,7 +2,6 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, Html, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
-import { useBrainStore } from '../store/brainStore';
 import BrainModel from './BrainModel';
 import ClippingController from './ClippingController';
 import CameraController from './CameraController';

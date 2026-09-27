@@ -1,8 +1,7 @@
-import React, { Suspense, useRef, useState } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { useLoader, useFrame } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Mesh, Group } from 'three';
-import { Html } from '@react-three/drei';
+import { Group } from 'three';
 
 interface ModelLoaderProps {
   modelPath: string;
@@ -20,10 +19,9 @@ const ModelLoader: React.FC<ModelLoaderProps> = ({
   enableAnimation = true
 }) => {
   return (
-    <Suspense fallback={<ModelLoadingFallback />}>
+    <Suspense fallback={fallbackComponent}>
       <LoadedModel
         modelPath={modelPath}
-        fallbackComponent={fallbackComponent}
         scale={scale}
         position={position}
         enableAnimation={enableAnimation}
@@ -32,57 +30,26 @@ const ModelLoader: React.FC<ModelLoaderProps> = ({
   );
 };
 
-const LoadedModel: React.FC<ModelLoaderProps> = ({
+const LoadedModel: React.FC<Omit<ModelLoaderProps, 'fallbackComponent'>> = ({
   modelPath,
-  fallbackComponent,
   scale = [1, 1, 1],
   position = [0, 0, 0],
   enableAnimation = true
 }) => {
   const groupRef = useRef<Group>(null);
-  const [hasError, setHasError] = useState(false);
-
-  // Try to load the model, fall back to placeholder if it fails
-  let gltf;
-  try {
-    gltf = useLoader(GLTFLoader, modelPath);
-  } catch (error) {
-    console.warn(`Failed to load model at ${modelPath}, using fallback`);
-    setHasError(true);
-  }
+  const gltf = useLoader(GLTFLoader, modelPath);
 
   // Animation
   useFrame((state, delta) => {
-    if (groupRef.current && enableAnimation && !hasError) {
+    if (groupRef.current && enableAnimation) {
       groupRef.current.rotation.y += delta * 0.05;
     }
   });
-
-  // If model failed to load, show fallback
-  if (hasError || !gltf) {
-    return <>{fallbackComponent}</>;
-  }
 
   return (
     <group ref={groupRef} scale={scale} position={position}>
       <primitive object={gltf.scene} />
     </group>
-  );
-};
-
-const ModelLoadingFallback: React.FC = () => {
-  return (
-    <Html center>
-      <div className="flex flex-col items-center justify-center p-4">
-        <div className="brain-loader mb-3"></div>
-        <span className="text-brain-secondary font-medium">
-          Loading 3D Brain Model...
-        </span>
-        <span className="text-xs text-gray-400 mt-1">
-          High-resolution model loading
-        </span>
-      </div>
-    </Html>
   );
 };
 
@@ -152,4 +119,4 @@ export const EnhancedBrainModel: React.FC<{
   );
 };
 
-export default ModelLoader; 
+export default ModelLoader;

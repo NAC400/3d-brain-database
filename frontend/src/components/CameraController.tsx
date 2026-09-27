@@ -16,10 +16,6 @@ const ARRIVE_THRESHOLD = 0.002;
 const CameraController: React.FC = () => {
   const { camera } = useThree();
   const { cameraTarget, setCameraTarget } = useBrainStore();
-  const controlsTargetRef = useRef<THREE.Vector3>(new THREE.Vector3());
-
-  // Keep a local copy of the controls target so we can lerp it
-  const localTarget = useRef(new THREE.Vector3());
   const localPos    = useRef(new THREE.Vector3());
   const animating   = useRef(false);
 

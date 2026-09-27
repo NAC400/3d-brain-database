@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useBrainStore } from '../store/brainStore';
 import { newId } from '../lib/id';
 import type { StructureLink } from '../store/brainStore';
@@ -6,8 +6,6 @@ import type { Source, Note } from '../types/source';
 import { fetchAbstract } from '../lib/pubmed';
 import { downloadPdf, findOpenAccessPdf } from '../lib/fullText';
 import { NoteList } from './NoteEditor';
-
-const genId = newId;
 
 // ---------------------------------------------------------------------------
 // Citation format generators
@@ -202,25 +200,24 @@ const SourceViewer: React.FC = () => {
   const [regionDropOpen, setRegionDropOpen] = useState(false);
 
   const source = sources.find((s) => s.id === viewingSourceId);
+  const sourceId = source?.id;
+  const sourcePmid = source?.pmid;
+  const sourceAbstract = source?.abstract;
 
-  const loadAbstract = async () => {
-    if (!source?.pmid) return;
+  const loadAbstract = useCallback(async () => {
+    if (!sourceId || !sourcePmid) return;
     setAbstractLoading(true); setAbstractError('');
-    const result = await fetchAbstract(source.pmid);
-    if (result.abstract) updateSource(source.id, { abstract: result.abstract });
+    const result = await fetchAbstract(sourcePmid);
+    if (result.abstract) updateSource(sourceId, { abstract: result.abstract });
     else setAbstractError(result.error ?? 'Abstract could not be retrieved.');
     setAbstractLoading(false);
-  };
+  }, [sourceId, sourcePmid, updateSource]);
 
   // Auto-fetch abstract via Europe PMC when a PubMed import has no abstract.
   useEffect(() => {
-    if (!source) return;
-    if (source.abstract) return;
-    if (!source.pmid) return;
-    let cancelled = false;
-    loadAbstract().then(() => { if (cancelled) return; });
-    return () => { cancelled = true; };
-  }, [source?.id, source?.pmid, source?.abstract]);
+    if (!sourceId || sourceAbstract || !sourcePmid) return;
+    void loadAbstract();
+  }, [sourceId, sourceAbstract, sourcePmid, loadAbstract]);
 
   if (!source) return null;
 

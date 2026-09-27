@@ -47,6 +47,18 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
         </div>
 
         <div style={{ display: 'flex', gap: 4, flexShrink: 0 }}>
+          {!compact && (
+            <button
+              onClick={() => setExpanded((current) => !current)}
+              style={{
+                padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
+                background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)',
+                color: '#60a5fa', cursor: 'pointer',
+              }}
+            >
+              {expanded ? 'Hide' : 'Details'}
+            </button>
+          )}
           {source.doi && (
             <a
               href={`https://doi.org/${source.doi}`}
