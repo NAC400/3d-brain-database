@@ -40,6 +40,23 @@ export async function signUpWithEmail(email: string, password: string) {
   return supabase.auth.signUp({ email, password });
 }
 
+export async function resendConfirmationEmail(email: string) {
+  if (!supabase) return { error: { message: 'Supabase not configured.' }, data: null };
+  return supabase.auth.resend({ type: 'signup', email });
+}
+
+export async function sendPasswordResetEmail(email: string) {
+  if (!supabase) return { error: { message: 'Supabase not configured.' }, data: null };
+  return supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/?reset-password=true`,
+  });
+}
+
+export async function updateCurrentUserPassword(password: string) {
+  if (!supabase) return { error: { message: 'Supabase not configured.' }, data: null };
+  return supabase.auth.updateUser({ password });
+}
+
 export async function signOut() {
   if (!supabase) return;
   await supabase.auth.signOut();
@@ -51,10 +68,10 @@ export async function getSession() {
   return data.session;
 }
 
-export function onAuthStateChange(callback: (user: User | null) => void): () => void {
+export function onAuthStateChange(callback: (user: User | null, event?: string) => void): () => void {
   if (!supabase) return () => {};
-  const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-    callback(session?.user ?? null);
+  const { data } = supabase.auth.onAuthStateChange((event, session) => {
+    callback(session?.user ?? null, event);
   });
   return () => data.subscription.unsubscribe();
 }

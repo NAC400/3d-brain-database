@@ -10,6 +10,7 @@ import LibraryPage from './components/LibraryPage';
 import ContextMenu from './components/ContextMenu';
 import ProjectsModal from './components/ProjectsModal';
 import { useBrainStore } from './store/brainStore';
+import { onAuthStateChange } from './lib/supabase';
 
 const LazyGlobalAtlasPage = React.lazy(() => import('./components/GlobalAtlasPage'));
 const LazyAuthPage        = React.lazy(() => import('./components/AuthPage'));
@@ -23,8 +24,20 @@ const App: React.FC = () => {
     highlightMode, setHighlightMode, clearAllHighlights,
     selectedRegion,
     projects, activeProjectId, setActiveProjectId,
-    explorerMode, setExplorerMode,
+    explorerMode, setExplorerMode, setUser,
   } = useBrainStore();
+
+  // Keep local UI state aligned with Supabase, including recovery links.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).has('reset-password')) setAppPage('auth');
+    return onAuthStateChange((supaUser, event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setAppPage('auth');
+        return;
+      }
+      setUser(supaUser ? { id: supaUser.id, email: supaUser.email ?? '', plan: 'free' } : null);
+    });
+  }, [setAppPage, setUser]);
 
   // ── Keyboard shortcuts ──
   useEffect(() => {
