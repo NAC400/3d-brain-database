@@ -63,14 +63,14 @@ const RegionInfoPanel: React.FC = () => {
             <div style={{ fontSize: 13, fontWeight: 700, lineHeight: 1.3, color: '#f1f5f9' }}>
               {region.name}
             </div>
-            <div style={{ fontSize: 10, color: '#64748b', letterSpacing: 0.5, marginTop: 1 }}>
+            <div style={{ fontSize: 10, color: 'var(--product-muted)', letterSpacing: 0.5, marginTop: 1 }}>
               {region.acronym}
             </div>
           </div>
         </div>
         <button
           onClick={() => { setSelectedRegion(null); setIsolatedRegion(null); }}
-          style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 16, lineHeight: 1, padding: 0, marginLeft: 6 }}
+          style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 16, lineHeight: 1, padding: 0, marginLeft: 6 }}
         >
           ×
         </button>
@@ -86,7 +86,7 @@ const RegionInfoPanel: React.FC = () => {
           fontWeight: 600,
           letterSpacing: 0.6,
           background: 'rgba(59,130,246,0.15)',
-          color: '#60a5fa',
+          color: 'var(--product-accent)',
           border: '1px solid rgba(59,130,246,0.25)',
           textTransform: 'uppercase',
         }}>
@@ -98,16 +98,16 @@ const RegionInfoPanel: React.FC = () => {
       <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 12, lineHeight: 1.6 }}>
         {region.parentName && (
           <div style={{ display: 'flex', gap: 6 }}>
-            <span style={{ color: '#475569', minWidth: 64 }}>Parent</span>
+            <span style={{ color: 'var(--product-muted)', minWidth: 64 }}>Parent</span>
             <span style={{ color: '#cbd5e1' }}>{region.parentName}</span>
           </div>
         )}
         <div style={{ display: 'flex', gap: 6 }}>
-          <span style={{ color: '#475569', minWidth: 64 }}>Depth</span>
+          <span style={{ color: 'var(--product-muted)', minWidth: 64 }}>Depth</span>
           <span style={{ color: '#cbd5e1' }}>Level {region.depth}</span>
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
-          <span style={{ color: '#475569', minWidth: 64 }}>Label ID</span>
+          <span style={{ color: 'var(--product-muted)', minWidth: 64 }}>Label ID</span>
           <span style={{ color: '#cbd5e1' }}>{region.labelId}</span>
         </div>
       </div>
@@ -152,7 +152,7 @@ const RegionInfoPanel: React.FC = () => {
           style={{
             flex: 1, padding: '6px 0', borderRadius: 6,
             border: '1px solid rgba(100,116,139,0.3)',
-            background: 'transparent', color: '#64748b',
+            background: 'transparent', color: 'var(--product-muted)',
             fontSize: 11, cursor: 'pointer', fontWeight: 600, letterSpacing: 0.4,
           }}
         >
@@ -162,7 +162,7 @@ const RegionInfoPanel: React.FC = () => {
 
       {/* Highlight color + paint mode */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-        <span style={{ fontSize: 10, color: '#475569', fontWeight: 600, letterSpacing: 0.4 }}>Highlight</span>
+        <span style={{ fontSize: 10, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.4 }}>Highlight</span>
         <input
           type="color"
           value={highlightColor ?? region.color}
@@ -176,7 +176,7 @@ const RegionInfoPanel: React.FC = () => {
             style={{
               fontSize: 9, padding: '2px 6px', borderRadius: 3,
               background: 'transparent', border: '1px solid rgba(100,116,139,0.2)',
-              color: '#475569', cursor: 'pointer',
+              color: 'var(--product-muted)', cursor: 'pointer',
             }}
           >Reset</button>
         )}
@@ -200,7 +200,7 @@ const RegionInfoPanel: React.FC = () => {
           onClick={() => setShowNotes(!showNotes)}
           style={{
             width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            background: 'none', border: 'none', color: '#475569', cursor: 'pointer',
+            background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer',
             fontSize: 10, fontWeight: 700, letterSpacing: 0.6, padding: '4px 0',
             textTransform: 'uppercase',
           }}

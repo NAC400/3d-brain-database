@@ -136,7 +136,7 @@ const SetupBanner: React.FC = () => {
             padding: '3px 8px', borderRadius: 4, fontSize: 9, fontWeight: 600, cursor: 'pointer',
             background: copied ? 'rgba(34,197,94,0.2)' : 'rgba(59,130,246,0.2)',
             border: `1px solid ${copied ? 'rgba(34,197,94,0.4)' : 'rgba(59,130,246,0.35)'}`,
-            color: copied ? '#4ade80' : '#60a5fa',
+            color: copied ? '#4ade80' : 'var(--product-accent)',
           }}
         >
           {copied ? 'Copied!' : 'Copy SQL'}
@@ -222,10 +222,10 @@ const NewPostModal: React.FC<{
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 600, background: 'rgba(7,11,22,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: 520, maxHeight: '85vh', overflowY: 'auto', background: 'rgba(15,23,42,0.98)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 14, padding: '28px 24px' }}>
+      <div style={{ width: 520, maxHeight: '85vh', overflowY: 'auto', background: 'var(--product-surface)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 14, padding: '28px 24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#f1f5f9' }}>New Post</div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: 20 }}>×</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 20 }}>×</button>
         </div>
 
         <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title *" style={inputStyle} />
@@ -259,7 +259,7 @@ const NewPostModal: React.FC<{
                   onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(59,130,246,0.1)')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                 >
-                  {r.name} <span style={{ color: '#475569', fontSize: 9 }}>{r.acronym}</span>
+                  {r.name} <span style={{ color: 'var(--product-muted)', fontSize: 9 }}>{r.acronym}</span>
                 </div>
               ))}
             </div>
@@ -277,7 +277,7 @@ const NewPostModal: React.FC<{
         )}
 
         {useLocal && (
-          <div style={{ fontSize: 10, color: '#64748b', marginBottom: 10 }}>
+          <div style={{ fontSize: 10, color: 'var(--product-muted)', marginBottom: 10 }}>
             Running in local mode — post will be saved for this session only.
           </div>
         )}
@@ -349,11 +349,11 @@ const CommentThread: React.FC<{ postId: string; useLocal: boolean }> = ({ postId
   return (
     <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid rgba(30,41,59,0.6)' }}>
       {loading ? (
-        <div style={{ fontSize: 11, color: '#334155', padding: '8px 0' }}>Loading comments…</div>
+        <div style={{ fontSize: 11, color: 'var(--product-muted)', padding: '8px 0' }}>Loading comments…</div>
       ) : (
         <>
           {comments.length === 0 && (
-            <div style={{ fontSize: 11, color: '#334155', marginBottom: 10 }}>No comments yet — be the first.</div>
+            <div style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 10 }}>No comments yet — be the first.</div>
           )}
           {comments.map((c) => (
             <div key={c.id} style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
@@ -361,7 +361,7 @@ const CommentThread: React.FC<{ postId: string; useLocal: boolean }> = ({ postId
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
                   <span style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8' }}>{c.user_email.split('@')[0]}</span>
-                  <span style={{ fontSize: 9, color: '#334155' }}>{timeAgo(c.created_at)}</span>
+                  <span style={{ fontSize: 9, color: 'var(--product-muted)' }}>{timeAgo(c.created_at)}</span>
                 </div>
                 <div style={{ fontSize: 12, color: '#cbd5e1', lineHeight: 1.6 }}>{c.body}</div>
               </div>
@@ -391,7 +391,7 @@ const CommentThread: React.FC<{ postId: string; useLocal: boolean }> = ({ postId
               style={{
                 padding: '6px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600, cursor: 'pointer',
                 background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)',
-                color: '#60a5fa', opacity: !body.trim() ? 0.5 : 1,
+                color: 'var(--product-accent)', opacity: !body.trim() ? 0.5 : 1,
               }}
             >
               {submitting ? '…' : 'Reply'}
@@ -424,7 +424,7 @@ const PostCard: React.FC<{
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, flexShrink: 0 }}>
           <button
             onClick={() => onUpvote(post.id, post.upvotes)}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#475569', fontSize: 14, lineHeight: 1, padding: '2px' }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--product-muted)', fontSize: 14, lineHeight: 1, padding: '2px' }}
             title="Upvote"
           >
             ▲
@@ -438,8 +438,8 @@ const PostCard: React.FC<{
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 4 }}>
             <Avatar email={post.user_email} size={20} />
-            <span style={{ fontSize: 10, color: '#64748b' }}>{post.user_email.split('@')[0]}</span>
-            <span style={{ fontSize: 9, color: '#334155' }}>· {timeAgo(post.created_at)}</span>
+            <span style={{ fontSize: 10, color: 'var(--product-muted)' }}>{post.user_email.split('@')[0]}</span>
+            <span style={{ fontSize: 9, color: 'var(--product-muted)' }}>· {timeAgo(post.created_at)}</span>
           </div>
 
           <div
@@ -475,7 +475,7 @@ const PostCard: React.FC<{
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 6 }}>
             <button
               onClick={() => setExpanded((e) => !e)}
-              style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 11, padding: 0 }}
+              style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 11, padding: 0 }}
             >
               {expanded ? 'Hide' : 'Comments & Discussion'}
             </button>
@@ -563,7 +563,7 @@ const ForumFeed: React.FC = () => {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
           <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', margin: 0 }}>Community Forum</h2>
-          <p style={{ fontSize: 12, color: '#475569', marginTop: 4 }}>
+          <p style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 4 }}>
             Discuss findings, ask questions, share insights — linked to brain regions.
           </p>
         </div>
@@ -600,9 +600,9 @@ const ForumFeed: React.FC = () => {
       )}
 
       {loading ? (
-        <div style={{ textAlign: 'center', color: '#334155', padding: 40 }}>Loading posts…</div>
+        <div style={{ textAlign: 'center', color: 'var(--product-muted)', padding: 40 }}>Loading posts…</div>
       ) : filtered.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: 40, background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10, color: '#334155', fontSize: 13 }}>
+        <div style={{ textAlign: 'center', padding: 40, background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10, color: 'var(--product-muted)', fontSize: 13 }}>
           {posts.length === 0 ? 'No posts yet. Start the conversation!' : `No posts match "${search}"`}
         </div>
       ) : (

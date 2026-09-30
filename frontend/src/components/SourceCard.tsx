@@ -39,7 +39,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
           >
             {source.title}
           </div>
-          <div style={{ fontSize: 10, color: '#64748b', marginTop: 3 }}>
+          <div style={{ fontSize: 10, color: 'var(--product-muted)', marginTop: 3 }}>
             {source.authors.slice(0,3).join(', ')}{source.authors.length > 3 ? ' et al.' : ''}
             {source.journal && <span> · <em>{source.journal}</em></span>}
             {source.year ? <span> · {source.year}</span> : null}
@@ -53,7 +53,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
               style={{
                 padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
                 background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)',
-                color: '#60a5fa', cursor: 'pointer',
+                color: 'var(--product-accent)', cursor: 'pointer',
               }}
             >
               {expanded ? 'Hide' : 'Details'}
@@ -68,7 +68,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
               style={{
                 padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
                 background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)',
-                color: '#60a5fa', textDecoration: 'none', letterSpacing: 0.4,
+                color: 'var(--product-accent)', textDecoration: 'none', letterSpacing: 0.4,
               }}
             >
               DOI ↗
@@ -112,7 +112,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
           {/* Linked regions */}
           {linkedRegions.length > 0 && (
             <div>
-              <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: 1, color: '#475569', textTransform: 'uppercase', marginBottom: 4 }}>
+              <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: 1, color: 'var(--product-muted)', textTransform: 'uppercase', marginBottom: 4 }}>
                 Linked Regions
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
@@ -130,7 +130,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
                     </button>
                     <button
                       onClick={() => removeStructureLink(link.id)}
-                      style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 10, padding: 0 }}
+                      style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 10, padding: 0 }}
                     >×</button>
                   </div>
                 ))}

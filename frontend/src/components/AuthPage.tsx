@@ -127,7 +127,7 @@ const AuthPage: React.FC = () => {
           <div style={{
             display: 'inline-block', padding: '3px 12px', borderRadius: 99,
             background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.3)',
-            color: '#60a5fa', fontSize: 11, fontWeight: 700, letterSpacing: 0.6,
+            color: 'var(--product-accent)', fontSize: 11, fontWeight: 700, letterSpacing: 0.6,
             textTransform: 'uppercase', marginBottom: 28,
           }}>
             {user.plan} plan
@@ -138,7 +138,7 @@ const AuthPage: React.FC = () => {
               style={{
                 padding: '10px 0', borderRadius: 8, fontWeight: 600, cursor: 'pointer',
                 background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)',
-                color: '#60a5fa', fontSize: 14,
+                color: 'var(--product-accent)', fontSize: 14,
               }}
             >Back to Explorer</button>
             <button
@@ -164,19 +164,13 @@ const AuthPage: React.FC = () => {
       }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <div style={{
-            width: 48, height: 48, borderRadius: '50%', margin: '0 auto 12px',
-            background: 'linear-gradient(135deg,#3b82f6,#1e40af)',
-            boxShadow: '0 0 20px rgba(59,130,246,0.4)',
-          }} />
-          <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: 2, color: '#e0eaff' }}>MAPPED</div>
-          <div style={{ fontSize: 11, color: '#475569', marginTop: 2 }}>3D Brain Research Platform</div>
+          <span className="product-wordmark">MAPPED<span>.</span><small>NEUROSCIENCE RESEARCH & LEARNING</small></span>
         </div>
 
         {mode === 'reset' ? (
           <div style={{ marginBottom: 24, textAlign: 'center' }}>
             <div style={{ fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}>Choose a new password</div>
-            <div style={{ fontSize: 12, color: '#64748b', marginTop: 6 }}>Use at least 8 characters.</div>
+            <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 6 }}>Use at least 8 characters.</div>
           </div>
         ) : (
         <div style={{ display: 'flex', marginBottom: 24, borderRadius: 8, overflow: 'hidden', border: '1px solid rgba(59,130,246,0.2)' }}>
@@ -185,7 +179,7 @@ const AuthPage: React.FC = () => {
               flex: 1, padding: '9px 0', fontSize: 13, fontWeight: 600, cursor: 'pointer',
               border: 'none',
               background: mode === m ? 'rgba(59,130,246,0.2)' : 'transparent',
-              color: mode === m ? '#60a5fa' : '#475569',
+              color: mode === m ? 'var(--product-accent)' : '#475569',
             }}>
               {m === 'signin' ? 'Sign In' : 'Create Account'}
             </button>
@@ -205,11 +199,11 @@ const AuthPage: React.FC = () => {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {mode !== 'reset' && <div>
-            <label style={{ fontSize: 11, color: '#64748b', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>EMAIL</label>
+            <label style={{ fontSize: 11, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>EMAIL</label>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} required placeholder="your@email.com" />
           </div>}
           <div>
-            <label style={{ fontSize: 11, color: '#64748b', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>{mode === 'reset' ? 'NEW PASSWORD' : 'PASSWORD'}</label>
+            <label style={{ fontSize: 11, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>{mode === 'reset' ? 'NEW PASSWORD' : 'PASSWORD'}</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={inputStyle} required placeholder="••••••••" />
           </div>
 
@@ -225,7 +219,7 @@ const AuthPage: React.FC = () => {
           )}
 
           {canResend && (
-            <button type="button" onClick={handleResendConfirmation} disabled={loading} style={{ padding: '8px 0', borderRadius: 7, background: 'transparent', border: '1px solid rgba(59,130,246,0.35)', color: '#60a5fa', cursor: 'pointer', fontSize: 12 }}>
+            <button type="button" onClick={handleResendConfirmation} disabled={loading} style={{ padding: '8px 0', borderRadius: 7, background: 'transparent', border: '1px solid rgba(59,130,246,0.35)', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 12 }}>
               Resend verification email
             </button>
           )}
@@ -245,12 +239,12 @@ const AuthPage: React.FC = () => {
         </form>
 
         {mode === 'signin' && <div style={{ textAlign: 'center', marginTop: 14 }}>
-          <button type="button" onClick={handlePasswordReset} disabled={loading} style={{ background: 'none', border: 'none', color: '#60a5fa', cursor: 'pointer', fontSize: 11 }}>
+          <button type="button" onClick={handlePasswordReset} disabled={loading} style={{ background: 'none', border: 'none', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 11 }}>
             Forgot password?
           </button>
         </div>}
 
-        {mode !== 'reset' && <p style={{ fontSize: 11, color: '#334155', textAlign: 'center', marginTop: 20 }}>
+        {mode !== 'reset' && <p style={{ fontSize: 11, color: 'var(--product-muted)', textAlign: 'center', marginTop: 20 }}>
           {mode === 'signin' ? 'No account? ' : 'Already have an account? '}
           <button onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')} style={{ background: 'none', border: 'none', color: '#3b82f6', cursor: 'pointer', fontSize: 11 }}>
             {mode === 'signin' ? 'Create one' : 'Sign in'}

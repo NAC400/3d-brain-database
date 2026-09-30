@@ -50,16 +50,17 @@ const LibraryPage: React.FC = () => {
     structureLinks.filter((l) => l.sourceId === id).length;
 
   return (
-    <div style={{
+    <div className="product-library" style={{
       flex: 1, display: 'flex', flexDirection: 'column',
-      background: '#0a1120', overflow: 'hidden',
+      background: 'transparent', overflow: 'hidden',
     }}>
+<div className="product-page-heading"><p>YOUR WORKSPACE</p><h1>Research Library</h1><span>Organize sources and connect scientific evidence to brain anatomy.</span></div>
       {/* ── Toolbar ── */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: 12,
         padding: '12px 24px',
         borderBottom: '1px solid rgba(30,41,59,0.8)',
-        background: 'rgba(15,23,42,0.98)',
+        background: 'var(--product-surface)',
         flexShrink: 0,
         flexWrap: 'wrap',
       }}>
@@ -72,7 +73,7 @@ const LibraryPage: React.FC = () => {
                 padding: '3px 10px', borderRadius: 20, fontSize: 10, fontWeight: 600, cursor: 'pointer',
                 border: `1px solid ${!activeProjectId ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
                 background: !activeProjectId ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: !activeProjectId ? '#60a5fa' : '#475569',
+                color: !activeProjectId ? 'var(--product-accent)' : '#475569',
               }}
             >All</button>
             {projects.map((p) => (
@@ -96,7 +97,7 @@ const LibraryPage: React.FC = () => {
 
         {/* Search */}
         <div style={{ position: 'relative', flex: 1, minWidth: 200, maxWidth: 400 }}>
-          <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: '#475569', fontSize: 13 }}>⌕</span>
+          <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: 'var(--product-muted)', fontSize: 13 }}>⌕</span>
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -118,7 +119,7 @@ const LibraryPage: React.FC = () => {
           style={{
             padding: '7px 10px', borderRadius: 6, fontSize: 11,
             background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.2)',
-            color: filterTag ? '#60a5fa' : '#64748b', cursor: 'pointer', outline: 'none',
+            color: filterTag ? 'var(--product-accent)' : '#64748b', cursor: 'pointer', outline: 'none',
           }}
         >
           <option value="">All tags</option>
@@ -135,7 +136,7 @@ const LibraryPage: React.FC = () => {
                 padding: '5px 10px', borderRadius: 5, fontSize: 10, fontWeight: 600, cursor: 'pointer',
                 border: `1px solid ${sortBy === key ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
                 background: sortBy === key ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: sortBy === key ? '#60a5fa' : '#475569',
+                color: sortBy === key ? 'var(--product-accent)' : '#475569',
                 textTransform: 'uppercase', letterSpacing: 0.5,
               }}
             >{key}</button>
@@ -143,7 +144,7 @@ const LibraryPage: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div style={{ fontSize: 11, color: '#334155', marginLeft: 'auto', whiteSpace: 'nowrap' }}>
+        <div style={{ fontSize: 11, color: 'var(--product-muted)', marginLeft: 'auto', whiteSpace: 'nowrap' }}>
           {filtered.length} / {sources.length} sources
         </div>
       </div>
@@ -152,9 +153,9 @@ const LibraryPage: React.FC = () => {
       <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px' }}>
         {sources.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '80px 24px' }}>
-            <div style={{ fontSize: 40, marginBottom: 16 }}>📚</div>
-            <div style={{ fontSize: 16, fontWeight: 600, color: '#334155', marginBottom: 8 }}>No sources yet</div>
-            <div style={{ fontSize: 13, color: '#1e293b', marginBottom: 24 }}>
+            <div className="product-empty-mark" aria-hidden="true">↗</div>
+            <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--product-muted)', marginBottom: 8 }}>No sources yet</div>
+            <div style={{ fontSize: 13, color: 'var(--product-muted)', marginBottom: 24 }}>
               Go to the Brain Explorer and add sources via DOI, PubMed search, or manual entry.
             </div>
             <button
@@ -162,14 +163,14 @@ const LibraryPage: React.FC = () => {
               style={{
                 padding: '10px 24px', borderRadius: 8, fontSize: 13, fontWeight: 700,
                 background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.5)',
-                color: '#60a5fa', cursor: 'pointer',
+                color: 'var(--product-accent)', cursor: 'pointer',
               }}
             >
               Open Brain Explorer
             </button>
           </div>
         ) : filtered.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '60px 0', color: '#334155', fontSize: 13 }}>
+          <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--product-muted)', fontSize: 13 }}>
             No sources match your search.
           </div>
         ) : (
@@ -239,7 +240,7 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
         }}>
           {source.title}
         </div>
-        <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6 }}>
+        <div style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 6 }}>
           {source.authors.slice(0, 4).join(', ')}{source.authors.length > 4 ? ' et al.' : ''}
           {source.journal && <span> · <em>{source.journal}</em></span>}
           {source.year && <span> · {source.year}</span>}
@@ -286,7 +287,7 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
             style={{
               padding: '3px 8px', borderRadius: 4, fontSize: 9, fontWeight: 600,
               background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.25)',
-              color: '#60a5fa', textDecoration: 'none',
+              color: 'var(--product-accent)', textDecoration: 'none',
             }}
           >DOI ↗</a>
         )}

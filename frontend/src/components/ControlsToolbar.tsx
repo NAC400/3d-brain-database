@@ -62,7 +62,7 @@ const CATEGORY_GROUPS: CategoryGroup[] = [
     children: ['White Matter'],
   },
   {
-    id: 'ventricles', label: 'Ventricles & CSF', color: '#60a5fa',
+    id: 'ventricles', label: 'Ventricles & CSF', color: 'var(--product-accent)',
     children: ['Ventricles & CSF'],
   },
 ];
@@ -91,7 +91,7 @@ const SUB_COLORS: Record<string, string> = {
   'Diencephalon – Thalamus':               '#3b82f6',
   'Diencephalon – Hypothalamus':           '#818cf8',
   'Diencephalon – Epithalamus':            '#c084fc',
-  'Diencephalon – Subthalamus':            '#60a5fa',
+  'Diencephalon – Subthalamus':            'var(--product-accent)',
   'Diencephalon':                          '#93c5fd',
   // Mesencephalon subdivisions
   'Mesencephalon – Tectum':               '#10b981',
@@ -152,7 +152,7 @@ const SubPopover: React.FC<PopoverProps> = ({ group, activeCategories, toggleCat
         left: pos.left,
         bottom: pos.bottom,
         zIndex: 500,
-        background: 'rgba(15,23,42,0.97)',
+        background: 'var(--product-surface)',
         border: `1px solid ${group.color}44`,
         borderRadius: 10,
         padding: '12px 14px',
@@ -191,7 +191,7 @@ const SubPopover: React.FC<PopoverProps> = ({ group, activeCategories, toggleCat
           </button>
           <button
             onClick={onClose}
-            style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0 }}
+            style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0 }}
           >
             ×
           </button>
@@ -285,7 +285,7 @@ const ShortcutsPopover: React.FC<{ anchorRef: React.RefObject<HTMLButtonElement 
       style={{
         position: 'fixed', left: pos.left, bottom: pos.bottom,
         zIndex: 500, width: 300,
-        background: 'rgba(15,23,42,0.97)',
+        background: 'var(--product-surface)',
         border: '1px solid rgba(59,130,246,0.35)',
         borderRadius: 10, padding: '14px 16px',
         boxShadow: '0 -8px 32px rgba(0,0,0,0.7)',
@@ -293,8 +293,8 @@ const ShortcutsPopover: React.FC<{ anchorRef: React.RefObject<HTMLButtonElement 
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: '#60a5fa', letterSpacing: 0.5 }}>KEYBOARD SHORTCUTS</span>
-        <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0 }}>×</button>
+        <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--product-accent)', letterSpacing: 0.5 }}>KEYBOARD SHORTCUTS</span>
+        <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0 }}>×</button>
       </div>
       {shortcuts.map(({ key, desc, action }) => (
         <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
@@ -306,14 +306,14 @@ const ShortcutsPopover: React.FC<{ anchorRef: React.RefObject<HTMLButtonElement 
           }}>
             {key}
           </kbd>
-          <span style={{ fontSize: 11, color: '#64748b', flex: 1 }}>{desc}</span>
+          <span style={{ fontSize: 11, color: 'var(--product-muted)', flex: 1 }}>{desc}</span>
           {action && (
             <button
               onClick={() => { action(); onClose(); }}
               style={{
                 padding: '2px 8px', borderRadius: 4, fontSize: 10, fontWeight: 600, cursor: 'pointer',
                 background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.25)',
-                color: '#60a5fa', flexShrink: 0,
+                color: 'var(--product-accent)', flexShrink: 0,
               }}
             >
               Run
@@ -332,7 +332,7 @@ const ShortcutsPopover: React.FC<{ anchorRef: React.RefObject<HTMLButtonElement 
 const AXES = [
   { key: 'sagittal' as const, label: 'Sagittal', sublabel: 'L ↔ R',      color: '#f87171', boundsMin: 'xMin' as keyof BrainBounds, boundsMax: 'xMax' as keyof BrainBounds },
   { key: 'axial'    as const, label: 'Axial',    sublabel: 'Sup ↔ Inf',  color: '#34d399', boundsMin: 'yMin' as keyof BrainBounds, boundsMax: 'yMax' as keyof BrainBounds },
-  { key: 'coronal'  as const, label: 'Coronal',  sublabel: 'Ant ↔ Post', color: '#60a5fa', boundsMin: 'zMin' as keyof BrainBounds, boundsMax: 'zMax' as keyof BrainBounds },
+  { key: 'coronal'  as const, label: 'Coronal',  sublabel: 'Ant ↔ Post', color: 'var(--product-accent)', boundsMin: 'zMin' as keyof BrainBounds, boundsMax: 'zMax' as keyof BrainBounds },
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -417,7 +417,7 @@ const ControlsToolbar: React.FC = () => {
             onChange={(e) => setExplodeAmount(parseFloat(e.target.value))}
             style={{ width: 90, accentColor: '#3b82f6', cursor: 'pointer' }}
           />
-          <span style={{ fontSize: 10, color: '#475569', width: 26, flexShrink: 0 }}>
+          <span style={{ fontSize: 10, color: 'var(--product-muted)', width: 26, flexShrink: 0 }}>
             {Math.round(explodeAmount * 100)}%
           </span>
         </div>
@@ -434,7 +434,7 @@ const ControlsToolbar: React.FC = () => {
                 padding: '3px 10px', borderRadius: 5,
                 border: `1px solid ${mode === m ? 'rgba(59,130,246,0.7)' : 'rgba(100,116,139,0.25)'}`,
                 background: mode === m ? 'rgba(59,130,246,0.18)' : 'transparent',
-                color: mode === m ? '#60a5fa' : '#475569',
+                color: mode === m ? 'var(--product-accent)' : '#475569',
                 fontSize: 10, fontWeight: 600, cursor: 'pointer',
                 letterSpacing: 0.5, textTransform: 'uppercase', whiteSpace: 'nowrap',
               }}
@@ -525,7 +525,7 @@ const ControlsToolbar: React.FC = () => {
                     <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 0.8, color, textTransform: 'uppercase', lineHeight: 1 }}>
                       {label}
                     </div>
-                    <div style={{ fontSize: 8, color: '#334155', lineHeight: 1, marginTop: 1 }}>{sublabel}</div>
+                    <div style={{ fontSize: 8, color: 'var(--product-muted)', lineHeight: 1, marginTop: 1 }}>{sublabel}</div>
                   </div>
                   <input
                     type="range"
@@ -537,7 +537,7 @@ const ControlsToolbar: React.FC = () => {
                     }}
                     style={{ width: 90, accentColor: color, cursor: 'pointer', opacity: enabled ? 1 : 0.35 }}
                   />
-                  <span style={{ fontSize: 9, color: '#475569', width: 36, flexShrink: 0, opacity: enabled ? 1 : 0.35 }}>
+                  <span style={{ fontSize: 9, color: 'var(--product-muted)', width: 36, flexShrink: 0, opacity: enabled ? 1 : 0.35 }}>
                     {clampedValue.toFixed(2)}
                   </span>
                 </div>
@@ -572,7 +572,7 @@ const ControlsToolbar: React.FC = () => {
               width: 26, height: 26, borderRadius: '50%',
               border: `1px solid ${showShortcuts ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.3)'}`,
               background: showShortcuts ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: showShortcuts ? '#60a5fa' : '#475569',
+              color: showShortcuts ? 'var(--product-accent)' : '#475569',
               fontSize: 12, fontWeight: 700, cursor: 'pointer',
             }}
           >

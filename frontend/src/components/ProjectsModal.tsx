@@ -70,7 +70,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
     }}>
       <div style={{
         width: 480, maxHeight: '80vh', overflowY: 'auto',
-        background: 'rgba(15,23,42,0.98)',
+        background: 'var(--product-surface)',
         border: '1px solid rgba(59,130,246,0.3)',
         borderRadius: 14, padding: '28px 24px',
         boxShadow: '0 24px 64px rgba(0,0,0,0.7)',
@@ -79,16 +79,16 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div>
             <div style={{ fontSize: 15, fontWeight: 700, color: '#f1f5f9' }}>Projects</div>
-            <div style={{ fontSize: 11, color: '#475569', marginTop: 2 }}>
+            <div style={{ fontSize: 11, color: 'var(--product-muted)', marginTop: 2 }}>
               Organise your sources into private or community research projects
             </div>
           </div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: 20, lineHeight: 1 }}>×</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 20, lineHeight: 1 }}>×</button>
         </div>
 
         {/* Project list */}
         {projects.length === 0 && !formOpen && (
-          <div style={{ textAlign: 'center', color: '#334155', fontSize: 12, padding: '24px 0' }}>
+          <div style={{ textAlign: 'center', color: 'var(--product-muted)', fontSize: 12, padding: '24px 0' }}>
             No projects yet. Create one to organise your sources.
           </div>
         )}
@@ -103,7 +103,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#f1f5f9' }}>{p.name}</div>
               {p.description && (
-                <div style={{ fontSize: 10, color: '#64748b', marginTop: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <div style={{ fontSize: 10, color: 'var(--product-muted)', marginTop: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {p.description}
                 </div>
               )}
@@ -119,7 +119,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
             </span>
             <button
               onClick={() => startEdit(p)}
-              style={{ background: 'none', border: 'none', color: '#60a5fa', cursor: 'pointer', fontSize: 11, padding: '2px 6px' }}
+              style={{ background: 'none', border: 'none', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 11, padding: '2px 6px' }}
             >
               Edit
             </button>
@@ -135,7 +135,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
         {/* Create / Edit form */}
         {formOpen ? (
           <div style={{ marginTop: 16, borderTop: '1px solid rgba(30,41,59,0.8)', paddingTop: 16 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: 0.5, marginBottom: 12, textTransform: 'uppercase' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--product-muted)', letterSpacing: 0.5, marginBottom: 12, textTransform: 'uppercase' }}>
               {editingId ? 'Edit Project' : 'New Project'}
             </div>
             <input
@@ -153,7 +153,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
 
             {/* Mode toggle */}
             <div style={{ marginBottom: 12 }}>
-              <div style={{ fontSize: 10, color: '#64748b', fontWeight: 600, letterSpacing: 0.5, marginBottom: 6 }}>MODE</div>
+              <div style={{ fontSize: 10, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, marginBottom: 6 }}>MODE</div>
               <div style={{ display: 'flex', gap: 8 }}>
                 {(['private', 'community'] as const).map((m) => (
                   <button
@@ -163,14 +163,14 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
                       flex: 1, padding: '8px 0', borderRadius: 6, fontSize: 11, fontWeight: 600, cursor: 'pointer',
                       border: `1px solid ${mode === m ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
                       background: mode === m ? 'rgba(59,130,246,0.15)' : 'transparent',
-                      color: mode === m ? '#60a5fa' : '#475569',
+                      color: mode === m ? 'var(--product-accent)' : '#475569',
                     }}
                   >
                     {m === 'private' ? '🔒 Private Atlas' : '🌐 Community Atlas'}
                   </button>
                 ))}
               </div>
-              <div style={{ fontSize: 10, color: '#334155', marginTop: 6 }}>
+              <div style={{ fontSize: 10, color: 'var(--product-muted)', marginTop: 6 }}>
                 {mode === 'private'
                   ? 'Sources stay local — not shared to the Community Atlas.'
                   : 'Sources can be submitted to the global Community Atlas for peer review.'}
@@ -179,7 +179,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
 
             {/* Color presets */}
             <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 10, color: '#64748b', fontWeight: 600, letterSpacing: 0.5, marginBottom: 6 }}>COLOR</div>
+              <div style={{ fontSize: 10, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, marginBottom: 6 }}>COLOR</div>
               <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                 {PRESET_COLORS.map((c) => (
                   <button
@@ -205,7 +205,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
             <div style={{ display: 'flex', gap: 8 }}>
               <button
                 onClick={resetForm}
-                style={{ flex: 1, padding: '9px 0', borderRadius: 7, fontSize: 12, background: 'transparent', border: '1px solid rgba(100,116,139,0.3)', color: '#64748b', cursor: 'pointer' }}
+                style={{ flex: 1, padding: '9px 0', borderRadius: 7, fontSize: 12, background: 'transparent', border: '1px solid rgba(100,116,139,0.3)', color: 'var(--product-muted)', cursor: 'pointer' }}
               >
                 Cancel
               </button>
@@ -215,7 +215,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
                 style={{
                   flex: 2, padding: '9px 0', borderRadius: 7, fontSize: 12, fontWeight: 700, cursor: 'pointer',
                   background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.5)',
-                  color: '#60a5fa', opacity: name.trim() ? 1 : 0.5,
+                  color: 'var(--product-accent)', opacity: name.trim() ? 1 : 0.5,
                 }}
               >
                 {editingId ? 'Save Changes' : 'Create Project'}
@@ -229,7 +229,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
               width: '100%', marginTop: projects.length > 0 ? 8 : 0,
               padding: '10px 0', borderRadius: 7, fontSize: 12, fontWeight: 600,
               background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.3)',
-              color: '#60a5fa', cursor: 'pointer',
+              color: 'var(--product-accent)', cursor: 'pointer',
             }}
           >
             + New Project

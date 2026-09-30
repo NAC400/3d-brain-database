@@ -80,30 +80,30 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 600, background: 'rgba(7,11,22,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: 500, background: 'rgba(15,23,42,0.98)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 16, padding: '32px 28px' }}>
+      <div style={{ width: 500, background: 'var(--product-surface)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 16, padding: '32px 28px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: '#f1f5f9' }}>Contribute to Global Atlas</div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 18 }}>×</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 18 }}>×</button>
         </div>
 
         {status === 'done' ? (
           <div style={{ textAlign: 'center', padding: '24px 0' }}>
             <div style={{ fontSize: 32, marginBottom: 12 }}>✅</div>
             <div style={{ fontSize: 15, fontWeight: 600, color: '#34d399', marginBottom: 8 }}>Contribution submitted!</div>
-            <div style={{ fontSize: 12, color: '#64748b' }}>Your contribution is pending curator review.</div>
-            <button onClick={onClose} style={{ marginTop: 20, padding: '8px 24px', borderRadius: 6, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)', color: '#60a5fa', cursor: 'pointer', fontWeight: 600 }}>Close</button>
+            <div style={{ fontSize: 12, color: 'var(--product-muted)' }}>Your contribution is pending curator review.</div>
+            <button onClick={onClose} style={{ marginTop: 20, padding: '8px 24px', borderRadius: 6, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)', color: 'var(--product-accent)', cursor: 'pointer', fontWeight: 600 }}>Close</button>
           </div>
         ) : (
           <>
             <div style={{ marginBottom: 14 }}>
-              <label style={{ fontSize: 11, color: '#64748b', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>SOURCE</label>
+              <label style={{ fontSize: 11, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>SOURCE</label>
               <select value={sourceId} onChange={(e) => setSourceId(e.target.value)} style={inputStyle}>
                 <option value="">Select a source from your library…</option>
                 {sources.map((s) => <option key={s.id} value={s.id}>{s.title.slice(0,60)}</option>)}
               </select>
             </div>
             <div style={{ marginBottom: 20 }}>
-              <label style={{ fontSize: 11, color: '#64748b', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>BRAIN REGION</label>
+              <label style={{ fontSize: 11, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>BRAIN REGION</label>
               <select value={meshName} onChange={(e) => setMeshName(e.target.value)} style={inputStyle}>
                 <option value="">Select a brain region…</option>
                 {brainRegions.map((r) => <option key={r.meshName} value={r.meshName}>{r.name} ({r.acronym})</option>)}
@@ -195,14 +195,14 @@ const GlobalAtlasPage: React.FC = () => {
     return Object.values(counts).sort((a, b) => b.count - a.count).slice(0, 8);
   }, [contributions]);
 
-  const statCard = (label: string, value: string | number, color = '#60a5fa') => (
+  const statCard = (label: string, value: string | number, color = 'var(--product-accent)') => (
     <div style={{
       flex: 1, padding: '16px 20px', borderRadius: 10,
       background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.15)',
       textAlign: 'center',
     }}>
       <div style={{ fontSize: 26, fontWeight: 700, color }}>{value}</div>
-      <div style={{ fontSize: 11, color: '#475569', marginTop: 3, letterSpacing: 0.5 }}>{label}</div>
+      <div style={{ fontSize: 11, color: 'var(--product-muted)', marginTop: 3, letterSpacing: 0.5 }}>{label}</div>
     </div>
   );
 
@@ -214,7 +214,7 @@ const GlobalAtlasPage: React.FC = () => {
         display: 'flex', alignItems: 'center', gap: 4,
         padding: '0 32px',
         borderBottom: '1px solid rgba(30,41,59,0.8)',
-        background: 'rgba(15,23,42,0.97)',
+        background: 'var(--product-surface)',
         flexShrink: 0,
       }}>
         {([
@@ -227,7 +227,7 @@ const GlobalAtlasPage: React.FC = () => {
             style={{
               padding: '12px 16px', fontSize: 12, fontWeight: tab === t.id ? 700 : 400, cursor: 'pointer',
               background: 'transparent', border: 'none',
-              color: tab === t.id ? '#60a5fa' : '#475569',
+              color: tab === t.id ? 'var(--product-accent)' : '#475569',
               borderBottom: tab === t.id ? '2px solid #3b82f6' : '2px solid transparent',
               marginBottom: -1,
             }}
@@ -250,7 +250,7 @@ const GlobalAtlasPage: React.FC = () => {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 28 }}>
         <div>
           <h1 style={{ fontSize: 24, fontWeight: 700, color: '#f1f5f9', margin: 0 }}>Community Atlas</h1>
-          <p style={{ fontSize: 13, color: '#475569', marginTop: 5 }}>
+          <p style={{ fontSize: 13, color: 'var(--product-muted)', marginTop: 5 }}>
             Verified source-to-structure links contributed by the MAPPED community.
           </p>
         </div>
@@ -268,7 +268,7 @@ const GlobalAtlasPage: React.FC = () => {
 
       {/* Stats row */}
       <div style={{ display: 'flex', gap: 14, marginBottom: 28 }}>
-        {statCard('Global contributions', contributions.length, '#60a5fa')}
+        {statCard('Global contributions', contributions.length, 'var(--product-accent)')}
         {statCard('Regions covered', Object.keys(heatmap).length, '#34d399')}
         {statCard('Your local links', structureLinks.length, '#c084fc')}
         {statCard('Your sources', sources.length, '#f59e0b')}
@@ -281,7 +281,7 @@ const GlobalAtlasPage: React.FC = () => {
         marginBottom: 28,
       }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, letterSpacing: 0.6 }}>RESEARCH DENSITY HEATMAP</div>
-        <p style={{ fontSize: 11, color: '#475569', marginBottom: 14 }}>
+        <p style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 14 }}>
           Regions coloured by relative research density —{' '}
           <span style={{ color: '#fb7185' }}>pale rose</span> → <span style={{ color: '#e11d48' }}>red</span> → <span style={{ color: '#881337' }}>deep crimson</span> = low → high.
           Hover a chip to see actual source count. Click to explore in the 3D viewer.
@@ -336,12 +336,12 @@ const GlobalAtlasPage: React.FC = () => {
           </div>
 
           {loading ? (
-            <div style={{ textAlign: 'center', color: '#334155', padding: 40 }}>Loading contributions…</div>
+            <div style={{ textAlign: 'center', color: 'var(--product-muted)', padding: 40 }}>Loading contributions…</div>
           ) : filtered.length === 0 ? (
             <div style={{
               padding: 32, textAlign: 'center',
               background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10,
-              color: '#334155', fontSize: 13,
+              color: 'var(--product-muted)', fontSize: 13,
             }}>
               {isSupabaseConfigured()
                 ? 'No global contributions yet. Be the first to contribute!'
@@ -359,7 +359,7 @@ const GlobalAtlasPage: React.FC = () => {
                       <div style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0', marginBottom: 3, lineHeight: 1.4 }}>
                         {c.title.length > 80 ? c.title.slice(0,80) + '…' : c.title}
                       </div>
-                      <div style={{ fontSize: 11, color: '#475569', marginBottom: 6 }}>
+                      <div style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 6 }}>
                         {c.authors}{c.journal ? ` · ${c.journal}` : ''}{c.year ? ` · ${c.year}` : ''}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -375,11 +375,11 @@ const GlobalAtlasPage: React.FC = () => {
                           {c.region_name}
                         </button>
                         {(c.ai_score ?? 0) > 0 && (
-                          <span style={{ fontSize: 10, color: '#475569' }}>
+                          <span style={{ fontSize: 10, color: 'var(--product-muted)' }}>
                             AI: {c.ai_score}/100
                           </span>
                         )}
-                        <span style={{ fontSize: 10, color: '#334155', marginLeft: 'auto' }}>
+                        <span style={{ fontSize: 10, color: 'var(--product-muted)', marginLeft: 'auto' }}>
                           {timeAgo(c.created_at)}
                         </span>
                       </div>
@@ -398,7 +398,7 @@ const GlobalAtlasPage: React.FC = () => {
         <div>
           <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 0.6, marginBottom: 14 }}>TOP STUDIED REGIONS</div>
           {topRegions.length === 0 ? (
-            <div style={{ fontSize: 11, color: '#334155', padding: '16px 0' }}>No data yet.</div>
+            <div style={{ fontSize: 11, color: 'var(--product-muted)', padding: '16px 0' }}>No data yet.</div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {topRegions.map((r, i) => (
@@ -413,10 +413,10 @@ const GlobalAtlasPage: React.FC = () => {
                     cursor: 'pointer', textAlign: 'left', width: '100%',
                   }}
                 >
-                  <span style={{ fontSize: 11, color: '#334155', width: 18, textAlign: 'center', fontWeight: 700 }}>{i+1}</span>
+                  <span style={{ fontSize: 11, color: 'var(--product-muted)', width: 18, textAlign: 'center', fontWeight: 700 }}>{i+1}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 12, color: '#e2e8f0', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
-                    <div style={{ fontSize: 10, color: '#475569' }}>{r.count} source{r.count !== 1 ? 's' : ''}</div>
+                    <div style={{ fontSize: 10, color: 'var(--product-muted)' }}>{r.count} source{r.count !== 1 ? 's' : ''}</div>
                   </div>
                   <div style={{
                     width: 40, height: 4, borderRadius: 2, background: 'rgba(30,41,59,0.8)', overflow: 'hidden',

@@ -111,24 +111,26 @@ export async function submitGlobalContribution(
   });
 }
 
-export async function fetchGlobalContributions(limit = 50): Promise<GlobalContribution[]> {
+export async function fetchGlobalContributions(limit = 50, reportErrors = false): Promise<GlobalContribution[]> {
   if (!supabase) return [];
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('global_contributions')
     .select('*')
     .eq('verified', true)
     .order('created_at', { ascending: false })
     .limit(limit);
+  if (error && reportErrors) throw error;
   return data ?? [];
 }
 
-export async function fetchContributionsByRegion(meshName: string): Promise<GlobalContribution[]> {
+export async function fetchContributionsByRegion(meshName: string, reportErrors = false): Promise<GlobalContribution[]> {
   if (!supabase) return [];
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('global_contributions')
     .select('*')
     .eq('mesh_name', meshName)
     .eq('verified', true);
+  if (error && reportErrors) throw error;
   return data ?? [];
 }
 

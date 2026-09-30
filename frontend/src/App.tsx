@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './ProductTheme.css';
 import BrainScene from './components/BrainScene';
 import RegionInfoPanel from './components/RegionInfoPanel';
 import ControlsToolbar from './components/ControlsToolbar';
@@ -84,7 +85,7 @@ const App: React.FC = () => {
 
   // ── Explorer / Library — shared app shell ──
   return (
-    <div style={{
+    <div className="mapped-product" style={{
       display: 'grid',
       gridTemplateRows: 'auto 1fr auto',
       height: '100vh',
@@ -95,11 +96,11 @@ const App: React.FC = () => {
     }}>
 
       {/* ── Header ── */}
-      <header style={{
+      <header className="product-header" style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '11px 28px',
         borderBottom: '1px solid rgba(59,130,246,0.08)',
-        background: 'rgba(5,11,24,0.88)',
+        background: 'var(--product-surface)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
         zIndex: 40, gap: 16,
@@ -107,32 +108,14 @@ const App: React.FC = () => {
 
         {/* Logo — clicking returns to home */}
         <button
+          className="product-brand"
           onClick={() => setAppPage('home')}
           style={{
             display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0,
             background: 'none', border: 'none', cursor: 'pointer', padding: 0,
           }}
         >
-          <div style={{
-            width: 30, height: 30, borderRadius: '50%', flexShrink: 0, position: 'relative',
-            background: 'linear-gradient(135deg, #60a5fa, #3b82f6, #1d4ed8)',
-            boxShadow: '0 0 18px rgba(59,130,246,0.5), 0 0 36px rgba(59,130,246,0.15)',
-          }}>
-            <div style={{
-              position: 'absolute', top: 4, left: 5, width: 10, height: 7,
-              borderRadius: '50%', background: 'rgba(255,255,255,0.35)',
-              transform: 'rotate(-20deg)',
-            }} />
-          </div>
-          <div style={{ textAlign: 'left' }}>
-            <div style={{
-              fontWeight: 800, fontSize: 15, letterSpacing: 3, color: '#ddeaff',
-              textShadow: '0 0 20px rgba(59,130,246,0.35)',
-            }}>MAPPED</div>
-            <div style={{ fontSize: 9, color: '#2a3d56', letterSpacing: 1.5, fontWeight: 500 }}>
-              3D BRAIN RESEARCH PLATFORM
-            </div>
-          </div>
+<span className="product-wordmark">MAPPED<span>.</span><small>ANATOMY / EVIDENCE / DISCOVERY</small></span>
         </button>
 
         {/* Region search — only in explorer */}
@@ -153,7 +136,9 @@ const App: React.FC = () => {
               {(['personal', 'community'] as const).map((m) => (
                 <button
                   key={m}
-                  onClick={() => setExplorerMode(m)}
+                  className="product-mode-button"
+                  aria-pressed={explorerMode === m}
+                  onClick={() => { setExplorerMode(m); setResearchPanelOpen(true); }}
                   title={m === 'personal' ? 'Your personal sources & notes' : 'Community-verified sources from the global atlas'}
                   style={{
                     padding: '5px 12px', fontSize: 11, fontWeight: explorerMode === m ? 700 : 400, cursor: 'pointer',
@@ -162,7 +147,7 @@ const App: React.FC = () => {
                       ? m === 'community' ? 'rgba(34,211,238,0.2)' : 'rgba(59,130,246,0.2)'
                       : 'transparent',
                     color: explorerMode === m
-                      ? m === 'community' ? '#22d3ee' : '#60a5fa'
+                      ? m === 'community' ? '#22d3ee' : 'var(--product-accent)'
                       : '#64748b',
                   }}
                 >
@@ -179,18 +164,18 @@ const App: React.FC = () => {
                 padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
                 border: `1px solid ${researchPanelOpen ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.25)'}`,
                 background: researchPanelOpen ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: researchPanelOpen ? '#60a5fa' : '#94a3b8',
+                color: researchPanelOpen ? 'var(--product-accent)' : '#94a3b8',
                 fontWeight: researchPanelOpen ? 700 : 400,
               }}
             >
-              Research{selectedRegionSourceCount > 0 ? ` (${selectedRegionSourceCount})` : ''}
+              Research{explorerMode === 'personal' && selectedRegionSourceCount > 0 ? ` (${selectedRegionSourceCount})` : ''}
             </button>
           </div>
         )}
 
         {/* Library title */}
         {appPage === 'library' && (
-          <div style={{ fontSize: 13, color: '#64748b', flexShrink: 0 }}>
+          <div style={{ fontSize: 13, color: 'var(--product-muted)', flexShrink: 0 }}>
             {sources.length} source{sources.length !== 1 ? 's' : ''}
             {structureLinks.length > 0 && ` · ${structureLinks.length} link${structureLinks.length !== 1 ? 's' : ''}`}
           </div>
@@ -220,7 +205,7 @@ const App: React.FC = () => {
               <div
                 style={{
                   position: 'absolute', top: '100%', right: 0, marginTop: 4, zIndex: 200,
-                  minWidth: 200, background: 'rgba(15,23,42,0.98)',
+                  minWidth: 200, background: 'var(--product-surface)',
                   border: '1px solid rgba(59,130,246,0.25)', borderRadius: 8,
                   boxShadow: '0 8px 32px rgba(0,0,0,0.5)', overflow: 'hidden',
                 }}
@@ -228,7 +213,7 @@ const App: React.FC = () => {
               >
                 <button
                   onClick={() => { setActiveProjectId(null); setProjectDropOpen(false); }}
-                  style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: !activeProjectId ? 'rgba(59,130,246,0.1)' : 'transparent', border: 'none', color: !activeProjectId ? '#60a5fa' : '#94a3b8', cursor: 'pointer', fontWeight: !activeProjectId ? 700 : 400 }}
+                  style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: !activeProjectId ? 'rgba(59,130,246,0.1)' : 'transparent', border: 'none', color: !activeProjectId ? 'var(--product-accent)' : '#94a3b8', cursor: 'pointer', fontWeight: !activeProjectId ? 700 : 400 }}
                 >
                   All Projects
                 </button>
@@ -258,17 +243,18 @@ const App: React.FC = () => {
         )}
 
         {/* Nav — top-level pages only */}
-        <nav style={{ display: 'flex', gap: 2, flexShrink: 0, alignItems: 'center' }}>
+        <nav aria-label="Main navigation" style={{ display: 'flex', gap: 2, flexShrink: 0, alignItems: 'center' }}>
 
           {(['explorer', 'library', 'community'] as const).map((page) => (
             <button
               key={page}
+              aria-current={appPage === page ? 'page' : undefined}
               onClick={() => setAppPage(page)}
               style={{
                 padding: '6px 16px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
                 border: 'none',
                 background: appPage === page ? 'rgba(59,130,246,0.14)' : 'transparent',
-                color: appPage === page ? '#60a5fa' : '#4d6080',
+                color: appPage === page ? 'var(--product-accent)' : '#4d6080',
                 fontWeight: appPage === page ? 700 : 400,
                 textTransform: 'capitalize',
                 transition: 'color 0.15s ease, background 0.15s ease',
@@ -303,7 +289,7 @@ const App: React.FC = () => {
                 padding: '6px 16px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
                 border: '1px solid rgba(59,130,246,0.28)',
                 background: 'rgba(59,130,246,0.1)',
-                color: '#60a5fa', fontWeight: 600,
+                color: 'var(--product-accent)', fontWeight: 600,
               }}
             >
               {useBrainStore.getState().user!.email.split('@')[0]}
@@ -315,7 +301,7 @@ const App: React.FC = () => {
                 padding: '6px 18px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
                 border: '1px solid rgba(59,130,246,0.32)',
                 background: 'linear-gradient(135deg, rgba(59,130,246,0.14), rgba(37,99,235,0.18))',
-                color: '#60a5fa', fontWeight: 600,
+                color: 'var(--product-accent)', fontWeight: 600,
               }}
             >
               Sign In
@@ -326,7 +312,7 @@ const App: React.FC = () => {
 
       {/* ── Page content ── */}
       {appPage === 'explorer' && (
-        <div style={{ display: 'flex', overflow: 'hidden', position: 'relative' }}>
+        <div className="explorer-content" style={{ display: 'flex', overflow: 'hidden', position: 'relative' }}>
           {/* 3-D viewport */}
           <div style={{
             flex: 1, position: 'relative', overflow: 'hidden',
@@ -334,6 +320,10 @@ const App: React.FC = () => {
             outlineOffset: '-2px',
           }}>
             <BrainScene />
+            <div className="explorer-mode-status" role="status" aria-live="polite" aria-atomic="true">
+              <strong>{explorerMode === 'community' ? 'Community research' : 'Personal workspace'}</strong>
+              <span>{explorerMode === 'community' ? 'Browse shared evidence in the Research panel.' : 'Your saved sources and notes.'}</span>
+            </div>
             <RegionInfoPanel />
 
             {/* Paint mode active badge */}
@@ -398,7 +388,7 @@ const App: React.FC = () => {
       {appPage === 'library' && <LibraryPage />}
 
       {(appPage === 'community' || appPage === 'auth') && (
-        <React.Suspense fallback={<div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', color:'#475569' }}>Loading…</div>}>
+        <React.Suspense fallback={<div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', color:'var(--product-muted)' }}>Loading…</div>}>
           {appPage === 'community' && <LazyGlobalAtlasPage />}
           {appPage === 'auth' && <LazyAuthPage />}
         </React.Suspense>
@@ -410,7 +400,7 @@ const App: React.FC = () => {
           display: 'flex', alignItems: 'center',
           padding: '0 24px', height: 44,
           borderTop: '1px solid rgba(59,130,246,0.08)',
-          background: 'rgba(5,11,24,0.9)',
+          background: 'var(--product-surface)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           zIndex: 40, overflow: 'hidden',

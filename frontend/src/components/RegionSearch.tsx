@@ -81,7 +81,7 @@ const RegionSearch: React.FC = () => {
       {/* Search input */}
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
         <span style={{
-          position: 'absolute', left: 10, color: '#475569', fontSize: 13, pointerEvents: 'none',
+          position: 'absolute', left: 10, color: 'var(--product-muted)', fontSize: 13, pointerEvents: 'none',
         }}>
           ⌕
         </span>
@@ -112,7 +112,7 @@ const RegionSearch: React.FC = () => {
             onClick={() => { setQuery(''); setOpen(false); }}
             style={{
               position: 'absolute', right: 8, background: 'none', border: 'none',
-              color: '#475569', cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0,
+              color: 'var(--product-muted)', cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0,
             }}
           >×</button>
         )}
@@ -126,7 +126,7 @@ const RegionSearch: React.FC = () => {
           left: 0,
           right: 0,
           marginTop: 4,
-          background: 'rgba(15,23,42,0.97)',
+          background: 'var(--product-surface)',
           border: '1px solid rgba(59,130,246,0.25)',
           borderRadius: 8,
           backdropFilter: 'blur(12px)',
@@ -160,7 +160,7 @@ const RegionSearch: React.FC = () => {
                   <div style={{ fontSize: 11, color: '#e2e8f0', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {region.name}
                   </div>
-                  <div style={{ fontSize: 9, color: '#475569', letterSpacing: 0.5 }}>
+                  <div style={{ fontSize: 9, color: 'var(--product-muted)', letterSpacing: 0.5 }}>
                     {region.acronym} · {region.category}
                   </div>
                 </div>
@@ -175,7 +175,7 @@ const RegionSearch: React.FC = () => {
                   padding: '2px 7px', borderRadius: 4,
                   border: '1px solid rgba(59,130,246,0.35)',
                   background: 'rgba(59,130,246,0.1)',
-                  color: '#60a5fa', fontSize: 9, fontWeight: 600,
+                  color: 'var(--product-accent)', fontSize: 9, fontWeight: 600,
                   cursor: 'pointer', letterSpacing: 0.4,
                 }}
               >
@@ -190,8 +190,8 @@ const RegionSearch: React.FC = () => {
       {open && query.trim() && results.length === 0 && (
         <div style={{
           position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 4,
-          background: 'rgba(15,23,42,0.97)', border: '1px solid rgba(59,130,246,0.2)',
-          borderRadius: 8, padding: '12px', color: '#475569', fontSize: 11, textAlign: 'center',
+          background: 'var(--product-surface)', border: '1px solid rgba(59,130,246,0.2)',
+          borderRadius: 8, padding: '12px', color: 'var(--product-muted)', fontSize: 11, textAlign: 'center',
           zIndex: 200,
         }}>
           No regions match "{query}"
