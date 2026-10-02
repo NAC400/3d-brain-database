@@ -2,6 +2,7 @@ import React from 'react';
 import { useBrainStore } from '../store/brainStore';
 import type { BrainState } from '../store/brainStore';
 import './HomePage.css';
+import ContactLink from './ContactLink';
 
 const FEATURES: { title: string; description: string; page: BrainState['appPage']; action: string }[] = [
   { title: 'Explore anatomy', description: 'Examine 141 brain regions in three dimensions. Isolate structures, adjust layers, and explore cross-sections.', page: 'explorer', action: 'Open Brain Explorer' },
@@ -70,7 +71,7 @@ const HomePage: React.FC = () => {
           </div>
         </section>
       </main>
-      <footer className="home-footer"><span>MAPPED / Neuroscience research & learning</span><span>Alpha · © {new Date().getFullYear()}</span></footer>
+      <footer className="home-footer"><span>MAPPED / Neuroscience research & learning</span><ContactLink /><span>Alpha · © {new Date().getFullYear()}</span></footer>
     </div>
   );
 };

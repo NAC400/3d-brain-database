@@ -7,6 +7,7 @@ import RegionSearch from './components/RegionSearch';
 import ResearchPanel from './components/ResearchPanel';
 import SourceViewer from './components/SourceViewer';
 import HomePage from './components/HomePage';
+import ContactLink from './components/ContactLink';
 import LibraryPage from './components/LibraryPage';
 import ContextMenu from './components/ContextMenu';
 import ProjectsModal from './components/ProjectsModal';
@@ -308,6 +309,7 @@ const App: React.FC = () => {
             </button>
           )}
         </nav>
+        <ContactLink />
       </header>
 
       {/* ── Page content ── */}
