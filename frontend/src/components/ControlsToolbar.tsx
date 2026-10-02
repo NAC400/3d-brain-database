@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useBrainStore } from '../store/brainStore';
 import type { BrainBounds } from '../store/brainStore';
 
@@ -253,7 +254,7 @@ const ShortcutsPopover: React.FC<{ anchorRef: React.RefObject<HTMLButtonElement 
   useEffect(() => {
     if (anchorRef.current) {
       const rect = anchorRef.current.getBoundingClientRect();
-      setPos({ left: rect.right - 300, bottom: window.innerHeight - rect.top + 8 });
+      setPos({ left: Math.max(8, Math.min(rect.right - 300, window.innerWidth - 308)), bottom: window.innerHeight - rect.top + 8 });
     }
   }, [anchorRef]);
 
@@ -284,7 +285,8 @@ const ShortcutsPopover: React.FC<{ anchorRef: React.RefObject<HTMLButtonElement 
       ref={popRef}
       style={{
         position: 'fixed', left: pos.left, bottom: pos.bottom,
-        zIndex: 500, width: 300,
+        zIndex: 500, width: 300, maxWidth: 'calc(100vw - 16px)',
+        maxHeight: `calc(100vh - ${pos.bottom + 8}px)`, overflowY: 'auto',
         background: 'var(--product-surface)',
         border: '1px solid rgba(59,130,246,0.35)',
         borderRadius: 10, padding: '14px 16px',
@@ -567,6 +569,8 @@ const ControlsToolbar: React.FC = () => {
             ref={shortcutsBtnRef}
             onClick={() => setShowShortcuts(!showShortcuts)}
             title="Keyboard shortcuts"
+            aria-label="Keyboard shortcuts"
+            aria-expanded={showShortcuts}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 26, height: 26, borderRadius: '50%',
@@ -586,23 +590,23 @@ const ControlsToolbar: React.FC = () => {
       {openGroup && (() => {
         const group = CATEGORY_GROUPS.find((g) => g.id === openGroup);
         if (!group || group.children.length <= 1) return null;
-        return (
+        return createPortal(
           <SubPopover
             group={group}
             activeCategories={activeCategories}
             toggleCategory={toggleCategory}
             onClose={() => setOpenGroup(null)}
             anchorRef={btnRefs.current[openGroup] as React.RefObject<HTMLButtonElement>}
-          />
+          />, document.body
         );
       })()}
 
       {/* ── Keyboard shortcuts popover ── */}
-      {showShortcuts && (
+      {showShortcuts && createPortal(
         <ShortcutsPopover
           anchorRef={shortcutsBtnRef}
           onClose={() => setShowShortcuts(false)}
-        />
+        />, document.body
       )}
     </>
   );
