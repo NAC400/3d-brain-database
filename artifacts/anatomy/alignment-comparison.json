@@ -1,0 +1,56 @@
+{
+  "reviewed": "2026-10-05",
+  "skullAlternatives": [
+    {
+      "transform": "rigid-registration.json",
+      "boneLabelSurfaceSamples": 137866,
+      "samplesMoreThan2mmInsideBone": 10468,
+      "maximumSampledDepthMm": 5.187847137451172
+    },
+    {
+      "transform": "experimental-registration.json",
+      "boneLabelSurfaceSamples": 23981,
+      "samplesMoreThan2mmInsideBone": 121,
+      "maximumSampledDepthMm": 3.90625
+    }
+  ],
+  "arterialAlternatives": [
+    {
+      "method": "Current similarity",
+      "trainingProxyErrorsMm": [
+        5.365491639842802,
+        3.0813844400837067,
+        4.051678613350356,
+        8.005438806953869,
+        7.393505317101567
+      ],
+      "heldOutProxyErrorsMm": [
+        9.788037019603859,
+        9.337157149412464
+      ]
+    },
+    {
+      "method": "Five-proxy unconstrained affine (not released)",
+      "trainingProxyErrorsMm": [
+        0.0012512567364828648,
+        1.904330135401656,
+        1.9060681778984392,
+        2.679795056346617,
+        2.682784355579252
+      ],
+      "heldOutProxyErrorsMm": [
+        20.496533589580498,
+        20.29912062714332
+      ],
+      "principalScales": [
+        2.6445933607538623,
+        0.8011679988290309,
+        0.5865559908917017
+      ],
+      "determinant": 1.2427734655901996
+    }
+  ],
+  "independentAnatomicalReviewer": null,
+  "decision": "No alternative is anatomically accepted. Retain current transforms and warnings; proxy fitting and collision screens do not replace independent landmarks, vascular target images and expert review. An affine training-error reduction is not validation.",
+  "limitations": "Skull metrics are nearest-voxel surface screens, not overlap volume or target registration errors. Brain-structure centres are proxies, not independent anatomical landmarks. Cross-atlas membranes and vessel junctions remain unvalidated."
+}

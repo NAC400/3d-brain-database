@@ -34,3 +34,7 @@ resources/annotation*.nii
 # Local anatomy registration runtime and experimental image volumes
 artifacts/anatomy/python-deps/
 artifacts/anatomy/**/*.mha
+
+# Temporary FBX extraction includes analysis-only brain reference geometry.
+# Public adaptations contain only the selected dural folds and venous sinuses.
+artifacts/anatomy/z-anatomy/*-selected.json

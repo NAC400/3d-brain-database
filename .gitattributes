@@ -1,2 +1,5 @@
 # Preserve upstream OBJ bytes and avoid treating mesh payloads as source diffs.
 artifacts/anatomy/bodyparts3d-candidates/*.obj -text -diff
+# Keep copied upstream licence notices byte-for-byte, including their whitespace.
+frontend/public/models/z-anatomy-meninges/LICENSE.txt -text -diff
+frontend/public/models/z-anatomy-meninges/SOURCE-LICENSE.txt -text -diff

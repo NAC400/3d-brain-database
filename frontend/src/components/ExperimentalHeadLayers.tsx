@@ -5,8 +5,9 @@ import { BRAIN_SCALE } from './BrainModel';
 import { useBrainStore } from '../store/brainStore';
 import metadata from '../data/experimentalHeadRegions.json';
 import centralMetadata from '../data/centralArteryRegions.json';
+import meningealMetadata from '../data/meningealRegions.json';
 
-export const headRegions = [...metadata.regions, ...centralMetadata.regions].map(region => ({ ...region, name: region.name.replace(/_/g, ' ').replace(/^\w/, letter => letter.toUpperCase()) }));
+export const headRegions = [...metadata.regions, ...centralMetadata.regions, ...meningealMetadata.regions].map(region => ({ ...region, name: region.name.replace(/_/g, ' ').replace(/^\w/, letter => letter.toUpperCase()) }));
 
 export interface HeadLayerOptions {
   enabled: boolean;
@@ -14,35 +15,45 @@ export interface HeadLayerOptions {
   arteries: boolean;
   veins: boolean;
   central: boolean;
+  folds: boolean;
+  sinuses: boolean;
   skullOpacity: number;
   vesselOpacity: number;
+  foldOpacity: number;
 }
+
+// The picker and scene inventory use the same category visibility rules.
+export const isHeadRegionVisible = (region: { category: string }, options: HeadLayerOptions) =>
+  region.category === 'Dural folds' ? options.folds : region.category === 'Dural venous sinuses' ? options.sinuses :
+  region.category === 'Intracranial arteries' ? options.central : region.category === 'Skeleton' ? options.skull :
+  region.category === 'Arteries' ? options.arteries : options.veins;
 
 const ExperimentalHeadLayers: React.FC<{ options: HeadLayerOptions; origin: THREE.Vector3 }> = ({ options, origin }) => {
   const { scene } = useGLTF('/models/spl-head-neck/skull-vessels-experimental-fit.glb');
   const { scene: centralScene } = useGLTF('/models/bodyparts3d-central/central-arteries.glb');
+  const { scene: meningealScene } = useGLTF('/models/z-anatomy-meninges/folds-and-sinuses.glb');
   const { selectedRegion, hoveredRegion, isolatedRegion, setSelectedRegion, setHoveredRegion, setIsolatedRegion, setHeadRegions, highlightColors, highlightMode, setHighlightColor } = useBrainStore();
   useEffect(() => {
     // Separate head inventory keeps brain counts intact; IDs remain dataset-specific.
-    setHeadRegions(headRegions.filter(region => region.category === 'Intracranial arteries' ? options.central : region.category === 'Skeleton' ? options.skull : region.category === 'Arteries' ? options.arteries : options.veins));
-  }, [setHeadRegions, options.skull, options.arteries, options.veins, options.central]);
+    setHeadRegions(headRegions.filter(region => isHeadRegionVisible(region, options)));
+  }, [setHeadRegions, options]);
   useEffect(() => () => { setHeadRegions([]); setHoveredRegion(null); document.body.style.cursor = ''; }, [setHeadRegions, setHoveredRegion]);
   const meshes = useMemo(() => {
-    const result: { mesh: THREE.Mesh; system: 'skull' | 'arteries' | 'veins' | 'central'; material: THREE.MeshStandardMaterial }[] = [];
-    for (const asset of [scene, centralScene]) asset.traverse(object => {
+    const result: { mesh: THREE.Mesh; system: 'skull' | 'arteries' | 'veins' | 'central' | 'folds' | 'sinuses'; material: THREE.MeshStandardMaterial }[] = [];
+    for (const asset of [scene, centralScene, meningealScene]) asset.traverse(object => {
       if (!(object instanceof THREE.Mesh)) return;
-      const system = object.name.startsWith('BP3D_') ? 'central' : /jugular/.test(object.name) ? 'veins' : /carotid|vertebral/.test(object.name) ? 'arteries' : 'skull';
+      const system = object.name.startsWith('ZA_') ? object.name.includes('_sinus') ? 'sinuses' : 'folds' : object.name.startsWith('BP3D_') ? 'central' : /jugular/.test(object.name) ? 'veins' : /carotid|vertebral/.test(object.name) ? 'arteries' : 'skull';
       result.push({ mesh: object, system, material: new THREE.MeshStandardMaterial({
-        color: system === 'skull' ? '#e8ddc5' : system === 'veins' ? '#60a5fa' : '#f87171',
+        color: system === 'skull' ? '#e8ddc5' : system === 'folds' ? '#cdb485' : system === 'veins' || system === 'sinuses' ? '#60a5fa' : '#f87171',
         transparent: true, depthWrite: false, side: THREE.DoubleSide, roughness: 0.8,
       }) });
     });
     return result;
-  }, [scene, centralScene]);
+  }, [scene, centralScene, meningealScene]);
   useEffect(() => () => meshes.forEach(({ material }) => material.dispose()), [meshes]);
   useEffect(() => {
     for (const { mesh, system, material } of meshes) {
-      material.color.set(highlightColors[mesh.name] ?? (system === 'skull' ? '#e8ddc5' : system === 'veins' ? '#60a5fa' : '#f87171'));
+      material.color.set(highlightColors[mesh.name] ?? (system === 'skull' ? '#e8ddc5' : system === 'folds' ? '#cdb485' : system === 'veins' || system === 'sinuses' ? '#60a5fa' : '#f87171'));
       material.emissive.set(mesh.name === selectedRegion ? '#685b14' : mesh.name === hoveredRegion ? '#302b10' : '#000000');
     }
   }, [meshes, selectedRegion, hoveredRegion, highlightColors]);
@@ -59,7 +70,7 @@ const ExperimentalHeadLayers: React.FC<{ options: HeadLayerOptions; origin: THRE
         onDoubleClick={event => { event.stopPropagation(); setSelectedRegion(mesh.name); setIsolatedRegion(isolatedRegion === mesh.name ? null : mesh.name); }}
         onPointerOver={event => { event.stopPropagation(); setHoveredRegion(mesh.name); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { setHoveredRegion(null); document.body.style.cursor = ''; }}>
-        <primitive object={material} attach="material" opacity={system === 'skull' ? options.skullOpacity : options.vesselOpacity} />
+        <primitive object={material} attach="material" opacity={system === 'skull' ? options.skullOpacity : system === 'folds' ? options.foldOpacity : options.vesselOpacity} />
       </mesh>)}
   </group>;
 };

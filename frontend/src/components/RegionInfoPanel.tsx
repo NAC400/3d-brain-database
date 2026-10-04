@@ -116,6 +116,8 @@ const RegionInfoPanel: React.FC = () => {
 
       {region.dataset === 'bodyparts3d-central-4' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>BodyParts3D central artery · experimental illustrative fit. Vessel position and lumen continuity are unvalidated; source bilateral geometry may be symmetric. Not for clinical decisions. <a href="/models/bodyparts3d-central/coverage-and-alignment.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Coverage & alignment</a> · <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
 
+      {region.dataset === 'z-anatomy-meninges' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>Z-Anatomy / BodyParts3D · experimental illustrative fit, anatomically unvalidated. Source symmetric geometry may be present. Dural folds do not represent a complete dura shell. <a href="/models/z-anatomy-meninges/NOTICE.md" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Attribution & ShareAlike licence</a> · <a href="/models/z-anatomy-meninges/coverage-and-alignment.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Validation details</a></p>}
+
       {/* Anatomical description from Allen Atlas */}
       {description && (
         <div style={{

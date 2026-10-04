@@ -195,3 +195,13 @@ Next deliverable: actual mesh coverage audit for BodyParts3D and refinement of t
 source-volume registration experiment. Public layer controls follow verified alignment and
 licence checks. Performance optimisation and the old Allen-model investigation
 remain deferred per the owner's request.
+
+### Follow-up implementation — 5 October 2026
+
+The earlier next-deliverable statement is historical. Source-backed central arteries,
+falx, tentorium and dural sinus previews have now been added, with opt-in controls
+and explicit unvalidated-alignment warnings. See `CENTRAL_ARTERIAL_PREVIEW.md`,
+`VESSEL_PREVIEW_VALIDATION.md` and `MENINGES_AND_SINUSES.md` for actual coverage,
+source/licence checks, topology and junction concerns, and rejected alignment alternatives.
+Outer dura, pia and arachnoid are still missing. No preview is promoted to anatomically
+validated status; independent landmarks and expert review remain necessary.

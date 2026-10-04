@@ -6,7 +6,7 @@ import BrainModel from './BrainModel';
 import ClippingController from './ClippingController';
 import CameraController from './CameraController';
 import { useBrainStore } from '../store/brainStore';
-import ExperimentalHeadLayers, { HeadLayerOptions, headRegions } from './ExperimentalHeadLayers';
+import ExperimentalHeadLayers, { HeadLayerOptions, headRegions, isHeadRegionVisible } from './ExperimentalHeadLayers';
 import './ExperimentalHeadLayers.css';
 
 // ---------------------------------------------------------------------------
@@ -60,8 +60,8 @@ const BrainScene: React.FC = () => {
   const selectedRegion = useBrainStore(state => state.selectedRegion);
   const [origin, setOrigin] = useState<{ atlas: 'spl' | 'allen'; offset: THREE.Vector3 } | null>(null);
   const receiveOrigin = useCallback((offset: THREE.Vector3) => setOrigin({ atlas, offset }), [atlas]);
-  const [head, setHead] = useState<HeadLayerOptions>({ enabled: false, skull: true, arteries: true, veins: false, central: false, skullOpacity: 0.2, vesselOpacity: 0.85 });
-  const toggle = (key: 'enabled' | 'skull' | 'arteries' | 'veins' | 'central') => setHead(current => ({ ...current, [key]: !current[key] }));
+  const [head, setHead] = useState<HeadLayerOptions>({ enabled: false, skull: true, arteries: true, veins: false, central: false, folds: false, sinuses: false, skullOpacity: 0.2, vesselOpacity: 0.85, foldOpacity: 0.45 });
+  const toggle = (key: 'enabled' | 'skull' | 'arteries' | 'veins' | 'central' | 'folds' | 'sinuses') => setHead(current => ({ ...current, [key]: !current[key] }));
 
   return (
     /*
@@ -156,22 +156,28 @@ const BrainScene: React.FC = () => {
             <label><input type="checkbox" checked={head.central} onChange={() => toggle('central')} /> Central arteries (BodyParts3D)</label>
             {head.central && <p>Experimental central artery fit · held-out structure-centre differences are 9.3–9.8 mm. This is an illustrative placement, not anatomical validation. Source bilateral elements include symmetric geometry. Skull and neck vessels use a different fit; connections between datasets are unvalidated. <a href="/models/bodyparts3d-central/coverage-and-alignment.json" target="_blank" rel="noreferrer">Coverage & alignment checks</a></p>}
             <label><input type="checkbox" checked={head.veins} onChange={() => toggle('veins')} /> Jugular veins</label>
+            <label><input type="checkbox" checked={head.folds} onChange={() => toggle('folds')} /> Dural folds (falx & tentorium)</label>
+            <label><input type="checkbox" checked={head.sinuses} onChange={() => toggle('sinuses')} /> Dural venous sinuses</label>
+            {(head.folds || head.sinuses) && <p>Z-Anatomy illustrative fit · held-out structure-centre differences are 9.4–9.8 mm. Alignment and sinus continuity are unvalidated. These are actual dural folds, not a complete dura covering. <a href="/models/z-anatomy-meninges/coverage-and-alignment.json" target="_blank" rel="noreferrer">Coverage & alignment</a> · <a href="/models/z-anatomy-meninges/NOTICE.md" target="_blank" rel="noreferrer">Attribution & ShareAlike licence</a></p>}
+            {head.sinuses && <p role="status">Source review warning: the straight sinus has large junction gaps (about 12–39 mm); cavernous sinus meshes have disconnected parts. This preview does not establish a complete connected drainage system.</p>}
+            {head.folds && <p>The falx source mesh has topology irregularities. Geometry is preserved for inspection, not anatomically repaired.</p>}
             <label>Select head structure
               <select aria-label="Select head structure" value={headRegions.some(region => region.meshName === selectedRegion) ? selectedRegion ?? '' : ''} onChange={event => {
                 useBrainStore.getState().setIsolatedRegion(null);
                 useBrainStore.getState().setSelectedRegion(event.target.value || null);
               }}>
                 <option value="">Choose a structure…</option>
-                {headRegions.filter(region => region.category === 'Intracranial arteries' ? head.central : region.category === 'Skeleton' ? head.skull : region.category === 'Arteries' ? head.arteries : head.veins).map(region => <option key={region.meshName} value={region.meshName}>{region.name}</option>)}
+                {headRegions.filter(region => isHeadRegionVisible(region, head)).map(region => <option key={region.meshName} value={region.meshName}>{region.name}</option>)}
               </select>
             </label>
             <p>Click a structure to select it. Hide the skull to pick the brain or vessels underneath.</p>
             <label>Skull opacity <input aria-label="Skull opacity" type="range" min="0.05" max="1" step="0.05" value={head.skullOpacity} onChange={event => setHead(current => ({ ...current, skullOpacity: Number(event.target.value) }))} /></label>
             <label>Vessel opacity <input aria-label="Vessel opacity" type="range" min="0.1" max="1" step="0.05" value={head.vesselOpacity} onChange={event => setHead(current => ({ ...current, vesselOpacity: Number(event.target.value) }))} /></label>
+            {head.folds && <label>Dural fold opacity <input aria-label="Dural fold opacity" type="range" min="0.1" max="1" step="0.05" value={head.foldOpacity} onChange={event => setHead(current => ({ ...current, foldOpacity: Number(event.target.value) }))} /></label>}
             {explodeAmount > 0 && <p role="status">Return Explode to zero to inspect alignment.</p>}
           </>}
         </>}
-        <p>Dura, venous sinuses and fine intracranial branches are not available in this preview.</p>
+        <p>Outer cranial dura, arachnoid and pia membranes remain unavailable. Fine vascular branches are incomplete.</p>
         <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')}>Sources & licence details</a>
       </details>
     </div>

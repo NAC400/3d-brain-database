@@ -1,0 +1,551 @@
+{
+  "reviewed": "2026-10-05",
+  "status": "ILLUSTRATIVE / UNVALIDATED",
+  "sourceRepository": "https://github.com/LluisV/Z-Anatomy/tree/PC-Version/Resources/Models",
+  "sourceFBXHashes": [
+    "3ea1aad64956cad27348a27b8fb50494b7cc307c6bc77bee0810ec2a67dff2b1",
+    "ed7d049117cc944a8c47a416b16ade642cbd1392bbcce3c677450d3234dbf680"
+  ],
+  "method": "One proper similarity fit to five matching structure bounding-box centres; FBX world transforms preserved, helper geometry excluded",
+  "sourceWorldToTargetRAS": [
+    [
+      -9.297418594300828,
+      0.38048886450342995,
+      -1.3038055714403178,
+      -61.7913692788841
+    ],
+    [
+      -1.2126578237289596,
+      1.7366353298621104,
+      9.154246664548884,
+      -281.5952647832565
+    ],
+    [
+      0.6116712733804544,
+      9.226375193804138,
+      -1.6692909567410708,
+      -1500.90126012845
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "uniformScaleAfterCentimetresToMillimetres": 0.9396098832056884,
+  "fitProxyErrorsMm": [
+    5.396161986217125,
+    3.091331584569176,
+    4.06004103895957,
+    8.026703008115742,
+    7.4087019611500935
+  ],
+  "heldOutProxyChecks": [
+    {
+      "structure": "right hippocampus",
+      "proxyErrorMm": 9.795477102381161
+    },
+    {
+      "structure": "left hippocampus",
+      "proxyErrorMm": 9.354047509084923
+    }
+  ],
+  "topologyWeldToleranceSourceWorldUnits": 1e-06,
+  "coverage": [
+    {
+      "name": "Left Tentorium cerebelli",
+      "sourceObject": "Tentorium_cerebellil",
+      "vertices": 13440,
+      "triangles": 4480,
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -51.320747271367594,
+          -85.1302216173383,
+          -39.61431723899955
+        ],
+        [
+          10.313791370709005,
+          -3.683567620139627,
+          -4.271343735165374
+        ]
+      ]
+    },
+    {
+      "name": "Falx cerebri",
+      "sourceObject": "Falx_cerebri",
+      "vertices": 44172,
+      "triangles": 14724,
+      "connectedComponents": 1,
+      "boundaryEdges": 2,
+      "nonmanifoldEdges": 552,
+      "fittedBoundsRASmm": [
+        [
+          -12.559368333961714,
+          -89.88000609509714,
+          -36.06915518612368
+        ],
+        [
+          15.480710858867916,
+          76.26652678210456,
+          72.51940058016658
+        ]
+      ]
+    },
+    {
+      "name": "Right Tentorium cerebelli",
+      "sourceObject": "Tentorium_cerebellir",
+      "vertices": 13440,
+      "triangles": 4480,
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          3.6615651033775194,
+          -83.04754743632245,
+          -41.23514442245596
+        ],
+        [
+          61.390898109153376,
+          -0.40139304468908676,
+          -4.541100886281583
+        ]
+      ]
+    },
+    {
+      "name": "Left Inferior petrosal sinus",
+      "sourceObject": "Inferior_petrosal_sinusl",
+      "vertices": 2124,
+      "triangles": 708,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -42.4584728714501,
+          -35.53074163957149,
+          -49.32409597151741
+        ],
+        [
+          -9.519590539857447,
+          0.4784548603668668,
+          -34.34135475563721
+        ]
+      ]
+    },
+    {
+      "name": "Right Inferior petrosal sinus",
+      "sourceObject": "Inferior_petrosal_sinusr",
+      "vertices": 2124,
+      "triangles": 708,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          5.8499884135969396,
+          -24.589138975342735,
+          -54.77288790226726
+        ],
+        [
+          43.67550160941908,
+          2.982348683776763,
+          -35.6179046281286
+        ]
+      ]
+    },
+    {
+      "name": "Posterior intercavernous sinus",
+      "sourceObject": "Posterior_intercavernous_sinus",
+      "vertices": 1770,
+      "triangles": 590,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -8.047057728844877,
+          3.8003817746949835,
+          -28.29649942915512
+        ],
+        [
+          2.846519867139513,
+          15.081062226134236,
+          -18.904299145527148
+        ]
+      ]
+    },
+    {
+      "name": "Anterior intercavernous sinus",
+      "sourceObject": "Anterior_intercavernous_sinus",
+      "vertices": 708,
+      "triangles": 236,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -7.2556431978325975,
+          11.864450012994439,
+          -23.874329944910187
+        ],
+        [
+          1.2988427317818392,
+          15.540159820730821,
+          -20.33134616811617
+        ]
+      ]
+    },
+    {
+      "name": "Right Cavernous sinus",
+      "sourceObject": "Cavernous_sinusr",
+      "vertices": 11964,
+      "triangles": 3988,
+      "connectedComponents": 2,
+      "boundaryEdges": 156,
+      "nonmanifoldEdges": 26,
+      "fittedBoundsRASmm": [
+        [
+          2.082405188324472,
+          0.4051213931869029,
+          -38.80745568951443
+        ],
+        [
+          14.00592379316901,
+          19.747494360065957,
+          -23.78499508620348
+        ]
+      ]
+    },
+    {
+      "name": "Left Cavernous sinus",
+      "sourceObject": "Cavernous_sinusl",
+      "vertices": 11964,
+      "triangles": 3988,
+      "connectedComponents": 2,
+      "boundaryEdges": 172,
+      "nonmanifoldEdges": 27,
+      "fittedBoundsRASmm": [
+        [
+          -20.64707063240857,
+          -2.712969759158966,
+          -37.28331124223564
+        ],
+        [
+          -7.279018765440405,
+          15.994595386202263,
+          -23.098879614859925
+        ]
+      ]
+    },
+    {
+      "name": "Right Sigmoid sinus",
+      "sourceObject": "Sigmoid_sinusr",
+      "vertices": 1062,
+      "triangles": 354,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          42.54318810019404,
+          -35.75785321337091,
+          -54.54038199319939
+        ],
+        [
+          60.608465487522956,
+          -22.994114492558765,
+          -27.322819736898055
+        ]
+      ]
+    },
+    {
+      "name": "Right Transverse sinus",
+      "sourceObject": "Transverse_sinusr",
+      "vertices": 2478,
+      "triangles": 826,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          8.205293585073058,
+          -78.96650614307029,
+          -30.00054820809987
+        ],
+        [
+          60.51234784304258,
+          -33.22385051147862,
+          -23.294922456476115
+        ]
+      ]
+    },
+    {
+      "name": "Right Superior petrosal sinus",
+      "sourceObject": "Superior_petrosal_sinusr",
+      "vertices": 2121,
+      "triangles": 707,
+      "connectedComponents": 1,
+      "boundaryEdges": 23,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          10.616193091466478,
+          -33.92632448009249,
+          -36.667403906052186
+        ],
+        [
+          60.146347699767965,
+          1.4035448732295777,
+          -25.59750586647033
+        ]
+      ]
+    },
+    {
+      "name": "Superior sagittal sinus",
+      "sourceObject": "Superior_sagittal_sinus",
+      "vertices": 7788,
+      "triangles": 2596,
+      "connectedComponents": 1,
+      "boundaryEdges": 22,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -11.277629411871352,
+          -90.68250185642142,
+          -32.86742433493919
+        ],
+        [
+          14.4992447749594,
+          76.07849505843848,
+          73.03036870772462
+        ]
+      ]
+    },
+    {
+      "name": "Straight sinus",
+      "sourceObject": "Straight_sinus",
+      "vertices": 2832,
+      "triangles": 944,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -2.998482829690623,
+          -37.52853220974279,
+          -37.11116089773918
+        ],
+        [
+          4.022156692124973,
+          13.53440147799472,
+          -12.441352947902942
+        ]
+      ]
+    },
+    {
+      "name": "Inferior sagittal sinus",
+      "sourceObject": "Inferior_sagittal_sinus",
+      "vertices": 4248,
+      "triangles": 1416,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -5.02343524234864,
+          -39.871721529960695,
+          -11.975270435843186
+        ],
+        [
+          6.873204274542992,
+          38.79582418835378,
+          24.05046975777759
+        ]
+      ]
+    },
+    {
+      "name": "Occipital sinus",
+      "sourceObject": "Occipital_sinus",
+      "vertices": 1416,
+      "triangles": 472,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -2.352582575055777,
+          -37.37036940792126,
+          -59.00935620915129
+        ],
+        [
+          3.557087789652492,
+          -11.840458488899628,
+          -35.49947377667104
+        ]
+      ]
+    },
+    {
+      "name": "Left Sigmoid sinus",
+      "sourceObject": "Sigmoid_sinusl",
+      "vertices": 1062,
+      "triangles": 354,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -52.73395205473096,
+          -49.57408424509893,
+          -48.914593633951654
+        ],
+        [
+          -40.94731494044676,
+          -34.19687633550714,
+          -20.218506756471243
+        ]
+      ]
+    },
+    {
+      "name": "Left Transverse sinus",
+      "sourceObject": "Transverse_sinusl",
+      "vertices": 2478,
+      "triangles": 826,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -52.28716930137892,
+          -82.34401033795808,
+          -30.00508612654039
+        ],
+        [
+          9.011696537502253,
+          -47.80553377550018,
+          -17.227405934918806
+        ]
+      ]
+    },
+    {
+      "name": "Left Superior petrosal sinus",
+      "sourceObject": "Superior_petrosal_sinusl",
+      "vertices": 2121,
+      "triangles": 707,
+      "connectedComponents": 1,
+      "boundaryEdges": 23,
+      "nonmanifoldEdges": 0,
+      "fittedBoundsRASmm": [
+        [
+          -52.30694260156617,
+          -48.17036413191076,
+          -34.95864040673814
+        ],
+        [
+          -14.581908582019032,
+          -2.0575802347213994,
+          -18.837332350710767
+        ]
+      ]
+    }
+  ],
+  "missing": [
+    "outer cranial dura shell",
+    "arachnoid membrane",
+    "pia mater",
+    "separate falx cerebelli",
+    "separate diaphragma sellae",
+    "separate confluence mesh"
+  ],
+  "limitations": [
+    "Not anatomical landmark validation; no expert review or quantified vessel placement error.",
+    "Source anatomy contains symmetric bilateral representations.",
+    "Separate atlas from the SPL brain and the fitted skull/arteries; their spatial junctions are unvalidated.",
+    "Actual folds only; no procedural outer dura, pia or arachnoid shell is fabricated.",
+    "No clinical use."
+  ],
+  "sinusJunctionProximity": [
+    {
+      "a": "Inferior_sagittal_sinus",
+      "b": "Straight_sinus",
+      "minimumVertexGapMm": 11.890203833766506,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Superior_sagittal_sinus",
+      "b": "Transverse_sinusl",
+      "minimumVertexGapMm": 0.25313624553608044,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Straight_sinus",
+      "b": "Transverse_sinusl",
+      "minimumVertexGapMm": 39.376372595527826,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Transverse_sinusl",
+      "b": "Sigmoid_sinusl",
+      "minimumVertexGapMm": 0.1988353473246931,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Cavernous_sinusl",
+      "b": "Superior_petrosal_sinusl",
+      "minimumVertexGapMm": 0.515960306992153,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Cavernous_sinusl",
+      "b": "Inferior_petrosal_sinusl",
+      "minimumVertexGapMm": 0.06883943192223402,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Inferior_petrosal_sinusl",
+      "b": "Sigmoid_sinusl",
+      "minimumVertexGapMm": 0.12009280727346554,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Superior_sagittal_sinus",
+      "b": "Transverse_sinusr",
+      "minimumVertexGapMm": 0.25314458918101745,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Straight_sinus",
+      "b": "Transverse_sinusr",
+      "minimumVertexGapMm": 39.37636989681217,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Transverse_sinusr",
+      "b": "Sigmoid_sinusr",
+      "minimumVertexGapMm": 0.19883268520876932,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Cavernous_sinusr",
+      "b": "Superior_petrosal_sinusr",
+      "minimumVertexGapMm": 0.5159179426122298,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Cavernous_sinusr",
+      "b": "Inferior_petrosal_sinusr",
+      "minimumVertexGapMm": 0.06884186234482433,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    },
+    {
+      "a": "Inferior_petrosal_sinusr",
+      "b": "Sigmoid_sinusr",
+      "minimumVertexGapMm": 0.1200778697357667,
+      "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
+    }
+  ]
+}
