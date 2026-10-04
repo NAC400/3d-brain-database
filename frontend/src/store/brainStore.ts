@@ -7,6 +7,8 @@ import type { Source, StructureLink, Note, Project } from '../types/source';
 // ---------------------------------------------------------------------------
 
 export interface BrainRegion {
+  dataset?: string;
+  sourceId?: number;
   meshName:   string;   // exact name of the mesh inside the .glb file
   labelId:    number;
   name:       string;
@@ -98,6 +100,8 @@ export interface BrainState {
 
   // --- Full-brain mirror ---
   showMirroredHemisphere: boolean;
+  brainAtlas: 'spl' | 'allen';
+  setBrainAtlas: (atlas: 'spl' | 'allen') => void;
 
   // --- World-space bounds (set once GLB loads) ---
   brainBounds: BrainBounds | null;
@@ -247,6 +251,7 @@ export const useBrainStore = create<BrainState>()(
 
   // Mirror
   showMirroredHemisphere: false,
+  brainAtlas: 'spl',
   brainBounds: null,
 
   // Camera
@@ -362,6 +367,17 @@ export const useBrainStore = create<BrainState>()(
     })),
 
   setShowMirroredHemisphere: (show) => set({ showMirroredHemisphere: show }),
+  // Model switching resets only transient scene state. Saved sources, links,
+  // notes and highlights retain their dataset-specific mesh keys unchanged.
+  setBrainAtlas: (brainAtlas) => set({
+    brainAtlas, showMirroredHemisphere: false, selectedRegion: null,
+    hoveredRegion: null, isolatedRegion: null, activeCategories: new Set<string>(),
+    explodeAmount: 0, brainRegions: [], regionMap: {}, regionDescriptions: {},
+    regionCentroids: {}, regionCentroidDirs: {}, brainBounds: null,
+    cameraTarget: null, contextMenu: null,
+    planeEnabled: { sagittal: false, axial: false, coronal: false },
+    clippingEnabled: false,
+  }),
   setBrainBounds: (bounds) => set({ brainBounds: bounds }),
   setCameraTarget: (target) => set({ cameraTarget: target }),
   setRegionCentroids: (centroids) => set({ regionCentroids: centroids }),

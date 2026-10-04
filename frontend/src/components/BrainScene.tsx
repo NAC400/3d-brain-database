@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import BrainModel from './BrainModel';
 import ClippingController from './ClippingController';
 import CameraController from './CameraController';
+import { useBrainStore } from '../store/brainStore';
 
 // ---------------------------------------------------------------------------
 // GLB load progress bar — shown inside the Canvas via Html
@@ -41,6 +42,7 @@ const ProgressFallback: React.FC = () => {
 // ---------------------------------------------------------------------------
 const BrainScene: React.FC = () => {
   const controlsRef = useRef<any>(null);
+  const atlas = useBrainStore(state => state.brainAtlas);
 
   return (
     /*
@@ -57,9 +59,10 @@ const BrainScene: React.FC = () => {
       }}
     >
       <Canvas
+        key={atlas}
         style={{ display: 'block', width: '100%', height: '100%' }}
         camera={{
-          position: [0, 0, 4.5],
+          position: atlas === 'spl' ? [0, 0, 3] : [0, 0, 4.5],
           fov: 50,
           near: 0.01,
           far: 500,
@@ -88,7 +91,7 @@ const BrainScene: React.FC = () => {
 
         <Suspense fallback={<ProgressFallback />}>
           <Environment preset="studio" />
-          <BrainModel />
+          <BrainModel key={atlas} atlas={atlas} />
         </Suspense>
 
         {/* Controls outside Suspense — responsive before GLB finishes */}

@@ -347,7 +347,7 @@ const ControlsToolbar: React.FC = () => {
     activeCategories, toggleCategory,
     clippingPlanes, planeEnabled,
     setClippingPlane, setPlaneEnabled, resetClipping,
-    showMirroredHemisphere, setShowMirroredHemisphere,
+    brainAtlas, setBrainAtlas,
     brainBounds,
   } = useBrainStore();
 
@@ -388,23 +388,14 @@ const ControlsToolbar: React.FC = () => {
         gap: 0,
       }}>
 
-        {/* ── Full Brain toggle ── */}
-        <button
-          onClick={() => setShowMirroredHemisphere(!showMirroredHemisphere)}
-          title="Mirror the hemisphere to show a full brain"
-          style={{
-            display: 'flex', alignItems: 'center', gap: 5,
-            padding: '3px 10px', borderRadius: 5, flexShrink: 0, marginRight: 12,
-            border: `1px solid ${showMirroredHemisphere ? 'rgba(34,211,238,0.6)' : 'rgba(100,116,139,0.3)'}`,
-            background: showMirroredHemisphere ? 'rgba(34,211,238,0.12)' : 'transparent',
-            color: showMirroredHemisphere ? '#22d3ee' : '#475569',
-            fontSize: 10, fontWeight: 600, cursor: 'pointer', letterSpacing: 0.5,
-            textTransform: 'uppercase', whiteSpace: 'nowrap',
-          }}
-        >
-          <span style={{ width: 6, height: 6, borderRadius: '50%', background: showMirroredHemisphere ? '#22d3ee' : '#334155', flexShrink: 0 }} />
-          Full Brain
-        </button>
+        {/* Real bilateral anatomy replaces the synthetic-mirror control.
+            The Allen option preserves access to previously linked research. */}
+        <select aria-label="Brain atlas" value={brainAtlas}
+          onChange={event => setBrainAtlas(event.target.value as 'spl' | 'allen')}
+          style={{ padding: '4px 8px', marginRight: 12, borderRadius: 5, background: '#132033', color: '#d1e5ff', border: '1px solid #769ac65c', fontSize: 11 }}>
+          <option value="spl">SPL/NAC · bilateral brain</option>
+          <option value="allen">Allen · original atlas</option>
+        </select>
 
         <div style={{ width: 1, height: 20, background: 'rgba(30,64,175,0.4)', marginRight: 12, flexShrink: 0 }} />
 

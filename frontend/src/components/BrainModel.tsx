@@ -53,6 +53,7 @@ export const BRAIN_SCALE = 0.01;
 export const EXPLODE_SCALE = 200;
 
 useGLTF.preload(MODEL_URL);
+useGLTF.preload('/models/spl-nac/brain.glb');
 
 // ---------------------------------------------------------------------------
 // Per-mesh instance — handles highlight, explode, isolate, hover/click
@@ -286,8 +287,10 @@ const MirroredHemisphere: React.FC<MirroredProps> = ({ meshes, groupOffset, base
 // BrainModel — loads the GLB, sets scale, traverses meshes, registers regions
 // ---------------------------------------------------------------------------
 
-const BrainModel: React.FC = () => {
-  const { scene } = useGLTF(MODEL_URL);
+const BrainModel: React.FC<{ atlas: 'spl' | 'allen' }> = ({ atlas }) => {
+  const modelUrl = atlas === 'spl' ? '/models/spl-nac/brain.glb' : MODEL_URL;
+  const metadataUrl = atlas === 'spl' ? '/models/spl-nac/regions.json' : '/data/regions.json';
+  const { scene } = useGLTF(modelUrl);
   const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, setRegionCentroidDirs, setRegionDescriptions, showMirroredHemisphere, regionMap } = useBrainStore();
 
   const meshes = useMemo(() => {
@@ -401,10 +404,12 @@ const BrainModel: React.FC = () => {
   // Load enriched region data from regions.json, register with the store,
   // then fetch anatomical descriptions from the Allen Brain Atlas API.
   useEffect(() => {
+    const controller = new AbortController();
     setLoading(true);
-    fetch('/data/regions.json')
-      .then((r) => r.json())
+    fetch(metadataUrl, { signal: controller.signal })
+      .then((r) => { if (!r.ok) throw new Error('Region metadata unavailable'); return r.json(); })
       .then((json) => {
+        if (controller.signal.aborted) return;
         // Apply hierarchy-derived subcategories for Diencephalon / Mesencephalon
         const regions = (json.regions as BrainRegion[]).map((r) => ({
           ...r,
@@ -414,10 +419,11 @@ const BrainModel: React.FC = () => {
         // Fire-and-forget: fetch Allen descriptions in background
         const labelIds = regions.map((r) => r.labelId).filter((id) => id > 0);
         fetchAllenStructures(labelIds).then(() => {
-          setRegionDescriptions(getAllenDescriptions(labelIds));
+          if (!controller.signal.aborted) setRegionDescriptions(getAllenDescriptions(labelIds));
         });
       })
       .catch(() => {
+        if (controller.signal.aborted) return;
         // Fallback: register mesh names only (no rich data)
         const fallback: BrainRegion[] = filteredMeshes.map((m) => ({
           meshName:   m.name,
@@ -432,13 +438,14 @@ const BrainModel: React.FC = () => {
         }));
         loadBrainRegions(fallback);
       })
-      .finally(() => setLoading(false));
-  }, [filteredMeshes, loadBrainRegions, setLoading, setRegionDescriptions]);
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, [metadataUrl, filteredMeshes, loadBrainRegions, setLoading, setRegionDescriptions]);
 
   return (
     <>
       {/* Mirrored hemisphere (visual only, no interactivity) */}
-      {showMirroredHemisphere && (
+      {atlas === 'allen' && showMirroredHemisphere && (
         <MirroredHemisphere
           meshes={filteredMeshes.filter(
             (m) => Object.keys(regionMap).length === 0 || regionMap[m.name]

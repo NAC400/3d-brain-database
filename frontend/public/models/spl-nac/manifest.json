@@ -1,0 +1,20 @@
+{
+  "dataset": "spl-nac-2017",
+  "release": "brain-2017-01",
+  "source": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+  "archive": "https://www.openanatomy.org/atlases/nac/brain-2017-01.zip",
+  "archiveSha256": "0DB330E943C048FFB36AAB5C914F699267886AF62BAC7EB4485267B96C56D234",
+  "retrieved": "2026-10-04",
+  "credit": "SPL/NAC Brain Atlas, Surgical Planning Laboratory, Brigham and Women's Hospital; contributors listed in NOTICE.md",
+  "license": "3D Slicer License, see LICENSE.txt",
+  "modifications": "233 brain VTK surface structures selected from the upstream hierarchy; converted to GLB with recomputed normals and original colours; no mirroring or decimation",
+  "sourceCoordinates": "Slicer RAS, millimetres",
+  "conversion": { "x": "R", "y": "S", "z": "-A", "units": "millimetres" },
+  "runtimeScale": 0.01,
+  "runtimeOrigin": "Combined brain bounding-box centre; additional layers must reuse this brain origin, not independently recenter",
+  "leftStructures": 109,
+  "rightStructures": 109,
+  "otherStructures": 15,
+  "additionalLayerStatus": { "skull": "Not included", "vasculature": "Not included", "meninges": "Not included", "skinAndMuscles": "Available upstream, not converted in this brain release" },
+  "validation": "Technical inventory and browser inspection; anatomical expert review and external-layer registration pending"
+}

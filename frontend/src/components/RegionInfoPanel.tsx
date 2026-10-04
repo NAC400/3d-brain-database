@@ -108,9 +108,10 @@ const RegionInfoPanel: React.FC = () => {
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
           <span style={{ color: 'var(--product-muted)', minWidth: 64 }}>Label ID</span>
-          <span style={{ color: '#cbd5e1' }}>{region.labelId}</span>
+          <span style={{ color: '#cbd5e1' }}>{region.dataset?.startsWith('spl-') ? `SPL ${region.sourceId}` : region.labelId}</span>
         </div>
       </div>
+
 
       {/* Anatomical description from Allen Atlas */}
       {description && (

@@ -5,13 +5,14 @@ import './HomePage.css';
 import ContactLink from './ContactLink';
 
 const FEATURES: { title: string; description: string; page: BrainState['appPage']; action: string }[] = [
-  { title: 'Explore anatomy', description: 'Examine 141 brain regions in three dimensions. Isolate structures, adjust layers, and explore cross-sections.', page: 'explorer', action: 'Open Brain Explorer' },
+  { title: 'Explore anatomy', description: 'Explore both brain hemispheres in three dimensions. Isolate structures, filter anatomy, and explore cross-sections.', page: 'explorer', action: 'Open Brain Explorer' },
   { title: 'Connect the evidence', description: 'Import papers from PubMed or DOI, link sources to brain regions, and export citations.', page: 'library', action: 'View Research Library' },
   { title: 'Build shared knowledge', description: 'Explore community contributions and share connections between brain structures and scientific literature.', page: 'community', action: 'Explore Community Atlas' },
 ];
 
 const HomePage: React.FC = () => {
-  const { setAppPage, sources, structureLinks, user } = useBrainStore();
+  const { setAppPage, sources, structureLinks, user, brainAtlas } = useBrainStore();
+  const bilateral = brainAtlas === 'spl';
   return (
     <div className="mapped-home">
       <a className="home-skip" href="#home-main">Skip to content</a>
@@ -49,9 +50,10 @@ const HomePage: React.FC = () => {
               <path className="home-art-link" d="M128 78L154 80L223 121L278 126"/>
             </svg>
             <p className="home-eyebrow">ANATOMICAL FOUNDATION</p>
-            <div className="home-atlas-count">141<span>brain regions</span></div>
-            <h2>Allen Human Reference Atlas</h2>
-            <p className="home-atlas-meta">Atlas version 2020 · Interactive 3D exploration</p>
+            <div className="home-atlas-count">{bilateral ? 233 : 141}<span>brain structures</span></div>
+            <h2>{bilateral ? 'SPL/NAC Bilateral Brain Atlas' : 'Allen Human Reference Atlas'}</h2>
+            <p className="home-atlas-meta">{bilateral ? 'Atlas release 2017 · Both hemispheres' : 'Atlas version 2020 · Original atlas'}</p>
+            {bilateral && <p className="home-atlas-meta">Derived from the Brigham and Women’s Hospital SPL/NAC atlas. <a href="/models/spl-nac/LICENSE.txt" style={{ color: 'var(--home-accent)' }}>Licence and notices</a></p>}
             <div className="home-workspace">
               <p className="home-eyebrow">YOUR WORKSPACE</p>
               <dl><div><dt>Saved sources</dt><dd>{sources.length}</dd></div><div><dt>Region–source links</dt><dd>{structureLinks.length}</dd></div></dl>
