@@ -6,7 +6,7 @@ import BrainModel from './BrainModel';
 import ClippingController from './ClippingController';
 import CameraController from './CameraController';
 import { useBrainStore } from '../store/brainStore';
-import ExperimentalHeadLayers, { HeadLayerOptions } from './ExperimentalHeadLayers';
+import ExperimentalHeadLayers, { HeadLayerOptions, headRegions } from './ExperimentalHeadLayers';
 import './ExperimentalHeadLayers.css';
 
 // ---------------------------------------------------------------------------
@@ -57,6 +57,7 @@ const BrainScene: React.FC = () => {
   const controlsRef = useRef<any>(null);
   const atlas = useBrainStore(state => state.brainAtlas);
   const explodeAmount = useBrainStore(state => state.explodeAmount);
+  const selectedRegion = useBrainStore(state => state.selectedRegion);
   const [origin, setOrigin] = useState<{ atlas: 'spl' | 'allen'; offset: THREE.Vector3 } | null>(null);
   const receiveOrigin = useCallback((offset: THREE.Vector3) => setOrigin({ atlas, offset }), [atlas]);
   const [head, setHead] = useState<HeadLayerOptions>({ enabled: false, skull: true, arteries: true, veins: false, skullOpacity: 0.2, vesselOpacity: 0.85 });
@@ -152,6 +153,16 @@ const BrainScene: React.FC = () => {
             <label><input type="checkbox" checked={head.skull} onChange={() => toggle('skull')} /> Skull & mandible</label>
             <label><input type="checkbox" checked={head.arteries} onChange={() => toggle('arteries')} /> Major arteries</label>
             <label><input type="checkbox" checked={head.veins} onChange={() => toggle('veins')} /> Jugular veins</label>
+            <label>Select head structure
+              <select aria-label="Select head structure" value={headRegions.some(region => region.meshName === selectedRegion) ? selectedRegion ?? '' : ''} onChange={event => {
+                useBrainStore.getState().setIsolatedRegion(null);
+                useBrainStore.getState().setSelectedRegion(event.target.value || null);
+              }}>
+                <option value="">Choose a structure…</option>
+                {headRegions.filter(region => region.category === 'Skeleton' ? head.skull : region.category === 'Arteries' ? head.arteries : head.veins).map(region => <option key={region.meshName} value={region.meshName}>{region.name}</option>)}
+              </select>
+            </label>
+            <p>Click a structure to select it. Hide the skull to pick the brain or vessels underneath.</p>
             <label>Skull opacity <input aria-label="Skull opacity" type="range" min="0.05" max="1" step="0.05" value={head.skullOpacity} onChange={event => setHead(current => ({ ...current, skullOpacity: Number(event.target.value) }))} /></label>
             <label>Vessel opacity <input aria-label="Vessel opacity" type="range" min="0.1" max="1" step="0.05" value={head.vesselOpacity} onChange={event => setHead(current => ({ ...current, vesselOpacity: Number(event.target.value) }))} /></label>
             {explodeAmount > 0 && <p role="status">Return Explode to zero to inspect alignment.</p>}

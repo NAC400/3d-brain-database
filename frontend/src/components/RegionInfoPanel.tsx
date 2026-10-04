@@ -112,6 +112,7 @@ const RegionInfoPanel: React.FC = () => {
         </div>
       </div>
 
+      {region.dataset === 'spl-head-neck-2016-09' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>SPL Head and Neck Atlas · experimental CT-to-MRI fit, not anatomically validated. <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
 
       {/* Anatomical description from Allen Atlas */}
       {description && (

@@ -117,6 +117,7 @@ export interface BrainState {
 
   // --- Region data ---
   brainRegions: BrainRegion[];
+  headRegions: BrainRegion[];
   regionMap:    Record<string, BrainRegion>;  // meshName → BrainRegion
 
   // --- Source / research panel ---
@@ -189,6 +190,7 @@ export interface BrainState {
   setRegionDescriptions:     (descs: Record<number, string>) => void;
 
   loadBrainRegions:   (regions: BrainRegion[]) => void;
+  setHeadRegions: (regions: BrainRegion[]) => void;
 
   setSourcePanelOpen: (isOpen: boolean) => void;
   setSelectedSource:  (sourceId: string | null) => void;
@@ -264,6 +266,7 @@ export const useBrainStore = create<BrainState>()(
 
   // Data
   brainRegions: [],
+  headRegions: [],
   regionMap:    {},
 
   // Source panel
@@ -384,9 +387,16 @@ export const useBrainStore = create<BrainState>()(
   setRegionCentroidDirs: (dirs) => set({ regionCentroidDirs: dirs }),
   setRegionDescriptions: (descs) => set({ regionDescriptions: descs }),
 
+  setHeadRegions: (regions) => set((state) => {
+    const map: Record<string, BrainRegion> = {};
+    [...state.brainRegions, ...regions].forEach(r => { map[r.meshName] = r; });
+    const removedSelection = state.headRegions.some(r => r.meshName === state.selectedRegion) && !regions.some(r => r.meshName === state.selectedRegion);
+    const removedIsolation = state.headRegions.some(r => r.meshName === state.isolatedRegion) && !regions.some(r => r.meshName === state.isolatedRegion);
+    return { headRegions: regions, regionMap: map, ...(removedSelection ? { selectedRegion: null } : {}), ...(removedIsolation ? { isolatedRegion: null } : {}) };
+  }),
   loadBrainRegions: (regions) => {
     const map: Record<string, BrainRegion> = {};
-    regions.forEach((r) => { map[r.meshName] = r; });
+    [...regions, ...get().headRegions].forEach((r) => { map[r.meshName] = r; });
     set({ brainRegions: regions, regionMap: map });
   },
 
