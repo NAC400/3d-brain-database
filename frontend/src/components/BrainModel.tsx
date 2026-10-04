@@ -287,7 +287,7 @@ const MirroredHemisphere: React.FC<MirroredProps> = ({ meshes, groupOffset, base
 // BrainModel — loads the GLB, sets scale, traverses meshes, registers regions
 // ---------------------------------------------------------------------------
 
-const BrainModel: React.FC<{ atlas: 'spl' | 'allen' }> = ({ atlas }) => {
+const BrainModel: React.FC<{ atlas: 'spl' | 'allen'; onOrigin?: (offset: THREE.Vector3) => void }> = ({ atlas, onOrigin }) => {
   const modelUrl = atlas === 'spl' ? '/models/spl-nac/brain.glb' : MODEL_URL;
   const metadataUrl = atlas === 'spl' ? '/models/spl-nac/regions.json' : '/data/regions.json';
   const { scene } = useGLTF(modelUrl);
@@ -381,6 +381,7 @@ const BrainModel: React.FC<{ atlas: 'spl' | 'allen' }> = ({ atlas }) => {
 
   // Push computed world-space bounds into the store (used by slider min/max)
   useEffect(() => { setBrainBounds(bounds); }, [bounds, setBrainBounds]);
+  useEffect(() => { onOrigin?.(groupOffset); }, [groupOffset, onOrigin]);
 
   // Push per-mesh world-space centroids + normalised dirs (used by camera zoom-to-region)
   useEffect(() => {
