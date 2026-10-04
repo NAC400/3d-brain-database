@@ -1,0 +1,128 @@
+{
+  "status": "EXPERIMENTAL / UNREVIEWED / DO NOT USE IN EXPLORER",
+  "method": "Rigid Euler3D; Mattes mutual information; geometry-centre initialization; no landmarks or masks",
+  "library": "SimpleITK 2.5.6",
+  "fixed": {
+    "file": "A1_grayT1-1mm_resample.nrrd",
+    "sha256": "1fdb69d9a544916bef324ebf600016f41d03d364999c26a863a53cab6c438b51",
+    "size": [
+      256,
+      256,
+      256
+    ],
+    "spacing": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "originLPS": [
+      -127.5,
+      -127.5,
+      127.5
+    ],
+    "directionLPS": [
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0
+    ]
+  },
+  "moving": {
+    "file": "Osirix-Manix-255-res.nrrd",
+    "sha256": "a517db5b2dccfab587531caad9447c5d0c9908ae7907798472c3c78b565a2c3b",
+    "size": [
+      255,
+      255,
+      229
+    ],
+    "spacing": [
+      0.9765625,
+      0.9765625,
+      1.4000243999999995
+    ],
+    "originLPS": [
+      124.0234375,
+      124.0234375,
+      -159.60278159999996
+    ],
+    "directionLPS": [
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "elapsedSeconds": 32.6,
+  "finalSampledMetric": -0.37424456827009794,
+  "optimizerStop": "RegularStepGradientDescentOptimizerv4: Maximum number of iterations (150) exceeded.",
+  "fixedMRIToMovingCTLPS": [
+    [
+      0.9947429379595629,
+      0.05168803519711496,
+      0.08840155200583055,
+      9.691194630497167
+    ],
+    [
+      -0.041803404555967205,
+      0.993027246567749,
+      -0.11022414863180208,
+      3.0123608366931105
+    ],
+    [
+      -0.09348241945471614,
+      0.10594920760220816,
+      0.9899675765707485,
+      87.79291267590014
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "movingCTToFixedMRIRAS": [
+    [
+      0.9947429379595627,
+      -0.041803404555967205,
+      0.09348241945471791,
+      1.3072265924339384
+    ],
+    [
+      0.05168803519711496,
+      0.993027246567749,
+      -0.10594920760221527,
+      12.793864727595198
+    ],
+    [
+      -0.0884015520058341,
+      0.11022414863180074,
+      0.9899675765707485,
+      -87.4368187393782
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "landmarkResidualsMillimetres": null,
+  "anatomicalReviewer": null,
+  "limitations": [
+    "Different individuals: a rigid transform cannot establish detailed anatomical correspondence.",
+    "Mutual-information optimisation may converge to an incorrect local optimum.",
+    "Needs orthogonal volume overlays, independent landmarks, and anatomical review.",
+    "Do not treat a common coordinate system or convergence as validation."
+  ]
+}

@@ -1,0 +1,2108 @@
+{
+  "status": "source-space candidates only; not registered or released",
+  "archive": "mapped-bodyparts3d-4-obj.zip",
+  "archiveSha256": "40665852c49f218326590e204db91064a1ecfc3c6f8cbd7bbbcaac62c7cd409e",
+  "mappingSha256": "a3de74423f943b0d724ae8f59b3a817f87c423a544f8db98113b1980817cbeaf",
+  "matches": [
+    {
+      "concept id": "FMA50028",
+      "name": "anterior cerebral artery",
+      "element file id": "FJ1654",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1654.obj"
+    },
+    {
+      "concept id": "FMA50028",
+      "name": "anterior cerebral artery",
+      "element file id": "FJ1654M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1654M.obj"
+    },
+    {
+      "concept id": "FMA50029",
+      "name": "right anterior cerebral artery",
+      "element file id": "FJ1654",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1654.obj"
+    },
+    {
+      "concept id": "FMA50030",
+      "name": "left anterior cerebral artery",
+      "element file id": "FJ1654M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1654M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1655",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1655.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1671",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1671.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1671M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1671M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1676",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1676.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1676M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1676M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1681",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1681.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1681M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1681M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1690",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1690.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1690M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1690M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1696",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1696.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1696M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1696M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1697",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1697.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1697M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1697M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1698",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1698.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1698M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1698M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1699",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1699.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1699M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1699M.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1722",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1722.obj"
+    },
+    {
+      "concept id": "FMA50031",
+      "name": "branch of anterior cerebral artery",
+      "element file id": "FJ1722M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1722M.obj"
+    },
+    {
+      "concept id": "FMA50080",
+      "name": "zone of middle cerebral artery",
+      "element file id": "FJ1660",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1660.obj"
+    },
+    {
+      "concept id": "FMA50080",
+      "name": "zone of middle cerebral artery",
+      "element file id": "FJ1660M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1660M.obj"
+    },
+    {
+      "concept id": "FMA50080",
+      "name": "zone of middle cerebral artery",
+      "element file id": "FJ1692",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1692.obj"
+    },
+    {
+      "concept id": "FMA50080",
+      "name": "zone of middle cerebral artery",
+      "element file id": "FJ1692M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1692M.obj"
+    },
+    {
+      "concept id": "FMA50080",
+      "name": "zone of middle cerebral artery",
+      "element file id": "FJ1694",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1694.obj"
+    },
+    {
+      "concept id": "FMA50080",
+      "name": "zone of middle cerebral artery",
+      "element file id": "FJ1694M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1694M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1659",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1659.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1659M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1659M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1662",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1662.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1662M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1662M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1663",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1663.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1663M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1663M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1664",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1664.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1664M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1664M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1665",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1665.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1665M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1665M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1666",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1666.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1666M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1666M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1667",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1667.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1667M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1667M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1668",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1668.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1668M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1668M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1669",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1669.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1669M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1669M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1670",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1670.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1670M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1670M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1673",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1673.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1673M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1673M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1685",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1685.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1685M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1685M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1686",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1686.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1686M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1686M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1693",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1693.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1693M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1693M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1712",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1712.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1712M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1712M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1716",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1716.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1716M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1716M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1717",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1717.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1717M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1717M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1724",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1724.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1724M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1724M.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1729",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1729.obj"
+    },
+    {
+      "concept id": "FMA50081",
+      "name": "branch of middle cerebral artery",
+      "element file id": "FJ1729M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1729M.obj"
+    },
+    {
+      "concept id": "FMA50084",
+      "name": "posterior communicating artery",
+      "element file id": "FJ1713",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1713.obj"
+    },
+    {
+      "concept id": "FMA50084",
+      "name": "posterior communicating artery",
+      "element file id": "FJ1713M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1713M.obj"
+    },
+    {
+      "concept id": "FMA50085",
+      "name": "right posterior communicating artery",
+      "element file id": "FJ1713",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1713.obj"
+    },
+    {
+      "concept id": "FMA50086",
+      "name": "left posterior communicating artery",
+      "element file id": "FJ1713M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1713M.obj"
+    },
+    {
+      "concept id": "FMA50168",
+      "name": "branch of posterior communicating artery",
+      "element file id": "FJ1679",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1679.obj"
+    },
+    {
+      "concept id": "FMA50168",
+      "name": "branch of posterior communicating artery",
+      "element file id": "FJ1679M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1679M.obj"
+    },
+    {
+      "concept id": "FMA50169",
+      "name": "anterior communicating artery",
+      "element file id": "FJ1655",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1655.obj"
+    },
+    {
+      "concept id": "FMA50365",
+      "name": "sphenoid part of middle cerebral artery",
+      "element file id": "FJ1692",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1692.obj"
+    },
+    {
+      "concept id": "FMA50365",
+      "name": "sphenoid part of middle cerebral artery",
+      "element file id": "FJ1692M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1692M.obj"
+    },
+    {
+      "concept id": "FMA50366",
+      "name": "sphenoid part of right middle cerebral artery",
+      "element file id": "FJ1692",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1692.obj"
+    },
+    {
+      "concept id": "FMA50367",
+      "name": "sphenoid part of left middle cerebral artery",
+      "element file id": "FJ1692M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1692M.obj"
+    },
+    {
+      "concept id": "FMA50368",
+      "name": "insular part of middle cerebral artery",
+      "element file id": "FJ1660",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1660.obj"
+    },
+    {
+      "concept id": "FMA50368",
+      "name": "insular part of middle cerebral artery",
+      "element file id": "FJ1660M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1660M.obj"
+    },
+    {
+      "concept id": "FMA50368",
+      "name": "insular part of middle cerebral artery",
+      "element file id": "FJ1694",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1694.obj"
+    },
+    {
+      "concept id": "FMA50368",
+      "name": "insular part of middle cerebral artery",
+      "element file id": "FJ1694M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1694M.obj"
+    },
+    {
+      "concept id": "FMA50369",
+      "name": "insular part of right middle cerebral artery",
+      "element file id": "FJ1660",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1660.obj"
+    },
+    {
+      "concept id": "FMA50369",
+      "name": "insular part of right middle cerebral artery",
+      "element file id": "FJ1694",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1694.obj"
+    },
+    {
+      "concept id": "FMA50370",
+      "name": "insular part of left middle cerebral artery",
+      "element file id": "FJ1660M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1660M.obj"
+    },
+    {
+      "concept id": "FMA50370",
+      "name": "insular part of left middle cerebral artery",
+      "element file id": "FJ1694M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1694M.obj"
+    },
+    {
+      "concept id": "FMA50376",
+      "name": "anterolateral central branch of middle cerebral artery",
+      "element file id": "FJ1662",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1662.obj"
+    },
+    {
+      "concept id": "FMA50376",
+      "name": "anterolateral central branch of middle cerebral artery",
+      "element file id": "FJ1662M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1662M.obj"
+    },
+    {
+      "concept id": "FMA50376",
+      "name": "anterolateral central branch of middle cerebral artery",
+      "element file id": "FJ1663",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1663.obj"
+    },
+    {
+      "concept id": "FMA50376",
+      "name": "anterolateral central branch of middle cerebral artery",
+      "element file id": "FJ1663M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1663M.obj"
+    },
+    {
+      "concept id": "FMA50377",
+      "name": "anterolateral central branch of right middle cerebral artery",
+      "element file id": "FJ1662",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1662.obj"
+    },
+    {
+      "concept id": "FMA50377",
+      "name": "anterolateral central branch of right middle cerebral artery",
+      "element file id": "FJ1663",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1663.obj"
+    },
+    {
+      "concept id": "FMA50378",
+      "name": "anterolateral central branch of left middle cerebral artery",
+      "element file id": "FJ1662M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1662M.obj"
+    },
+    {
+      "concept id": "FMA50378",
+      "name": "anterolateral central branch of left middle cerebral artery",
+      "element file id": "FJ1663M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1663M.obj"
+    },
+    {
+      "concept id": "FMA50427",
+      "name": "hypothalamic branch of posterior communicating artery",
+      "element file id": "FJ1679",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1679.obj"
+    },
+    {
+      "concept id": "FMA50427",
+      "name": "hypothalamic branch of posterior communicating artery",
+      "element file id": "FJ1679M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1679M.obj"
+    },
+    {
+      "concept id": "FMA50428",
+      "name": "hypothalamic branch of right posterior communicating artery",
+      "element file id": "FJ1679",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1679.obj"
+    },
+    {
+      "concept id": "FMA50429",
+      "name": "hypothalamic branch of left posterior communicating artery",
+      "element file id": "FJ1679M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1679M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1664",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1664.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1664M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1664M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1665",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1665.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1665M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1665M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1666",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1666.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1666M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1666M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1667",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1667.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1667M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1667M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1668",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1668.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1668M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1668M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1669",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1669.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1669M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1669M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1670",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1670.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1670M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1670M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1685",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1685.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1685M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1685M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1686",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1686.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1686M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1686M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1716",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1716.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1716M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1716M.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1724",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1724.obj"
+    },
+    {
+      "concept id": "FMA50436",
+      "name": "superior terminal branch of middle cerebral artery",
+      "element file id": "FJ1724M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1724M.obj"
+    },
+    {
+      "concept id": "FMA50439",
+      "name": "inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1673",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1673.obj"
+    },
+    {
+      "concept id": "FMA50439",
+      "name": "inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1673M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1673M.obj"
+    },
+    {
+      "concept id": "FMA50439",
+      "name": "inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1693",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1693.obj"
+    },
+    {
+      "concept id": "FMA50439",
+      "name": "inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1693M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1693M.obj"
+    },
+    {
+      "concept id": "FMA50439",
+      "name": "inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1717",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1717.obj"
+    },
+    {
+      "concept id": "FMA50439",
+      "name": "inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1717M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1717M.obj"
+    },
+    {
+      "concept id": "FMA50439",
+      "name": "inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1729",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1729.obj"
+    },
+    {
+      "concept id": "FMA50439",
+      "name": "inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1729M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1729M.obj"
+    },
+    {
+      "concept id": "FMA50466",
+      "name": "middle temporal branch of middle cerebral artery",
+      "element file id": "FJ1693",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1693.obj"
+    },
+    {
+      "concept id": "FMA50466",
+      "name": "middle temporal branch of middle cerebral artery",
+      "element file id": "FJ1693M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1693M.obj"
+    },
+    {
+      "concept id": "FMA50467",
+      "name": "middle temporal branch of right middle cerebral artery",
+      "element file id": "FJ1693",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1693.obj"
+    },
+    {
+      "concept id": "FMA50468",
+      "name": "middle temporal branch of left middle cerebral artery",
+      "element file id": "FJ1693M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1693M.obj"
+    },
+    {
+      "concept id": "FMA50469",
+      "name": "posterior temporal branch of middle cerebral artery",
+      "element file id": "FJ1717",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1717.obj"
+    },
+    {
+      "concept id": "FMA50469",
+      "name": "posterior temporal branch of middle cerebral artery",
+      "element file id": "FJ1717M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1717M.obj"
+    },
+    {
+      "concept id": "FMA50470",
+      "name": "posterior temporal branch of right middle cerebral artery",
+      "element file id": "FJ1717",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1717.obj"
+    },
+    {
+      "concept id": "FMA50471",
+      "name": "posterior temporal branch of left middle cerebral artery",
+      "element file id": "FJ1717M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1717M.obj"
+    },
+    {
+      "concept id": "FMA50472",
+      "name": "temporo-occipital branch of middle cerebral artery",
+      "element file id": "FJ1729",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1729.obj"
+    },
+    {
+      "concept id": "FMA50472",
+      "name": "temporo-occipital branch of middle cerebral artery",
+      "element file id": "FJ1729M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1729M.obj"
+    },
+    {
+      "concept id": "FMA50473",
+      "name": "temporo-occipital branch of right middle cerebral artery",
+      "element file id": "FJ1729",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1729.obj"
+    },
+    {
+      "concept id": "FMA50474",
+      "name": "temporo-occipital branch of left middle cerebral artery",
+      "element file id": "FJ1729M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1729M.obj"
+    },
+    {
+      "concept id": "FMA50475",
+      "name": "branch of middle cerebral artery to angular gyrus",
+      "element file id": "FJ1673",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1673.obj"
+    },
+    {
+      "concept id": "FMA50475",
+      "name": "branch of middle cerebral artery to angular gyrus",
+      "element file id": "FJ1673M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1673M.obj"
+    },
+    {
+      "concept id": "FMA50476",
+      "name": "branch of right middle cerebral artery to right angular gyrus",
+      "element file id": "FJ1673",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1673.obj"
+    },
+    {
+      "concept id": "FMA50477",
+      "name": "branch of left middle cerebral artery to left angular gyrus",
+      "element file id": "FJ1673M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1673M.obj"
+    },
+    {
+      "concept id": "FMA50542",
+      "name": "basilar artery",
+      "element file id": "FJ1672",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1672.obj"
+    },
+    {
+      "concept id": "FMA50542",
+      "name": "basilar artery",
+      "element file id": "FJ1844",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1844.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1661",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1661.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1661M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1661M.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1675",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1675.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1675M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1675M.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1677",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1677.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1677M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1677M.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1678",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1678.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1678M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1678M.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1680",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1680.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1680M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1680M.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1687",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1687.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1687M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1687M.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1691",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1691.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1691M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1691M.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1720",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1720.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1720M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1720M.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1727",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1727.obj"
+    },
+    {
+      "concept id": "FMA50586",
+      "name": "branch of posterior cerebral artery",
+      "element file id": "FJ1727M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1727M.obj"
+    },
+    {
+      "concept id": "FMA50587",
+      "name": "posteromedial central branch of posterior cerebral artery",
+      "element file id": "FJ1721",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1721.obj"
+    },
+    {
+      "concept id": "FMA50587",
+      "name": "posteromedial central branch of posterior cerebral artery",
+      "element file id": "FJ1721M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1721M.obj"
+    },
+    {
+      "concept id": "FMA50589",
+      "name": "zone of posterior cerebral artery",
+      "element file id": "FJ1714",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1714.obj"
+    },
+    {
+      "concept id": "FMA50589",
+      "name": "zone of posterior cerebral artery",
+      "element file id": "FJ1714M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1714M.obj"
+    },
+    {
+      "concept id": "FMA50589",
+      "name": "zone of posterior cerebral artery",
+      "element file id": "FJ1723",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1723.obj"
+    },
+    {
+      "concept id": "FMA50589",
+      "name": "zone of posterior cerebral artery",
+      "element file id": "FJ1723M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1723M.obj"
+    },
+    {
+      "concept id": "FMA50590",
+      "name": "precommunicating part of posterior cerebral artery",
+      "element file id": "FJ1723",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1723.obj"
+    },
+    {
+      "concept id": "FMA50590",
+      "name": "precommunicating part of posterior cerebral artery",
+      "element file id": "FJ1723M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1723M.obj"
+    },
+    {
+      "concept id": "FMA50591",
+      "name": "postcommunicating part of posterior cerebral artery",
+      "element file id": "FJ1714",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1714.obj"
+    },
+    {
+      "concept id": "FMA50591",
+      "name": "postcommunicating part of posterior cerebral artery",
+      "element file id": "FJ1714M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1714M.obj"
+    },
+    {
+      "concept id": "FMA50639",
+      "name": "precommunicating part of right posterior cerebral artery",
+      "element file id": "FJ1723",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1723.obj"
+    },
+    {
+      "concept id": "FMA50640",
+      "name": "precommunicating part of left posterior cerebral artery",
+      "element file id": "FJ1723M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1723M.obj"
+    },
+    {
+      "concept id": "FMA50641",
+      "name": "postcommunicating part of right posterior cerebral artery",
+      "element file id": "FJ1714",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1714.obj"
+    },
+    {
+      "concept id": "FMA50642",
+      "name": "postcommunicating part of left posterior cerebral artery",
+      "element file id": "FJ1714M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1714M.obj"
+    },
+    {
+      "concept id": "FMA50660",
+      "name": "posteromedial central branch of right posterior cerebral artery",
+      "element file id": "FJ1721",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1721.obj"
+    },
+    {
+      "concept id": "FMA50661",
+      "name": "posteromedial central branch of left posterior cerebral artery",
+      "element file id": "FJ1721M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1721M.obj"
+    },
+    {
+      "concept id": "FMA71235",
+      "name": "region of dura mater",
+      "element file id": "FJ1843",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1843.obj"
+    },
+    {
+      "concept id": "FMA76107",
+      "name": "trunk of branch of middle cerebral artery",
+      "element file id": "FJ1718",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1718.obj"
+    },
+    {
+      "concept id": "FMA76107",
+      "name": "trunk of branch of middle cerebral artery",
+      "element file id": "FJ1718M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1718M.obj"
+    },
+    {
+      "concept id": "FMA76127",
+      "name": "trunk of inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1718",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1718.obj"
+    },
+    {
+      "concept id": "FMA76127",
+      "name": "trunk of inferior terminal branch of middle cerebral artery",
+      "element file id": "FJ1718M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1718M.obj"
+    },
+    {
+      "concept id": "FMA76128",
+      "name": "trunk of inferior terminal branch of right middle cerebral artery",
+      "element file id": "FJ1718",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1718.obj"
+    },
+    {
+      "concept id": "FMA76129",
+      "name": "trunk of inferior terminal branch of left middle cerebral artery",
+      "element file id": "FJ1718M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1718M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1656",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1656.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1656M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1656M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1661",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1661.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1661M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1661M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1675",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1675.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1675M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1675M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1677",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1677.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1677M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1677M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1678",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1678.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1678M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1678M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1680",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1680.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1680M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1680M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1683",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1683.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1683M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1683M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1684",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1684.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1684M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1684M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1687",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1687.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1687M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1687M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1688",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1688.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1688M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1688M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1689",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1689.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1689M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1689M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1691",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1691.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1691M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1691M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1720",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1720.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1720M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1720M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1726",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1726.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1726M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1726M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1727",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1727.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1727M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1727M.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1728",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1728.obj"
+    },
+    {
+      "concept id": "FMA76269",
+      "name": "branch of basilar artery",
+      "element file id": "FJ1728M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1728M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1671",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1671.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1671M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1671M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1676",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1676.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1676M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1676M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1681",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1681.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1681M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1681M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1690",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1690.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1690M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1690M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1696",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1696.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1696M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1696M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1697",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1697.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1697M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1697M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1698",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1698.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1698M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1698M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1699",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1699.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1699M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1699M.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1722",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1722.obj"
+    },
+    {
+      "concept id": "FMA79615",
+      "name": "branch of postcommunicating part of anterior cerebral artery",
+      "element file id": "FJ1722M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1722M.obj"
+    },
+    {
+      "concept id": "FMA79631",
+      "name": "branch of sphenoid part of middle cerebral artery",
+      "element file id": "FJ1659",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1659.obj"
+    },
+    {
+      "concept id": "FMA79631",
+      "name": "branch of sphenoid part of middle cerebral artery",
+      "element file id": "FJ1659M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1659M.obj"
+    },
+    {
+      "concept id": "FMA79631",
+      "name": "branch of sphenoid part of middle cerebral artery",
+      "element file id": "FJ1662",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1662.obj"
+    },
+    {
+      "concept id": "FMA79631",
+      "name": "branch of sphenoid part of middle cerebral artery",
+      "element file id": "FJ1662M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1662M.obj"
+    },
+    {
+      "concept id": "FMA79631",
+      "name": "branch of sphenoid part of middle cerebral artery",
+      "element file id": "FJ1663",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1663.obj"
+    },
+    {
+      "concept id": "FMA79631",
+      "name": "branch of sphenoid part of middle cerebral artery",
+      "element file id": "FJ1663M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1663M.obj"
+    },
+    {
+      "concept id": "FMA79631",
+      "name": "branch of sphenoid part of middle cerebral artery",
+      "element file id": "FJ1712",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1712.obj"
+    },
+    {
+      "concept id": "FMA79631",
+      "name": "branch of sphenoid part of middle cerebral artery",
+      "element file id": "FJ1712M",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1712M.obj"
+    },
+    {
+      "concept id": "FMA83738",
+      "name": "subarachnoid incisure",
+      "element file id": "FJ1763",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1763.obj"
+    },
+    {
+      "concept id": "FMA83738",
+      "name": "subarachnoid incisure",
+      "element file id": "FJ1811",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1811.obj"
+    },
+    {
+      "concept id": "FMA83966",
+      "name": "tentorium cerebelli",
+      "element file id": "FJ1843",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1843.obj"
+    },
+    {
+      "concept id": "FMA84881",
+      "name": "subdivision of subarachnoid space",
+      "element file id": "FJ1763",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1763.obj"
+    },
+    {
+      "concept id": "FMA84881",
+      "name": "subdivision of subarachnoid space",
+      "element file id": "FJ1811",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1811.obj"
+    },
+    {
+      "concept id": "FMA266054",
+      "name": "subdivision of cranial dura mater",
+      "element file id": "FJ1843",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1843.obj"
+    }
+  ],
+  "uniqueExtractedMeshes": 114,
+  "geometry": [
+    {
+      "element": "FJ1654",
+      "vertices": 213,
+      "faces": 400
+    },
+    {
+      "element": "FJ1654M",
+      "vertices": 213,
+      "faces": 400
+    },
+    {
+      "element": "FJ1655",
+      "vertices": 63,
+      "faces": 80
+    },
+    {
+      "element": "FJ1671",
+      "vertices": 932,
+      "faces": 1266
+    },
+    {
+      "element": "FJ1671M",
+      "vertices": 938,
+      "faces": 1266
+    },
+    {
+      "element": "FJ1676",
+      "vertices": 334,
+      "faces": 578
+    },
+    {
+      "element": "FJ1676M",
+      "vertices": 337,
+      "faces": 578
+    },
+    {
+      "element": "FJ1681",
+      "vertices": 619,
+      "faces": 1098
+    },
+    {
+      "element": "FJ1681M",
+      "vertices": 615,
+      "faces": 1098
+    },
+    {
+      "element": "FJ1690",
+      "vertices": 553,
+      "faces": 698
+    },
+    {
+      "element": "FJ1690M",
+      "vertices": 557,
+      "faces": 698
+    },
+    {
+      "element": "FJ1696",
+      "vertices": 1170,
+      "faces": 2172
+    },
+    {
+      "element": "FJ1696M",
+      "vertices": 1176,
+      "faces": 2172
+    },
+    {
+      "element": "FJ1697",
+      "vertices": 551,
+      "faces": 692
+    },
+    {
+      "element": "FJ1697M",
+      "vertices": 553,
+      "faces": 692
+    },
+    {
+      "element": "FJ1698",
+      "vertices": 553,
+      "faces": 782
+    },
+    {
+      "element": "FJ1698M",
+      "vertices": 557,
+      "faces": 782
+    },
+    {
+      "element": "FJ1699",
+      "vertices": 984,
+      "faces": 1080
+    },
+    {
+      "element": "FJ1699M",
+      "vertices": 972,
+      "faces": 1080
+    },
+    {
+      "element": "FJ1722",
+      "vertices": 394,
+      "faces": 530
+    },
+    {
+      "element": "FJ1722M",
+      "vertices": 394,
+      "faces": 530
+    },
+    {
+      "element": "FJ1660",
+      "vertices": 579,
+      "faces": 1154
+    },
+    {
+      "element": "FJ1660M",
+      "vertices": 579,
+      "faces": 1154
+    },
+    {
+      "element": "FJ1692",
+      "vertices": 402,
+      "faces": 800
+    },
+    {
+      "element": "FJ1692M",
+      "vertices": 402,
+      "faces": 800
+    },
+    {
+      "element": "FJ1694",
+      "vertices": 2361,
+      "faces": 4706
+    },
+    {
+      "element": "FJ1694M",
+      "vertices": 2362,
+      "faces": 4706
+    },
+    {
+      "element": "FJ1659",
+      "vertices": 1104,
+      "faces": 1214
+    },
+    {
+      "element": "FJ1659M",
+      "vertices": 1104,
+      "faces": 1214
+    },
+    {
+      "element": "FJ1662",
+      "vertices": 1431,
+      "faces": 1226
+    },
+    {
+      "element": "FJ1662M",
+      "vertices": 1424,
+      "faces": 1226
+    },
+    {
+      "element": "FJ1663",
+      "vertices": 368,
+      "faces": 316
+    },
+    {
+      "element": "FJ1663M",
+      "vertices": 370,
+      "faces": 316
+    },
+    {
+      "element": "FJ1664",
+      "vertices": 1972,
+      "faces": 3890
+    },
+    {
+      "element": "FJ1664M",
+      "vertices": 1967,
+      "faces": 3890
+    },
+    {
+      "element": "FJ1665",
+      "vertices": 1791,
+      "faces": 3518
+    },
+    {
+      "element": "FJ1665M",
+      "vertices": 1791,
+      "faces": 3518
+    },
+    {
+      "element": "FJ1666",
+      "vertices": 1414,
+      "faces": 2816
+    },
+    {
+      "element": "FJ1666M",
+      "vertices": 1412,
+      "faces": 2816
+    },
+    {
+      "element": "FJ1667",
+      "vertices": 964,
+      "faces": 1908
+    },
+    {
+      "element": "FJ1667M",
+      "vertices": 963,
+      "faces": 1908
+    },
+    {
+      "element": "FJ1668",
+      "vertices": 1757,
+      "faces": 3486
+    },
+    {
+      "element": "FJ1668M",
+      "vertices": 1758,
+      "faces": 3486
+    },
+    {
+      "element": "FJ1669",
+      "vertices": 637,
+      "faces": 1266
+    },
+    {
+      "element": "FJ1669M",
+      "vertices": 637,
+      "faces": 1266
+    },
+    {
+      "element": "FJ1670",
+      "vertices": 450,
+      "faces": 886
+    },
+    {
+      "element": "FJ1670M",
+      "vertices": 450,
+      "faces": 886
+    },
+    {
+      "element": "FJ1673",
+      "vertices": 928,
+      "faces": 1736
+    },
+    {
+      "element": "FJ1673M",
+      "vertices": 924,
+      "faces": 1736
+    },
+    {
+      "element": "FJ1685",
+      "vertices": 1818,
+      "faces": 3580
+    },
+    {
+      "element": "FJ1685M",
+      "vertices": 1821,
+      "faces": 3580
+    },
+    {
+      "element": "FJ1686",
+      "vertices": 411,
+      "faces": 804
+    },
+    {
+      "element": "FJ1686M",
+      "vertices": 411,
+      "faces": 804
+    },
+    {
+      "element": "FJ1693",
+      "vertices": 704,
+      "faces": 818
+    },
+    {
+      "element": "FJ1693M",
+      "vertices": 701,
+      "faces": 818
+    },
+    {
+      "element": "FJ1712",
+      "vertices": 269,
+      "faces": 360
+    },
+    {
+      "element": "FJ1712M",
+      "vertices": 271,
+      "faces": 360
+    },
+    {
+      "element": "FJ1716",
+      "vertices": 3447,
+      "faces": 6812
+    },
+    {
+      "element": "FJ1716M",
+      "vertices": 3447,
+      "faces": 6812
+    },
+    {
+      "element": "FJ1717",
+      "vertices": 1697,
+      "faces": 3328
+    },
+    {
+      "element": "FJ1717M",
+      "vertices": 1701,
+      "faces": 3328
+    },
+    {
+      "element": "FJ1724",
+      "vertices": 2789,
+      "faces": 5424
+    },
+    {
+      "element": "FJ1724M",
+      "vertices": 2786,
+      "faces": 5424
+    },
+    {
+      "element": "FJ1729",
+      "vertices": 1538,
+      "faces": 2416
+    },
+    {
+      "element": "FJ1729M",
+      "vertices": 1540,
+      "faces": 2416
+    },
+    {
+      "element": "FJ1713",
+      "vertices": 122,
+      "faces": 204
+    },
+    {
+      "element": "FJ1713M",
+      "vertices": 122,
+      "faces": 204
+    },
+    {
+      "element": "FJ1679",
+      "vertices": 193,
+      "faces": 156
+    },
+    {
+      "element": "FJ1679M",
+      "vertices": 195,
+      "faces": 156
+    },
+    {
+      "element": "FJ1672",
+      "vertices": 140,
+      "faces": 262
+    },
+    {
+      "element": "FJ1844",
+      "vertices": 128,
+      "faces": 244
+    },
+    {
+      "element": "FJ1661",
+      "vertices": 1473,
+      "faces": 2488
+    },
+    {
+      "element": "FJ1661M",
+      "vertices": 1471,
+      "faces": 2488
+    },
+    {
+      "element": "FJ1675",
+      "vertices": 882,
+      "faces": 778
+    },
+    {
+      "element": "FJ1675M",
+      "vertices": 883,
+      "faces": 778
+    },
+    {
+      "element": "FJ1677",
+      "vertices": 142,
+      "faces": 262
+    },
+    {
+      "element": "FJ1677M",
+      "vertices": 144,
+      "faces": 262
+    },
+    {
+      "element": "FJ1678",
+      "vertices": 648,
+      "faces": 1276
+    },
+    {
+      "element": "FJ1678M",
+      "vertices": 649,
+      "faces": 1276
+    },
+    {
+      "element": "FJ1680",
+      "vertices": 855,
+      "faces": 1486
+    },
+    {
+      "element": "FJ1680M",
+      "vertices": 853,
+      "faces": 1486
+    },
+    {
+      "element": "FJ1687",
+      "vertices": 1198,
+      "faces": 2204
+    },
+    {
+      "element": "FJ1687M",
+      "vertices": 1202,
+      "faces": 2204
+    },
+    {
+      "element": "FJ1691",
+      "vertices": 1724,
+      "faces": 2588
+    },
+    {
+      "element": "FJ1691M",
+      "vertices": 1713,
+      "faces": 2588
+    },
+    {
+      "element": "FJ1720",
+      "vertices": 503,
+      "faces": 706
+    },
+    {
+      "element": "FJ1720M",
+      "vertices": 505,
+      "faces": 706
+    },
+    {
+      "element": "FJ1727",
+      "vertices": 557,
+      "faces": 880
+    },
+    {
+      "element": "FJ1727M",
+      "vertices": 557,
+      "faces": 880
+    },
+    {
+      "element": "FJ1721",
+      "vertices": 196,
+      "faces": 252
+    },
+    {
+      "element": "FJ1721M",
+      "vertices": 196,
+      "faces": 252
+    },
+    {
+      "element": "FJ1714",
+      "vertices": 280,
+      "faces": 544
+    },
+    {
+      "element": "FJ1714M",
+      "vertices": 280,
+      "faces": 544
+    },
+    {
+      "element": "FJ1723",
+      "vertices": 155,
+      "faces": 282
+    },
+    {
+      "element": "FJ1723M",
+      "vertices": 155,
+      "faces": 282
+    },
+    {
+      "element": "FJ1843",
+      "vertices": 11794,
+      "faces": 21924
+    },
+    {
+      "element": "FJ1718",
+      "vertices": 208,
+      "faces": 368
+    },
+    {
+      "element": "FJ1718M",
+      "vertices": 210,
+      "faces": 368
+    },
+    {
+      "element": "FJ1656",
+      "vertices": 524,
+      "faces": 766
+    },
+    {
+      "element": "FJ1656M",
+      "vertices": 519,
+      "faces": 766
+    },
+    {
+      "element": "FJ1683",
+      "vertices": 713,
+      "faces": 728
+    },
+    {
+      "element": "FJ1683M",
+      "vertices": 720,
+      "faces": 728
+    },
+    {
+      "element": "FJ1684",
+      "vertices": 515,
+      "faces": 558
+    },
+    {
+      "element": "FJ1684M",
+      "vertices": 524,
+      "faces": 558
+    },
+    {
+      "element": "FJ1688",
+      "vertices": 342,
+      "faces": 354
+    },
+    {
+      "element": "FJ1688M",
+      "vertices": 343,
+      "faces": 354
+    },
+    {
+      "element": "FJ1689",
+      "vertices": 282,
+      "faces": 294
+    },
+    {
+      "element": "FJ1689M",
+      "vertices": 282,
+      "faces": 294
+    },
+    {
+      "element": "FJ1726",
+      "vertices": 226,
+      "faces": 406
+    },
+    {
+      "element": "FJ1726M",
+      "vertices": 226,
+      "faces": 406
+    },
+    {
+      "element": "FJ1728",
+      "vertices": 283,
+      "faces": 412
+    },
+    {
+      "element": "FJ1728M",
+      "vertices": 285,
+      "faces": 412
+    },
+    {
+      "element": "FJ1763",
+      "vertices": 85,
+      "faces": 58
+    },
+    {
+      "element": "FJ1811",
+      "vertices": 95,
+      "faces": 76
+    }
+  ],
+  "meningealAliases": [
+    {
+      "concept id": "FMA71235",
+      "name": "region of dura mater",
+      "element file id": "FJ1843",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1843.obj"
+    },
+    {
+      "concept id": "FMA83966",
+      "name": "tentorium cerebelli",
+      "element file id": "FJ1843",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1843.obj"
+    },
+    {
+      "concept id": "FMA266054",
+      "name": "subdivision of cranial dura mater",
+      "element file id": "FJ1843",
+      "archiveFile": "isa_BP3D_4.0_obj_99/FJ1843.obj"
+    }
+  ],
+  "warning": "Multiple concept names may map to the same element. FJ1843 is tentorium, not proof of a complete dura shell."
+}

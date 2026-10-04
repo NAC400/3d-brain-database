@@ -30,3 +30,7 @@ yarn-error.log*
 *.nii.gz
 resources/segmented_regions/
 resources/annotation*.nii
+
+# Local anatomy registration runtime and experimental image volumes
+artifacts/anatomy/python-deps/
+artifacts/anatomy/**/*.mha

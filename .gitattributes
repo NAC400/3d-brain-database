@@ -1,0 +1,2 @@
+# Preserve upstream OBJ bytes and avoid treating mesh payloads as source diffs.
+artifacts/anatomy/bodyparts3d-candidates/*.obj -text -diff

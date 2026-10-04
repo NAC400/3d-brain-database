@@ -1,0 +1,1411 @@
+{
+  "status": "experimental affine fit; NOT anatomically validated or released",
+  "brain": {
+    "sha256": "dc94f53a246e2b47635398fb562d8439604624d73aa8158e53a130bc86a36eba",
+    "bytes": 47101752,
+    "bounds": {
+      "min": [
+        -62.63233947753906,
+        -86.74966430664062,
+        -82.34722900390625
+      ],
+      "max": [
+        67.44747924804688,
+        66.26930236816406,
+        97.52644348144531
+      ]
+    },
+    "center": [
+      2.4075698852539062,
+      -10.240180969238281,
+      7.589607238769531
+    ],
+    "meshes": [
+      {
+        "name": "SPL_left_red_nucleus",
+        "vertices": 185,
+        "triangles": 342
+      },
+      {
+        "name": "SPL_left_substantia_nigra",
+        "vertices": 493,
+        "triangles": 884
+      },
+      {
+        "name": "SPL_right_amygdala",
+        "vertices": 1218,
+        "triangles": 2274
+      },
+      {
+        "name": "SPL_left_inferior_parietal_lobule__0",
+        "vertices": 13532,
+        "triangles": 24392
+      },
+      {
+        "name": "SPL_right_ventral_anterior_thalamic_nucleus",
+        "vertices": 632,
+        "triangles": 1232
+      },
+      {
+        "name": "SPL_right-VI-m",
+        "vertices": 1798,
+        "triangles": 3392
+      },
+      {
+        "name": "SPL_right-VI-l",
+        "vertices": 3660,
+        "triangles": 6938
+      },
+      {
+        "name": "SPL_right-VIIA_crusII-l2",
+        "vertices": 1413,
+        "triangles": 2690
+      },
+      {
+        "name": "SPL_right-VIIA_crusII-l1",
+        "vertices": 1661,
+        "triangles": 3086
+      },
+      {
+        "name": "SPL_left_anterior_inferior_hypothalamus",
+        "vertices": 73,
+        "triangles": 108
+      },
+      {
+        "name": "SPL_right-VI-v",
+        "vertices": 590,
+        "triangles": 1008
+      },
+      {
+        "name": "SPL_right_anterior_thalamic_nucleus",
+        "vertices": 327,
+        "triangles": 572
+      },
+      {
+        "name": "SPL_isthmus_of_left_cingulate_gyrus",
+        "vertices": 3128,
+        "triangles": 5258
+      },
+      {
+        "name": "SPL_right-III-v",
+        "vertices": 694,
+        "triangles": 1280
+      },
+      {
+        "name": "SPL_right_postcentral_gyrus",
+        "vertices": 12908,
+        "triangles": 23076
+      },
+      {
+        "name": "SPL_right_cuneus",
+        "vertices": 6621,
+        "triangles": 10874
+      },
+      {
+        "name": "SPL_right-III-m",
+        "vertices": 213,
+        "triangles": 378
+      },
+      {
+        "name": "SPL_right_lateral_orbital_gyrus",
+        "vertices": 8742,
+        "triangles": 15978
+      },
+      {
+        "name": "SPL_triangular_part_of_right_inferior_frontal_gyrus",
+        "vertices": 4896,
+        "triangles": 9240
+      },
+      {
+        "name": "SPL_right_pulvinar",
+        "vertices": 1227,
+        "triangles": 2330
+      },
+      {
+        "name": "SPL_left_frontal_pole",
+        "vertices": 1239,
+        "triangles": 2222
+      },
+      {
+        "name": "SPL_right_inferior_tuberal_hypothalamus",
+        "vertices": 299,
+        "triangles": 488
+      },
+      {
+        "name": "SPL_right_medial_geniculate_body",
+        "vertices": 196,
+        "triangles": 374
+      },
+      {
+        "name": "SPL_right-VIIA_crusII-m",
+        "vertices": 1144,
+        "triangles": 2124
+      },
+      {
+        "name": "SPL_left-FaGE_nuclei",
+        "vertices": 671,
+        "triangles": 1100
+      },
+      {
+        "name": "SPL_right_supramarginal_gyrus",
+        "vertices": 10432,
+        "triangles": 19572
+      },
+      {
+        "name": "SPL_left_superior_tuberal_hypothalamus",
+        "vertices": 332,
+        "triangles": 528
+      },
+      {
+        "name": "SPL_right_lingual_gyrus",
+        "vertices": 10037,
+        "triangles": 16446
+      },
+      {
+        "name": "SPL_left_lateral_dorsal_thalamic_nucleus",
+        "vertices": 260,
+        "triangles": 474
+      },
+      {
+        "name": "SPL_left_straight_gyrus",
+        "vertices": 5520,
+        "triangles": 9920
+      },
+      {
+        "name": "SPL_left_lateral_ventricle__1",
+        "vertices": 5603,
+        "triangles": 11138
+      },
+      {
+        "name": "SPL_medulla_oblongata",
+        "vertices": 3082,
+        "triangles": 6006
+      },
+      {
+        "name": "SPL_posterior_part_of_left_middle_frontal_gyrus",
+        "vertices": 6717,
+        "triangles": 12746
+      },
+      {
+        "name": "SPL_right-I_II-v",
+        "vertices": 332,
+        "triangles": 558
+      },
+      {
+        "name": "SPL_left_ventral_posterolateral_thalamic_nucleus",
+        "vertices": 821,
+        "triangles": 1524
+      },
+      {
+        "name": "SPL_right_parahippocampal_gyrus",
+        "vertices": 2350,
+        "triangles": 4076
+      },
+      {
+        "name": "SPL_left_superior_colliculus",
+        "vertices": 103,
+        "triangles": 198
+      },
+      {
+        "name": "SPL_left_superior_frontal_gyrus",
+        "vertices": 21668,
+        "triangles": 40958
+      },
+      {
+        "name": "SPL_left_globus_pallidus_pars_externa",
+        "vertices": 1206,
+        "triangles": 2330
+      },
+      {
+        "name": "SPL_opercular_part_of_right_inferior_frontal_gyrus",
+        "vertices": 4427,
+        "triangles": 8214
+      },
+      {
+        "name": "SPL_left_amygdala",
+        "vertices": 1105,
+        "triangles": 2102
+      },
+      {
+        "name": "SPL_right_claustrum",
+        "vertices": 1727,
+        "triangles": 3354
+      },
+      {
+        "name": "SPL_triangular_part_of_left_inferior_frontal_gyrus",
+        "vertices": 4717,
+        "triangles": 8606
+      },
+      {
+        "name": "SPL_left_mammillothalamic_tract",
+        "vertices": 109,
+        "triangles": 140
+      },
+      {
+        "name": "SPL_left_middle_temporal_gyrus",
+        "vertices": 12882,
+        "triangles": 22668
+      },
+      {
+        "name": "SPL_right_optic_tract",
+        "vertices": 574,
+        "triangles": 1062
+      },
+      {
+        "name": "SPL_corpus_callosum",
+        "vertices": 11924,
+        "triangles": 23364
+      },
+      {
+        "name": "SPL_left_cuneus",
+        "vertices": 4472,
+        "triangles": 7430
+      },
+      {
+        "name": "SPL_right_lateral_geniculate_body",
+        "vertices": 245,
+        "triangles": 486
+      },
+      {
+        "name": "SPL_left_superior_temporal_gyrus",
+        "vertices": 12304,
+        "triangles": 23078
+      },
+      {
+        "name": "SPL_right_posterior_cingulate_gyrus",
+        "vertices": 5118,
+        "triangles": 8612
+      },
+      {
+        "name": "SPL_right_internal_medullary_lamina",
+        "vertices": 1077,
+        "triangles": 1814
+      },
+      {
+        "name": "SPL_right_optic_nerve",
+        "vertices": 620,
+        "triangles": 1236
+      },
+      {
+        "name": "SPL_left-V-m",
+        "vertices": 652,
+        "triangles": 1260
+      },
+      {
+        "name": "SPL_left-V-l",
+        "vertices": 1665,
+        "triangles": 3198
+      },
+      {
+        "name": "SPL_left-V-v",
+        "vertices": 1580,
+        "triangles": 2870
+      },
+      {
+        "name": "SPL_brachia_of_left_superior_colliculus",
+        "vertices": 146,
+        "triangles": 246
+      },
+      {
+        "name": "SPL_left-I_II-v",
+        "vertices": 389,
+        "triangles": 684
+      },
+      {
+        "name": "SPL_left_visual_cortex",
+        "vertices": 3012,
+        "triangles": 5136
+      },
+      {
+        "name": "SPL_right-VIIB-v",
+        "vertices": 232,
+        "triangles": 410
+      },
+      {
+        "name": "SPL_right-VIIB-l",
+        "vertices": 1340,
+        "triangles": 2528
+      },
+      {
+        "name": "SPL_right-VIIB-m",
+        "vertices": 1020,
+        "triangles": 1742
+      },
+      {
+        "name": "SPL_right_dorsomedial_thalamic_nucleus",
+        "vertices": 716,
+        "triangles": 1328
+      },
+      {
+        "name": "SPL_left-III-m",
+        "vertices": 98,
+        "triangles": 110
+      },
+      {
+        "name": "SPL_left_inferior_tuberal_hypothalamus",
+        "vertices": 283,
+        "triangles": 462
+      },
+      {
+        "name": "SPL_left-III-v",
+        "vertices": 926,
+        "triangles": 1664
+      },
+      {
+        "name": "SPL_right_precentral_gyrus",
+        "vertices": 14798,
+        "triangles": 27752
+      },
+      {
+        "name": "SPL_right_nucleus_accumbens",
+        "vertices": 770,
+        "triangles": 1410
+      },
+      {
+        "name": "SPL_left_temporal_pole",
+        "vertices": 2719,
+        "triangles": 5052
+      },
+      {
+        "name": "SPL_right_superior_parietal_lobule",
+        "vertices": 16088,
+        "triangles": 30182
+      },
+      {
+        "name": "SPL_right-FaGE_nuclei",
+        "vertices": 629,
+        "triangles": 1004
+      },
+      {
+        "name": "SPL_right_substantia_nigra",
+        "vertices": 504,
+        "triangles": 906
+      },
+      {
+        "name": "SPL_infundibulum_of_neurohypophysis",
+        "vertices": 133,
+        "triangles": 212
+      },
+      {
+        "name": "SPL_right_lateral_posterior_thalamic_nucleus",
+        "vertices": 575,
+        "triangles": 1086
+      },
+      {
+        "name": "SPL_right_straight_gyrus",
+        "vertices": 5994,
+        "triangles": 11102
+      },
+      {
+        "name": "SPL_adenohypophysis",
+        "vertices": 240,
+        "triangles": 470
+      },
+      {
+        "name": "SPL_right_anterior_inferior_hypothalamus",
+        "vertices": 82,
+        "triangles": 110
+      },
+      {
+        "name": "SPL_left_centromedian_thalamic_nucleus",
+        "vertices": 333,
+        "triangles": 612
+      },
+      {
+        "name": "SPL_left_optic_tract",
+        "vertices": 517,
+        "triangles": 966
+      },
+      {
+        "name": "SPL_left_postcentral_gyrus",
+        "vertices": 15000,
+        "triangles": 27182
+      },
+      {
+        "name": "SPL_right_superior_temporal_gyrus",
+        "vertices": 12653,
+        "triangles": 23828
+      },
+      {
+        "name": "SPL_right-X-v",
+        "vertices": 218,
+        "triangles": 296
+      },
+      {
+        "name": "SPL_left-VIIA_crusII-m",
+        "vertices": 1725,
+        "triangles": 3038
+      },
+      {
+        "name": "SPL_right_limen_insulae",
+        "vertices": 867,
+        "triangles": 1634
+      },
+      {
+        "name": "SPL_left_pulvinar",
+        "vertices": 1345,
+        "triangles": 2588
+      },
+      {
+        "name": "SPL_right_posterior_superior_hypothalamus",
+        "vertices": 175,
+        "triangles": 176
+      },
+      {
+        "name": "SPL_left_fornix_of_forebrain",
+        "vertices": 1473,
+        "triangles": 2490
+      },
+      {
+        "name": "SPL_right-IX-m",
+        "vertices": 1412,
+        "triangles": 2660
+      },
+      {
+        "name": "SPL_brachia_of_left_inferior_colliculus",
+        "vertices": 163,
+        "triangles": 312
+      },
+      {
+        "name": "SPL_right-IX-v",
+        "vertices": 287,
+        "triangles": 498
+      },
+      {
+        "name": "SPL_right_mammillothalamic_tract",
+        "vertices": 108,
+        "triangles": 150
+      },
+      {
+        "name": "SPL_left_ambiens_gyrus",
+        "vertices": 1861,
+        "triangles": 3512
+      },
+      {
+        "name": "SPL_right_putamen",
+        "vertices": 2713,
+        "triangles": 5306
+      },
+      {
+        "name": "SPL_left-IX-m",
+        "vertices": 1776,
+        "triangles": 3308
+      },
+      {
+        "name": "SPL_white_matter_of_left_hemisphere_of_cerebellum",
+        "vertices": 10813,
+        "triangles": 20256
+      },
+      {
+        "name": "SPL_left-IX-v",
+        "vertices": 442,
+        "triangles": 812
+      },
+      {
+        "name": "SPL_right_paracentral_lobule",
+        "vertices": 4769,
+        "triangles": 8754
+      },
+      {
+        "name": "SPL_right_hippocampus",
+        "vertices": 2644,
+        "triangles": 4964
+      },
+      {
+        "name": "SPL_right_fusiform_gyrus",
+        "vertices": 11963,
+        "triangles": 20808
+      },
+      {
+        "name": "SPL_pellucid_septum",
+        "vertices": 480,
+        "triangles": 812
+      },
+      {
+        "name": "SPL_left_nucleus_accumbens",
+        "vertices": 770,
+        "triangles": 1418
+      },
+      {
+        "name": "SPL_right_ventral_posteromedial_thalamic_nucleus",
+        "vertices": 338,
+        "triangles": 624
+      },
+      {
+        "name": "SPL_left_inferior_temporal_gyrus",
+        "vertices": 10462,
+        "triangles": 18956
+      },
+      {
+        "name": "SPL_right_frontal_pole",
+        "vertices": 990,
+        "triangles": 1752
+      },
+      {
+        "name": "SPL_right_transverse_temporal_gyrus",
+        "vertices": 2047,
+        "triangles": 4032
+      },
+      {
+        "name": "SPL_optic_chiasm",
+        "vertices": 486,
+        "triangles": 932
+      },
+      {
+        "name": "SPL_aqueduct",
+        "vertices": 380,
+        "triangles": 666
+      },
+      {
+        "name": "SPL_left_precuneus",
+        "vertices": 12931,
+        "triangles": 22824
+      },
+      {
+        "name": "SPL_left_posterior_cingulate_gyrus",
+        "vertices": 4796,
+        "triangles": 8010
+      },
+      {
+        "name": "SPL_right_superior_colliculus",
+        "vertices": 95,
+        "triangles": 186
+      },
+      {
+        "name": "SPL_right_lateral_ventricle__0",
+        "vertices": 5076,
+        "triangles": 10064
+      },
+      {
+        "name": "SPL_left_ventral_anterior_thalamic_nucleus",
+        "vertices": 621,
+        "triangles": 1200
+      },
+      {
+        "name": "SPL_left-VIIIA-v",
+        "vertices": 716,
+        "triangles": 1326
+      },
+      {
+        "name": "SPL_left_precentral_gyrus",
+        "vertices": 16208,
+        "triangles": 30356
+      },
+      {
+        "name": "SPL_anterior_part_of_left_middle_frontal_gyrus",
+        "vertices": 15314,
+        "triangles": 28668
+      },
+      {
+        "name": "SPL_left-VIIIB-v",
+        "vertices": 391,
+        "triangles": 674
+      },
+      {
+        "name": "SPL_left-VIIIB-l",
+        "vertices": 3509,
+        "triangles": 6500
+      },
+      {
+        "name": "SPL_left-VIIIB-m",
+        "vertices": 916,
+        "triangles": 1554
+      },
+      {
+        "name": "SPL_left-VIIIA-m",
+        "vertices": 1376,
+        "triangles": 2028
+      },
+      {
+        "name": "SPL_left-VIIIA-l",
+        "vertices": 2710,
+        "triangles": 4850
+      },
+      {
+        "name": "SPL_fourth_ventricle",
+        "vertices": 3264,
+        "triangles": 6312
+      },
+      {
+        "name": "SPL_right_inferior_temporal_gyrus",
+        "vertices": 11924,
+        "triangles": 20550
+      },
+      {
+        "name": "SPL_right_centromedian_thalamic_nucleus",
+        "vertices": 284,
+        "triangles": 530
+      },
+      {
+        "name": "SPL_left_supramarginal_gyrus",
+        "vertices": 14275,
+        "triangles": 26324
+      },
+      {
+        "name": "SPL_right_inferior_colliculus",
+        "vertices": 120,
+        "triangles": 192
+      },
+      {
+        "name": "SPL_right_middle_temporal_gyrus",
+        "vertices": 13490,
+        "triangles": 23508
+      },
+      {
+        "name": "SPL_right_globus_pallidus_pars_interna",
+        "vertices": 843,
+        "triangles": 1640
+      },
+      {
+        "name": "SPL_left_claustrum",
+        "vertices": 2636,
+        "triangles": 5168
+      },
+      {
+        "name": "SPL_left_putamen",
+        "vertices": 2858,
+        "triangles": 5574
+      },
+      {
+        "name": "SPL_right_caudate_nucleus",
+        "vertices": 3280,
+        "triangles": 6162
+      },
+      {
+        "name": "SPL_right_visual_cortex",
+        "vertices": 5480,
+        "triangles": 8862
+      },
+      {
+        "name": "SPL_right_globus_pallidus_pars_externa",
+        "vertices": 1109,
+        "triangles": 2118
+      },
+      {
+        "name": "SPL_left_posterior_superior_hypothalamus",
+        "vertices": 238,
+        "triangles": 318
+      },
+      {
+        "name": "SPL_right_inferior_parietal_lobule__1",
+        "vertices": 16663,
+        "triangles": 30044
+      },
+      {
+        "name": "SPL_left_superior_parietal_lobule",
+        "vertices": 17432,
+        "triangles": 33278
+      },
+      {
+        "name": "SPL_left-X-v",
+        "vertices": 287,
+        "triangles": 524
+      },
+      {
+        "name": "SPL_left_mammillary_body",
+        "vertices": 101,
+        "triangles": 170
+      },
+      {
+        "name": "SPL_third_ventricle__0",
+        "vertices": 1337,
+        "triangles": 2498
+      },
+      {
+        "name": "SPL_third_ventricle__1",
+        "vertices": 1337,
+        "triangles": 2498
+      },
+      {
+        "name": "SPL_right-VIIA_crusI-l1",
+        "vertices": 3262,
+        "triangles": 6030
+      },
+      {
+        "name": "SPL_right-VIIA_crusI-l2",
+        "vertices": 4239,
+        "triangles": 8088
+      },
+      {
+        "name": "SPL_rostral_part_of_left_anterior_cingulate_gyrus",
+        "vertices": 2677,
+        "triangles": 4526
+      },
+      {
+        "name": "SPL_left_inferior_colliculus__1",
+        "vertices": 101,
+        "triangles": 194
+      },
+      {
+        "name": "SPL_left_inferior_colliculus__0",
+        "vertices": 101,
+        "triangles": 194
+      },
+      {
+        "name": "SPL_left_paracentral_lobule",
+        "vertices": 5713,
+        "triangles": 10494
+      },
+      {
+        "name": "SPL_left_anterior_superior_hypothalamus",
+        "vertices": 131,
+        "triangles": 156
+      },
+      {
+        "name": "SPL_left_superior_temporal_gyrus_%28banks_of_left_superior_temporal_sulcus%29",
+        "vertices": 3482,
+        "triangles": 5756
+      },
+      {
+        "name": "SPL_left_lingual_gyrus",
+        "vertices": 11083,
+        "triangles": 18714
+      },
+      {
+        "name": "SPL_right_ambiens_gyrus",
+        "vertices": 2758,
+        "triangles": 4716
+      },
+      {
+        "name": "SPL_anterior_part_of_right_middle_frontal_gyrus",
+        "vertices": 20369,
+        "triangles": 38408
+      },
+      {
+        "name": "SPL_right-VIIIB-v",
+        "vertices": 243,
+        "triangles": 350
+      },
+      {
+        "name": "SPL_right-VIIIA-v",
+        "vertices": 430,
+        "triangles": 824
+      },
+      {
+        "name": "SPL_left_optic_nerve",
+        "vertices": 616,
+        "triangles": 1214
+      },
+      {
+        "name": "SPL_right-VIIIA-m",
+        "vertices": 1538,
+        "triangles": 2250
+      },
+      {
+        "name": "SPL_right-VIIIA-l",
+        "vertices": 2134,
+        "triangles": 4110
+      },
+      {
+        "name": "SPL_right-VIIIB-l",
+        "vertices": 2250,
+        "triangles": 4314
+      },
+      {
+        "name": "SPL_right_mammillary_body",
+        "vertices": 112,
+        "triangles": 192
+      },
+      {
+        "name": "SPL_pons",
+        "vertices": 4918,
+        "triangles": 9456
+      },
+      {
+        "name": "SPL_right_lateral_dorsal_thalamic_nucleus",
+        "vertices": 154,
+        "triangles": 272
+      },
+      {
+        "name": "SPL_right-VIIA_crusI-m",
+        "vertices": 1301,
+        "triangles": 2442
+      },
+      {
+        "name": "SPL_orbital_part_of_right_inferior_frontal_gyrus",
+        "vertices": 3531,
+        "triangles": 6578
+      },
+      {
+        "name": "SPL_caudal_part_of_right_anterior_cingulate_gyrus",
+        "vertices": 3262,
+        "triangles": 5742
+      },
+      {
+        "name": "SPL_left_parahippocampal_gyrus",
+        "vertices": 2674,
+        "triangles": 4410
+      },
+      {
+        "name": "SPL_temporal_horn_of_left_lateral_ventricle",
+        "vertices": 1317,
+        "triangles": 2546
+      },
+      {
+        "name": "SPL_left-Dentate-nucleus",
+        "vertices": 1412,
+        "triangles": 2418
+      },
+      {
+        "name": "SPL_left-VI-m",
+        "vertices": 1804,
+        "triangles": 3450
+      },
+      {
+        "name": "SPL_left-VI-l",
+        "vertices": 3844,
+        "triangles": 7188
+      },
+      {
+        "name": "SPL_left-VI-v",
+        "vertices": 614,
+        "triangles": 1098
+      },
+      {
+        "name": "SPL_right_superior_tuberal_hypothalamus",
+        "vertices": 301,
+        "triangles": 498
+      },
+      {
+        "name": "SPL_right_subthalamic_nucleus",
+        "vertices": 69,
+        "triangles": 128
+      },
+      {
+        "name": "SPL_left_lateral_geniculate_body",
+        "vertices": 269,
+        "triangles": 516
+      },
+      {
+        "name": "SPL_left_ventral_posteromedial_thalamic_nucleus",
+        "vertices": 272,
+        "triangles": 512
+      },
+      {
+        "name": "SPL_brachia_of_right_superior_colliculus__0",
+        "vertices": 126,
+        "triangles": 246
+      },
+      {
+        "name": "SPL_brachia_of_right_superior_colliculus__1",
+        "vertices": 126,
+        "triangles": 246
+      },
+      {
+        "name": "SPL_left_ventral_lateral_thalamic_nucleus",
+        "vertices": 804,
+        "triangles": 1512
+      },
+      {
+        "name": "SPL_orbital_part_of_left_inferior_frontal_gyrus",
+        "vertices": 2913,
+        "triangles": 5234
+      },
+      {
+        "name": "SPL_left_internal_medullary_lamina",
+        "vertices": 1078,
+        "triangles": 1746
+      },
+      {
+        "name": "SPL_right_red_nucleus",
+        "vertices": 177,
+        "triangles": 332
+      },
+      {
+        "name": "SPL_right_insula__1",
+        "vertices": 5511,
+        "triangles": 10272
+      },
+      {
+        "name": "SPL_right_precuneus",
+        "vertices": 13521,
+        "triangles": 23844
+      },
+      {
+        "name": "SPL_left_insula__1",
+        "vertices": 6370,
+        "triangles": 11576
+      },
+      {
+        "name": "SPL_white_matter_of_right_cerebral_hemisphere",
+        "vertices": 120052,
+        "triangles": 232532
+      },
+      {
+        "name": "SPL_left_lateral_posterior_thalamic_nucleus",
+        "vertices": 684,
+        "triangles": 1332
+      },
+      {
+        "name": "SPL_left-IV-v",
+        "vertices": 1318,
+        "triangles": 2438
+      },
+      {
+        "name": "SPL_white_matter_of_right_hemisphere_of_cerebellum",
+        "vertices": 9976,
+        "triangles": 18366
+      },
+      {
+        "name": "SPL_left-IV-m",
+        "vertices": 356,
+        "triangles": 638
+      },
+      {
+        "name": "SPL_brachia_of_right_inferior_colliculus",
+        "vertices": 158,
+        "triangles": 306
+      },
+      {
+        "name": "SPL_posterior_part_of_right_middle_frontal_gyrus",
+        "vertices": 5216,
+        "triangles": 9732
+      },
+      {
+        "name": "SPL_left_transverse_temporal_gyrus",
+        "vertices": 2182,
+        "triangles": 4286
+      },
+      {
+        "name": "SPL_anterior_commissure",
+        "vertices": 1029,
+        "triangles": 1872
+      },
+      {
+        "name": "SPL_left_limen_insulae",
+        "vertices": 665,
+        "triangles": 1184
+      },
+      {
+        "name": "SPL_opercular_part_of_left_inferior_frontal_gyrus",
+        "vertices": 6175,
+        "triangles": 11174
+      },
+      {
+        "name": "SPL_right_temporal_pole",
+        "vertices": 2165,
+        "triangles": 4050
+      },
+      {
+        "name": "SPL_left_fusiform_gyrus",
+        "vertices": 11163,
+        "triangles": 19472
+      },
+      {
+        "name": "SPL_isthmus_of_right_cingulate_gyrus",
+        "vertices": 3672,
+        "triangles": 6204
+      },
+      {
+        "name": "SPL_right-Dentate-nucleus",
+        "vertices": 1476,
+        "triangles": 2370
+      },
+      {
+        "name": "SPL_left-VIIA_crusI-m",
+        "vertices": 1249,
+        "triangles": 2270
+      },
+      {
+        "name": "SPL_left_medial_geniculate_body",
+        "vertices": 189,
+        "triangles": 372
+      },
+      {
+        "name": "SPL_right_fornix_of_forebrain",
+        "vertices": 1513,
+        "triangles": 2612
+      },
+      {
+        "name": "SPL_left_lateral_occipital_gyrus",
+        "vertices": 16049,
+        "triangles": 28332
+      },
+      {
+        "name": "SPL_left_globus_pallidus_pars_interna",
+        "vertices": 826,
+        "triangles": 1580
+      },
+      {
+        "name": "SPL_left_lateral_orbital_gyrus",
+        "vertices": 8486,
+        "triangles": 16022
+      },
+      {
+        "name": "SPL_rostral_part_of_right_anterior_cingulate_gyrus",
+        "vertices": 2162,
+        "triangles": 3822
+      },
+      {
+        "name": "SPL_temporal_horn_of_right_lateral_ventricle",
+        "vertices": 1189,
+        "triangles": 2334
+      },
+      {
+        "name": "SPL_right_ventral_lateral_thalamic_nucleus",
+        "vertices": 739,
+        "triangles": 1436
+      },
+      {
+        "name": "SPL_neurohypophysis__0",
+        "vertices": 253,
+        "triangles": 456
+      },
+      {
+        "name": "SPL_right_lateral_occipital_gyrus",
+        "vertices": 13629,
+        "triangles": 24356
+      },
+      {
+        "name": "SPL_left-VIIB-v",
+        "vertices": 343,
+        "triangles": 570
+      },
+      {
+        "name": "SPL_left_hippocampus",
+        "vertices": 2962,
+        "triangles": 5550
+      },
+      {
+        "name": "SPL_right-VIIIB-m",
+        "vertices": 1863,
+        "triangles": 3464
+      },
+      {
+        "name": "SPL_caudal_part_of_left_anterior_cingulate_gyrus",
+        "vertices": 2197,
+        "triangles": 3846
+      },
+      {
+        "name": "SPL_left_caudate_nucleus",
+        "vertices": 3317,
+        "triangles": 6122
+      },
+      {
+        "name": "SPL_left_anterior_thalamic_nucleus",
+        "vertices": 317,
+        "triangles": 522
+      },
+      {
+        "name": "SPL_right-V-m",
+        "vertices": 1261,
+        "triangles": 2388
+      },
+      {
+        "name": "SPL_right-V-l",
+        "vertices": 1588,
+        "triangles": 3012
+      },
+      {
+        "name": "SPL_right-V-v",
+        "vertices": 873,
+        "triangles": 1578
+      },
+      {
+        "name": "SPL_right_anterior_superior_hypothalamus",
+        "vertices": 85,
+        "triangles": 134
+      },
+      {
+        "name": "SPL_left-VIIA_crusI-l1",
+        "vertices": 3178,
+        "triangles": 6038
+      },
+      {
+        "name": "SPL_left-VIIA_crusI-l2",
+        "vertices": 4624,
+        "triangles": 8738
+      },
+      {
+        "name": "SPL_right-IV-m",
+        "vertices": 944,
+        "triangles": 1716
+      },
+      {
+        "name": "SPL_right-IV-v",
+        "vertices": 875,
+        "triangles": 1590
+      },
+      {
+        "name": "SPL_right_superior_temporal_gyrus_%28banks_of_right_superior_temporal_sulcus%29",
+        "vertices": 3253,
+        "triangles": 5400
+      },
+      {
+        "name": "SPL_white_matter_of_left_cerebral_hemisphere",
+        "vertices": 118679,
+        "triangles": 229364
+      },
+      {
+        "name": "SPL_left_dorsomedial_thalamic_nucleus",
+        "vertices": 704,
+        "triangles": 1304
+      },
+      {
+        "name": "SPL_pineal_body",
+        "vertices": 150,
+        "triangles": 272
+      },
+      {
+        "name": "SPL_part_of_midbrain",
+        "vertices": 6287,
+        "triangles": 11748
+      },
+      {
+        "name": "SPL_right_superior_frontal_gyrus",
+        "vertices": 21308,
+        "triangles": 40398
+      },
+      {
+        "name": "SPL_right_ventral_posterolateral_thalamic_nucleus",
+        "vertices": 824,
+        "triangles": 1562
+      },
+      {
+        "name": "SPL_left-VIIB-l",
+        "vertices": 2492,
+        "triangles": 4254
+      },
+      {
+        "name": "SPL_left-VIIB-m",
+        "vertices": 1372,
+        "triangles": 2238
+      },
+      {
+        "name": "SPL_left_subthalamic_nucleus",
+        "vertices": 76,
+        "triangles": 128
+      },
+      {
+        "name": "SPL_left-VIIA_crusII-l2",
+        "vertices": 807,
+        "triangles": 1232
+      },
+      {
+        "name": "SPL_left-VIIA_crusII-l1",
+        "vertices": 1765,
+        "triangles": 3360
+      }
+    ]
+  },
+  "head": {
+    "sha256": "98e1034a1bf0d4ecbf9bc72a4f5c1076de1d1dbf224c05f5d107c7ebf8aab6f2",
+    "bytes": 11398956,
+    "bounds": {
+      "min": [
+        -72.09925842285156,
+        -236.8961639404297,
+        -105.87435913085938
+      ],
+      "max": [
+        72.97286224365234,
+        74.99919891357422,
+        106.88748168945312
+      ]
+    },
+    "center": [
+      0.4368019104003906,
+      -80.94848251342773,
+      0.506561279296875
+    ],
+    "meshes": [
+      {
+        "name": "SPL_HN_skull",
+        "vertices": 195980,
+        "triangles": 375534
+      },
+      {
+        "name": "SPL_HN_mandible",
+        "vertices": 19024,
+        "triangles": 35784
+      },
+      {
+        "name": "SPL_HN_left_internal_jugular_vein",
+        "vertices": 3619,
+        "triangles": 7100
+      },
+      {
+        "name": "SPL_HN_right_internal_jugular_vein",
+        "vertices": 6194,
+        "triangles": 12210
+      },
+      {
+        "name": "SPL_HN_right_vertebral_artery",
+        "vertices": 3728,
+        "triangles": 6836
+      },
+      {
+        "name": "SPL_HN_right_external_carotid",
+        "vertices": 813,
+        "triangles": 1566
+      },
+      {
+        "name": "SPL_HN_right_common_carotid",
+        "vertices": 3303,
+        "triangles": 6432
+      },
+      {
+        "name": "SPL_HN_right_internal_carotid",
+        "vertices": 1338,
+        "triangles": 2568
+      },
+      {
+        "name": "SPL_HN_left_internal_carotid",
+        "vertices": 1662,
+        "triangles": 3194
+      },
+      {
+        "name": "SPL_HN_left_external_carotid",
+        "vertices": 583,
+        "triangles": 1118
+      },
+      {
+        "name": "SPL_HN_left_vertebral_artery",
+        "vertices": 3398,
+        "triangles": 6048
+      },
+      {
+        "name": "SPL_HN_left_common_carotid",
+        "vertices": 2888,
+        "triangles": 5574
+      }
+    ]
+  },
+  "coverage": [
+    {
+      "name": "skull",
+      "sourceId": 10,
+      "sourceFile": "models/Model_10_skull.vtk",
+      "category": "Skeleton"
+    },
+    {
+      "name": "mandible",
+      "sourceId": 25,
+      "sourceFile": "models/Model_25_mandible.vtk",
+      "category": "Skeleton"
+    },
+    {
+      "name": "left_internal_jugular_vein",
+      "sourceId": 110,
+      "sourceFile": "models/Model_110_left_internal_jugular_vein.vtk",
+      "category": "Veins"
+    },
+    {
+      "name": "right_internal_jugular_vein",
+      "sourceId": 109,
+      "sourceFile": "models/Model_109_right_internal_jugular_vein.vtk",
+      "category": "Veins"
+    },
+    {
+      "name": "right_vertebral_artery",
+      "sourceId": 105,
+      "sourceFile": "models/Model_105_right_vertebral_artery.vtk",
+      "category": "Arteries"
+    },
+    {
+      "name": "right_external_carotid",
+      "sourceId": 111,
+      "sourceFile": "models/Model_111_right_external_carotid.vtk",
+      "category": "Arteries"
+    },
+    {
+      "name": "right_common_carotid",
+      "sourceId": 101,
+      "sourceFile": "models/Model_101_right_common_carotid.vtk",
+      "category": "Arteries"
+    },
+    {
+      "name": "right_internal_carotid",
+      "sourceId": 107,
+      "sourceFile": "models/Model_107_right_internal_carotid.vtk",
+      "category": "Arteries"
+    },
+    {
+      "name": "left_internal_carotid",
+      "sourceId": 108,
+      "sourceFile": "models/Model_108_left_internal_carotid.vtk",
+      "category": "Arteries"
+    },
+    {
+      "name": "left_external_carotid",
+      "sourceId": 112,
+      "sourceFile": "models/Model_112_left_external_carotid.vtk",
+      "category": "Arteries"
+    },
+    {
+      "name": "left_vertebral_artery",
+      "sourceId": 106,
+      "sourceFile": "models/Model_106_left_vertebral_artery.vtk",
+      "category": "Arteries"
+    },
+    {
+      "name": "left_common_carotid",
+      "sourceId": 102,
+      "sourceFile": "models/Model_102_left_common_carotid.vtk",
+      "category": "Arteries"
+    }
+  ],
+  "missing": [
+    "intracranial arterial tree",
+    "dural venous sinuses",
+    "dura",
+    "falx",
+    "tentorium",
+    "arachnoid",
+    "pia"
+  ],
+  "registration": {
+    "headToBrainRAS": [
+      [
+        1.0271617421025043,
+        -0.003241306611979855,
+        0.11267284076238449,
+        -1.1774569685241474
+      ],
+      [
+        0.04326755819529993,
+        1.0901399121215611,
+        -0.3365562236849371,
+        25.620739872360218
+      ],
+      [
+        -0.09517165134030847,
+        0.37363704458770997,
+        1.0078868507205243,
+        -94.46332002774251
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "reason": "Automatically estimated cross-subject affine transform; no landmark or anatomical validation.",
+    "viewerRotation": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        -1,
+        0
+      ]
+    ],
+    "sharedViewerOriginMillimetres": [
+      2.4075698852539062,
+      -10.240180969238281,
+      7.589607238769531
+    ],
+    "sharedViewerScale": 0.01,
+    "requiredOrder": "Head source RAS -> validated CT-to-brain MRI registration -> viewer rotation -> subtract brain origin -> scale. Never independently center layers.",
+    "releaseGate": "Source orientation confirmed; registration measured against independent landmarks and orthogonal volume views; skull enclosure and vessel courses anatomically reviewed."
+  }
+}
