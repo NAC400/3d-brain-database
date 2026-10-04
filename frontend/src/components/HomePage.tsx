@@ -73,7 +73,7 @@ const HomePage: React.FC = () => {
           </div>
         </section>
       </main>
-      <footer className="home-footer"><span>MAPPED / Neuroscience research & learning</span><ContactLink /><span>Alpha · © {new Date().getFullYear()}</span></footer>
+      <footer className="home-footer"><span>MAPPED / Neuroscience research & learning</span><a href="#data-sources" onClick={() => setAppPage('data-sources')} style={{ color: 'var(--home-muted)' }}>Data sources & licences</a><ContactLink /><span>Alpha · © {new Date().getFullYear()}</span></footer>
     </div>
   );
 };

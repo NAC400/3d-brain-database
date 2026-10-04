@@ -16,6 +16,7 @@ import { onAuthStateChange } from './lib/supabase';
 
 const LazyGlobalAtlasPage = React.lazy(() => import('./components/GlobalAtlasPage'));
 const LazyAuthPage        = React.lazy(() => import('./components/AuthPage'));
+const LazyDataSourcesPage = React.lazy(() => import('./components/DataSourcesPage'));
 
 const App: React.FC = () => {
   const {
@@ -30,6 +31,15 @@ const App: React.FC = () => {
   } = useBrainStore();
 
   // Keep local UI state aligned with Supabase, including recovery links.
+  useEffect(() => {
+    const onHashChange = () => {
+      if (/^#(data-sources|spl-source|allen-source|mni-source)$/.test(window.location.hash)) setAppPage('data-sources');
+      else if (useBrainStore.getState().appPage === 'data-sources' && !window.location.hash) setAppPage('home');
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, [setAppPage]);
+
   useEffect(() => {
     if (new URLSearchParams(window.location.search).has('reset-password')) setAppPage('auth');
     return onAuthStateChange((supaUser, event) => {
@@ -309,6 +319,7 @@ const App: React.FC = () => {
             </button>
           )}
         </nav>
+        <a href="#data-sources" onClick={() => setAppPage('data-sources')} style={{ color: 'var(--product-muted)', fontSize: 12 }}>Data sources & licences</a>
         <ContactLink />
       </header>
 
@@ -389,10 +400,11 @@ const App: React.FC = () => {
 
       {appPage === 'library' && <LibraryPage />}
 
-      {(appPage === 'community' || appPage === 'auth') && (
+      {(appPage === 'community' || appPage === 'auth' || appPage === 'data-sources') && (
         <React.Suspense fallback={<div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', color:'var(--product-muted)' }}>Loading…</div>}>
           {appPage === 'community' && <LazyGlobalAtlasPage />}
           {appPage === 'auth' && <LazyAuthPage />}
+          {appPage === 'data-sources' && <LazyDataSourcesPage />}
         </React.Suspense>
       )}
 

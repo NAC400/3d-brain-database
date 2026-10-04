@@ -1,9 +1,23 @@
 # MAPPED — Dataset Attributions & Legal Requirements
 
-This product incorporates two third-party anatomical datasets. Both licenses
-permit commercial use; attribution is mandatory. Requirements are documented
-below so they can be embedded in the application's "About" page, any
-published paper, and all derivative distributions.
+The app's public **Data sources & licences** page (`/#data-sources`) documents
+the selectable SPL/NAC and Allen models and the MNI reference underlying Allen.
+It includes source links, adaptations, citations, and licence disclosures.
+
+## SPL/NAC Brain Atlas — January 2017
+
+The default bilateral model contains 233 selected surfaces from the Open Anatomy
+Project's SPL/NAC atlas, based on MRI of one healthy 42-year-old male volunteer.
+Source: https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html
+
+The applicable 3D Slicer Contribution and Software License Agreement, version
+1.0 (20 December 2005), Part B permits commercial use and redistribution subject
+to its conditions. Preserve the complete required terms, attribution notices,
+and modification notices; do not imply endorsement. The full governing licence
+and contributor notice are bundled in `frontend/public/models/spl-nac/LICENSE.txt`
+and `NOTICE.md`, and displayed on the app's disclosure page. Conversion details
+are in the adjacent `manifest.json`: VTK to GLB, coordinate rotation, and normal
+recomputation, with no mirroring or decimation.
 
 ---
 
@@ -80,4 +94,5 @@ product.
 
 ---
 
-*Last reviewed: April 2026*
+*Public disclosure page and SPL/NAC section updated: 4 October 2026. The older
+Allen/MNI notes below should be read alongside the source terms linked in the app.*

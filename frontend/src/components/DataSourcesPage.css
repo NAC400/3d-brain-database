@@ -1,0 +1,19 @@
+.data-sources-page { min-height: 0; overflow-y: auto; color: #edf2f5; padding: 32px 24px 56px; }
+.data-sources-content { max-width: 880px; margin-inline: auto; }
+.data-sources-page h1 { font-size: clamp(28px, 4vw, 38px); margin: 8px 0 18px; }
+.data-sources-page h2 { font-size: 23px; margin: 16px 0; }
+.data-sources-page p, .data-sources-page dd { line-height: 1.8; font-size: 14px; color: #bac8d4; }
+.data-sources-page a { color: #a3caff; text-underline-offset: 4px; }
+.data-sources-page nav, .data-sources-links { display: flex; flex-wrap: wrap; gap: 12px 22px; font-size: 13px; margin-block: 20px; }
+.data-sources-page section { scroll-margin-top: 20px; padding-block: 28px; border-top: 1px solid #769ac63b; }
+.data-sources-page dl { display: grid; grid-template-columns: 155px minmax(0, 1fr); gap: 14px 20px; }
+.data-sources-page dt { font-size: 13px; font-weight: 600; line-height: 1.8; }
+.data-sources-page dd { margin: 0; }
+.data-sources-badge { display: inline-block; border: 1px solid #769ac65c; border-radius: 5px; padding: 5px 9px; color: #a3caff; font-size: 11px; }
+.data-sources-page .data-sources-eyebrow { font-size: 10px; letter-spacing: 1.5px; color: #a2d9ec; }
+.data-sources-page details { border: 1px solid #769ac63b; border-radius: 7px; padding: 14px; margin-block: 12px; }
+.data-sources-page summary { cursor: pointer; color: #d1e5ff; font-size: 14px; }
+.data-sources-page pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.7; color: #bac8d4; }
+.data-sources-page .data-sources-citation { padding-left: 16px; border-left: 2px solid #769ac65c; font-size: 13px; }
+.data-sources-page .data-sources-updated { font-size: 12px; }
+@media(max-width:600px) { .data-sources-page dl { grid-template-columns: 1fr; gap: 5px; } .data-sources-page dd { margin-bottom: 12px; } }

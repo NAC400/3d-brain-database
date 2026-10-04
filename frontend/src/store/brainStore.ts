@@ -129,7 +129,7 @@ export interface BrainState {
   viewingSourceId:   string | null;  // source open in full-page viewer
 
   // --- App page routing ---
-  appPage: 'home' | 'explorer' | 'library' | 'community' | 'auth';
+  appPage: 'home' | 'explorer' | 'library' | 'community' | 'auth' | 'data-sources';
 
   // --- Annotations ---
   annotations: any[];
@@ -276,7 +276,7 @@ export const useBrainStore = create<BrainState>()(
   viewingSourceId: null,
 
   // Routing
-  appPage: 'home',
+  appPage: typeof window !== 'undefined' && /^#(data-sources|spl-source|allen-source|mni-source)$/.test(window.location.hash) ? 'data-sources' : 'home',
 
   // Annotations
   annotations: [],
@@ -426,7 +426,14 @@ export const useBrainStore = create<BrainState>()(
     })),
   setResearchPanelOpen: (open) => set({ researchPanelOpen: open }),
   setViewingSourceId: (id) => set({ viewingSourceId: id }),
-  setAppPage: (page) => set({ appPage: page }),
+  setAppPage: (page) => {
+    set({ appPage: page });
+    // Keep the disclosure page directly linkable without introducing a router.
+    if (typeof window !== 'undefined') {
+      if (page === 'data-sources' && !/^#(data-sources|spl-source|allen-source|mni-source)$/.test(window.location.hash)) window.location.hash = 'data-sources';
+      else if (page !== 'data-sources' && /^#(data-sources|spl-source|allen-source|mni-source)$/.test(window.location.hash)) window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  },
   getSourcesForRegion: (meshName) => {
     const { structureLinks, sources } = get();
     const linkedIds = new Set(
