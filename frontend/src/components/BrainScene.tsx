@@ -60,8 +60,8 @@ const BrainScene: React.FC = () => {
   const selectedRegion = useBrainStore(state => state.selectedRegion);
   const [origin, setOrigin] = useState<{ atlas: 'spl' | 'allen'; offset: THREE.Vector3 } | null>(null);
   const receiveOrigin = useCallback((offset: THREE.Vector3) => setOrigin({ atlas, offset }), [atlas]);
-  const [head, setHead] = useState<HeadLayerOptions>({ enabled: false, skull: true, arteries: true, veins: false, skullOpacity: 0.2, vesselOpacity: 0.85 });
-  const toggle = (key: 'enabled' | 'skull' | 'arteries' | 'veins') => setHead(current => ({ ...current, [key]: !current[key] }));
+  const [head, setHead] = useState<HeadLayerOptions>({ enabled: false, skull: true, arteries: true, veins: false, central: false, skullOpacity: 0.2, vesselOpacity: 0.85 });
+  const toggle = (key: 'enabled' | 'skull' | 'arteries' | 'veins' | 'central') => setHead(current => ({ ...current, [key]: !current[key] }));
 
   return (
     /*
@@ -146,12 +146,15 @@ const BrainScene: React.FC = () => {
       </Canvas>
       <details className="head-layer-panel">
         <summary>Experimental head layers</summary>
-        <p>Preview fit · not anatomically validated</p>
+        <p role="status">Alignment warning · brain–skull overlaps detected</p>
+        <details><summary>Validation & limitations</summary><p>All 10 vessels reproduce the original source geometry. The three flagged mesh issues already exist in that source. Source-label checks do not establish complete anatomical courses. A further check detected brain surface points within the fitted skull's bone label, including sampled depths up to 3.91 mm in source CT space. This experimental cross-subject alignment has not passed anatomical validation. The Circle of Willis and other intracranial vessel networks are missing. For learning and research illustration; not for clinical decisions.</p><a href="/models/spl-head-neck/vessel-source-review.json" target="_blank" rel="noreferrer">Read source and alignment checks</a> · <a href="/models/spl-head-neck/brain-skull-collision-review.png" target="_blank" rel="noreferrer">View overlap evidence</a></details>
         {atlas !== 'spl' ? <p>Select the SPL/NAC atlas to preview these layers.</p> : <>
           <label><input type="checkbox" checked={head.enabled} onChange={() => toggle('enabled')} /> Show experimental head layers</label>
           {head.enabled && <>
             <label><input type="checkbox" checked={head.skull} onChange={() => toggle('skull')} /> Skull & mandible</label>
-            <label><input type="checkbox" checked={head.arteries} onChange={() => toggle('arteries')} /> Major arteries</label>
+            <label><input type="checkbox" checked={head.arteries} onChange={() => toggle('arteries')} /> Neck arteries (SPL)</label>
+            <label><input type="checkbox" checked={head.central} onChange={() => toggle('central')} /> Central arteries (BodyParts3D)</label>
+            {head.central && <p>Experimental central artery fit · held-out structure-centre differences are 9.3–9.8 mm. This is an illustrative placement, not anatomical validation. Source bilateral elements include symmetric geometry. Skull and neck vessels use a different fit; connections between datasets are unvalidated. <a href="/models/bodyparts3d-central/coverage-and-alignment.json" target="_blank" rel="noreferrer">Coverage & alignment checks</a></p>}
             <label><input type="checkbox" checked={head.veins} onChange={() => toggle('veins')} /> Jugular veins</label>
             <label>Select head structure
               <select aria-label="Select head structure" value={headRegions.some(region => region.meshName === selectedRegion) ? selectedRegion ?? '' : ''} onChange={event => {
@@ -159,7 +162,7 @@ const BrainScene: React.FC = () => {
                 useBrainStore.getState().setSelectedRegion(event.target.value || null);
               }}>
                 <option value="">Choose a structure…</option>
-                {headRegions.filter(region => region.category === 'Skeleton' ? head.skull : region.category === 'Arteries' ? head.arteries : head.veins).map(region => <option key={region.meshName} value={region.meshName}>{region.name}</option>)}
+                {headRegions.filter(region => region.category === 'Intracranial arteries' ? head.central : region.category === 'Skeleton' ? head.skull : region.category === 'Arteries' ? head.arteries : head.veins).map(region => <option key={region.meshName} value={region.meshName}>{region.name}</option>)}
               </select>
             </label>
             <p>Click a structure to select it. Hide the skull to pick the brain or vessels underneath.</p>
@@ -168,7 +171,7 @@ const BrainScene: React.FC = () => {
             {explodeAmount > 0 && <p role="status">Return Explode to zero to inspect alignment.</p>}
           </>}
         </>}
-        <p>Dura and intracranial vessel layers are not available in this preview.</p>
+        <p>Dura, venous sinuses and fine intracranial branches are not available in this preview.</p>
         <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')}>Sources & licence details</a>
       </details>
     </div>

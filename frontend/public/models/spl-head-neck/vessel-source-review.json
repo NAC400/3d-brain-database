@@ -1,0 +1,1126 @@
+{
+  "reviewed": "2026-10-05",
+  "scope": "source annotation agreement and gross plausibility; no independent anatomical validation",
+  "sourceLabelSHA256": "2caf860f18f7295094f0f1c44d54863d7d558ed9354f9d368cb77ec849dd1744",
+  "registrationSHA256": "969caf489f00c013e7ce4e141e4f37c37e15623457848be9fef8d8de9f810684",
+  "labelImageSpacingMm": [
+    0.9765625,
+    0.9765625,
+    1.4000243999999995
+  ],
+  "vessels": [
+    {
+      "name": "left_internal_jugular_vein",
+      "sourceLabelId": 110,
+      "sourceLabelVoxels": 6306,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 2784,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.9765625,
+        "maximum": 1.4000244140625
+      },
+      "sourceBoundsRASmm": [
+        [
+          -45.02870178222656,
+          -31.747638702392578,
+          -109.08085632324219
+        ],
+        [
+          -27.616613388061523,
+          -7.538012981414795,
+          31.50394630432129
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -52.78859409193459,
+          -10.507556523159032,
+          -209.3991039501932
+        ],
+        [
+          -29.977786084602343,
+          47.46901915938351,
+          -66.77534145353458
+        ]
+      ],
+      "originalVTKVertexCount": 3619,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true
+    },
+    {
+      "name": "right_internal_jugular_vein",
+      "sourceLabelId": 109,
+      "sourceLabelVoxels": 15891,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 3888,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.9765625,
+        "maximum": 1.953125
+      },
+      "sourceBoundsRASmm": [
+        [
+          13.415172576904297,
+          -35.42615509033203,
+          -111.8555679321289
+        ],
+        [
+          40.06911849975586,
+          -3.268733501434326,
+          29.09088134765625
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          0.3079643735267632,
+          -9.556916396832015,
+          -216.4837192317289
+        ],
+        [
+          38.686614062573376,
+          56.970615043452284,
+          -75.2342908483931
+        ]
+      ],
+      "originalVTKVertexCount": 6194,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true
+    },
+    {
+      "name": "right_vertebral_artery",
+      "sourceLabelId": 105,
+      "sourceLabelVoxels": 2792,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 3268,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.9765625,
+        "maximum": 1.7069687843322754
+      },
+      "sourceBoundsRASmm": [
+        [
+          -12.607194900512695,
+          -47.66164779663086,
+          -91.70132446289062
+        ],
+        [
+          29.193206787109375,
+          -10.88733959197998,
+          48.2229118347168
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -8.705406230568485,
+          -35.46173169599994,
+          -203.982072122392
+        ],
+        [
+          31.888465464911434,
+          21.345817248527517,
+          -48.8213289958618
+        ]
+      ],
+      "originalVTKVertexCount": 3728,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true
+    },
+    {
+      "name": "right_external_carotid",
+      "sourceLabelId": 111,
+      "sourceLabelVoxels": 716,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 779,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.3906249999999778,
+        "maximum": 1.4000244140625
+      },
+      "sourceBoundsRASmm": [
+        [
+          18.396541595458984,
+          -23.717090606689453,
+          -36.594200134277344
+        ],
+        [
+          26.188642501831055,
+          -7.944002628326416,
+          8.49730396270752
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          16.026939946496977,
+          2.172047841975708,
+          -140.5350511663632
+        ],
+        [
+          26.27969445978066,
+          20.742120958693462,
+          -92.26940215953425
+        ]
+      ],
+      "originalVTKVertexCount": 813,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true
+    },
+    {
+      "name": "right_common_carotid",
+      "sourceLabelId": 101,
+      "sourceLabelVoxels": 5032,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 2629,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 1.3810679912567139,
+        "maximum": 1.7069687843322754
+      },
+      "sourceBoundsRASmm": [
+        [
+          -12.509062767028809,
+          -28.620332717895508,
+          -128.68350219726562
+        ],
+        [
+          25.171161651611328,
+          -4.91774845123291,
+          -31.278600692749023
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -28.374583581369397,
+          10.837279500630236,
+          -231.6855611900093
+        ],
+        [
+          21.09541335772359,
+          58.192872921878056,
+          -136.03832956523172
+        ]
+      ],
+      "originalVTKVertexCount": 3303,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true
+    },
+    {
+      "name": "right_internal_carotid",
+      "sourceLabelId": 107,
+      "sourceLabelVoxels": 1392,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 1230,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.9765625,
+        "maximum": 1.4000244140625
+      },
+      "sourceBoundsRASmm": [
+        [
+          11.874139785766602,
+          -26.96552085876465,
+          -31.636629104614258
+        ],
+        [
+          28.576522827148438,
+          -7.2021484375,
+          39.72227478027344
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          12.552608851008314,
+          -3.7356984465521137,
+          -137.6280830587881
+        ],
+        [
+          29.99120143405444,
+          13.994585222698037,
+          -61.050026477173205
+        ]
+      ],
+      "originalVTKVertexCount": 1338,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true,
+      "flagLocationsRASmm": [
+        [
+          23.65207004547119,
+          -23.749496459960938,
+          -4.22694206237793
+        ],
+        [
+          22.970139503479004,
+          -20.033567428588867,
+          1.650501787662506
+        ]
+      ]
+    },
+    {
+      "name": "left_internal_carotid",
+      "sourceLabelId": 108,
+      "sourceLabelVoxels": 1730,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 1514,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.9765625,
+        "maximum": 1.7069687843322754
+      },
+      "sourceBoundsRASmm": [
+        [
+          -40.993751525878906,
+          -35.68046569824219,
+          -28.870813369750977
+        ],
+        [
+          -20.81170654296875,
+          -9.166665077209473,
+          41.40195846557617
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -44.657337597370336,
+          -11.497622193982174,
+          -128.9287092057086
+        ],
+        [
+          -21.524396764545077,
+          12.178725106695808,
+          -54.053329450203236
+        ]
+      ],
+      "originalVTKVertexCount": 1662,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true
+    },
+    {
+      "name": "left_external_carotid",
+      "sourceLabelId": 112,
+      "sourceLabelVoxels": 604,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 507,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.9765625,
+        "maximum": 1.4000244140625
+      },
+      "sourceBoundsRASmm": [
+        [
+          -32.35942077636719,
+          -22.585689544677734,
+          -30.09939193725586
+        ],
+        [
+          -23.107818603515625,
+          -16.84268569946289,
+          -3.902341604232788
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -37.525916593982444,
+          1.781542083173747,
+          -129.5472602654733
+        ],
+        [
+          -25.676572019758673,
+          15.066593823584494,
+          -102.81430133324906
+        ]
+      ],
+      "originalVTKVertexCount": 583,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true
+    },
+    {
+      "name": "left_vertebral_artery",
+      "sourceLabelId": 106,
+      "sourceLabelVoxels": 2331,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 2901,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.9765625,
+        "maximum": 1.7069687843322754
+      },
+      "sourceBoundsRASmm": [
+        [
+          -35.86712646484375,
+          -45.41291427612305,
+          -88.289794921875
+        ],
+        [
+          -8.399076461791992,
+          -12.122675895690918,
+          48.13827133178711
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -46.039979423489896,
+          -33.297656886034765,
+          -194.0509978919402
+        ],
+        [
+          -5.570428005510658,
+          17.662364898990365,
+          -49.12841706743504
+        ]
+      ],
+      "originalVTKVertexCount": 3398,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true,
+      "flagLocationsRASmm": [
+        [
+          -33.72601509094238,
+          -41.918766021728516,
+          20.668743133544922
+        ],
+        [
+          -14.433916568756104,
+          -15.498116493225098,
+          45.461591720581055
+        ],
+        [
+          -14.58606481552124,
+          -15.258241176605225,
+          45.71818923950195
+        ],
+        [
+          -15.361055850982666,
+          -13.80244255065918,
+          47.364463806152344
+        ]
+      ]
+    },
+    {
+      "name": "left_common_carotid",
+      "sourceLabelId": 102,
+      "sourceLabelVoxels": 3512,
+      "verticesOutsideSourceLabelField": 0,
+      "nearestVoxelMatchesPublishedLabel": 2434,
+      "sampledAbsoluteDistanceToPublishedLabelBoundaryMm": {
+        "median": 0.0,
+        "p95": 0.9765625,
+        "maximum": 1.9665749073028564
+      },
+      "sourceBoundsRASmm": [
+        [
+          -33.461212158203125,
+          -38.29735565185547,
+          -136.97982788085938
+        ],
+        [
+          -13.683199882507324,
+          -12.555397987365723,
+          -28.70237922668457
+        ]
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -45.179928918919195,
+          9.267987871000841,
+          -236.89616062352428
+        ],
+        [
+          -25.510947214376547,
+          56.83490596876341,
+          -127.99286322359043
+        ]
+      ],
+      "originalVTKVertexCount": 2888,
+      "sourceToRawExportMaxVertexErrorMm": 0.0,
+      "originalTriangleIndicesMatchRawExport": true,
+      "componentSourceBoundsRASmm": [
+        {
+          "vertices": 2854,
+          "minimum": [
+            -33.461212158203125,
+            -38.29735565185547,
+            -135.62770080566406
+          ],
+          "maximum": [
+            -14.268875122070312,
+            -12.555397987365723,
+            -28.70237922668457
+          ]
+        },
+        {
+          "vertices": 20,
+          "minimum": [
+            -14.252490997314453,
+            -15.777767181396484,
+            -136.97982788085938
+          ],
+          "maximum": [
+            -13.683199882507324,
+            -15.024401664733887,
+            -135.64590454101562
+          ]
+        },
+        {
+          "vertices": 14,
+          "minimum": [
+            -15.39472484588623,
+            -13.439312934875488,
+            -136.89317321777344
+          ],
+          "maximum": [
+            -14.84423828125,
+            -12.984492301940918,
+            -135.59921264648438
+          ]
+        }
+      ]
+    }
+  ],
+  "independentLandmarkErrorsMm": null,
+  "limitations": [
+    "Published labels are not independent ground truth.",
+    "Nearest-voxel samples and voxel-centre distances are limited by image resolution and mesh smoothing.",
+    "Cross-subject fit is not validated by source-label agreement.",
+    "No angiographic target volume or expert reviewer is available."
+  ],
+  "grossSkullCollisionScreen": {
+    "method": "Nearest voxel at every target brain mesh vertex after inverse registration; label 10 is source skull. Surface vertex sampling does not measure intersection volume and may be affected by smoothing or voxel boundaries.",
+    "brainMeshesScreened": 233,
+    "totalSurfaceVerticesSampled": 1015064,
+    "samplesMoreThan2mmInsideBoneVoxelBoundary": 121,
+    "maximumSampledDepthMm": 3.90625,
+    "meshesWithSkullLabelSamples": 90,
+    "findings": [
+      {
+        "mesh": "SPL_right_amygdala",
+        "sampledVertices": 1218,
+        "verticesInsideSourceSkullLabel": 11,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_inferior_parietal_lobule__0",
+        "sampledVertices": 13532,
+        "verticesInsideSourceSkullLabel": 228,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right-VI-m",
+        "sampledVertices": 1798,
+        "verticesInsideSourceSkullLabel": 19,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right-VI-l",
+        "sampledVertices": 3660,
+        "verticesInsideSourceSkullLabel": 27,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right-VIIA_crusII-l2",
+        "sampledVertices": 1413,
+        "verticesInsideSourceSkullLabel": 218,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right-VIIA_crusII-l1",
+        "sampledVertices": 1661,
+        "verticesInsideSourceSkullLabel": 119,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_postcentral_gyrus",
+        "sampledVertices": 12908,
+        "verticesInsideSourceSkullLabel": 216,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_lateral_orbital_gyrus",
+        "sampledVertices": 8742,
+        "verticesInsideSourceSkullLabel": 196,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_triangular_part_of_right_inferior_frontal_gyrus",
+        "sampledVertices": 4896,
+        "verticesInsideSourceSkullLabel": 61,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_frontal_pole",
+        "sampledVertices": 1239,
+        "verticesInsideSourceSkullLabel": 46,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right-VIIA_crusII-m",
+        "sampledVertices": 1144,
+        "verticesInsideSourceSkullLabel": 98,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_supramarginal_gyrus",
+        "sampledVertices": 10432,
+        "verticesInsideSourceSkullLabel": 486,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_lingual_gyrus",
+        "sampledVertices": 10037,
+        "verticesInsideSourceSkullLabel": 3,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_straight_gyrus",
+        "sampledVertices": 5520,
+        "verticesInsideSourceSkullLabel": 1,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_posterior_part_of_left_middle_frontal_gyrus",
+        "sampledVertices": 6717,
+        "verticesInsideSourceSkullLabel": 69,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_parahippocampal_gyrus",
+        "sampledVertices": 2350,
+        "verticesInsideSourceSkullLabel": 3,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_superior_frontal_gyrus",
+        "sampledVertices": 21668,
+        "verticesInsideSourceSkullLabel": 619,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.7069687843322754
+      },
+      {
+        "mesh": "SPL_opercular_part_of_right_inferior_frontal_gyrus",
+        "sampledVertices": 4427,
+        "verticesInsideSourceSkullLabel": 1,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_amygdala",
+        "sampledVertices": 1105,
+        "verticesInsideSourceSkullLabel": 8,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_triangular_part_of_left_inferior_frontal_gyrus",
+        "sampledVertices": 4717,
+        "verticesInsideSourceSkullLabel": 152,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_middle_temporal_gyrus",
+        "sampledVertices": 12882,
+        "verticesInsideSourceSkullLabel": 217,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_cuneus",
+        "sampledVertices": 4472,
+        "verticesInsideSourceSkullLabel": 55,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_superior_temporal_gyrus",
+        "sampledVertices": 12304,
+        "verticesInsideSourceSkullLabel": 58,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_optic_nerve",
+        "sampledVertices": 620,
+        "verticesInsideSourceSkullLabel": 72,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right-VIIB-l",
+        "sampledVertices": 1340,
+        "verticesInsideSourceSkullLabel": 280,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_precentral_gyrus",
+        "sampledVertices": 14798,
+        "verticesInsideSourceSkullLabel": 379,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_temporal_pole",
+        "sampledVertices": 2719,
+        "verticesInsideSourceSkullLabel": 172,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_superior_parietal_lobule",
+        "sampledVertices": 16088,
+        "verticesInsideSourceSkullLabel": 514,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_straight_gyrus",
+        "sampledVertices": 5994,
+        "verticesInsideSourceSkullLabel": 3,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_adenohypophysis",
+        "sampledVertices": 240,
+        "verticesInsideSourceSkullLabel": 51,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_left_postcentral_gyrus",
+        "sampledVertices": 15000,
+        "verticesInsideSourceSkullLabel": 653,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 12,
+        "maximumSampledDepthMm": 2.7621359825134277
+      },
+      {
+        "mesh": "SPL_right_superior_temporal_gyrus",
+        "sampledVertices": 12653,
+        "verticesInsideSourceSkullLabel": 206,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left-VIIA_crusII-m",
+        "sampledVertices": 1725,
+        "verticesInsideSourceSkullLabel": 422,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 64,
+        "maximumSampledDepthMm": 3.90625
+      },
+      {
+        "mesh": "SPL_right_limen_insulae",
+        "sampledVertices": 867,
+        "verticesInsideSourceSkullLabel": 34,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_ambiens_gyrus",
+        "sampledVertices": 1861,
+        "verticesInsideSourceSkullLabel": 157,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.3810679912567139
+      },
+      {
+        "mesh": "SPL_white_matter_of_left_hemisphere_of_cerebellum",
+        "sampledVertices": 10813,
+        "verticesInsideSourceSkullLabel": 1,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_hippocampus",
+        "sampledVertices": 2644,
+        "verticesInsideSourceSkullLabel": 1,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_fusiform_gyrus",
+        "sampledVertices": 11963,
+        "verticesInsideSourceSkullLabel": 360,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_left_inferior_temporal_gyrus",
+        "sampledVertices": 10462,
+        "verticesInsideSourceSkullLabel": 207,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_frontal_pole",
+        "sampledVertices": 990,
+        "verticesInsideSourceSkullLabel": 1,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_optic_chiasm",
+        "sampledVertices": 486,
+        "verticesInsideSourceSkullLabel": 16,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_precuneus",
+        "sampledVertices": 12931,
+        "verticesInsideSourceSkullLabel": 134,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.7069687843322754
+      },
+      {
+        "mesh": "SPL_left_precentral_gyrus",
+        "sampledVertices": 16208,
+        "verticesInsideSourceSkullLabel": 293,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.3810679912567139
+      },
+      {
+        "mesh": "SPL_anterior_part_of_left_middle_frontal_gyrus",
+        "sampledVertices": 15314,
+        "verticesInsideSourceSkullLabel": 832,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_left-VIIIB-l",
+        "sampledVertices": 3509,
+        "verticesInsideSourceSkullLabel": 839,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.7069687843322754
+      },
+      {
+        "mesh": "SPL_left-VIIIB-m",
+        "sampledVertices": 916,
+        "verticesInsideSourceSkullLabel": 21,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left-VIIIA-l",
+        "sampledVertices": 2710,
+        "verticesInsideSourceSkullLabel": 355,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_inferior_temporal_gyrus",
+        "sampledVertices": 11924,
+        "verticesInsideSourceSkullLabel": 1004,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 12,
+        "maximumSampledDepthMm": 2.7621359825134277
+      },
+      {
+        "mesh": "SPL_left_supramarginal_gyrus",
+        "sampledVertices": 14275,
+        "verticesInsideSourceSkullLabel": 191,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_middle_temporal_gyrus",
+        "sampledVertices": 13490,
+        "verticesInsideSourceSkullLabel": 901,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.7069687843322754
+      },
+      {
+        "mesh": "SPL_right_inferior_parietal_lobule__1",
+        "sampledVertices": 16663,
+        "verticesInsideSourceSkullLabel": 891,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.3810679912567139
+      },
+      {
+        "mesh": "SPL_left_superior_parietal_lobule",
+        "sampledVertices": 17432,
+        "verticesInsideSourceSkullLabel": 1278,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 7,
+        "maximumSampledDepthMm": 2.403074264526367
+      },
+      {
+        "mesh": "SPL_right-VIIA_crusI-l1",
+        "sampledVertices": 3262,
+        "verticesInsideSourceSkullLabel": 326,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.7069687843322754
+      },
+      {
+        "mesh": "SPL_right-VIIA_crusI-l2",
+        "sampledVertices": 4239,
+        "verticesInsideSourceSkullLabel": 729,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.9665749073028564
+      },
+      {
+        "mesh": "SPL_left_paracentral_lobule",
+        "sampledVertices": 5713,
+        "verticesInsideSourceSkullLabel": 412,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.7069687843322754
+      },
+      {
+        "mesh": "SPL_right_ambiens_gyrus",
+        "sampledVertices": 2758,
+        "verticesInsideSourceSkullLabel": 190,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.953125
+      },
+      {
+        "mesh": "SPL_anterior_part_of_right_middle_frontal_gyrus",
+        "sampledVertices": 20369,
+        "verticesInsideSourceSkullLabel": 1563,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_left_optic_nerve",
+        "sampledVertices": 616,
+        "verticesInsideSourceSkullLabel": 112,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.4000244140625
+      },
+      {
+        "mesh": "SPL_right-VIIIA-m",
+        "sampledVertices": 1538,
+        "verticesInsideSourceSkullLabel": 1,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right-VIIIA-l",
+        "sampledVertices": 2134,
+        "verticesInsideSourceSkullLabel": 604,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.4000244140625
+      },
+      {
+        "mesh": "SPL_right-VIIIB-l",
+        "sampledVertices": 2250,
+        "verticesInsideSourceSkullLabel": 734,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.7069687843322754
+      },
+      {
+        "mesh": "SPL_pons",
+        "sampledVertices": 4918,
+        "verticesInsideSourceSkullLabel": 90,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right-VIIA_crusI-m",
+        "sampledVertices": 1301,
+        "verticesInsideSourceSkullLabel": 149,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.4000244140625
+      },
+      {
+        "mesh": "SPL_orbital_part_of_right_inferior_frontal_gyrus",
+        "sampledVertices": 3531,
+        "verticesInsideSourceSkullLabel": 110,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_parahippocampal_gyrus",
+        "sampledVertices": 2674,
+        "verticesInsideSourceSkullLabel": 4,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left-VI-l",
+        "sampledVertices": 3844,
+        "verticesInsideSourceSkullLabel": 11,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_orbital_part_of_left_inferior_frontal_gyrus",
+        "sampledVertices": 2913,
+        "verticesInsideSourceSkullLabel": 1,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_precuneus",
+        "sampledVertices": 13521,
+        "verticesInsideSourceSkullLabel": 11,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_white_matter_of_right_cerebral_hemisphere",
+        "sampledVertices": 120052,
+        "verticesInsideSourceSkullLabel": 103,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_white_matter_of_right_hemisphere_of_cerebellum",
+        "sampledVertices": 9976,
+        "verticesInsideSourceSkullLabel": 2,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_posterior_part_of_right_middle_frontal_gyrus",
+        "sampledVertices": 5216,
+        "verticesInsideSourceSkullLabel": 485,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_left_limen_insulae",
+        "sampledVertices": 665,
+        "verticesInsideSourceSkullLabel": 2,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_temporal_pole",
+        "sampledVertices": 2165,
+        "verticesInsideSourceSkullLabel": 323,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_left-VIIA_crusI-m",
+        "sampledVertices": 1249,
+        "verticesInsideSourceSkullLabel": 15,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left_lateral_occipital_gyrus",
+        "sampledVertices": 16049,
+        "verticesInsideSourceSkullLabel": 524,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.3810679912567139
+      },
+      {
+        "mesh": "SPL_left_lateral_orbital_gyrus",
+        "sampledVertices": 8486,
+        "verticesInsideSourceSkullLabel": 195,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_neurohypophysis__0",
+        "sampledVertices": 253,
+        "verticesInsideSourceSkullLabel": 106,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_right_lateral_occipital_gyrus",
+        "sampledVertices": 13629,
+        "verticesInsideSourceSkullLabel": 704,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.9665749073028564
+      },
+      {
+        "mesh": "SPL_left_hippocampus",
+        "sampledVertices": 2962,
+        "verticesInsideSourceSkullLabel": 2,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right-VIIIB-m",
+        "sampledVertices": 1863,
+        "verticesInsideSourceSkullLabel": 140,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 1.3810679912567139
+      },
+      {
+        "mesh": "SPL_right-V-l",
+        "sampledVertices": 1588,
+        "verticesInsideSourceSkullLabel": 1,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left-VIIA_crusI-l1",
+        "sampledVertices": 3178,
+        "verticesInsideSourceSkullLabel": 328,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 7,
+        "maximumSampledDepthMm": 2.593923568725586
+      },
+      {
+        "mesh": "SPL_left-VIIA_crusI-l2",
+        "sampledVertices": 4624,
+        "verticesInsideSourceSkullLabel": 1256,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 16,
+        "maximumSampledDepthMm": 2.593923568725586
+      },
+      {
+        "mesh": "SPL_white_matter_of_left_cerebral_hemisphere",
+        "sampledVertices": 118679,
+        "verticesInsideSourceSkullLabel": 396,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_pineal_body",
+        "sampledVertices": 150,
+        "verticesInsideSourceSkullLabel": 17,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_part_of_midbrain",
+        "sampledVertices": 6287,
+        "verticesInsideSourceSkullLabel": 14,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_right_superior_frontal_gyrus",
+        "sampledVertices": 21308,
+        "verticesInsideSourceSkullLabel": 507,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.9765625
+      },
+      {
+        "mesh": "SPL_left-VIIB-l",
+        "sampledVertices": 2492,
+        "verticesInsideSourceSkullLabel": 330,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left-VIIB-m",
+        "sampledVertices": 1372,
+        "verticesInsideSourceSkullLabel": 36,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 0,
+        "maximumSampledDepthMm": 0.0
+      },
+      {
+        "mesh": "SPL_left-VIIA_crusII-l1",
+        "sampledVertices": 1765,
+        "verticesInsideSourceSkullLabel": 269,
+        "samplesMoreThan2mmInsideBoneVoxelBoundary": 3,
+        "maximumSampledDepthMm": 2.1836600303649902
+      }
+    ]
+  },
+  "alignmentVerdict": "Anatomical alignment not accepted: gross collision screen identifies brain surface samples within fitted skull bone, including samples more than 2 mm inside its voxel-centre boundary. Further registration and independent review required. The 2 mm screen is a diagnostic threshold, not a clinical acceptance criterion."
+}

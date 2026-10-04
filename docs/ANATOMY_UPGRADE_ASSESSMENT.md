@@ -150,3 +150,9 @@ Priority is validating the model and prototyping external anatomy. Evidence and 
 - Anatomical reviewer availability, asset budget, and the desired full-head coverage.
 
 Next concrete step: perform the coordinate/hemisphere validation and inventory a single skull candidate. Do not buy assets or replace the production model based solely on this desk assessment.
+
+## Implementation update — 5 October 2026
+
+The earlier next-step statement is historical. A bilateral SPL/NAC brain and an optional SPL skull/neck preview now exist. Source reviews detected brain–skull overlap concerns in their cross-subject fit; see `VESSEL_PREVIEW_VALIDATION.md`.
+
+Central arterial coverage has now been checked element by element against BodyParts3D mappings and geometry. An optional 18-element preview includes the Circle of Willis components, basilar, ACA, MCA M1/selected M2 and PCA P1/P2 representations. Its shared experimental similarity fit has held-out structure-centre differences around 9–10 mm and has not passed anatomical validation. It is off by default and disclosed separately from the skull/neck fit. See `CENTRAL_ARTERIAL_PREVIEW.md` and the distributed coverage/alignment report. Independent vascular alignment and anatomical review, finer source geometry, meninges and venous sinuses remain open work.

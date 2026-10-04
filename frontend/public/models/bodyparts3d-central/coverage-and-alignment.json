@@ -1,0 +1,979 @@
+{
+  "status": "Experimental illustrative preview; not anatomically validated",
+  "reviewed": "2026-10-05",
+  "method": "Single proper similarity transform fitted to five bounding-box centre proxies; no per-vessel adjustments",
+  "sourceArchiveSHA256": "40665852c49f218326590e204db91064a1ecfc3c6f8cbd7bbbcaac62c7cd409e",
+  "sourceMappingSHA256": "a3de74423f943b0d724ae8f59b3a817f87c423a544f8db98113b1980817cbeaf",
+  "sourceXYZToTargetRAS": [
+    [
+      -0.9040667586921293,
+      0.1267459753107234,
+      0.03711219077808597,
+      -46.98293408172868
+    ],
+    [
+      -0.11788685095969692,
+      -0.8902165731134943,
+      0.16851025030775435,
+      -339.9723476235517
+    ],
+    [
+      0.05953610108683436,
+      0.16195206645952187,
+      0.8972210106605716,
+      -1380.8780097575793
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "uniformScale": 0.9136621701339661,
+  "rotationDeterminant": 1.0000000000000004,
+  "fittingProxyErrorsMm": [
+    {
+      "structure": "pons",
+      "errorMm": 5.365491639842802
+    },
+    {
+      "structure": "right putamen",
+      "errorMm": 3.0813844400837067
+    },
+    {
+      "structure": "left putamen",
+      "errorMm": 4.051678613350356
+    },
+    {
+      "structure": "right caudate",
+      "errorMm": 8.005438806953869
+    },
+    {
+      "structure": "left caudate",
+      "errorMm": 7.393505317101567
+    }
+  ],
+  "fittingProxyCentres": [
+    {
+      "structure": "pons",
+      "sourceRASmm": [
+        0.6519499999999994,
+        79.78359999999999,
+        1516.38
+      ],
+      "targetRASmm": [
+        -1.23980712890625,
+        -15.169544219970703,
+        -38.25361633300781
+      ],
+      "sourceElements": [
+        "FJ1775",
+        "FJ1822"
+      ],
+      "targetMesh": "SPL_pons"
+    },
+    {
+      "structure": "right putamen",
+      "sourceRASmm": [
+        26.6135,
+        96.94675000000001,
+        1558.4850000000001
+      ],
+      "targetRASmm": [
+        21.73412322998047,
+        11.336036682128906,
+        -2.7085609436035156
+      ],
+      "sourceElements": [
+        "FJ1823"
+      ],
+      "targetMesh": "SPL_right_putamen"
+    },
+    {
+      "structure": "left putamen",
+      "sourceRASmm": [
+        -25.31675,
+        96.94739999999999,
+        1558.4850000000001
+      ],
+      "targetRASmm": [
+        -23.078102111816406,
+        5.6152496337890625,
+        -0.6066246032714844
+      ],
+      "sourceElements": [
+        "FJ1776"
+      ],
+      "targetMesh": "SPL_left_putamen"
+    },
+    {
+      "structure": "right caudate",
+      "sourceRASmm": [
+        19.10511,
+        92.1515,
+        1558.81
+      ],
+      "targetRASmm": [
+        12.014080047607422,
+        8.489860534667969,
+        8.143512725830078
+      ],
+      "sourceElements": [
+        "FJ1802"
+      ],
+      "targetMesh": "SPL_right_caudate_nucleus"
+    },
+    {
+      "structure": "left caudate",
+      "sourceRASmm": [
+        -17.794105,
+        92.1493,
+        1558.79
+      ],
+      "targetRASmm": [
+        -11.790176391601562,
+        4.065555572509766,
+        8.985790252685547
+      ],
+      "sourceElements": [
+        "FJ1754"
+      ],
+      "targetMesh": "SPL_left_caudate_nucleus"
+    }
+  ],
+  "heldOutProxyChecks": [
+    {
+      "structure": "right hippocampus",
+      "proxyCentreErrorMm": 9.788037019603859
+    },
+    {
+      "structure": "left hippocampus",
+      "proxyCentreErrorMm": 9.337157149412464
+    }
+  ],
+  "junctionProximity": [
+    {
+      "a": "FJ1655",
+      "b": "FJ1654",
+      "side": "Right",
+      "minimumVertexGapMm": 0.21961036093079792,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1654",
+      "b": "FJ1682",
+      "side": "Right",
+      "minimumVertexGapMm": 0.17218748396888572,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1682",
+      "b": "FJ1692",
+      "side": "Right",
+      "minimumVertexGapMm": 0.08894401506531703,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1682",
+      "b": "FJ1713",
+      "side": "Right",
+      "minimumVertexGapMm": 0.20291768304542485,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1713",
+      "b": "FJ1723",
+      "side": "Right",
+      "minimumVertexGapMm": 0.10940437779782565,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1672",
+      "b": "FJ1723",
+      "side": "Right",
+      "minimumVertexGapMm": 0.07746221333558152,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1723",
+      "b": "FJ1714",
+      "side": "Right",
+      "minimumVertexGapMm": 0.074510231684273,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1692",
+      "b": "FJ1660",
+      "side": "Right",
+      "minimumVertexGapMm": 0.11864120522633434,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1660",
+      "b": "FJ1694",
+      "side": "Right",
+      "minimumVertexGapMm": 2.140227298064203,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1655",
+      "b": "FJ1654M",
+      "side": "Left",
+      "minimumVertexGapMm": 0.19585567306633614,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1654M",
+      "b": "FJ1682M",
+      "side": "Left",
+      "minimumVertexGapMm": 0.17218748396888572,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1682M",
+      "b": "FJ1692M",
+      "side": "Left",
+      "minimumVertexGapMm": 0.08847349862996323,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1682M",
+      "b": "FJ1713M",
+      "side": "Left",
+      "minimumVertexGapMm": 0.20291768304542485,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1713M",
+      "b": "FJ1723M",
+      "side": "Left",
+      "minimumVertexGapMm": 0.1171424468743554,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1672",
+      "b": "FJ1723M",
+      "side": "Left",
+      "minimumVertexGapMm": 0.2141068160776833,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1723M",
+      "b": "FJ1714M",
+      "side": "Left",
+      "minimumVertexGapMm": 0.074510231684273,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1692M",
+      "b": "FJ1660M",
+      "side": "Left",
+      "minimumVertexGapMm": 0.11864120522633434,
+      "screen": "close at 3 mm screen"
+    },
+    {
+      "a": "FJ1660M",
+      "b": "FJ1694M",
+      "side": "Left",
+      "minimumVertexGapMm": 2.1409863802270452,
+      "screen": "close at 3 mm screen"
+    }
+  ],
+  "basilarAlternative": {
+    "selected": "FJ1672",
+    "excluded": "FJ1844",
+    "minimumVertexGapMm": 0.08848740023302382,
+    "reason": "Overlapping alternate source basilar representation; both are not displayed together."
+  },
+  "coverage": [
+    {
+      "element": "FJ1672",
+      "name": "Basilar artery",
+      "vertices": 140,
+      "triangles": 262,
+      "connectedComponents": 1,
+      "boundaryEdges": 26,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "f8240a3e61334d6843f3b5c1e28de93be83693d2dd41ba34ec7ebbbec446e7d6",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "artery",
+        "basilar artery",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ segment",
+        "physical anatomical entity",
+        "region of vascular tree organ",
+        "segment of arterial tree organ",
+        "subdivision of subclavian artery",
+        "systemic artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -3.48906977690514,
+          -11.274976784586102,
+          -45.78809031709693
+        ],
+        [
+          -0.4708608920850139,
+          5.021403948086004,
+          -22.174907255653125
+        ]
+      ]
+    },
+    {
+      "element": "FJ1655",
+      "name": "Anterior communicating artery",
+      "vertices": 63,
+      "triangles": 80,
+      "connectedComponents": 1,
+      "boundaryEdges": 44,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "9e93878f7df5385e705674367796c02b86082fb2df1d3e35c9c801658e3f4914",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "anterior communicating artery",
+        "artery",
+        "branch of anterior cerebral artery",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ segment",
+        "physical anatomical entity",
+        "region of vascular tree organ",
+        "segment of arterial tree organ",
+        "subdivision of cerebral part of internal carotid artery",
+        "subdivision of common carotid artery",
+        "subdivision of internal carotid artery",
+        "systemic artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -6.670573938690772,
+          18.632923749855024,
+          -20.257085668089758
+        ],
+        [
+          -0.3926488676682567,
+          20.037783088306355,
+          -18.7693411952921
+        ]
+      ]
+    },
+    {
+      "element": "FJ1654",
+      "name": "Right anterior cerebral artery",
+      "vertices": 213,
+      "triangles": 400,
+      "connectedComponents": 1,
+      "boundaryEdges": 30,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "7f146e7551bb53d1ad7f5d98a77a16d8c7ea4e8ab86012bfd3c92b782df2a5dd",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "anterior cerebral artery",
+        "artery",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ segment",
+        "physical anatomical entity",
+        "region of vascular tree organ",
+        "right anterior cerebral artery",
+        "segment of arterial tree organ",
+        "subdivision of cerebral part of internal carotid artery",
+        "subdivision of common carotid artery",
+        "subdivision of internal carotid artery",
+        "systemic artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -3.538944582968334,
+          17.232695833563355,
+          -22.488420736076023
+        ],
+        [
+          9.862489452206376,
+          29.210312175121487,
+          -10.739896011146584
+        ]
+      ]
+    },
+    {
+      "element": "FJ1692",
+      "name": "Right middle cerebral artery \u2014 M1",
+      "vertices": 402,
+      "triangles": 800,
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "99bb5115dcc1d28e6e89d6e35d6b013b31b8903e358f9cbd8cec1652c3bb97c2",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "sphenoid part of middle cerebral artery",
+        "sphenoid part of right middle cerebral artery",
+        "zone of artery",
+        "zone of middle cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          7.710191774520233,
+          17.64736676972109,
+          -23.242201964043034
+        ],
+        [
+          37.3451830549127,
+          24.13818986116337,
+          -9.9353702771798
+        ]
+      ]
+    },
+    {
+      "element": "FJ1660",
+      "name": "Right middle cerebral artery \u2014 M2 part 1",
+      "vertices": 579,
+      "triangles": 1154,
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "7d032ea5f922e80c51f5e0f7718b1fcd42836b355e4d725bf729cad034993cf1",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "insular part of middle cerebral artery",
+        "insular part of right middle cerebral artery",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "zone of artery",
+        "zone of middle cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          30.579404359807988,
+          19.053048466305768,
+          -16.1436957104886
+        ],
+        [
+          35.88821057956741,
+          27.01169532103785,
+          -4.309159207991797
+        ]
+      ]
+    },
+    {
+      "element": "FJ1694",
+      "name": "Right middle cerebral artery \u2014 M2 part 2",
+      "vertices": 2361,
+      "triangles": 4706,
+      "connectedComponents": 1,
+      "boundaryEdges": 22,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "c0112564a5793a0c8bdbf869fb958d17cd3b010283746e8411796519f4109bdd",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "insular part of middle cerebral artery",
+        "insular part of right middle cerebral artery",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "zone of artery",
+        "zone of middle cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          35.00307695537247,
+          -8.2550565939477,
+          -12.2792648732418
+        ],
+        [
+          50.17678467349538,
+          19.99693352134608,
+          14.206344867332064
+        ]
+      ]
+    },
+    {
+      "element": "FJ1723",
+      "name": "Right posterior cerebral artery \u2014 P1",
+      "vertices": 155,
+      "triangles": 282,
+      "connectedComponents": 1,
+      "boundaryEdges": 34,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "393b338781937f4eb45eec208fdf00090f36f90f3f481e969ae98a6f6f6adbcc",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "precommunicating part of posterior cerebral artery",
+        "precommunicating part of right posterior cerebral artery",
+        "zone of artery",
+        "zone of posterior cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -2.7439549676773183,
+          2.778170466522397,
+          -24.47054840829651
+        ],
+        [
+          5.053410653735973,
+          6.965788074502825,
+          -19.894419908124064
+        ]
+      ]
+    },
+    {
+      "element": "FJ1714",
+      "name": "Right posterior cerebral artery \u2014 P2",
+      "vertices": 280,
+      "triangles": 544,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "ba07c4d6fc803ea1e8a17a6c3cc26b67b32ebe8ef473dc1761fed936f1db3013",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "postcommunicating part of posterior cerebral artery",
+        "postcommunicating part of right posterior cerebral artery",
+        "zone of artery",
+        "zone of posterior cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          3.322861571932876,
+          -24.506755092856565,
+          -24.751551362943246
+        ],
+        [
+          15.214847071760502,
+          6.996774744000561,
+          -10.288433785316556
+        ]
+      ]
+    },
+    {
+      "element": "FJ1713",
+      "name": "Right posterior communicating artery",
+      "vertices": 122,
+      "triangles": 204,
+      "connectedComponents": 1,
+      "boundaryEdges": 48,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "a568f857676b6795c9b58c83c011d4d0f0e12cd746dcda95bd9ab65631cb0d86",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "artery",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ segment",
+        "physical anatomical entity",
+        "posterior communicating artery",
+        "region of vascular tree organ",
+        "right posterior communicating artery",
+        "segment of arterial tree organ",
+        "subdivision of cerebral part of internal carotid artery",
+        "subdivision of common carotid artery",
+        "subdivision of internal carotid artery",
+        "systemic artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          2.4137264350707,
+          5.623700753186029,
+          -25.716359724325457
+        ],
+        [
+          7.419669477052523,
+          17.99793019507075,
+          -20.65384018510872
+        ]
+      ]
+    },
+    {
+      "element": "FJ1682",
+      "name": "Right internal carotid artery",
+      "vertices": 650,
+      "triangles": 1272,
+      "connectedComponents": 1,
+      "boundaryEdges": 36,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": null,
+      "sourceSHA256": "7bb929f419a3b37c8cffe1a1bf59c0374b26e2c1027d061956e5d73b31eb295b",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "artery",
+        "cardinal organ part",
+        "internal carotid artery",
+        "material anatomical entity",
+        "organ region",
+        "organ segment",
+        "physical anatomical entity",
+        "region of vascular tree organ",
+        "right internal carotid artery",
+        "segment of arterial tree organ",
+        "subdivision of common carotid artery",
+        "systemic artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          5.086324776710548,
+          -1.5801103425373526,
+          -113.03090276700937
+        ],
+        [
+          26.882412089111504,
+          22.037649338009544,
+          -19.73866118584533
+        ]
+      ]
+    },
+    {
+      "element": "FJ1654M",
+      "name": "Left anterior cerebral artery",
+      "vertices": 213,
+      "triangles": 400,
+      "connectedComponents": 1,
+      "boundaryEdges": 30,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": 0.000999999999990564,
+      "sourceSHA256": "b5bbd053a3b23de2490f00262adc37044f2a1f09f6548468b9595add93806dcc",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "anterior cerebral artery",
+        "artery",
+        "cardinal organ part",
+        "left anterior cerebral artery",
+        "material anatomical entity",
+        "organ region",
+        "organ segment",
+        "physical anatomical entity",
+        "region of vascular tree organ",
+        "segment of arterial tree organ",
+        "subdivision of cerebral part of internal carotid artery",
+        "subdivision of common carotid artery",
+        "subdivision of internal carotid artery",
+        "systemic artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -17.982766715511204,
+          14.976098946005493,
+          -20.92613390745646
+        ],
+        [
+          -5.4982639555413755,
+          28.386912103294435,
+          -10.351068489282397
+        ]
+      ]
+    },
+    {
+      "element": "FJ1692M",
+      "name": "Left middle cerebral artery \u2014 M1",
+      "vertices": 402,
+      "triangles": 800,
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": 0.009999999999990905,
+      "sourceSHA256": "2a40b6986263e9372009ee06b8007ff4e7e417b1f6813b1ce80fdcbd26ee9ba6",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "sphenoid part of left middle cerebral artery",
+        "sphenoid part of middle cerebral artery",
+        "zone of artery",
+        "zone of middle cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -42.81216150607734,
+          7.491889261069559,
+          -21.359186088530578
+        ],
+        [
+          -16.031185143673653,
+          19.221164604968465,
+          -4.803370024517108
+        ]
+      ]
+    },
+    {
+      "element": "FJ1660M",
+      "name": "Left middle cerebral artery \u2014 M2 part 1",
+      "vertices": 579,
+      "triangles": 1154,
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": 0.009999999999990905,
+      "sourceSHA256": "0d1b6ccd0b8c94788b9c298dd53d0a299b05e8030b74bab7e95241fce856122c",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "insular part of left middle cerebral artery",
+        "insular part of middle cerebral artery",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "zone of artery",
+        "zone of middle cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -42.49144599386779,
+          9.933223532994703,
+          -11.537618473674911
+        ],
+        [
+          -37.08561137107467,
+          17.091067825511175,
+          0.695493122468406
+        ]
+      ]
+    },
+    {
+      "element": "FJ1694M",
+      "name": "Left middle cerebral artery \u2014 M2 part 2",
+      "vertices": 2362,
+      "triangles": 4706,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": 0.00010000000000331966,
+      "sourceSHA256": "7ed96fddfe2ff72fe5234953b23133d14a68c4a3be0efdf10ded79d5e9c8ebd2",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "insular part of left middle cerebral artery",
+        "insular part of middle cerebral artery",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "zone of artery",
+        "zone of middle cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -46.38435208922968,
+          -18.022318584805646,
+          -7.1584051371687565
+        ],
+        [
+          -30.992443122207256,
+          9.851116932127184,
+          18.932548618231067
+        ]
+      ]
+    },
+    {
+      "element": "FJ1723M",
+      "name": "Left posterior cerebral artery \u2014 P1",
+      "vertices": 155,
+      "triangles": 282,
+      "connectedComponents": 1,
+      "boundaryEdges": 34,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": 0.00010000000000331966,
+      "sourceSHA256": "635ccce57e567e26f4c2daa15721945aabd21038383fc5e613eba7d31416f874",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "precommunicating part of left posterior cerebral artery",
+        "precommunicating part of posterior cerebral artery",
+        "zone of artery",
+        "zone of posterior cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -9.947873979819,
+          2.5940620551533584,
+          -24.37527171407737
+        ],
+        [
+          -2.0920814279415723,
+          5.534633078148829,
+          -19.32492709117264
+        ]
+      ]
+    },
+    {
+      "element": "FJ1714M",
+      "name": "Left posterior cerebral artery \u2014 P2",
+      "vertices": 280,
+      "triangles": 544,
+      "connectedComponents": 1,
+      "boundaryEdges": 24,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": 9.999999999621423e-05,
+      "sourceSHA256": "47cc36ee66eb51db5e9bc1898ef1c9679c72663ddb86a4eeb3946511b123d170",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "cardinal organ part",
+        "material anatomical entity",
+        "organ region",
+        "organ zone",
+        "physical anatomical entity",
+        "postcommunicating part of left posterior cerebral artery",
+        "postcommunicating part of posterior cerebral artery",
+        "zone of artery",
+        "zone of posterior cerebral artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -16.96361219109146,
+          -27.119150343825936,
+          -23.167711892044053
+        ],
+        [
+          -7.0971120148236935,
+          5.270808132859258,
+          -9.008449406893305
+        ]
+      ]
+    },
+    {
+      "element": "FJ1713M",
+      "name": "Left posterior communicating artery",
+      "vertices": 122,
+      "triangles": 204,
+      "connectedComponents": 1,
+      "boundaryEdges": 48,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": 0.0010000000000047748,
+      "sourceSHA256": "5f3bda878361debaa1e0e2e13c31093259a43ab42b9ac8254c876cfd934a42bc",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "artery",
+        "cardinal organ part",
+        "left posterior communicating artery",
+        "material anatomical entity",
+        "organ region",
+        "organ segment",
+        "physical anatomical entity",
+        "posterior communicating artery",
+        "region of vascular tree organ",
+        "segment of arterial tree organ",
+        "subdivision of cerebral part of internal carotid artery",
+        "subdivision of common carotid artery",
+        "subdivision of internal carotid artery",
+        "systemic artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -15.403640776609919,
+          4.141042544139964,
+          -24.36037739319181
+        ],
+        [
+          -7.416086639451748,
+          15.208836125248467,
+          -19.903532303634847
+        ]
+      ]
+    },
+    {
+      "element": "FJ1682M",
+      "name": "Left internal carotid artery",
+      "vertices": 650,
+      "triangles": 1272,
+      "connectedComponents": 1,
+      "boundaryEdges": 36,
+      "nonmanifoldEdges": 0,
+      "reflectedCounterpartBoundingBoxDifferenceMm": 0.000999999999990564,
+      "sourceSHA256": "117074e676e00306d95277cf2c4155a73c3684674bab401be4aec3acdfa11cce",
+      "officialConceptNames": [
+        "anatomical entity",
+        "anatomical structure",
+        "artery",
+        "cardinal organ part",
+        "internal carotid artery",
+        "left internal carotid artery",
+        "material anatomical entity",
+        "organ region",
+        "organ segment",
+        "physical anatomical entity",
+        "region of vascular tree organ",
+        "segment of arterial tree organ",
+        "subdivision of common carotid artery",
+        "systemic artery"
+      ],
+      "fittedBoundsRASmm": [
+        [
+          -40.92069686580904,
+          -9.896522289078632,
+          -108.82107184769484
+        ],
+        [
+          -12.7024786197696,
+          18.503778784160886,
+          -18.248325607622974
+        ]
+      ]
+    }
+  ],
+  "limitations": [
+    "Bounding-box centres are registration proxies, not expert anatomical landmarks; errors are not vessel target registration errors.",
+    "Source M elements may contain source-generated symmetric anatomy; no meshes were mirrored by MAPPED.",
+    "99 percent polygon-reduced source geometry; fine branches and lumen continuity are not validated.",
+    "BodyParts3D and SPL are different anatomical references. These vessels do not share the CT-to-MRI fit used by the skull or neck vessels; their junctions are not validated.",
+    "No expert reviewer or angiographic target establishes artery placement. No anatomical accuracy percentage."
+  ]
+}

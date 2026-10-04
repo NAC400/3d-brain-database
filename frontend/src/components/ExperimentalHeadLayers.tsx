@@ -4,42 +4,45 @@ import * as THREE from 'three';
 import { BRAIN_SCALE } from './BrainModel';
 import { useBrainStore } from '../store/brainStore';
 import metadata from '../data/experimentalHeadRegions.json';
+import centralMetadata from '../data/centralArteryRegions.json';
 
-export const headRegions = metadata.regions.map(region => ({ ...region, name: region.name.replace(/_/g, ' ').replace(/^\w/, letter => letter.toUpperCase()) }));
+export const headRegions = [...metadata.regions, ...centralMetadata.regions].map(region => ({ ...region, name: region.name.replace(/_/g, ' ').replace(/^\w/, letter => letter.toUpperCase()) }));
 
 export interface HeadLayerOptions {
   enabled: boolean;
   skull: boolean;
   arteries: boolean;
   veins: boolean;
+  central: boolean;
   skullOpacity: number;
   vesselOpacity: number;
 }
 
 const ExperimentalHeadLayers: React.FC<{ options: HeadLayerOptions; origin: THREE.Vector3 }> = ({ options, origin }) => {
   const { scene } = useGLTF('/models/spl-head-neck/skull-vessels-experimental-fit.glb');
+  const { scene: centralScene } = useGLTF('/models/bodyparts3d-central/central-arteries.glb');
   const { selectedRegion, hoveredRegion, isolatedRegion, setSelectedRegion, setHoveredRegion, setIsolatedRegion, setHeadRegions, highlightColors, highlightMode, setHighlightColor } = useBrainStore();
   useEffect(() => {
     // Separate head inventory keeps brain counts intact; IDs remain dataset-specific.
-    setHeadRegions(headRegions.filter(region => region.category === 'Skeleton' ? options.skull : region.category === 'Arteries' ? options.arteries : options.veins));
-  }, [setHeadRegions, options.skull, options.arteries, options.veins]);
+    setHeadRegions(headRegions.filter(region => region.category === 'Intracranial arteries' ? options.central : region.category === 'Skeleton' ? options.skull : region.category === 'Arteries' ? options.arteries : options.veins));
+  }, [setHeadRegions, options.skull, options.arteries, options.veins, options.central]);
   useEffect(() => () => { setHeadRegions([]); setHoveredRegion(null); document.body.style.cursor = ''; }, [setHeadRegions, setHoveredRegion]);
   const meshes = useMemo(() => {
-    const result: { mesh: THREE.Mesh; system: 'skull' | 'arteries' | 'veins'; material: THREE.MeshStandardMaterial }[] = [];
-    scene.traverse(object => {
+    const result: { mesh: THREE.Mesh; system: 'skull' | 'arteries' | 'veins' | 'central'; material: THREE.MeshStandardMaterial }[] = [];
+    for (const asset of [scene, centralScene]) asset.traverse(object => {
       if (!(object instanceof THREE.Mesh)) return;
-      const system = /jugular/.test(object.name) ? 'veins' : /carotid|vertebral/.test(object.name) ? 'arteries' : 'skull';
+      const system = object.name.startsWith('BP3D_') ? 'central' : /jugular/.test(object.name) ? 'veins' : /carotid|vertebral/.test(object.name) ? 'arteries' : 'skull';
       result.push({ mesh: object, system, material: new THREE.MeshStandardMaterial({
-        color: system === 'skull' ? '#e8ddc5' : system === 'arteries' ? '#f87171' : '#60a5fa',
+        color: system === 'skull' ? '#e8ddc5' : system === 'veins' ? '#60a5fa' : '#f87171',
         transparent: true, depthWrite: false, side: THREE.DoubleSide, roughness: 0.8,
       }) });
     });
     return result;
-  }, [scene]);
+  }, [scene, centralScene]);
   useEffect(() => () => meshes.forEach(({ material }) => material.dispose()), [meshes]);
   useEffect(() => {
     for (const { mesh, system, material } of meshes) {
-      material.color.set(highlightColors[mesh.name] ?? (system === 'skull' ? '#e8ddc5' : system === 'arteries' ? '#f87171' : '#60a5fa'));
+      material.color.set(highlightColors[mesh.name] ?? (system === 'skull' ? '#e8ddc5' : system === 'veins' ? '#60a5fa' : '#f87171'));
       material.emissive.set(mesh.name === selectedRegion ? '#685b14' : mesh.name === hoveredRegion ? '#302b10' : '#000000');
     }
   }, [meshes, selectedRegion, hoveredRegion, highlightColors]);

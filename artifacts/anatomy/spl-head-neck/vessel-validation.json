@@ -1,0 +1,162 @@
+{
+  "reviewed": "2026-10-05",
+  "status": "TECHNICAL CHECK ONLY; anatomical accuracy unquantified",
+  "weldToleranceMm": 0.0001,
+  "findings": [
+    {
+      "name": "left_internal_jugular_vein",
+      "vertices": 3619,
+      "triangles": 7100,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        7100
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "maximumExportTransformResidualMm": 0.000007925609797817277,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "right_internal_jugular_vein",
+      "vertices": 6194,
+      "triangles": 12210,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        12210
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "maximumExportTransformResidualMm": 0.00000784994285804669,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "right_vertebral_artery",
+      "vertices": 3728,
+      "triangles": 6836,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        6836
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "maximumExportTransformResidualMm": 0.000007640207160376486,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "right_external_carotid",
+      "vertices": 813,
+      "triangles": 1566,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        1566
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "maximumExportTransformResidualMm": 0.000007661207138685937,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "right_common_carotid",
+      "vertices": 3303,
+      "triangles": 6432,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        6432
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "maximumExportTransformResidualMm": 0.000007838679488186085,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "right_internal_carotid",
+      "vertices": 1338,
+      "triangles": 2568,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        2568
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 2,
+      "maximumExportTransformResidualMm": 0.000007635454873914731,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "left_internal_carotid",
+      "vertices": 1662,
+      "triangles": 3194,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        3194
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "maximumExportTransformResidualMm": 0.000007724968855847381,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "left_external_carotid",
+      "vertices": 583,
+      "triangles": 1118,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        1118
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "maximumExportTransformResidualMm": 0.000007519977256926924,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "left_vertebral_artery",
+      "vertices": 3398,
+      "triangles": 6048,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        6048
+      ],
+      "connectedComponents": 1,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 4,
+      "maximumExportTransformResidualMm": 0.0000078089882325809,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    },
+    {
+      "name": "left_common_carotid",
+      "vertices": 2888,
+      "triangles": 5574,
+      "collapsedTrianglesAtWeldTolerance": 0,
+      "componentTriangleCounts": [
+        5556,
+        12,
+        6
+      ],
+      "connectedComponents": 3,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "maximumExportTransformResidualMm": 0.000007914897667771605,
+      "completeAnatomicalCourse": "not established; source labels and vessel names do not establish complete branches or endpoints"
+    }
+  ],
+  "coverage": {
+    "vesselMeshes": 10,
+    "circleOfWillis": "absent",
+    "basilar": "absent",
+    "cerebralArteries": "absent",
+    "duralVenousSinuses": "absent"
+  },
+  "registration": {
+    "landmarkResidualsMm": null,
+    "reviewer": null,
+    "method": "Rigid Euler3D; Mattes mutual information; geometry-centre initialization; no landmarks or masks"
+  },
+  "interpretation": "Export residual measures faithful application of the chosen transform, not distance to true anatomy. Closed or connected surfaces do not prove full vessel courses. Cross-subject anatomical accuracy needs independent landmarks, source-volume review and expert review; no defensible accuracy percentage exists yet."
+}

@@ -112,7 +112,9 @@ const RegionInfoPanel: React.FC = () => {
         </div>
       </div>
 
-      {region.dataset === 'spl-head-neck-2016-09' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>SPL Head and Neck Atlas · experimental CT-to-MRI fit, not anatomically validated. <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
+      {region.dataset === 'spl-head-neck-2016-09' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>Illustrative SPL Head and Neck Atlas preview. Cross-subject placement and complete vessel courses remain unvalidated; anatomical accuracy is unquantified. Not for clinical decisions. <a href="/models/spl-head-neck/vessel-validation.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Technical checks</a> · <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
+
+      {region.dataset === 'bodyparts3d-central-4' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>BodyParts3D central artery · experimental illustrative fit. Vessel position and lumen continuity are unvalidated; source bilateral geometry may be symmetric. Not for clinical decisions. <a href="/models/bodyparts3d-central/coverage-and-alignment.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Coverage & alignment</a> · <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
 
       {/* Anatomical description from Allen Atlas */}
       {description && (
