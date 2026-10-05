@@ -2,8 +2,8 @@ import React, { useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import './ContactLink.css';
 
-// Replace this placeholder with the project's public contact address.
-const CONTACT_EMAIL = 'hello@example.com';
+// Shared public contact address for the header and feedback email drafts.
+const CONTACT_EMAIL = 'mapped.nac@gmail.com';
 
 const SUBJECTS = ['Give feedback', 'Report an issue', 'Careers / join the team', 'Business / partnership'];
 
@@ -40,7 +40,7 @@ const ContactLink: React.FC = () => {
             <label>Name (optional)<input name="name" autoComplete="name" maxLength={100} /></label>
             <label>Reply email (optional)<input name="email" type="email" autoComplete="email" maxLength={254} /></label>
             <label>Message<textarea name="message" required maxLength={2000} rows={5} placeholder="What would you like us to know? For an issue, include what happened and how to reproduce it." /></label>
-            <p className="mapped-contact-note">This opens a draft in your email app; you send it from there. The contact address is currently a placeholder: {CONTACT_EMAIL}.</p>
+            <p className="mapped-contact-note">This opens a draft in your email app addressed to {CONTACT_EMAIL}; you send it from there.</p>
             <button className="mapped-contact-button" type="submit">Prepare email</button>
           </form>
         </dialog>, document.body
