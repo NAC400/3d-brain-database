@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './ProductTheme.css';
 import BrainScene from './components/BrainScene';
+import ExplorerGuide from './components/ExplorerGuide';
 import RegionInfoPanel from './components/RegionInfoPanel';
 import ControlsToolbar from './components/ControlsToolbar';
 import RegionSearch from './components/RegionSearch';
@@ -54,6 +55,7 @@ const App: React.FC = () => {
   // ── Keyboard shortcuts ──
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (document.querySelector('[data-explorer-tour-open="true"]')) return;
       const tag = (e.target as HTMLElement).tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       switch (e.key.toLowerCase()) {
@@ -131,14 +133,14 @@ const App: React.FC = () => {
 
         {/* Region search — only in explorer */}
         {appPage === 'explorer' && (
-          <div style={{ flex: 1, maxWidth: 360 }}>
+          <div data-tour="search" style={{ flex: 1, maxWidth: 360 }}>
             <RegionSearch />
           </div>
         )}
 
         {/* Explorer mode toggle + Research panel toggle — only in explorer */}
         {appPage === 'explorer' && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+          <div data-tour="research" style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
             {/* Personal / Community toggle */}
             <div style={{
               display: 'flex', borderRadius: 6, overflow: 'hidden',
@@ -194,7 +196,7 @@ const App: React.FC = () => {
 
         {/* Project selector — visible in explorer + library */}
         {(appPage === 'explorer' || appPage === 'library') && (
-          <div style={{ position: 'relative', flexShrink: 0 }}>
+          <div data-tour="projects" style={{ position: 'relative', flexShrink: 0 }}>
             <button
               onClick={() => setProjectDropOpen((o) => !o)}
               style={{
@@ -319,7 +321,7 @@ const App: React.FC = () => {
             </button>
           )}
         </nav>
-        <a href="#data-sources" onClick={() => setAppPage('data-sources')} style={{ color: 'var(--product-muted)', fontSize: 12 }}>Data sources & licences</a>
+        <a data-tour="help" href="#data-sources" onClick={() => setAppPage('data-sources')} style={{ color: 'var(--product-muted)', fontSize: 12 }}>Data sources & licences</a>
         <ContactLink />
       </header>
 
@@ -333,6 +335,7 @@ const App: React.FC = () => {
             outlineOffset: '-2px',
           }}>
             <BrainScene />
+            <ExplorerGuide />
             <div className="explorer-mode-status" role="status" aria-live="polite" aria-atomic="true">
               <strong>{explorerMode === 'community' ? 'Community research' : 'Personal workspace'}</strong>
               <span>{explorerMode === 'community' ? 'Browse shared evidence in the Research panel.' : 'Your saved sources and notes.'}</span>
@@ -410,7 +413,7 @@ const App: React.FC = () => {
 
       {/* ── Footer toolbar — only in explorer ── */}
       {appPage === 'explorer' && (
-        <footer style={{
+        <footer data-tour="tools" style={{
           display: 'flex', alignItems: 'center',
           padding: '0 24px', height: 44,
           borderTop: '1px solid rgba(59,130,246,0.08)',

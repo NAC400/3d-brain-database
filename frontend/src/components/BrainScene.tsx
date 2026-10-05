@@ -1,5 +1,5 @@
 import React, { Suspense, useRef, useState, useCallback } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, events as defaultEvents } from '@react-three/fiber';
 import { OrbitControls, Environment, Html, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
 import BrainModel from './BrainModel';
@@ -61,6 +61,19 @@ const BrainScene: React.FC = () => {
   const [origin, setOrigin] = useState<{ atlas: 'spl' | 'allen'; offset: THREE.Vector3 } | null>(null);
   const receiveOrigin = useCallback((offset: THREE.Vector3) => setOrigin({ atlas, offset }), [atlas]);
   const [head, setHead] = useState<HeadLayerOptions>({ enabled: false, skull: true, arteries: true, veins: false, central: false, folds: false, sinuses: false, skullOpacity: 0.2, vesselOpacity: 0.85, foldOpacity: 0.45 });
+  const [showBrain, setShowBrain] = useState(true);
+  const selectSource = (source: 'brain' | 'spl' | 'bodyparts' | 'z') => {
+    const store = useBrainStore.getState();
+    store.setSelectedRegion(null);
+    store.setIsolatedRegion(null);
+    store.setHoveredRegion(null);
+    store.setExplodeAmount(0);
+    store.resetClipping();
+    // Avoid clearing brain metadata when its mounted atlas is unchanged.
+    if (store.brainAtlas !== 'spl') store.setBrainAtlas('spl');
+    setShowBrain(source === 'brain');
+    setHead(current => ({ ...current, enabled: source !== 'brain', skull: source === 'spl', arteries: source === 'spl', veins: source === 'spl', central: source === 'bodyparts', folds: source === 'z', sinuses: source === 'z' }));
+  };
   const toggle = (key: 'enabled' | 'skull' | 'arteries' | 'veins' | 'central' | 'folds' | 'sinuses') => setHead(current => ({ ...current, [key]: !current[key] }));
 
   return (
@@ -69,6 +82,7 @@ const BrainScene: React.FC = () => {
      * position:relative, so inset:0 here stretches this div to fill it completely.
      */
     <div
+      data-tour="scene"
       style={{
         position: 'absolute',
         inset: 0,
@@ -78,6 +92,13 @@ const BrainScene: React.FC = () => {
       }}
     >
       <Canvas
+        // Three.js can raycast invisible meshes: reject hits beneath a hidden
+        // ancestor so a source-only view cannot select the hidden brain.
+        events={state => ({ ...defaultEvents(state), filter: hits => hits.filter(hit => {
+          let object: THREE.Object3D | null = hit.object;
+          while (object) { if (!object.visible) return false; object = object.parent; }
+          return true;
+        }) })}
         // Each atlas has a different extent/origin. Start its scene with the
         // standard view rather than inheriting a zoom inside the previous brain.
         key={atlas}
@@ -112,7 +133,9 @@ const BrainScene: React.FC = () => {
 
         <Suspense fallback={<ProgressFallback />}>
           <Environment preset="studio" />
-          <BrainModel key={atlas} atlas={atlas} onOrigin={receiveOrigin} />
+          <group visible={atlas !== 'spl' || !head.enabled || showBrain}>
+            <BrainModel key={atlas} atlas={atlas} onOrigin={receiveOrigin} />
+          </group>
         </Suspense>
 
         {/* Separate suspense boundary keeps the brain visible while optional assets load. */}
@@ -144,23 +167,41 @@ const BrainScene: React.FC = () => {
           }}
         />
       </Canvas>
-      <details className="head-layer-panel">
-        <summary>Experimental head layers</summary>
-        <p role="status">Alignment warning · brain–skull overlaps detected</p>
-        <details><summary>Validation & limitations</summary><p>All 10 vessels reproduce the original source geometry. The three flagged mesh issues already exist in that source. Source-label checks do not establish complete anatomical courses. A further check detected brain surface points within the fitted skull's bone label, including sampled depths up to 3.91 mm in source CT space. This experimental cross-subject alignment has not passed anatomical validation. The Circle of Willis and other intracranial vessel networks are missing. For learning and research illustration; not for clinical decisions.</p><a href="/models/spl-head-neck/vessel-source-review.json" target="_blank" rel="noreferrer">Read source and alignment checks</a> · <a href="/models/spl-head-neck/brain-skull-collision-review.png" target="_blank" rel="noreferrer">View overlap evidence</a></details>
+      <details className="head-layer-panel" data-tour="head">
+        <summary>Anatomy sources · experimental layers</summary>
+        <p className="head-layer-disclaimer" role="note"><strong>Experimental anatomy:</strong> these fits are not validated against the main brain. View source collections separately; overlays do not accurately represent a complete head. Shared-source structures can be explored together, but accuracy and connections remain unvalidated. Coverage is incomplete. For learning and research illustration, not clinical decisions.</p>
+        <div className="head-source-views" aria-label="Recommended source views">
+          <span>Recommended views · one source at a time</span>
+          <button aria-pressed={atlas === 'spl' && !head.enabled} onClick={() => selectSource('brain')}>Brain · SPL/NAC (main model)</button>
+          <button aria-pressed={atlas === 'spl' && head.enabled && head.skull && head.arteries && head.veins && !head.central && !head.folds && !head.sinuses && !showBrain} onClick={() => selectSource('spl')}>Skull & neck vessels · SPL</button>
+          <button aria-pressed={atlas === 'spl' && head.enabled && head.central && !head.skull && !head.arteries && !head.veins && !head.folds && !head.sinuses && !showBrain} onClick={() => selectSource('bodyparts')}>Central arteries · BodyParts3D</button>
+          <button aria-pressed={atlas === 'spl' && head.enabled && head.folds && head.sinuses && !head.skull && !head.arteries && !head.veins && !head.central && !showBrain} onClick={() => selectSource('z')}>Dural folds & sinuses · Z-Anatomy</button>
+        </div>
+        <details><summary>Validation details & missing anatomy</summary>
+          <p>SPL skull and neck vessels come from a different subject than the main brain. Brain–skull overlaps reach 3.91 mm in sampled CT space. The SPL neck collection does not include the Circle of Willis; central arteries are available in the separate BodyParts3D collection. Vessel courses and connections between datasets are unvalidated.</p>
+          <p>BodyParts3D and Z-Anatomy fits were checked against reference brain surfaces, not validated for vessel accuracy. Z-Anatomy’s straight-sinus placement was reconstructed; small junction gaps remain and lumen continuity is unproven. Cavernous sinuses have disconnected parts and the falx has topology irregularities.</p>
+          <p>Outer cranial dura, arachnoid and pia membranes are unavailable. Fine vascular branches are incomplete. Source views retain the existing illustrative transforms, not native source coordinates.</p>
+          <a href="/models/spl-head-neck/vessel-source-review.json" target="_blank" rel="noreferrer">SPL checks</a> · <a href="/models/spl-head-neck/brain-skull-collision-review.png" target="_blank" rel="noreferrer">Overlap evidence</a> · <a href="/models/bodyparts3d-central/coverage-and-alignment.json" target="_blank" rel="noreferrer">Arterial coverage</a> · <a href="/models/z-anatomy-meninges/coverage-and-alignment.json" target="_blank" rel="noreferrer">Dural & sinus coverage</a>
+        </details>
         {atlas !== 'spl' ? <p>Select the SPL/NAC atlas to preview these layers.</p> : <>
-          <label><input type="checkbox" checked={head.enabled} onChange={() => toggle('enabled')} /> Show experimental head layers</label>
+          <label><input type="checkbox" checked={head.enabled} onChange={() => {
+            if (!head.enabled) setShowBrain(false);
+            useBrainStore.getState().setSelectedRegion(null);
+            useBrainStore.getState().setIsolatedRegion(null);
+            toggle('enabled');
+          }} /> Show experimental head layers</label>
           {head.enabled && <>
+            <label><input type="checkbox" checked={showBrain} onChange={() => {
+              setShowBrain(current => !current);
+              useBrainStore.getState().setSelectedRegion(null);
+              useBrainStore.getState().setIsolatedRegion(null);
+            }} /> Show main brain for comparison</label>
             <label><input type="checkbox" checked={head.skull} onChange={() => toggle('skull')} /> Skull & mandible</label>
             <label><input type="checkbox" checked={head.arteries} onChange={() => toggle('arteries')} /> Neck arteries (SPL)</label>
             <label><input type="checkbox" checked={head.central} onChange={() => toggle('central')} /> Central arteries (BodyParts3D)</label>
-            {head.central && <p>Shape-refined illustrative artery fit · held-out reference-surface median differences are 3.7–3.8 mm, with 95th percentiles of 8.8–9.3 mm. These are atlas surface checks, not vessel accuracy. Source bilateral elements include symmetric geometry. Skull and neck vessels use a different fit; connections between datasets are unvalidated. <a href="/models/bodyparts3d-central/coverage-and-alignment.json" target="_blank" rel="noreferrer">Coverage & alignment checks</a></p>}
             <label><input type="checkbox" checked={head.veins} onChange={() => toggle('veins')} /> Jugular veins</label>
             <label><input type="checkbox" checked={head.folds} onChange={() => toggle('folds')} /> Dural folds (falx & tentorium)</label>
             <label><input type="checkbox" checked={head.sinuses} onChange={() => toggle('sinuses')} /> Dural venous sinuses</label>
-            {(head.folds || head.sinuses) && <p>Shape-refined Z-Anatomy illustrative fit · held-out reference-surface medians are about 3.8 mm, with 95th percentiles of 9.1–9.4 mm. These are atlas surface checks, not vascular accuracy. Dural folds do not form a complete outer dura covering. <a href="/models/z-anatomy-meninges/coverage-and-alignment.json" target="_blank" rel="noreferrer">Coverage & alignment</a> · <a href="/models/z-anatomy-meninges/NOTICE.md" target="_blank" rel="noreferrer">Attribution & ShareAlike licence</a></p>}
-            {head.sinuses && <p role="status">Straight-sinus placement was reconstructed from source endpoints: the earlier 12–39 mm gaps are now about 0.25–1.1 mm by vertex proximity. This is not proof of lumen continuity or anatomical accuracy. Cavernous sinus source meshes still have disconnected parts.</p>}
-            {head.folds && <p>The falx source mesh has topology irregularities. Geometry is preserved for inspection, not anatomically repaired.</p>}
             <label>Select head structure
               <select aria-label="Select head structure" value={headRegions.some(region => region.meshName === selectedRegion) ? selectedRegion ?? '' : ''} onChange={event => {
                 useBrainStore.getState().setIsolatedRegion(null);
@@ -177,7 +218,6 @@ const BrainScene: React.FC = () => {
             {explodeAmount > 0 && <p role="status">Return Explode to zero to inspect alignment.</p>}
           </>}
         </>}
-        <p>Outer cranial dura, arachnoid and pia membranes remain unavailable. Fine vascular branches are incomplete.</p>
         <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')}>Sources & licence details</a>
       </details>
     </div>
