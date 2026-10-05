@@ -4,11 +4,16 @@ Input is world-transformed geometry extracted by inspect-z-anatomy.mjs. Helper
 labels are excluded. One proper similarity transform is shared across both systems.
 """
 from pathlib import Path
-import json,struct,numpy as np
+import json,struct,sys,numpy as np
 work=Path('artifacts/anatomy/z-anatomy');out=Path('frontend/public/models/z-anatomy-meninges');out.mkdir(parents=True,exist_ok=True)
 sources=[json.loads((work/(name+'-selected.json')).read_text()) for name in ['nervous','cardio']]
 meshes={m['name']:m for source in sources for m in source['meshes']}
-def points(name):return np.array(meshes[name]['points']).reshape(-1,3)
+correction=json.loads((work/'straight-sinus-correction.json').read_text()) if '--repair-straight' in sys.argv else None
+def points(name):
+ p=np.array(meshes[name]['points']).reshape(-1,3)
+ if correction and name=='Straight_sinus':
+  m=np.array(correction['sourceWorldCorrection']);p=p@m[:3,:3].T+m[:3,3]
+ return p
 # FBX world coordinates: right-labelled structures have negative X; Y is superior,
 # Z is anterior. Convert to RAS using a proper axis mapping, then a shared fit.
 orientation=np.array([[-1,0,0],[0,0,1],[0,1,0]],float)
@@ -23,14 +28,20 @@ for m in g['meshes']:
 anchors=[('pons',['Ponsl','Ponsr'],'SPL_pons'),('right putamen',['Putamenr'],'SPL_right_putamen'),('left putamen',['Putamenl'],'SPL_left_putamen'),('right caudate',['Caudate_nucleusr'],'SPL_right_caudate_nucleus'),('left caudate',['Caudate_nucleusl'],'SPL_left_caudate_nucleus')]
 x=np.array([centre(source_ras(names)) for _,names,_ in anchors]);y=np.array([centre(brain[key]) for _,_,key in anchors]);xc=x-x.mean(0);yc=y-y.mean(0)
 u,s,vt=np.linalg.svd(xc.T@yc);d=np.diag([1,1,np.linalg.det(u@vt)]);rotation=u@d@vt;scale=float(np.sum(s*np.diag(d))/np.sum(xc**2));translation=y.mean(0)-scale*x.mean(0)@rotation
+shape=json.loads(Path('artifacts/anatomy/shape-alignment-experiment.json').read_text()) if '--shape-fit' in sys.argv else None
+if shape:
+ if not shape['numericalAcceptanceBothHeldOutSurfacesImproveMedianAndP95']:raise ValueError('Held-out numerical check failed')
+ fit=np.array(shape['candidateWorldToTargetRAS']);linear=fit[:3,:3]@np.linalg.inv(orientation*10);scale=float(np.cbrt(np.linalg.det(linear)));rotation=linear.T/scale;translation=fit[:3,3]
 def transform(p):return scale*p@rotation+translation
 holdouts=[{'structure':side+' hippocampus','proxyErrorMm':float(np.linalg.norm(transform(centre(source_ras([name])))-centre(brain[key])))} for side,name,key in [('right','Hippocampusr','SPL_right_hippocampus'),('left','Hippocampusl','SPL_left_hippocampus')]]
 matrix=np.eye(4);matrix[:3,:3]=scale*rotation.T@orientation*10;matrix[:3,3]=translation
-report={'reviewed':'2026-10-05','status':'ILLUSTRATIVE / UNVALIDATED','sourceRepository':'https://github.com/LluisV/Z-Anatomy/tree/PC-Version/Resources/Models',
+report={'reviewed':'2026-10-06','status':'ILLUSTRATIVE / UNVALIDATED','sourceRepository':'https://github.com/LluisV/Z-Anatomy/tree/PC-Version/Resources/Models',
  'sourceFBXHashes':[s['sourceSHA256'] for s in sources],'method':'One proper similarity fit to five matching structure bounding-box centres; FBX world transforms preserved, helper geometry excluded',
  'sourceWorldToTargetRAS':matrix.tolist(),'uniformScaleAfterCentimetresToMillimetres':scale,'fitProxyErrorsMm':np.linalg.norm(transform(x)-y,axis=1).tolist(),'heldOutProxyChecks':holdouts,
  'topologyWeldToleranceSourceWorldUnits':0.000001,'coverage':[],'missing':['outer cranial dura shell','arachnoid membrane','pia mater','separate falx cerebelli','separate diaphragma sellae','separate confluence mesh'],
  'limitations':['Not anatomical landmark validation; no expert review or quantified vessel placement error.','Source anatomy contains symmetric bilateral representations.','Separate atlas from the SPL brain and the fitted skull/arteries; their spatial junctions are unvalidated.','Actual folds only; no procedural outer dura, pia or arachnoid shell is fabricated.','No clinical use.']}
+if shape:report.update(method=shape['method'],shapeAlignmentEvaluation=shape)
+if correction:report['straightSinusReconstructedPlacement']=correction
 selected=[n for n in meshes if n=='Falx_cerebri' or n.startswith('Tentorium_cerebelli') or '_sinus' in n]
 report['sinusJunctionProximity']=[]
 def gap(a,b):
@@ -60,6 +71,7 @@ for name in selected:
  label=name.replace('_',' ')
  if name.endswith(('l','r')) and name!='Falx_cerebri':label=('Left ' if name[-1]=='l' else 'Right ')+name[:-1].replace('_',' ')
  label=label[0].upper()+label[1:]
+ if correction and name=='Straight_sinus':label+=' · reconstructed placement'
  regions.append({'meshName':mesh_name,'name':label,'labelId':0,'sourceId':0,'dataset':'z-anatomy-meninges','acronym':'','color':'#60a5fa' if '_sinus' in name else '#cdb485','depth':0,'parentId':None,'parentName':None,'category':category,'sourceFile':name,'registrationStatus':'experimental-unreviewed'})
  # Weld duplicated FBX triangle vertices before auditing topology.
  _,ids=np.unique(np.rint(p/1e-6).astype(np.int64),axis=0,return_inverse=True);parent=list(range(int(ids.max())+1));edges={}

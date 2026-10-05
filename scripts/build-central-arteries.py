@@ -41,6 +41,10 @@ xc=x-x.mean(axis=0);yc=y-y.mean(axis=0);u,s,vt=np.linalg.svd(xc.T@yc)
 correction=np.diag([1,1,np.linalg.det(u@vt)]);rotation=u@correction@vt
 scale=float(np.sum(s*np.diag(correction))/np.sum(xc**2));translation=y.mean(axis=0)-scale*x.mean(axis=0)@rotation
 def fitted(p): return scale*(p*np.array([-1,-1,1]))@rotation+translation
+shape=json.loads(Path('artifacts/anatomy/bodyparts-shape-alignment-experiment.json').read_text()) if '--shape-fit' in sys.argv else None
+if shape:
+    if not shape['numericalAcceptanceBothHeldOutSurfacesImproveMedianAndP95']:raise ValueError('Held-out shape check failed')
+    candidate=np.array(shape['candidateWorldToTargetRAS']);linear=candidate[:3,:3]@np.diag([-1,-1,1]);scale=float(np.cbrt(np.linalg.det(linear)));rotation=linear.T/scale;translation=candidate[:3,3]
 matrix=np.eye(4);matrix[:3,:3]=scale*rotation.T@np.diag([-1,-1,1]);matrix[:3,3]=translation
 residuals=np.linalg.norm(scale*x@rotation+translation-y,axis=1)
 holdout=[]
@@ -63,7 +67,8 @@ for suffix,side in [('', 'Right'),('M','Left')]:
         value=gap(meshes[a][0],meshes[b][0])*scale
         junctions.append({'a':a,'b':b,'side':side,'minimumVertexGapMm':value,'screen':'close at 3 mm screen' if value<=3 else 'gap requires review'})
 audit=json.loads((source/'coverage-audit.json').read_text())
-mapping_rows=list(csv.DictReader(Path(sys.argv[1]).open(encoding='utf-8-sig'),delimiter='\t')) if len(sys.argv)>1 else audit['matches']
+mapping_path=next((a for a in sys.argv[1:] if not a.startswith('--')),None)
+mapping_rows=list(csv.DictReader(Path(mapping_path).open(encoding='utf-8-sig'),delimiter='\t')) if mapping_path else audit['matches']
 report={'status':'Experimental illustrative preview; not anatomically validated','reviewed':'2026-10-05',
     'method':'Single proper similarity transform fitted to five bounding-box centre proxies; no per-vessel adjustments',
     'sourceArchiveSHA256':audit['archiveSha256'],'sourceMappingSHA256':audit['mappingSha256'],
@@ -73,6 +78,7 @@ report={'status':'Experimental illustrative preview; not anatomically validated'
     'heldOutProxyChecks':holdout,'junctionProximity':junctions,
     'basilarAlternative':{'selected':'FJ1672','excluded':'FJ1844','minimumVertexGapMm':gap(obj('FJ1672')[0],obj('FJ1844')[0]),'reason':'Overlapping alternate source basilar representation; both are not displayed together.'},
     'coverage':[], 'limitations':['Bounding-box centres are registration proxies, not expert anatomical landmarks; errors are not vessel target registration errors.','Source M elements may contain source-generated symmetric anatomy; no meshes were mirrored by MAPPED.','99 percent polygon-reduced source geometry; fine branches and lumen continuity are not validated.','BodyParts3D and SPL are different anatomical references. These vessels do not share the CT-to-MRI fit used by the skull or neck vessels; their junctions are not validated.','No expert reviewer or angiographic target establishes artery placement. No anatomical accuracy percentage.']}
+if shape:report.update(reviewed='2026-10-06',method=shape['method'],shapeAlignmentEvaluation=shape)
 regions=[];binary=[];byte_length=0
 gl={'asset':{'version':'2.0','generator':'MAPPED BodyParts3D experimental central artery converter'},'scene':0,'scenes':[{'nodes':[]}],'nodes':[],'meshes':[],'accessors':[],'bufferViews':[],'buffers':[],'materials':[{'pbrMetallicRoughness':{'baseColorFactor':[1,0.2,0.2,1],'metallicFactor':0,'roughnessFactor':0.8},'doubleSided':True}]}
 def accessor(array,type_,component):
@@ -127,5 +133,6 @@ MAPPED selected 18 elements from the official BodyParts3D 4.0 IS-A 99%-reduced O
 
 Illustrative, incomplete, anatomically unvalidated. Vessel continuity and placement are not certified. The skull/neck atlas uses a different fit; cross-dataset junctions are not established. Not for clinical decisions.
 '''
+if shape:notice+='\nUpdated 6 October 2026: the shared fit was refined by labelled, symmetric trimmed surface matching with both hippocampi withheld. Published shapeAlignmentEvaluation records before/after sampled surface distances. No source artery shape was edited; anatomical placement remains unvalidated.\n'
 (out/'NOTICE.md').write_text(notice,encoding='utf-8')
 print(json.dumps({'meshes':len(regions),'scale':scale,'fitErrorsMm':residuals.tolist(),'holdout':holdout,'junctions':junctions,'bytes':len(packed)}))

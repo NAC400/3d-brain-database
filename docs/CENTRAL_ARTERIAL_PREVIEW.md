@@ -1,5 +1,7 @@
 # Central intracranial arterial preview
 
+**6 October update:** labelled shape matching now refines the original shared similarity fit. Both withheld hippocampal surface evaluations improved; this is numerical improvement, not vascular anatomical validation. The earlier centre-only fit results below are historical. See `ALIGNMENT_AND_SINUS_REFINEMENT.md` and `shapeAlignmentEvaluation` in the current report. Regenerate with `--shape-fit` to retain the refinement.
+
 Implemented 5 October 2026 as an optional BodyParts3D layer. Open Explorer → Experimental head layers → Show experimental head layers → Central arteries (BodyParts3D). Hide the skull and SPL neck arteries to inspect it; enable Layers for a translucent brain. Each supplied element can be selected from the structure picker, clicked, highlighted or isolated.
 
 ## Coverage

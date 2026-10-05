@@ -1,0 +1,77 @@
+{
+  "reviewed": "2026-10-06",
+  "status": "SOURCE-GUIDED RECONSTRUCTED PLACEMENT; NOT ANATOMICALLY VALIDATED",
+  "sourceObject": "Straight_sinus",
+  "canonicalFinding": "Canonical Startup.blend reproduces the gap; no export-only fix exists.",
+  "canonicalSelectedSHA256": "197f209f685b66baddfd5dd5cca8f169f4fb2196912b4afdc0de09865b357ba2",
+  "method": "Existing tube topology retained. Two boundary-ring centres map to posterior inferior-sagittal ring centre and nearest source confluence annotation endpoint. Proper rotation and longitudinal-only scaling preserve cross-sectional distances.",
+  "sourceWorldCorrection": [
+    [
+      0.9999999342096914,
+      -0.0001881817307354714,
+      -0.00033078800810693395,
+      0.030837777491995698
+    ],
+    [
+      0.00016602390967984957,
+      1.009359061483308,
+      -0.023867092637705208,
+      -1.3750550649527895
+    ],
+    [
+      0.00032251616116269356,
+      0.06388034535588423,
+      1.0379252263913068,
+      -14.791398333492644
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "originalRingCentresCm": [
+    [
+      -4.379404894446631e-06,
+      160.86691675734667,
+      1.7098960052369006
+    ],
+    [
+      -4.198947454842987e-06,
+      158.17973750058536,
+      -3.246437396559148
+    ]
+  ],
+  "targetRingCentresCm": [
+    [
+      -4.42981972944891e-06,
+      160.95661480987116,
+      -2.7404199377683867
+    ],
+    [
+      0.002140924334526062,
+      158.36257934570312,
+      -8.056381344795227
+    ]
+  ],
+  "longitudinalScale": 1.0491639395465056,
+  "radialScale": 1.0,
+  "determinant": 1.0491639395465053,
+  "beforeNearestVertexGapsCm": {
+    "Inferior_sagittal_sinus": 1.2654404818732246,
+    "Transverse_sinusl": 4.1907150296447035,
+    "Transverse_sinusr": 4.190714742428093
+  },
+  "afterNearestVertexGapsCm": {
+    "Inferior_sagittal_sinus": 0.02652911655178144,
+    "Transverse_sinusl": 0.113625369636572,
+    "Transverse_sinusr": 0.11295090633724673
+  },
+  "limitations": [
+    "Source annotation is not an independently validated landmark.",
+    "Corrected position/course requires anatomical expert review.",
+    "Tube contact/proximity is not proof of a fused or physiologically connected lumen.",
+    "No new branches or confluence volume were fabricated."
+  ]
+}

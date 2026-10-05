@@ -1,27 +1,27 @@
 {
   "status": "Experimental illustrative preview; not anatomically validated",
-  "reviewed": "2026-10-05",
-  "method": "Single proper similarity transform fitted to five bounding-box centre proxies; no per-vessel adjustments",
+  "reviewed": "2026-10-06",
+  "method": "Labelled symmetric point ICP; trim worst 20 percent per direction; proper uniform similarity; deterministic unique vertex samples; five training structures; both hippocampi withheld",
   "sourceArchiveSHA256": "40665852c49f218326590e204db91064a1ecfc3c6f8cbd7bbbcaac62c7cd409e",
   "sourceMappingSHA256": "a3de74423f943b0d724ae8f59b3a817f87c423a544f8db98113b1980817cbeaf",
   "sourceXYZToTargetRAS": [
     [
-      -0.9040667586921293,
-      0.1267459753107234,
-      0.03711219077808597,
-      -46.98293408172868
+      -0.8903223859355217,
+      0.080654730112703,
+      0.030125004660709585,
+      -39.87803654719056
     ],
     [
-      -0.11788685095969692,
-      -0.8902165731134943,
-      0.16851025030775435,
-      -339.9723476235517
+      -0.07874726062848558,
+      -0.8893745965451041,
+      0.053836309838480464,
+      -163.06762866031548
     ],
     [
-      0.05953610108683436,
-      0.16195206645952187,
-      0.8972210106605716,
-      -1380.8780097575793
+      0.03480761897731693,
+      0.050934210742512545,
+      0.8923456662809812,
+      -1383.4662781022896
     ],
     [
       0.0,
@@ -30,28 +30,28 @@
       1.0
     ]
   ],
-  "uniformScale": 0.9136621701339661,
-  "rotationDeterminant": 1.0000000000000004,
+  "uniformScale": 0.8944756297928308,
+  "rotationDeterminant": 1.0000000000000002,
   "fittingProxyErrorsMm": [
     {
       "structure": "pons",
-      "errorMm": 5.365491639842802
+      "errorMm": 6.217865779236424
     },
     {
       "structure": "right putamen",
-      "errorMm": 3.0813844400837067
+      "errorMm": 4.788052369558488
     },
     {
       "structure": "left putamen",
-      "errorMm": 4.051678613350356
+      "errorMm": 3.836519404801241
     },
     {
       "structure": "right caudate",
-      "errorMm": 8.005438806953869
+      "errorMm": 8.640381819703755
     },
     {
       "structure": "left caudate",
-      "errorMm": 7.393505317101567
+      "errorMm": 7.5654560300309734
     }
   ],
   "fittingProxyCentres": [
@@ -145,11 +145,11 @@
   "heldOutProxyChecks": [
     {
       "structure": "right hippocampus",
-      "proxyCentreErrorMm": 9.788037019603859
+      "proxyCentreErrorMm": 8.894302207455736
     },
     {
       "structure": "left hippocampus",
-      "proxyCentreErrorMm": 9.337157149412464
+      "proxyCentreErrorMm": 8.217496819682038
     }
   ],
   "junctionProximity": [
@@ -157,126 +157,126 @@
       "a": "FJ1655",
       "b": "FJ1654",
       "side": "Right",
-      "minimumVertexGapMm": 0.21961036093079792,
+      "minimumVertexGapMm": 0.2149986311393453,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1654",
       "b": "FJ1682",
       "side": "Right",
-      "minimumVertexGapMm": 0.17218748396888572,
+      "minimumVertexGapMm": 0.16857161563658604,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1682",
       "b": "FJ1692",
       "side": "Right",
-      "minimumVertexGapMm": 0.08894401506531703,
+      "minimumVertexGapMm": 0.0870762263038506,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1682",
       "b": "FJ1713",
       "side": "Right",
-      "minimumVertexGapMm": 0.20291768304542485,
+      "minimumVertexGapMm": 0.19865649281675435,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1713",
       "b": "FJ1723",
       "side": "Right",
-      "minimumVertexGapMm": 0.10940437779782565,
+      "minimumVertexGapMm": 0.10710692959789962,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1672",
       "b": "FJ1723",
       "side": "Right",
-      "minimumVertexGapMm": 0.07746221333558152,
+      "minimumVertexGapMm": 0.07583553782064929,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1723",
       "b": "FJ1714",
       "side": "Right",
-      "minimumVertexGapMm": 0.074510231684273,
+      "minimumVertexGapMm": 0.072945546603979,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1692",
       "b": "FJ1660",
       "side": "Right",
-      "minimumVertexGapMm": 0.11864120522633434,
+      "minimumVertexGapMm": 0.11614978734278313,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1660",
       "b": "FJ1694",
       "side": "Right",
-      "minimumVertexGapMm": 2.140227298064203,
+      "minimumVertexGapMm": 2.095283380349533,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1655",
       "b": "FJ1654M",
       "side": "Left",
-      "minimumVertexGapMm": 0.19585567306633614,
+      "minimumVertexGapMm": 0.1917427822242249,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1654M",
       "b": "FJ1682M",
       "side": "Left",
-      "minimumVertexGapMm": 0.17218748396888572,
+      "minimumVertexGapMm": 0.16857161563658604,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1682M",
       "b": "FJ1692M",
       "side": "Left",
-      "minimumVertexGapMm": 0.08847349862996323,
+      "minimumVertexGapMm": 0.08661559052555275,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1682M",
       "b": "FJ1713M",
       "side": "Left",
-      "minimumVertexGapMm": 0.20291768304542485,
+      "minimumVertexGapMm": 0.19865649281675435,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1713M",
       "b": "FJ1723M",
       "side": "Left",
-      "minimumVertexGapMm": 0.1171424468743554,
+      "minimumVertexGapMm": 0.11468250231707493,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1672",
       "b": "FJ1723M",
       "side": "Left",
-      "minimumVertexGapMm": 0.2141068160776833,
+      "minimumVertexGapMm": 0.20961065852813282,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1723M",
       "b": "FJ1714M",
       "side": "Left",
-      "minimumVertexGapMm": 0.074510231684273,
+      "minimumVertexGapMm": 0.072945546603979,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1692M",
       "b": "FJ1660M",
       "side": "Left",
-      "minimumVertexGapMm": 0.11864120522633434,
+      "minimumVertexGapMm": 0.11614978734278313,
       "screen": "close at 3 mm screen"
     },
     {
       "a": "FJ1660M",
       "b": "FJ1694M",
       "side": "Left",
-      "minimumVertexGapMm": 2.1409863802270452,
+      "minimumVertexGapMm": 2.0960265220903946,
       "screen": "close at 3 mm screen"
     }
   ],
@@ -314,14 +314,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -3.48906977690514,
-          -11.274976784586102,
-          -45.78809031709693
+          -2.6769988991132294,
+          -6.999657297701248,
+          -46.15631329853568
         ],
         [
-          -0.4708608920850139,
-          5.021403948086004,
-          -22.174907255653125
+          0.3440607678227181,
+          6.290198468182979,
+          -21.48642011443394
         ]
       ]
     },
@@ -355,14 +355,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -6.670573938690772,
-          18.632923749855024,
-          -20.257085668089758
+          -5.069912869130256,
+          19.178822793263123,
+          -17.765687092360395
         ],
         [
-          -0.3926488676682567,
-          20.037783088306355,
-          -18.7693411952921
+          1.0866214065820543,
+          20.399248607741214,
+          -16.38158320388561
         ]
       ]
     },
@@ -396,14 +396,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -3.538944582968334,
-          17.232695833563355,
-          -22.488420736076023
+          -1.8428587916240957,
+          17.320413448418293,
+          -19.93270416003429
         ],
         [
-          9.862489452206376,
-          29.210312175121487,
-          -10.739896011146584
+          11.150865865851586,
+          28.346405918188168,
+          -7.46886264008117
         ]
       ]
     },
@@ -432,14 +432,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          7.710191774520233,
-          17.64736676972109,
-          -23.242201964043034
+          9.072465486677615,
+          15.249115312660109,
+          -20.354949893381672
         ],
         [
-          37.3451830549127,
-          24.13818986116337,
-          -9.9353702771798
+          37.81525716083452,
+          23.836861555913487,
+          -7.457837694932323
         ]
       ]
     },
@@ -468,14 +468,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          30.579404359807988,
-          19.053048466305768,
-          -16.1436957104886
+          31.325766647817105,
+          17.290106166258255,
+          -13.387268068055164
         ],
         [
-          35.88821057956741,
-          27.01169532103785,
-          -4.309159207991797
+          36.63290838098888,
+          23.73892639771657,
+          -1.154423058562088
         ]
       ]
     },
@@ -504,14 +504,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          35.00307695537247,
-          -8.2550565939477,
-          -12.2792648732418
+          34.07169207996063,
+          -12.891024512304455,
+          -9.753832129430066
         ],
         [
-          50.17678467349538,
-          19.99693352134608,
-          14.206344867332064
+          48.96486413663237,
+          17.544394191475874,
+          12.857276054831118
         ]
       ]
     },
@@ -540,14 +540,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -2.7439549676773183,
-          2.778170466522397,
-          -24.47054840829651
+          -1.8750540761306809,
+          4.092272546890484,
+          -23.768773252855
         ],
         [
-          5.053410653735973,
-          6.965788074502825,
-          -19.894419908124064
+          5.8135472851062175,
+          7.63352901632399,
+          -19.069157467382638
         ]
       ]
     },
@@ -576,14 +576,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          3.322861571932876,
-          -24.506755092856565,
-          -24.751551362943246
+          4.135785018847578,
+          -24.528192674713637,
+          -23.966646325409556
         ],
         [
-          15.214847071760502,
-          6.996774744000561,
-          -10.288433785316556
+          15.19033715192817,
+          7.700951461005701,
+          -13.209382353892352
         ]
       ]
     },
@@ -617,14 +617,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          2.4137264350707,
-          5.623700753186029,
-          -25.716359724325457
+          3.2539019932565125,
+          6.370946470886054,
+          -23.59256672058973
         ],
         [
-          7.419669477052523,
-          17.99793019507075,
-          -20.65384018510872
+          8.66620090726257,
+          18.647201697599826,
+          -19.673166679308224
         ]
       ]
     },
@@ -656,14 +656,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          5.086324776710548,
-          -1.5801103425373526,
-          -113.03090276700937
+          6.342471655057771,
+          2.800143404194557,
+          -109.98374352928226
         ],
         [
-          26.882412089111504,
-          22.037649338009544,
-          -19.73866118584533
+          28.272941681778477,
+          22.095741119073182,
+          -17.348412745021733
         ]
       ]
     },
@@ -697,14 +697,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -17.982766715511204,
-          14.976098946005493,
-          -20.92613390745646
+          -16.271063620962483,
+          16.096490624860508,
+          -19.019317430450656
         ],
         [
-          -5.4982639555413755,
-          28.386912103294435,
-          -10.351068489282397
+          -3.7993066218219695,
+          27.796970012022797,
+          -7.245637317752426
         ]
       ]
     },
@@ -733,14 +733,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -42.81216150607734,
-          7.491889261069559,
-          -21.359186088530578
+          -41.10484804652768,
+          8.462175126758297,
+          -19.337557998293732
         ],
         [
-          -16.031185143673653,
-          19.221164604968465,
-          -4.803370024517108
+          -14.324850141352336,
+          20.580540513240777,
+          -4.446693461060477
         ]
       ]
     },
@@ -769,14 +769,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -42.49144599386779,
-          9.933223532994703,
-          -11.537618473674911
+          -40.54397363364324,
+          11.20197529641652,
+          -10.690425339055082
         ],
         [
-          -37.08561137107467,
-          17.091067825511175,
-          0.695493122468406
+          -35.32306550880462,
+          17.11815502433288,
+          1.7788485834323637
         ]
       ]
     },
@@ -805,14 +805,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -46.38435208922968,
-          -18.022318584805646,
-          -7.1584051371687565
+          -46.1135575573825,
+          -19.285650762267892,
+          -6.760329219388268
         ],
         [
-          -30.992443122207256,
-          9.851116932127184,
-          18.932548618231067
+          -31.018625132439773,
+          10.76564053370177,
+          15.617485144626698
         ]
       ]
     },
@@ -841,14 +841,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -9.947873979819,
-          2.5940620551533584,
-          -24.37527171407737
+          -8.935719663936649,
+          3.9657765086639927,
+          -23.71306999366857
         ],
         [
-          -2.0920814279415723,
-          5.534633078148829,
-          -19.32492709117264
+          -1.2581870578068646,
+          6.66771504475966,
+          -18.71116876387714
         ]
       ]
     },
@@ -877,14 +877,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -16.96361219109146,
-          -27.119150343825936,
-          -23.167711892044053
+          -16.322776474428217,
+          -26.270036291760505,
+          -23.030930589971376
         ],
         [
-          -7.0971120148236935,
-          5.270808132859258,
-          -9.008449406893305
+          -7.227643171073062,
+          6.527807567333127,
+          -12.464720859696172
         ]
       ]
     },
@@ -918,14 +918,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -15.403640776609919,
-          4.141042544139964,
-          -24.36037739319181
+          -13.77177976707555,
+          5.380545323852033,
+          -22.79979535228631
         ],
         [
-          -7.416086639451748,
-          15.208836125248467,
-          -19.903532303634847
+          -6.443101330301964,
+          16.787646491352035,
+          -19.23450122461327
         ]
       ]
     },
@@ -957,14 +957,14 @@
       ],
       "fittedBoundsRASmm": [
         [
-          -40.92069686580904,
-          -9.896522289078632,
-          -108.82107184769484
+          -38.45874315088095,
+          0.585292392504698,
+          -107.5147304206314
         ],
         [
-          -12.7024786197696,
-          18.503778784160886,
-          -18.248325607622974
+          -11.183497802411399,
+          19.924978893449435,
+          -16.439105468382195
         ]
       ]
     }
@@ -975,5 +975,158 @@
     "99 percent polygon-reduced source geometry; fine branches and lumen continuity are not validated.",
     "BodyParts3D and SPL are different anatomical references. These vessels do not share the CT-to-MRI fit used by the skull or neck vessels; their junctions are not validated.",
     "No expert reviewer or angiographic target establishes artery placement. No anatomical accuracy percentage."
-  ]
+  ],
+  "shapeAlignmentEvaluation": {
+    "reviewed": "2026-10-06",
+    "method": "Labelled symmetric point ICP; trim worst 20 percent per direction; proper uniform similarity; deterministic unique vertex samples; five training structures; both hippocampi withheld",
+    "iterations": 59,
+    "initialWorldToTargetRAS": [
+      [
+        -0.9040667586921293,
+        0.1267459753107234,
+        0.03711219077808597,
+        -46.98293408172868
+      ],
+      [
+        -0.11788685095969692,
+        -0.8902165731134943,
+        0.16851025030775435,
+        -339.9723476235517
+      ],
+      [
+        0.05953610108683436,
+        0.16195206645952187,
+        0.8972210106605716,
+        -1380.8780097575793
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "candidateWorldToTargetRAS": [
+      [
+        -0.8903223859355217,
+        0.080654730112703,
+        0.030125004660709585,
+        -39.87803654719056
+      ],
+      [
+        -0.07874726062848558,
+        -0.8893745965451041,
+        0.053836309838480464,
+        -163.06762866031548
+      ],
+      [
+        0.03480761897731693,
+        0.050934210742512545,
+        0.8923456662809812,
+        -1383.4662781022896
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "before": [
+      {
+        "structure": "pons",
+        "medianSurfaceDistanceMm": 4.038262095280794,
+        "p95SurfaceDistanceMm": 7.842514621711591,
+        "sampleMeanDifferenceMm": 4.845758719210897
+      },
+      {
+        "structure": "right putamen",
+        "medianSurfaceDistanceMm": 1.678672377142545,
+        "p95SurfaceDistanceMm": 3.598165816086346,
+        "sampleMeanDifferenceMm": 0.9431182778907934
+      },
+      {
+        "structure": "left putamen",
+        "medianSurfaceDistanceMm": 2.169661640688934,
+        "p95SurfaceDistanceMm": 4.829759229003053,
+        "sampleMeanDifferenceMm": 3.3422469182985273
+      },
+      {
+        "structure": "right caudate",
+        "medianSurfaceDistanceMm": 2.6798573362368714,
+        "p95SurfaceDistanceMm": 23.908952325876538,
+        "sampleMeanDifferenceMm": 10.914322329963772
+      },
+      {
+        "structure": "left caudate",
+        "medianSurfaceDistanceMm": 2.463659505223695,
+        "p95SurfaceDistanceMm": 23.991374160454363,
+        "sampleMeanDifferenceMm": 10.45779193271604
+      },
+      {
+        "structure": "right hippocampus",
+        "medianSurfaceDistanceMm": 4.606526174172526,
+        "p95SurfaceDistanceMm": 10.051632165505083,
+        "sampleMeanDifferenceMm": 6.375941333440545
+      },
+      {
+        "structure": "left hippocampus",
+        "medianSurfaceDistanceMm": 5.047502194508943,
+        "p95SurfaceDistanceMm": 10.830345469730613,
+        "sampleMeanDifferenceMm": 7.8080534799983585
+      }
+    ],
+    "after": [
+      {
+        "structure": "pons",
+        "medianSurfaceDistanceMm": 3.4266969006794663,
+        "p95SurfaceDistanceMm": 6.814586701108121,
+        "sampleMeanDifferenceMm": 5.6217460815079425
+      },
+      {
+        "structure": "right putamen",
+        "medianSurfaceDistanceMm": 1.5032297331780815,
+        "p95SurfaceDistanceMm": 4.17206040263629,
+        "sampleMeanDifferenceMm": 3.1274446893321004
+      },
+      {
+        "structure": "left putamen",
+        "medianSurfaceDistanceMm": 1.64756542536007,
+        "p95SurfaceDistanceMm": 4.424814845506148,
+        "sampleMeanDifferenceMm": 3.4418459186896504
+      },
+      {
+        "structure": "right caudate",
+        "medianSurfaceDistanceMm": 2.8797378847312713,
+        "p95SurfaceDistanceMm": 23.7701517920957,
+        "sampleMeanDifferenceMm": 11.762032428608645
+      },
+      {
+        "structure": "left caudate",
+        "medianSurfaceDistanceMm": 2.6243139027590177,
+        "p95SurfaceDistanceMm": 22.66982884503653,
+        "sampleMeanDifferenceMm": 10.96103593017183
+      },
+      {
+        "structure": "right hippocampus",
+        "medianSurfaceDistanceMm": 3.6921195622235725,
+        "p95SurfaceDistanceMm": 8.84785861507627,
+        "sampleMeanDifferenceMm": 5.661840254933692
+      },
+      {
+        "structure": "left hippocampus",
+        "medianSurfaceDistanceMm": 3.7876544882175813,
+        "p95SurfaceDistanceMm": 9.341143462949708,
+        "sampleMeanDifferenceMm": 5.818803379793709
+      }
+    ],
+    "numericalAcceptanceBothHeldOutSurfacesImproveMedianAndP95": true,
+    "anatomicallyValidated": false,
+    "limitations": [
+      "Different references and source symmetry.",
+      "Vertex samples are not uniform-area samples and mesh tessellation influences metrics.",
+      "Withheld atlas surfaces are not independently annotated target vascular landmarks.",
+      "Numerical acceptance does not establish clinical anatomy, skull enclosure or vessel courses."
+    ]
+  }
 }

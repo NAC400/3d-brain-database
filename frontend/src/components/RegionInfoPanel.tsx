@@ -118,6 +118,8 @@ const RegionInfoPanel: React.FC = () => {
 
       {region.dataset === 'z-anatomy-meninges' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>Z-Anatomy / BodyParts3D · experimental illustrative fit, anatomically unvalidated. Source symmetric geometry may be present. Dural folds do not represent a complete dura shell. <a href="/models/z-anatomy-meninges/NOTICE.md" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Attribution & ShareAlike licence</a> · <a href="/models/z-anatomy-meninges/coverage-and-alignment.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Validation details</a></p>}
 
+      {region.meshName === 'ZA_Straight_sinus' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#fbbf24' }}>Reconstructed placement: the source tube was repositioned and length-adjusted between source-defined endpoints, preserving cross-sectional dimensions. Expert review is required; this is not an original subject-specific segmentation.</p>}
+
       {/* Anatomical description from Allen Atlas */}
       {description && (
         <div style={{

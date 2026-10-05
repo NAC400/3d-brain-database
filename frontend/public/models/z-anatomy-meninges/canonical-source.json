@@ -1,0 +1,9 @@
+{
+  "reviewed": "2026-10-06",
+  "sourceURL": "https://github.com/Z-Anatomy/Models-of-human-anatomy/raw/refs/heads/master/Z-Anatomy.zip",
+  "archiveSHA256": "e029688545627bd0214b269e1063143abb580aad72b2c2445d6d8a9a0d9da736",
+  "startupBlendSHA256": "9f08a17ea0115fed80b2a73ecdf0a1bc2ab2f6956f37c593ce23d513ea35afcd",
+  "importer": "Blender 4.2.0",
+  "embeddedScripts": "disabled; no source atlas script executed",
+  "finding": "The canonical evaluated Straight sinus also has large gaps to the supplied inferior sagittal/transverse meshes; correction is source-guided reconstructed placement, not an FBX importer fix."
+}

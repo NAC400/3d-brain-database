@@ -1,30 +1,30 @@
 {
-  "reviewed": "2026-10-05",
+  "reviewed": "2026-10-06",
   "status": "ILLUSTRATIVE / UNVALIDATED",
   "sourceRepository": "https://github.com/LluisV/Z-Anatomy/tree/PC-Version/Resources/Models",
   "sourceFBXHashes": [
     "3ea1aad64956cad27348a27b8fb50494b7cc307c6bc77bee0810ec2a67dff2b1",
     "ed7d049117cc944a8c47a416b16ade642cbd1392bbcce3c677450d3234dbf680"
   ],
-  "method": "One proper similarity fit to five matching structure bounding-box centres; FBX world transforms preserved, helper geometry excluded",
+  "method": "Labelled symmetric point ICP; trim worst 20 percent per direction; proper uniform similarity; deterministic unique vertex samples; five training structures; both hippocampi withheld",
   "sourceWorldToTargetRAS": [
     [
-      -9.297418594300828,
-      0.38048886450342995,
-      -1.3038055714403178,
-      -61.7913692788841
+      -9.249125667363495,
+      0.3022373507373007,
+      -0.8648726013190765,
+      -48.643155252313676
     ],
     [
-      -1.2126578237289596,
-      1.7366353298621104,
-      9.154246664548884,
-      -281.5952647832565
+      -0.8462116144214049,
+      0.5442947908800853,
+      9.239769841701378,
+      -89.19270379896554
     ],
     [
-      0.6116712733804544,
-      9.226375193804138,
-      -1.6692909567410708,
-      -1500.90126012845
+      0.3511095787805401,
+      9.27351462002489,
+      -0.5141267346174967,
+      -1508.6104793695265
     ],
     [
       0.0,
@@ -33,22 +33,22 @@
       1.0
     ]
   ],
-  "uniformScaleAfterCentimetresToMillimetres": 0.9396098832056884,
+  "uniformScaleAfterCentimetresToMillimetres": 0.9294389578846762,
   "fitProxyErrorsMm": [
-    5.396161986217125,
-    3.091331584569176,
-    4.06004103895957,
-    8.026703008115742,
-    7.4087019611500935
+    6.1767431984667525,
+    5.142039375010782,
+    4.179047396369629,
+    8.541120125838699,
+    7.415020097212507
   ],
   "heldOutProxyChecks": [
     {
       "structure": "right hippocampus",
-      "proxyErrorMm": 9.795477102381161
+      "proxyErrorMm": 9.235781389144595
     },
     {
       "structure": "left hippocampus",
-      "proxyErrorMm": 9.354047509084923
+      "proxyErrorMm": 8.29319467675999
     }
   ],
   "topologyWeldToleranceSourceWorldUnits": 1e-06,
@@ -63,14 +63,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -51.320747271367594,
-          -85.1302216173383,
-          -39.61431723899955
+          -52.21218234226808,
+          -82.64576518444287,
+          -39.69781171522891
         ],
         [
-          10.313791370709005,
-          -3.683567620139627,
-          -4.271343735165374
+          7.2924379120195155,
+          0.3216072774922054,
+          -9.114957079762462
         ]
       ]
     },
@@ -84,14 +84,14 @@
       "nonmanifoldEdges": 552,
       "fittedBoundsRASmm": [
         [
-          -12.559368333961714,
-          -89.88000609509714,
-          -36.06915518612368
+          -8.751044418742303,
+          -90.50028773425855,
+          -38.43448016485354
         ],
         [
-          15.480710858867916,
-          76.26652678210456,
-          72.51940058016658
+          11.740760645075554,
+          72.92052620242262,
+          69.55357025807916
         ]
       ]
     },
@@ -105,14 +105,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          3.6615651033775194,
-          -83.04754743632245,
-          -41.23514442245596
+          3.006882329089372,
+          -81.24142058829092,
+          -40.6281943285137
         ],
         [
-          61.390898109153376,
-          -0.40139304468908676,
-          -4.541100886281583
+          59.583555031919516,
+          2.611960077205154,
+          -9.343067047884006
         ]
       ]
     },
@@ -126,14 +126,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -42.4584728714501,
-          -35.53074163957149,
-          -49.32409597151741
+          -42.28180971431072,
+          -28.535006372697964,
+          -53.208342607691065
         ],
         [
-          -9.519590539857447,
-          0.4784548603668668,
-          -34.34135475563721
+          -8.628906229970752,
+          3.8737497764468856,
+          -34.00748681489608
         ]
       ]
     },
@@ -147,14 +147,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          5.8499884135969396,
-          -24.589138975342735,
-          -54.77288790226726
+          6.690918530678488,
+          -20.9227402626141,
+          -56.357946789524476
         ],
         [
-          43.67550160941908,
-          2.982348683776763,
-          -35.6179046281286
+          43.4047652470165,
+          5.622523350726027,
+          -34.74024752436594
         ]
       ]
     },
@@ -168,14 +168,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -8.047057728844877,
-          3.8003817746949835,
-          -28.29649942915512
+          -6.7879779418247495,
+          5.792339171933463,
+          -27.33807945822059
         ],
         [
-          2.846519867139513,
-          15.081062226134236,
-          -18.904299145527148
+          4.014962736743108,
+          15.619715371601572,
+          -17.07216355142873
         ]
       ]
     },
@@ -189,14 +189,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -7.2556431978325975,
-          11.864450012994439,
-          -23.874329944910187
+          -5.880776746680951,
+          13.24322923459276,
+          -21.956937537522663
         ],
         [
-          1.2988427317818392,
-          15.540159820730821,
-          -20.33134616811617
+          2.6232640974503525,
+          16.345629882660546,
+          -18.245008769925107
         ]
       ]
     },
@@ -210,14 +210,14 @@
       "nonmanifoldEdges": 26,
       "fittedBoundsRASmm": [
         [
-          2.082405188324472,
-          0.4051213931869029,
-          -38.80745568951443
+          3.2723565510135657,
+          2.6365212113103524,
+          -37.75367928020296
         ],
         [
-          14.00592379316901,
-          19.747494360065957,
-          -23.78499508620348
+          15.157377276379847,
+          21.41550213078615,
+          -22.196644864730615
         ]
       ]
     },
@@ -231,14 +231,14 @@
       "nonmanifoldEdges": 27,
       "fittedBoundsRASmm": [
         [
-          -20.64707063240857,
-          -2.712969759158966,
-          -37.28331124223564
+          -18.998760886239168,
+          0.49290425239489366,
+          -36.88165813947535
         ],
         [
-          -7.279018765440405,
-          15.994595386202263,
-          -23.098879614859925
+          -6.048493078784944,
+          18.796670329293292,
+          -21.80167845814799
         ]
       ]
     },
@@ -252,14 +252,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          42.54318810019404,
-          -35.75785321337091,
-          -54.54038199319939
+          42.21790535498113,
+          -35.17893547161289,
+          -56.19129154941447
         ],
         [
-          60.608465487522956,
-          -22.994114492558765,
-          -27.322819736898055
+          59.27430026399314,
+          -19.42338044516373,
+          -30.51594950274466
         ]
       ]
     },
@@ -273,14 +273,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          8.205293585073058,
-          -78.96650614307029,
-          -30.00054820809987
+          5.550596282785136,
+          -76.21891334309512,
+          -39.15203604344515
         ],
         [
-          60.51234784304258,
-          -33.22385051147862,
-          -23.294922456476115
+          59.06487758853115,
+          -33.39653185107629,
+          -29.38374519582385
         ]
       ]
     },
@@ -294,14 +294,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          10.616193091466478,
-          -33.92632448009249,
-          -36.667403906052186
+          11.486392865001584,
+          -33.96960987213092,
+          -35.98109029700413
         ],
         [
-          60.146347699767965,
-          1.4035448732295777,
-          -25.59750586647033
+          58.82261363114789,
+          3.82551956836879,
+          -27.925331077423607
         ]
       ]
     },
@@ -315,19 +315,19 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -11.277629411871352,
-          -90.68250185642142,
-          -32.86742433493919
+          -7.554005946901199,
+          -91.70127906835354,
+          -38.958351503745234
         ],
         [
-          14.4992447749594,
-          76.07849505843848,
-          73.03036870772462
+          10.80961511565021,
+          73.18101822394198,
+          70.17005346658084
         ]
       ]
     },
     {
-      "name": "Straight sinus",
+      "name": "Straight sinus \u00b7 reconstructed placement",
       "sourceObject": "Straight_sinus",
       "vertices": 2832,
       "triangles": 944,
@@ -336,14 +336,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -2.998482829690623,
-          -37.52853220974279,
-          -37.11116089773918
+          2.1892096510309713,
+          -78.45837602578659,
+          -36.84698086510457
         ],
         [
-          4.022156692124973,
-          13.53440147799472,
-          -12.441352947902942
+          7.556315357242731,
+          -26.80312752612339,
+          -8.790655953078158
         ]
       ]
     },
@@ -357,14 +357,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -5.02343524234864,
-          -39.871721529960695,
-          -11.975270435843186
+          -2.907885207611976,
+          -41.84358941351559,
+          -15.329377383979136
         ],
         [
-          6.873204274542992,
-          38.79582418835378,
-          24.05046975777759
+          5.348950607600614,
+          36.6538333701001,
+          23.98681362460161
         ]
       ]
     },
@@ -378,14 +378,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -2.352582575055777,
-          -37.37036940792126,
-          -59.00935620915129
+          -1.5191942195529222,
+          -33.76946123802096,
+          -59.6199342444595
         ],
         [
-          3.557087789652492,
-          -11.840458488899628,
-          -35.49947377667104
+          2.8976357203918255,
+          -5.772907192030814,
+          -39.41928136875299
         ]
       ]
     },
@@ -399,14 +399,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -52.73395205473096,
-          -49.57408424509893,
-          -48.914593633951654
+          -53.479390706358686,
+          -45.175964959455875,
+          -52.98223471937558
         ],
         [
-          -40.94731494044676,
-          -34.19687633550714,
-          -20.218506756471243
+          -40.83892884244415,
+          -27.240843038317628,
+          -26.420980540470964
         ]
       ]
     },
@@ -420,14 +420,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -52.28716930137892,
-          -82.34401033795808,
-          -30.00508612654039
+          -53.05244648977039,
+          -78.93125661572046,
+          -39.15463983168502
         ],
         [
-          9.011696537502253,
-          -47.80553377550018,
-          -17.227405934918806
+          6.338209450122697,
+          -43.62754007172731,
+          -25.69453458831049
         ]
       ]
     },
@@ -441,14 +441,14 @@
       "nonmanifoldEdges": 0,
       "fittedBoundsRASmm": [
         [
-          -52.30694260156617,
-          -48.17036413191076,
-          -34.95864040673814
+          -53.04657088756352,
+          -43.87610673382402,
+          -34.914942190169995
         ],
         [
-          -14.581908582019032,
-          -2.0575802347213994,
-          -18.837332350710767
+          -13.580826735685726,
+          1.398507407481901,
+          -24.11741550430861
         ]
       ]
     }
@@ -468,83 +468,313 @@
     "Actual folds only; no procedural outer dura, pia or arachnoid shell is fabricated.",
     "No clinical use."
   ],
+  "shapeAlignmentEvaluation": {
+    "reviewed": "2026-10-06",
+    "method": "Labelled symmetric point ICP; trim worst 20 percent per direction; proper uniform similarity; deterministic unique vertex samples; five training structures; both hippocampi withheld",
+    "iterations": 63,
+    "initialWorldToTargetRAS": [
+      [
+        -9.297418594300828,
+        0.38048886450342995,
+        -1.3038055714403178,
+        -61.7913692788841
+      ],
+      [
+        -1.2126578237289596,
+        1.7366353298621104,
+        9.154246664548884,
+        -281.5952647832565
+      ],
+      [
+        0.6116712733804544,
+        9.226375193804138,
+        -1.6692909567410708,
+        -1500.90126012845
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "candidateWorldToTargetRAS": [
+      [
+        -9.249125667363495,
+        0.3022373507373007,
+        -0.8648726013190764,
+        -48.643155252313676
+      ],
+      [
+        -0.8462116144214048,
+        0.5442947908800853,
+        9.239769841701378,
+        -89.19270379896554
+      ],
+      [
+        0.35110957878054005,
+        9.27351462002489,
+        -0.5141267346174967,
+        -1508.6104793695265
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "before": [
+      {
+        "structure": "pons",
+        "medianSurfaceDistanceMm": 4.071281765679755,
+        "p95SurfaceDistanceMm": 7.884143735464892,
+        "sampleMeanDifferenceMm": 5.1126683043036145
+      },
+      {
+        "structure": "right putamen",
+        "medianSurfaceDistanceMm": 1.6929441624471013,
+        "p95SurfaceDistanceMm": 3.8905358026451267,
+        "sampleMeanDifferenceMm": 1.3812494101766897
+      },
+      {
+        "structure": "left putamen",
+        "medianSurfaceDistanceMm": 2.374838998250411,
+        "p95SurfaceDistanceMm": 5.401970267770011,
+        "sampleMeanDifferenceMm": 4.3995068893612785
+      },
+      {
+        "structure": "right caudate",
+        "medianSurfaceDistanceMm": 2.6759137450195962,
+        "p95SurfaceDistanceMm": 23.923399165882827,
+        "sampleMeanDifferenceMm": 10.99001835516001
+      },
+      {
+        "structure": "left caudate",
+        "medianSurfaceDistanceMm": 2.4394740572958185,
+        "p95SurfaceDistanceMm": 24.005448429280182,
+        "sampleMeanDifferenceMm": 10.828264223502725
+      },
+      {
+        "structure": "right hippocampus",
+        "medianSurfaceDistanceMm": 4.488118006953265,
+        "p95SurfaceDistanceMm": 10.073436552429724,
+        "sampleMeanDifferenceMm": 6.161589253555694
+      },
+      {
+        "structure": "left hippocampus",
+        "medianSurfaceDistanceMm": 5.188070822710857,
+        "p95SurfaceDistanceMm": 10.90955576241977,
+        "sampleMeanDifferenceMm": 7.724121966784252
+      }
+    ],
+    "after": [
+      {
+        "structure": "pons",
+        "medianSurfaceDistanceMm": 3.4564907320360185,
+        "p95SurfaceDistanceMm": 6.800793405868654,
+        "sampleMeanDifferenceMm": 5.888765108657782
+      },
+      {
+        "structure": "right putamen",
+        "medianSurfaceDistanceMm": 1.729937516812587,
+        "p95SurfaceDistanceMm": 4.6362962437122395,
+        "sampleMeanDifferenceMm": 3.9576386913181323
+      },
+      {
+        "structure": "left putamen",
+        "medianSurfaceDistanceMm": 1.8809291590911297,
+        "p95SurfaceDistanceMm": 5.145616034126643,
+        "sampleMeanDifferenceMm": 4.578262331337569
+      },
+      {
+        "structure": "right caudate",
+        "medianSurfaceDistanceMm": 2.829077709289477,
+        "p95SurfaceDistanceMm": 23.908107053093246,
+        "sampleMeanDifferenceMm": 11.515729011254592
+      },
+      {
+        "structure": "left caudate",
+        "medianSurfaceDistanceMm": 2.5467097607209603,
+        "p95SurfaceDistanceMm": 22.745435322162816,
+        "sampleMeanDifferenceMm": 11.196717563256994
+      },
+      {
+        "structure": "right hippocampus",
+        "medianSurfaceDistanceMm": 3.782949843450682,
+        "p95SurfaceDistanceMm": 9.064981079699178,
+        "sampleMeanDifferenceMm": 5.776774004712221
+      },
+      {
+        "structure": "left hippocampus",
+        "medianSurfaceDistanceMm": 3.823340727148163,
+        "p95SurfaceDistanceMm": 9.410944091076555,
+        "sampleMeanDifferenceMm": 6.023906340936061
+      }
+    ],
+    "numericalAcceptanceBothHeldOutSurfacesImproveMedianAndP95": true,
+    "anatomicallyValidated": false,
+    "limitations": [
+      "Different references and source symmetry.",
+      "Vertex samples are not uniform-area samples and mesh tessellation influences metrics.",
+      "Withheld atlas surfaces are not independently annotated target vascular landmarks.",
+      "Numerical acceptance does not establish clinical anatomy, skull enclosure or vessel courses."
+    ]
+  },
+  "straightSinusReconstructedPlacement": {
+    "reviewed": "2026-10-06",
+    "status": "SOURCE-GUIDED RECONSTRUCTED PLACEMENT; NOT ANATOMICALLY VALIDATED",
+    "sourceObject": "Straight_sinus",
+    "canonicalFinding": "Canonical Startup.blend reproduces the gap; no export-only fix exists.",
+    "canonicalSelectedSHA256": "197f209f685b66baddfd5dd5cca8f169f4fb2196912b4afdc0de09865b357ba2",
+    "method": "Existing tube topology retained. Two boundary-ring centres map to posterior inferior-sagittal ring centre and nearest source confluence annotation endpoint. Proper rotation and longitudinal-only scaling preserve cross-sectional distances.",
+    "sourceWorldCorrection": [
+      [
+        0.9999999342096914,
+        -0.0001881817307354714,
+        -0.00033078800810693395,
+        0.030837777491995698
+      ],
+      [
+        0.00016602390967984957,
+        1.009359061483308,
+        -0.023867092637705208,
+        -1.3750550649527895
+      ],
+      [
+        0.00032251616116269356,
+        0.06388034535588423,
+        1.0379252263913068,
+        -14.791398333492644
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "originalRingCentresCm": [
+      [
+        -4.379404894446631e-06,
+        160.86691675734667,
+        1.7098960052369006
+      ],
+      [
+        -4.198947454842987e-06,
+        158.17973750058536,
+        -3.246437396559148
+      ]
+    ],
+    "targetRingCentresCm": [
+      [
+        -4.42981972944891e-06,
+        160.95661480987116,
+        -2.7404199377683867
+      ],
+      [
+        0.002140924334526062,
+        158.36257934570312,
+        -8.056381344795227
+      ]
+    ],
+    "longitudinalScale": 1.0491639395465056,
+    "radialScale": 1.0,
+    "determinant": 1.0491639395465053,
+    "beforeNearestVertexGapsCm": {
+      "Inferior_sagittal_sinus": 1.2654404818732246,
+      "Transverse_sinusl": 4.1907150296447035,
+      "Transverse_sinusr": 4.190714742428093
+    },
+    "afterNearestVertexGapsCm": {
+      "Inferior_sagittal_sinus": 0.02652911655178144,
+      "Transverse_sinusl": 0.113625369636572,
+      "Transverse_sinusr": 0.11295090633724673
+    },
+    "limitations": [
+      "Source annotation is not an independently validated landmark.",
+      "Corrected position/course requires anatomical expert review.",
+      "Tube contact/proximity is not proof of a fused or physiologically connected lumen.",
+      "No new branches or confluence volume were fabricated."
+    ]
+  },
   "sinusJunctionProximity": [
     {
       "a": "Inferior_sagittal_sinus",
       "b": "Straight_sinus",
-      "minimumVertexGapMm": 11.890203833766506,
+      "minimumVertexGapMm": 0.24657194441488856,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Superior_sagittal_sinus",
       "b": "Transverse_sinusl",
-      "minimumVertexGapMm": 0.25313624553608044,
+      "minimumVertexGapMm": 0.2503961404186194,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Straight_sinus",
       "b": "Transverse_sinusl",
-      "minimumVertexGapMm": 39.376372595527826,
+      "minimumVertexGapMm": 1.0560784514427661,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Transverse_sinusl",
       "b": "Sigmoid_sinusl",
-      "minimumVertexGapMm": 0.1988353473246931,
+      "minimumVertexGapMm": 0.19668302910735241,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Cavernous_sinusl",
       "b": "Superior_petrosal_sinusl",
-      "minimumVertexGapMm": 0.515960306992153,
+      "minimumVertexGapMm": 0.5103752297757239,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Cavernous_sinusl",
       "b": "Inferior_petrosal_sinusl",
-      "minimumVertexGapMm": 0.06883943192223402,
+      "minimumVertexGapMm": 0.0680942708359828,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Inferior_petrosal_sinusl",
       "b": "Sigmoid_sinusl",
-      "minimumVertexGapMm": 0.12009280727346554,
+      "minimumVertexGapMm": 0.11879284758146884,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Superior_sagittal_sinus",
       "b": "Transverse_sinusr",
-      "minimumVertexGapMm": 0.25314458918101745,
+      "minimumVertexGapMm": 0.25040439374672274,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Straight_sinus",
       "b": "Transverse_sinusr",
-      "minimumVertexGapMm": 39.37636989681217,
+      "minimumVertexGapMm": 1.0498097267822029,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Transverse_sinusr",
       "b": "Sigmoid_sinusr",
-      "minimumVertexGapMm": 0.19883268520876932,
+      "minimumVertexGapMm": 0.19668039580783714,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Cavernous_sinusr",
       "b": "Superior_petrosal_sinusr",
-      "minimumVertexGapMm": 0.5159179426122298,
+      "minimumVertexGapMm": 0.5103333239743577,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Cavernous_sinusr",
       "b": "Inferior_petrosal_sinusr",
-      "minimumVertexGapMm": 0.06884186234482433,
+      "minimumVertexGapMm": 0.06809667495015818,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     },
     {
       "a": "Inferior_petrosal_sinusr",
       "b": "Sigmoid_sinusr",
-      "minimumVertexGapMm": 0.1200778697357667,
+      "minimumVertexGapMm": 0.11877807173702497,
       "interpretation": "Proximity only; neither lumen continuity nor actual drainage pathway is certified."
     }
   ]

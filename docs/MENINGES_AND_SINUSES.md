@@ -1,5 +1,7 @@
 # Meninges, sinuses and alignment investigation — 5 October 2026
 
+**6 October update:** the source-guided straight-sinus placement correction and shape-based alignment refinement supersede the original gaps and fit metrics described below. See `ALIGNMENT_AND_SINUS_REFINEMENT.md` and the current public evaluation/correction reports. The source tube correction is explicitly labelled reconstructed placement; anatomical validation and skull alignment remain unresolved.
+
 ## Implemented preview
 
 Explorer → Experimental head layers → Show experimental head layers offers separate **Dural folds (falx & tentorium)** and **Dural venous sinuses** controls, both off by default. Selected geometry is inspectable, selectable, highlightable and isolatable. Dural-fold opacity has a separate slider. Enable Layers and hide skull/other vessels to see these layers through the brain.
