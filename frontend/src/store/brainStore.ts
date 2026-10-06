@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { ALLEN_ATLAS_ENABLED } from '../lib/atlasAvailability';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { Source, StructureLink, Note, Project } from '../types/source';
 
@@ -373,7 +374,7 @@ export const useBrainStore = create<BrainState>()(
   // Model switching resets only transient scene state. Saved sources, links,
   // notes and highlights retain their dataset-specific mesh keys unchanged.
   setBrainAtlas: (brainAtlas) => set({
-    brainAtlas, showMirroredHemisphere: false, selectedRegion: null,
+    brainAtlas: brainAtlas === 'allen' && !ALLEN_ATLAS_ENABLED ? 'spl' : brainAtlas, showMirroredHemisphere: false, selectedRegion: null,
     hoveredRegion: null, isolatedRegion: null, activeCategories: new Set<string>(),
     explodeAmount: 0, brainRegions: [], regionMap: {}, regionDescriptions: {},
     regionCentroids: {}, regionCentroidDirs: {}, brainBounds: null,

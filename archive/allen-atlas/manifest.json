@@ -1,0 +1,21 @@
+{
+  "files": [
+    {
+      "path": "frontend/public/models/brain.glb",
+      "sha256": "3F119CCE9319BC0969A11A7AA7A10F3CE452DD98FD9983AAAAE66CE4DB51EF72",
+      "bytes": 23855660
+    },
+    {
+      "path": "frontend/public/data/regions.json",
+      "sha256": "C03BAA98913E79CDC221C7E77FF664301E745C3315AE7236B7C72A095F1DCDD9",
+      "bytes": 42885
+    },
+    {
+      "path": "ATTRIBUTIONS.md",
+      "sha256": "61903456DC96DD9EC3F1EE8AE60358C83D4C023B2A97C97F653493F586230D78",
+      "bytes": 4204
+    }
+  ],
+  "archivedOn": "2026-10-06",
+  "archiveSha256": "3C876A29E2DB1CCEC9D29C49A72880E5777CEE9F99A12F317EFAD713F70885AC"
+}

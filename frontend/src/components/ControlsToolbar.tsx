@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { ALLEN_ATLAS_ENABLED } from '../lib/atlasAvailability';
 import { useBrainStore } from '../store/brainStore';
 import type { BrainBounds } from '../store/brainStore';
 
@@ -388,13 +389,13 @@ const ControlsToolbar: React.FC = () => {
         gap: 0,
       }}>
 
-        {/* Real bilateral anatomy replaces the synthetic-mirror control.
-            The Allen option preserves access to previously linked research. */}
+        {/* Keep the archived atlas discoverable; enable it only after restoring
+            its assets. Saved research retains the original structure IDs. */}
         <select aria-label="Brain atlas" value={brainAtlas}
           onChange={event => setBrainAtlas(event.target.value as 'spl' | 'allen')}
           style={{ padding: '4px 8px', marginRight: 12, borderRadius: 5, background: '#132033', color: '#d1e5ff', border: '1px solid #769ac65c', fontSize: 11 }}>
           <option value="spl">SPL/NAC · bilateral brain</option>
-          <option value="allen">Allen · original atlas</option>
+          <option value="allen" disabled={!ALLEN_ATLAS_ENABLED}>Allen · {ALLEN_ATLAS_ENABLED ? 'original atlas' : 'archived'}</option>
         </select>
 
         <div style={{ width: 1, height: 20, background: 'rgba(30,64,175,0.4)', marginRight: 12, flexShrink: 0 }} />

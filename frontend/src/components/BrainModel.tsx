@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { useBrainStore } from '../store/brainStore';
 import type { BrainRegion, BrainBounds } from '../store/brainStore';
 import { fetchAllenStructures, getAllenDescriptions } from '../lib/allenApi';
+import { ALLEN_ATLAS_ENABLED } from '../lib/atlasAvailability';
 
 const MODEL_URL = '/models/brain.glb';
 
@@ -52,7 +53,7 @@ export const BRAIN_SCALE = 0.01;
 // Use 200 mm so visual explode distance is 200*0.01 = 2 scene units.
 export const EXPLODE_SCALE = 200;
 
-useGLTF.preload(MODEL_URL);
+if (ALLEN_ATLAS_ENABLED) useGLTF.preload(MODEL_URL);
 useGLTF.preload('/models/spl-nac/brain.glb');
 
 // ---------------------------------------------------------------------------

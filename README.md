@@ -2,6 +2,10 @@
 
 A comprehensive 3D visualization platform for storing, accessing, and analyzing neural research data mapped to anatomical brain structures.
 
+The original Allen atlas is preserved in a verified compressed archive outside
+the deployed assets. See [archive and restore instructions](archive/allen-atlas/README.md).
+SPL/NAC remains the active atlas; saved Allen research links are retained.
+
 ## 🧠 Project Overview
 
 This platform provides:
@@ -163,4 +167,4 @@ This is a research platform designed for neuroscientific applications. Contribut
 
 ## 📞 Contact
 
-Project maintained by: [Research Team Contact Information] 
+Project maintained by: [Research Team Contact Information]

@@ -1,7 +1,7 @@
 # MAPPED — Dataset Attributions & Legal Requirements
 
 The app's public **Data sources & licences** page (`/#data-sources`) documents
-the selectable SPL/NAC and Allen models and the MNI reference underlying Allen.
+the selectable SPL/NAC model, archived Allen model, and MNI reference underlying Allen.
 It includes source links, adaptations, citations, and licence disclosures.
 
 ## SPL/NAC Brain Atlas — January 2017
