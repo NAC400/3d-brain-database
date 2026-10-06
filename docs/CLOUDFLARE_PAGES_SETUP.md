@@ -71,7 +71,9 @@ trigger a clean frontend install, production build, byte-for-byte model checks,
 and a Wrangler upload to the existing `mapped-brain` project. Wrangler uses
 `--branch=main`, the project's verified production environment; this does not
 mean the GitHub source branch is renamed. Other branches cannot deploy this
-workflow to production. Manual dispatch is also supported from that source branch.
+workflow to production. The workflow declares manual dispatch as well, but
+GitHub's manual-run UI requires the workflow on the repository's default branch;
+until that is done, use the verified push trigger.
 
 Required repository Actions secrets:
 
@@ -85,9 +87,15 @@ The workflow checks that all required values are present before building; it
 does not fall back to a database-free build. A failed build or geometry check
 does not upload a replacement, leaving the current deployment available.
 
-Automatic deployment is prepared locally but not yet activated or verified.
-Credential creation requires the owner's confirmation. After secrets are set,
-push the workflow and verify a successful Actions run plus the live brain view.
+Automatic deployment is activated and verified. The owner approved creation
+of the Pages Write token and storage in GitHub's encrypted repository secrets;
+all four required secrets were saved. No credential values are committed.
+Workflow commit `b37837a` triggered [the successful first run](https://github.com/NAC400/3d-brain-database/actions/runs/37537889842),
+completing in 1 minute 12 seconds. Wrangler deployed to
+https://dae40ecf.mapped-brain.pages.dev/ and the existing production address
+https://mapped-brain.pages.dev/. The live homepage and brain rendering were
+verified, with no browser console errors or warnings. Authentication redirects
+and end-to-end account flows remain the separately recorded pending checks.
 
 GitHub Actions has its own usage allowances; this does not enable a paid plan.
 Reference: [Cloudflare continuous deployment guide](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/).

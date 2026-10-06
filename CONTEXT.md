@@ -47,6 +47,16 @@ The Pages wrapper uses only the frontend CRA installation. A clean cached
 lockfile installation passed. Root-level local package files are unrelated
 and are not required for the Pages build.
 
+Automatic Pages deployment is now active: `.github/workflows/deploy-pages.yml`
+builds and verifies the model on frontend-related pushes to
+`codex/home-ui-refinement`, then publishes to the existing `mapped-brain` Pages
+project's production environment. The owner approved a Pages Write token,
+stored only in GitHub Actions secrets alongside the account ID and existing
+public Supabase build settings. First run succeeded:
+https://github.com/NAC400/3d-brain-database/actions/runs/37537889842.
+The automatically deployed brain was checked live with no console errors.
+No paid plan was enabled. Supabase auth URL/account checks remain pending.
+
 Implementation update, 4 October 2026: Explorer defaults to a genuine bilateral SPL/NAC brain with 233 selectable structures. The footer atlas selector retains the Allen model for existing research links; saved data has not been automatically mapped between atlases. See `docs/ANATOMY_UPGRADE_ASSESSMENT.md` and `frontend/public/models/spl-nac/manifest.json` for provenance, implemented scope, and the verified skull/vessel candidates. Skull, vessels, and meninges are not yet integrated. The owner deferred the old-model transform investigation, camera continuity repairs, and performance optimization to focus on bilateral anatomy and subsequent layers.
 
 Read [MAPPED_PILOT_EXECUTION_HANDOFF.md](./MAPPED_PILOT_EXECUTION_HANDOFF.md) for agreed decisions, incremental phases, acceptance checks, unresolved questions, and the execution log. Copied unchanged from `C:\Users\neman\OneDrive\Desktop\MAPPED\MAPPED_PILOT_EXECUTION_HANDOFF.md`; the repository copy is the reference for future work here.
