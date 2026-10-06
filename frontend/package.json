@@ -27,6 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:pages": "node ../scripts/build-pages.cjs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

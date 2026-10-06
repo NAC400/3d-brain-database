@@ -27,6 +27,26 @@ AI research assistance, full mobile support, additional anatomical layers, broad
 
 ## Detailed plan and restart point
 
+Hosting preparation, 6 October 2026: the owner requested free Cloudflare Pages
+hosting, with R2 only as a fallback. A Pages-specific build repackages the
+unchanged SPL/NAC model into standard glTF plus two binary buffers below the
+25 MiB asset limit. All 699 buffer views and the parsed 233-mesh Three.js scene
+were verified identical. Local production build and browser smoke checks
+passed. The upload bundle is `artifacts/mapped-pages-upload.zip` (generated,
+git-ignored). Published through Cloudflare Pages Direct Upload at
+https://mapped-brain.pages.dev/ with 57/57 files uploaded. Live guest homepage,
+brain rendering, hippocampus selection/isolation, and all three optional
+anatomy source views passed with no browser console errors/warnings. No R2
+or paid plan was enabled. Supabase dashboard sign-in, new-domain auth URL
+configuration and auth end-to-end tests remain pending; Netlify remains
+available. Read `docs/CLOUDFLARE_PAGES_SETUP.md` for setup and restart steps.
+
+Git reproducibility follow-up: restored the frontend's `react-scripts` 5.0.1
+pin, regenerated its lockfile, and added `npm run build:pages --prefix frontend`.
+The Pages wrapper uses only the frontend CRA installation. A clean cached
+lockfile installation passed. Root-level local package files are unrelated
+and are not required for the Pages build.
+
 Implementation update, 4 October 2026: Explorer defaults to a genuine bilateral SPL/NAC brain with 233 selectable structures. The footer atlas selector retains the Allen model for existing research links; saved data has not been automatically mapped between atlases. See `docs/ANATOMY_UPGRADE_ASSESSMENT.md` and `frontend/public/models/spl-nac/manifest.json` for provenance, implemented scope, and the verified skull/vessel candidates. Skull, vessels, and meninges are not yet integrated. The owner deferred the old-model transform investigation, camera continuity repairs, and performance optimization to focus on bilateral anatomy and subsequent layers.
 
 Read [MAPPED_PILOT_EXECUTION_HANDOFF.md](./MAPPED_PILOT_EXECUTION_HANDOFF.md) for agreed decisions, incremental phases, acceptance checks, unresolved questions, and the execution log. Copied unchanged from `C:\Users\neman\OneDrive\Desktop\MAPPED\MAPPED_PILOT_EXECUTION_HANDOFF.md`; the repository copy is the reference for future work here.

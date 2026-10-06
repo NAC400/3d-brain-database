@@ -8,6 +8,10 @@ import { fetchAllenStructures, getAllenDescriptions } from '../lib/allenApi';
 import { ALLEN_ATLAS_ENABLED } from '../lib/atlasAvailability';
 
 const MODEL_URL = '/models/brain.glb';
+// Pages builds use the same geometry in standard glTF files below its 25 MiB limit.
+const SPL_MODEL_URL = process.env.REACT_APP_PAGES_BUILD === 'true'
+  ? '/models/spl-nac/brain.pages.gltf'
+  : '/models/spl-nac/brain.glb';
 
 // ---------------------------------------------------------------------------
 // Derive finer sub-categories from the Allen hierarchy already in regions.json.
@@ -54,7 +58,7 @@ export const BRAIN_SCALE = 0.01;
 export const EXPLODE_SCALE = 200;
 
 if (ALLEN_ATLAS_ENABLED) useGLTF.preload(MODEL_URL);
-useGLTF.preload('/models/spl-nac/brain.glb');
+useGLTF.preload(SPL_MODEL_URL);
 
 // ---------------------------------------------------------------------------
 // Per-mesh instance — handles highlight, explode, isolate, hover/click
@@ -289,7 +293,7 @@ const MirroredHemisphere: React.FC<MirroredProps> = ({ meshes, groupOffset, base
 // ---------------------------------------------------------------------------
 
 const BrainModel: React.FC<{ atlas: 'spl' | 'allen'; onOrigin?: (offset: THREE.Vector3) => void }> = ({ atlas, onOrigin }) => {
-  const modelUrl = atlas === 'spl' ? '/models/spl-nac/brain.glb' : MODEL_URL;
+  const modelUrl = atlas === 'spl' ? SPL_MODEL_URL : MODEL_URL;
   const metadataUrl = atlas === 'spl' ? '/models/spl-nac/regions.json' : '/data/regions.json';
   const { scene } = useGLTF(modelUrl);
   const { loadBrainRegions, setLoading, setBrainBounds, setRegionCentroids, setRegionCentroidDirs, setRegionDescriptions, showMirroredHemisphere, regionMap } = useBrainStore();
