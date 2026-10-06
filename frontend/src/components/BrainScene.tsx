@@ -118,6 +118,7 @@ const BrainScene: React.FC = () => {
         // The OrbitControls and BrainModel both call invalidate automatically via R3F internals,
         // so interaction stays responsive while idle frames are skipped.
         frameloop="demand"
+        dpr={[1, 1.5]}
       >
         {/* Clipping plane controller — reads store, updates gl.clippingPlanes */}
         <ClippingController />
@@ -145,6 +146,7 @@ const BrainScene: React.FC = () => {
 
         {/* Controls outside Suspense — responsive before GLB finishes */}
         <OrbitControls
+          makeDefault
           ref={controlsRef}
           enableDamping
           dampingFactor={0.07}

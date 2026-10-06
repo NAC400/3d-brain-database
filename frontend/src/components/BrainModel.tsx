@@ -56,6 +56,9 @@ export const BRAIN_SCALE = 0.01;
 // At scale 0.01, explode offset of 2 mm == 0.02 scene units — too small.
 // Use 200 mm so visual explode distance is 200*0.01 = 2 scene units.
 export const EXPLODE_SCALE = 200;
+const SELECTED_EMISSIVE = new THREE.Color(0.5, 0.5, 0.2);
+const HOVERED_EMISSIVE = new THREE.Color(0.2, 0.2, 0.1);
+const DARK_EMISSIVE = new THREE.Color(0, 0, 0);
 
 if (ALLEN_ATLAS_ENABLED) useGLTF.preload(MODEL_URL);
 useGLTF.preload(SPL_MODEL_URL);
@@ -109,6 +112,8 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
     const mat = (src as THREE.MeshStandardMaterial).clone();
     mat.transparent = true;
     mat.side = THREE.DoubleSide;
+    // Keep cut surfaces visible without drawing every transparent mesh twice.
+    mat.forceSinglePass = true;
     return mat;
   }, [mesh]);
 
@@ -124,12 +129,14 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
     invalidate();
   }, [customColor, material, mesh, invalidate]);
 
-  useFrame(() => {
+  const previousPosition = useRef(new THREE.Vector3());
+
+  useFrame((_, delta) => {
     if (!ref.current) return;
 
     // Explode: shift each mesh outward from the brain centroid.
     // centroidDir is in mm, position is in mm (pre-scale group space).
-    const prevPos = ref.current.position.clone();
+    const prevPos = previousPosition.current.copy(ref.current.position);
     ref.current.position
       .copy(basePosition)
       .addScaledVector(centroidDir, explodeAmount * EXPLODE_SCALE);
@@ -159,19 +166,20 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
 
     const prevOpacity = material.opacity;
     // Faster lerp (0.18 vs 0.12) so the transition feels snappier
-    material.opacity    = THREE.MathUtils.lerp(material.opacity, targetOpacity, 0.18);
+    const alpha = 1 - Math.pow(1 - 0.18, delta * 60);
+    material.opacity    = THREE.MathUtils.lerp(material.opacity, targetOpacity, alpha);
     material.depthWrite = material.opacity > 0.15;
 
     // Emissive highlight — selected region gets a strong blue-white glow
     const targetEmissive = isSelected
-      ? new THREE.Color(0.5, 0.5, 0.2)   // brighter yellow-white glow
+      ? SELECTED_EMISSIVE
       : isHovered
-        ? new THREE.Color(0.2, 0.2, 0.1)
-        : new THREE.Color(0, 0, 0);
+        ? HOVERED_EMISSIVE
+        : DARK_EMISSIVE;
     const prevR = material.emissive.r;
     const prevG = material.emissive.g;
     const prevB = material.emissive.b;
-    material.emissive.lerp(targetEmissive, 0.18);
+    material.emissive.lerp(targetEmissive, alpha);
 
     // Keep rendering while lerp animations are still running
     const opacityDelta  = Math.abs(material.opacity - prevOpacity);
@@ -250,6 +258,7 @@ const MirroredHemisphere: React.FC<MirroredProps> = ({ meshes, groupOffset, base
       mat.transparent = true;
       mat.opacity = 0.75;
       mat.side = THREE.DoubleSide;
+      mat.forceSinglePass = true;
       return mat;
     }),
   [meshes]);
