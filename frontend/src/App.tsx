@@ -8,7 +8,6 @@ import RegionSearch from './components/RegionSearch';
 import ResearchPanel from './components/ResearchPanel';
 import SourceViewer from './components/SourceViewer';
 import HomePage from './components/HomePage';
-import ContactLink from './components/ContactLink';
 import LibraryPage from './components/LibraryPage';
 import ContextMenu from './components/ContextMenu';
 import ProjectsModal from './components/ProjectsModal';
@@ -105,14 +104,14 @@ const App: React.FC = () => {
       width: '100vw',
       overflow: 'hidden',
       backgroundColor: '#050b18',
-      color: '#f8fafc',
+      color: 'var(--product-text)',
     }}>
 
       {/* ── Header ── */}
-      <header className="product-header" style={{
+      <header className={`product-header${appPage === 'explorer' ? ' product-header-explorer' : ''}`} style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '11px 28px',
-        borderBottom: '1px solid rgba(59,130,246,0.08)',
+        borderBottom: '1px solid rgba(165,226,207,0.08)',
         background: 'var(--product-surface)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
@@ -128,7 +127,7 @@ const App: React.FC = () => {
             background: 'none', border: 'none', cursor: 'pointer', padding: 0,
           }}
         >
-<span className="product-wordmark">MAPPED<span>.</span><small>ANATOMY / EVIDENCE / DISCOVERY</small></span>
+<span className="product-wordmark">MAPPED<span>.</span><small>Anatomy · Evidence · Discovery</small></span>
         </button>
 
         {/* Region search — only in explorer */}
@@ -144,7 +143,7 @@ const App: React.FC = () => {
             {/* Personal / Community toggle */}
             <div style={{
               display: 'flex', borderRadius: 6, overflow: 'hidden',
-              border: '1px solid rgba(59,130,246,0.3)',
+              border: '1px solid rgba(165,226,207,0.3)',
             }}>
               {(['personal', 'community'] as const).map((m) => (
                 <button
@@ -154,14 +153,14 @@ const App: React.FC = () => {
                   onClick={() => { setExplorerMode(m); setResearchPanelOpen(true); }}
                   title={m === 'personal' ? 'Your personal sources & notes' : 'Community-verified sources from the global atlas'}
                   style={{
-                    padding: '5px 12px', fontSize: 11, fontWeight: explorerMode === m ? 700 : 400, cursor: 'pointer',
+                    padding: '5px 12px', fontSize: 12, fontWeight: explorerMode === m ? 700 : 400, cursor: 'pointer',
                     border: 'none',
                     background: explorerMode === m
-                      ? m === 'community' ? 'rgba(34,211,238,0.2)' : 'rgba(59,130,246,0.2)'
+                      ? m === 'community' ? 'rgba(34,211,238,0.2)' : 'rgba(165,226,207,0.2)'
                       : 'transparent',
                     color: explorerMode === m
                       ? m === 'community' ? '#22d3ee' : 'var(--product-accent)'
-                      : '#64748b',
+                      : 'var(--product-muted)',
                   }}
                 >
                   {m === 'personal' ? 'Personal' : 'Community'}
@@ -175,9 +174,9 @@ const App: React.FC = () => {
               title="Toggle Research Panel (L)"
               style={{
                 padding: '6px 14px', borderRadius: 6, fontSize: 13, cursor: 'pointer',
-                border: `1px solid ${researchPanelOpen ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.25)'}`,
-                background: researchPanelOpen ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: researchPanelOpen ? 'var(--product-accent)' : '#94a3b8',
+                border: `1px solid ${researchPanelOpen ? 'rgba(165,226,207,0.5)' : 'rgba(100,116,139,0.25)'}`,
+                background: researchPanelOpen ? 'rgba(165,226,207,0.15)' : 'transparent',
+                color: researchPanelOpen ? 'var(--product-accent)' : 'var(--product-muted)',
                 fontWeight: researchPanelOpen ? 700 : 400,
               }}
             >
@@ -204,7 +203,7 @@ const App: React.FC = () => {
                 padding: '5px 12px', borderRadius: 6, fontSize: 12, cursor: 'pointer',
                 border: `1px solid ${activeProject ? activeProject.color + '55' : 'rgba(100,116,139,0.25)'}`,
                 background: activeProject ? activeProject.color + '18' : 'transparent',
-                color: activeProject ? activeProject.color : '#64748b',
+                color: activeProject ? activeProject.color : 'var(--product-muted)',
                 fontWeight: activeProject ? 600 : 400,
               }}
             >
@@ -212,21 +211,21 @@ const App: React.FC = () => {
                 ? <><span style={{ width: 7, height: 7, borderRadius: '50%', background: activeProject.color, flexShrink: 0 }} />{activeProject.name}</>
                 : 'All Projects'
               }
-              <span style={{ fontSize: 9, opacity: 0.6 }}>▾</span>
+              <span style={{ fontSize: 12, opacity: 0.6 }}>▾</span>
             </button>
             {projectDropOpen && (
               <div
                 style={{
                   position: 'absolute', top: '100%', right: 0, marginTop: 4, zIndex: 200,
                   minWidth: 200, background: 'var(--product-surface)',
-                  border: '1px solid rgba(59,130,246,0.25)', borderRadius: 8,
+                  border: '1px solid rgba(165,226,207,0.25)', borderRadius: 8,
                   boxShadow: '0 8px 32px rgba(0,0,0,0.5)', overflow: 'hidden',
                 }}
                 onMouseLeave={() => setProjectDropOpen(false)}
               >
                 <button
                   onClick={() => { setActiveProjectId(null); setProjectDropOpen(false); }}
-                  style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: !activeProjectId ? 'rgba(59,130,246,0.1)' : 'transparent', border: 'none', color: !activeProjectId ? 'var(--product-accent)' : '#94a3b8', cursor: 'pointer', fontWeight: !activeProjectId ? 700 : 400 }}
+                  style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: !activeProjectId ? 'rgba(165,226,207,0.1)' : 'transparent', border: 'none', color: !activeProjectId ? 'var(--product-accent)' : 'var(--product-muted)', cursor: 'pointer', fontWeight: !activeProjectId ? 700 : 400 }}
                 >
                   All Projects
                 </button>
@@ -234,11 +233,11 @@ const App: React.FC = () => {
                   <button
                     key={p.id}
                     onClick={() => { setActiveProjectId(p.id); setProjectDropOpen(false); }}
-                    style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: activeProjectId === p.id ? 'rgba(59,130,246,0.08)' : 'transparent', border: 'none', color: activeProjectId === p.id ? '#f1f5f9' : '#94a3b8', cursor: 'pointer', fontWeight: activeProjectId === p.id ? 600 : 400 }}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: activeProjectId === p.id ? 'rgba(165,226,207,0.08)' : 'transparent', border: 'none', color: activeProjectId === p.id ? 'var(--product-text)' : 'var(--product-muted)', cursor: 'pointer', fontWeight: activeProjectId === p.id ? 600 : 400 }}
                   >
                     <span style={{ width: 7, height: 7, borderRadius: '50%', background: p.color, flexShrink: 0 }} />
                     <span style={{ flex: 1 }}>{p.name}</span>
-                    <span style={{ fontSize: 9, color: p.mode === 'community' ? '#22d3ee' : '#6366f1', opacity: 0.8 }}>
+                    <span style={{ fontSize: 12, color: p.mode === 'community' ? '#22d3ee' : '#6366f1', opacity: 0.8 }}>
                       {p.mode === 'community' ? 'Community' : 'Private'}
                     </span>
                   </button>
@@ -246,7 +245,7 @@ const App: React.FC = () => {
                 <div style={{ borderTop: '1px solid rgba(30,41,59,0.6)' }} />
                 <button
                   onClick={() => { setProjectDropOpen(false); setProjectsModalOpen(true); }}
-                  style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: 'transparent', border: 'none', color: '#3b82f6', cursor: 'pointer', fontWeight: 600 }}
+                  style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: 'transparent', border: 'none', color: 'var(--product-accent)', cursor: 'pointer', fontWeight: 600 }}
                 >
                   + Manage Projects
                 </button>
@@ -266,18 +265,18 @@ const App: React.FC = () => {
               style={{
                 padding: '6px 16px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
                 border: 'none',
-                background: appPage === page ? 'rgba(59,130,246,0.14)' : 'transparent',
-                color: appPage === page ? 'var(--product-accent)' : '#4d6080',
+                background: appPage === page ? 'rgba(165,226,207,0.14)' : 'transparent',
+                color: appPage === page ? 'var(--product-accent)' : 'var(--product-muted)',
                 fontWeight: appPage === page ? 700 : 400,
                 textTransform: 'capitalize',
                 transition: 'color 0.15s ease, background 0.15s ease',
                 position: 'relative',
               }}
               onMouseEnter={(e) => {
-                if (appPage !== page) e.currentTarget.style.color = '#94a3b8';
+                if (appPage !== page) e.currentTarget.style.color = 'var(--product-muted)';
               }}
               onMouseLeave={(e) => {
-                if (appPage !== page) e.currentTarget.style.color = '#4d6080';
+                if (appPage !== page) e.currentTarget.style.color = 'var(--product-muted)';
               }}
             >
               {page}
@@ -292,7 +291,7 @@ const App: React.FC = () => {
             </button>
           ))}
 
-          <div style={{ width: 1, height: 18, background: 'rgba(59,130,246,0.15)', margin: '0 8px' }} />
+          <div style={{ width: 1, height: 18, background: 'rgba(165,226,207,0.15)', margin: '0 8px' }} />
 
           {/* Account button */}
           {useBrainStore.getState().user ? (
@@ -300,8 +299,8 @@ const App: React.FC = () => {
               onClick={() => setAppPage('auth')}
               style={{
                 padding: '6px 16px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
-                border: '1px solid rgba(59,130,246,0.28)',
-                background: 'rgba(59,130,246,0.1)',
+                border: '1px solid rgba(165,226,207,0.28)',
+                background: 'rgba(165,226,207,0.1)',
                 color: 'var(--product-accent)', fontWeight: 600,
               }}
             >
@@ -312,8 +311,8 @@ const App: React.FC = () => {
               onClick={() => setAppPage('auth')}
               style={{
                 padding: '6px 18px', borderRadius: 7, fontSize: 13, cursor: 'pointer',
-                border: '1px solid rgba(59,130,246,0.32)',
-                background: 'linear-gradient(135deg, rgba(59,130,246,0.14), rgba(37,99,235,0.18))',
+                border: '1px solid rgba(165,226,207,0.32)',
+                background: 'linear-gradient(135deg, rgba(165,226,207,0.14), rgba(37,99,235,0.18))',
                 color: 'var(--product-accent)', fontWeight: 600,
               }}
             >
@@ -321,8 +320,6 @@ const App: React.FC = () => {
             </button>
           )}
         </nav>
-        <a data-tour="help" href="#data-sources" onClick={() => setAppPage('data-sources')} style={{ color: 'var(--product-muted)', fontSize: 12 }}>Data sources & licences</a>
-        <ContactLink />
       </header>
 
       {/* ── Page content ── */}
@@ -358,7 +355,7 @@ const App: React.FC = () => {
                 <span style={{ fontSize: 12, fontWeight: 700, color: '#22d3ee', letterSpacing: 0.5 }}>
                   PAINT MODE
                 </span>
-                <span style={{ fontSize: 11, color: '#0891b2' }}>
+                <span style={{ fontSize: 12, color: '#0891b2' }}>
                   — click any region to apply colour
                 </span>
               </div>
@@ -416,7 +413,7 @@ const App: React.FC = () => {
         <footer data-tour="tools" style={{
           display: 'flex', alignItems: 'center',
           padding: '0 24px', height: 44,
-          borderTop: '1px solid rgba(59,130,246,0.08)',
+          borderTop: '1px solid rgba(165,226,207,0.08)',
           background: 'var(--product-surface)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',

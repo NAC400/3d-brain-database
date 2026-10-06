@@ -116,14 +116,14 @@ const SetupBanner: React.FC = () => {
       <div style={{ fontSize: 12, fontWeight: 700, color: '#fbbf24', marginBottom: 6 }}>
         Forum tables not found in Supabase
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 10, lineHeight: 1.6 }}>
+      <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 10, lineHeight: 1.6 }}>
         Posts are saved locally for this session only. To enable full persistence, run the SQL below in your{' '}
         <strong style={{ color: '#fbbf24' }}>Supabase Dashboard → SQL Editor</strong>.
       </div>
       <div style={{ position: 'relative' }}>
         <pre style={{
-          fontSize: 10, color: '#94a3b8', background: 'rgba(7,11,22,0.7)',
-          border: '1px solid rgba(59,130,246,0.15)', borderRadius: 6,
+          fontSize: 12, color: 'var(--product-muted)', background: 'rgba(7,11,22,0.7)',
+          border: '1px solid rgba(165,226,207,0.15)', borderRadius: 6,
           padding: '10px 12px', overflowX: 'auto', margin: 0,
           lineHeight: 1.6, maxHeight: 180, overflowY: 'auto',
         }}>
@@ -133,9 +133,9 @@ const SetupBanner: React.FC = () => {
           onClick={() => { navigator.clipboard.writeText(SQL_SCHEMA); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
           style={{
             position: 'absolute', top: 8, right: 8,
-            padding: '3px 8px', borderRadius: 4, fontSize: 9, fontWeight: 600, cursor: 'pointer',
-            background: copied ? 'rgba(34,197,94,0.2)' : 'rgba(59,130,246,0.2)',
-            border: `1px solid ${copied ? 'rgba(34,197,94,0.4)' : 'rgba(59,130,246,0.35)'}`,
+            padding: '3px 8px', borderRadius: 4, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+            background: copied ? 'rgba(34,197,94,0.2)' : 'rgba(165,226,207,0.2)',
+            border: `1px solid ${copied ? 'rgba(34,197,94,0.4)' : 'rgba(165,226,207,0.35)'}`,
             color: copied ? '#4ade80' : 'var(--product-accent)',
           }}
         >
@@ -216,15 +216,15 @@ const NewPostModal: React.FC<{
 
   const inputStyle: React.CSSProperties = {
     width: '100%', boxSizing: 'border-box', padding: '8px 12px',
-    background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.25)',
-    borderRadius: 6, color: '#e2e8f0', fontSize: 12, outline: 'none', marginBottom: 10,
+    background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.25)',
+    borderRadius: 6, color: 'var(--product-text)', fontSize: 12, outline: 'none', marginBottom: 10,
   };
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 600, background: 'rgba(7,11,22,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: 520, maxHeight: '85vh', overflowY: 'auto', background: 'var(--product-surface)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 14, padding: '28px 24px' }}>
+      <div style={{ width: 520, maxWidth: 'calc(100vw - 32px)', maxHeight: '85vh', overflowY: 'auto', background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.3)', borderRadius: 14, padding: '28px 24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: '#f1f5f9' }}>New Post</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--product-text)' }}>New Post</div>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 20 }}>×</button>
         </div>
 
@@ -234,7 +234,7 @@ const NewPostModal: React.FC<{
           onChange={(e) => setBody(e.target.value)}
           placeholder="Share your insights, questions, or findings…"
           rows={6}
-          style={{ ...inputStyle, resize: 'vertical', fontFamily: 'inherit', lineHeight: 1.6 }}
+          style={{ ...inputStyle, resize: 'vertical', fontFamily: 'var(--product-font)', lineHeight: 1.6 }}
         />
 
         {/* Region link */}
@@ -247,19 +247,19 @@ const NewPostModal: React.FC<{
             style={{ ...inputStyle, marginBottom: 0 }}
           />
           {linkedMesh && (
-            <span style={{ position: 'absolute', right: 10, top: 9, fontSize: 10, color: '#22d3ee' }}>✓ {linkedName}</span>
+            <span style={{ position: 'absolute', right: 10, top: 9, fontSize: 12, color: '#22d3ee' }}>✓ {linkedName}</span>
           )}
           {dropOpen && regionMatches.length > 0 && (
-            <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#0f172a', border: '1px solid rgba(59,130,246,0.25)', borderRadius: 6, zIndex: 10, maxHeight: 150, overflowY: 'auto' }}>
+            <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--product-bg)', border: '1px solid rgba(165,226,207,0.25)', borderRadius: 6, zIndex: 10, maxHeight: 150, overflowY: 'auto' }}>
               {regionMatches.map((r) => (
                 <div
                   key={r.meshName}
                   onClick={() => { setLinkedMesh(r.meshName); setLinkedName(r.name); setRegionSearch(r.name); setDropOpen(false); }}
-                  style={{ padding: '7px 12px', fontSize: 11, color: '#e2e8f0', cursor: 'pointer', borderBottom: '1px solid rgba(30,41,59,0.5)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(59,130,246,0.1)')}
+                  style={{ padding: '7px 12px', fontSize: 12, color: 'var(--product-text)', cursor: 'pointer', borderBottom: '1px solid rgba(30,41,59,0.5)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(165,226,207,0.1)')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                 >
-                  {r.name} <span style={{ color: 'var(--product-muted)', fontSize: 9 }}>{r.acronym}</span>
+                  {r.name} <span style={{ color: 'var(--product-muted)', fontSize: 12 }}>{r.acronym}</span>
                 </div>
               ))}
             </div>
@@ -268,16 +268,16 @@ const NewPostModal: React.FC<{
 
         <input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="Tags (comma-separated, e.g. fMRI, thalamus, review)" style={inputStyle} />
 
-        {error && <div style={{ fontSize: 11, color: '#f87171', marginBottom: 10 }}>{error}</div>}
+        {error && <div style={{ fontSize: 12, color: '#f87171', marginBottom: 10 }}>{error}</div>}
 
         {!user && (
-          <div style={{ fontSize: 11, color: '#fbbf24', marginBottom: 10, padding: '6px 10px', background: 'rgba(245,158,11,0.08)', borderRadius: 6, border: '1px solid rgba(245,158,11,0.2)' }}>
+          <div style={{ fontSize: 12, color: '#fbbf24', marginBottom: 10, padding: '6px 10px', background: 'rgba(245,158,11,0.08)', borderRadius: 6, border: '1px solid rgba(245,158,11,0.2)' }}>
             Sign in to post to the community forum.
           </div>
         )}
 
         {useLocal && (
-          <div style={{ fontSize: 10, color: 'var(--product-muted)', marginBottom: 10 }}>
+          <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 10 }}>
             Running in local mode — post will be saved for this session only.
           </div>
         )}
@@ -287,8 +287,8 @@ const NewPostModal: React.FC<{
           disabled={submitting || !user}
           style={{
             width: '100%', padding: '10px 0', borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer',
-            background: 'linear-gradient(135deg, rgba(59,130,246,0.8), rgba(30,64,175,0.8))',
-            border: '1px solid rgba(59,130,246,0.5)', color: '#e0eaff',
+            background: 'var(--product-accent)',
+            border: '1px solid rgba(165,226,207,0.5)', color: '#122b26',
             opacity: submitting || !user ? 0.6 : 1,
           }}
         >
@@ -349,21 +349,21 @@ const CommentThread: React.FC<{ postId: string; useLocal: boolean }> = ({ postId
   return (
     <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid rgba(30,41,59,0.6)' }}>
       {loading ? (
-        <div style={{ fontSize: 11, color: 'var(--product-muted)', padding: '8px 0' }}>Loading comments…</div>
+        <div style={{ fontSize: 12, color: 'var(--product-muted)', padding: '8px 0' }}>Loading comments…</div>
       ) : (
         <>
           {comments.length === 0 && (
-            <div style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 10 }}>No comments yet — be the first.</div>
+            <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 10 }}>No comments yet — be the first.</div>
           )}
           {comments.map((c) => (
             <div key={c.id} style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
               <Avatar email={c.user_email} size={22} />
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
-                  <span style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8' }}>{c.user_email.split('@')[0]}</span>
-                  <span style={{ fontSize: 9, color: 'var(--product-muted)' }}>{timeAgo(c.created_at)}</span>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--product-muted)' }}>{c.user_email.split('@')[0]}</span>
+                  <span style={{ fontSize: 12, color: 'var(--product-muted)' }}>{timeAgo(c.created_at)}</span>
                 </div>
-                <div style={{ fontSize: 12, color: '#cbd5e1', lineHeight: 1.6 }}>{c.body}</div>
+                <div style={{ fontSize: 12, color: 'var(--product-text)', lineHeight: 1.6 }}>{c.body}</div>
               </div>
             </div>
           ))}
@@ -380,17 +380,17 @@ const CommentThread: React.FC<{ postId: string; useLocal: boolean }> = ({ postId
               onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleComment()}
               placeholder="Add a comment… (Enter to submit)"
               style={{
-                flex: 1, padding: '6px 10px', background: 'rgba(15,23,42,0.8)',
-                border: '1px solid rgba(59,130,246,0.2)', borderRadius: 6,
-                color: '#e2e8f0', fontSize: 11, outline: 'none',
+                flex: 1, padding: '6px 10px', background: 'var(--product-surface)',
+                border: '1px solid rgba(165,226,207,0.2)', borderRadius: 6,
+                color: 'var(--product-text)', fontSize: 12, outline: 'none',
               }}
             />
             <button
               onClick={handleComment}
               disabled={submitting || !body.trim()}
               style={{
-                padding: '6px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600, cursor: 'pointer',
-                background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)',
+                padding: '6px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.4)',
                 color: 'var(--product-accent)', opacity: !body.trim() ? 0.5 : 1,
               }}
             >
@@ -416,7 +416,7 @@ const PostCard: React.FC<{
 
   return (
     <div style={{
-      background: 'rgba(15,23,42,0.85)', border: '1px solid rgba(59,130,246,0.12)',
+      background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.12)',
       borderRadius: 10, padding: '14px 16px', marginBottom: 10,
     }}>
       <div style={{ display: 'flex', gap: 12 }}>
@@ -429,7 +429,7 @@ const PostCard: React.FC<{
           >
             ▲
           </button>
-          <span style={{ fontSize: 11, fontWeight: 700, color: post.upvotes > 0 ? '#f59e0b' : '#475569' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: post.upvotes > 0 ? '#f59e0b' : 'var(--product-muted)' }}>
             {post.upvotes}
           </span>
         </div>
@@ -438,13 +438,13 @@ const PostCard: React.FC<{
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 4 }}>
             <Avatar email={post.user_email} size={20} />
-            <span style={{ fontSize: 10, color: 'var(--product-muted)' }}>{post.user_email.split('@')[0]}</span>
-            <span style={{ fontSize: 9, color: 'var(--product-muted)' }}>· {timeAgo(post.created_at)}</span>
+            <span style={{ fontSize: 12, color: 'var(--product-muted)' }}>{post.user_email.split('@')[0]}</span>
+            <span style={{ fontSize: 12, color: 'var(--product-muted)' }}>· {timeAgo(post.created_at)}</span>
           </div>
 
           <div
             onClick={() => setExpanded((e) => !e)}
-            style={{ fontSize: 13, fontWeight: 600, color: '#f1f5f9', cursor: 'pointer', lineHeight: 1.4, marginBottom: 5 }}
+            style={{ fontSize: 13, fontWeight: 600, color: 'var(--product-text)', cursor: 'pointer', lineHeight: 1.4, marginBottom: 5 }}
           >
             {post.title}
           </div>
@@ -454,7 +454,7 @@ const PostCard: React.FC<{
               <button
                 onClick={() => { if (post.mesh_name) { setSelectedRegion(post.mesh_name); setAppPage('explorer'); } }}
                 style={{
-                  padding: '1px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600, cursor: 'pointer',
+                  padding: '1px 7px', borderRadius: 4, fontSize: 12, fontWeight: 600, cursor: 'pointer',
                   background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.25)', color: '#22d3ee',
                 }}
               >
@@ -462,12 +462,12 @@ const PostCard: React.FC<{
               </button>
             )}
             {(post.tags ?? []).map((t) => (
-              <span key={t} style={{ padding: '1px 6px', borderRadius: 3, fontSize: 9, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#a5b4fc' }}>{t}</span>
+              <span key={t} style={{ padding: '1px 6px', borderRadius: 3, fontSize: 12, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#a5b4fc' }}>{t}</span>
             ))}
           </div>
 
           {expanded && post.body && (
-            <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.7, marginBottom: 8, whiteSpace: 'pre-wrap' }}>
+            <div style={{ fontSize: 12, color: 'var(--product-muted)', lineHeight: 1.7, marginBottom: 8, whiteSpace: 'pre-wrap' }}>
               {post.body}
             </div>
           )}
@@ -475,7 +475,7 @@ const PostCard: React.FC<{
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 6 }}>
             <button
               onClick={() => setExpanded((e) => !e)}
-              style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 11, padding: 0 }}
+              style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 12, padding: 0 }}
             >
               {expanded ? 'Hide' : 'Comments & Discussion'}
             </button>
@@ -558,11 +558,11 @@ const ForumFeed: React.FC = () => {
   );
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: '24px 28px' }}>
+    <div className="forum-page" style={{ flex: 1, overflowY: 'auto', padding: '24px 28px', width: '100%', maxWidth: 1100, margin: '0 auto' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
-          <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', margin: 0 }}>Community Forum</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--product-text)', margin: 0 }}>Community Forum</h2>
           <p style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 4 }}>
             Discuss findings, ask questions, share insights — linked to brain regions.
           </p>
@@ -571,8 +571,8 @@ const ForumFeed: React.FC = () => {
           onClick={() => user ? setShowNew(true) : setAppPage('auth')}
           style={{
             padding: '8px 18px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer',
-            background: 'linear-gradient(135deg, rgba(59,130,246,0.8), rgba(30,64,175,0.8))',
-            border: '1px solid rgba(59,130,246,0.5)', color: '#e0eaff',
+            background: 'var(--product-accent)',
+            border: '1px solid rgba(165,226,207,0.5)', color: '#122b26',
           }}
         >
           + New Post
@@ -586,15 +586,15 @@ const ForumFeed: React.FC = () => {
         placeholder="Search posts by title, region, or tag…"
         style={{
           width: '100%', boxSizing: 'border-box', padding: '8px 14px', marginBottom: 16,
-          background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.2)',
-          borderRadius: 8, color: '#e2e8f0', fontSize: 12, outline: 'none',
+          background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.2)',
+          borderRadius: 8, color: 'var(--product-text)', fontSize: 12, outline: 'none',
         }}
       />
 
       {/* Banners */}
       {useLocal && isSupabaseConfigured() && <SetupBanner />}
       {!isSupabaseConfigured() && (
-        <div style={{ padding: '10px 14px', borderRadius: 8, marginBottom: 16, background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.2)', color: '#fbbf24', fontSize: 11 }}>
+        <div style={{ padding: '10px 14px', borderRadius: 8, marginBottom: 16, background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.2)', color: '#fbbf24', fontSize: 12 }}>
           Supabase not configured — forum runs in local mode (session only). Add <code>REACT_APP_SUPABASE_URL</code> and <code>REACT_APP_SUPABASE_ANON_KEY</code> to enable persistence.
         </div>
       )}
@@ -602,7 +602,7 @@ const ForumFeed: React.FC = () => {
       {loading ? (
         <div style={{ textAlign: 'center', color: 'var(--product-muted)', padding: 40 }}>Loading posts…</div>
       ) : filtered.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: 40, background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10, color: 'var(--product-muted)', fontSize: 13 }}>
+        <div style={{ textAlign: 'center', padding: 40, background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.1)', borderRadius: 10, color: 'var(--product-muted)', fontSize: 13 }}>
           {posts.length === 0 ? 'No posts yet. Start the conversation!' : `No posts match "${search}"`}
         </div>
       ) : (

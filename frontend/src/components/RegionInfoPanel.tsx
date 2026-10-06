@@ -33,19 +33,20 @@ const RegionInfoPanel: React.FC = () => {
 
   return (
     <div
+      className="product-region-info"
       style={{
         position: 'absolute',
         top: 16,
         right: 16,
         width: 280,
         zIndex: 40,
-        background: 'rgba(15,23,42,0.92)',
-        border: '1px solid rgba(59,130,246,0.35)',
+        background: 'var(--product-surface)',
+        border: '1px solid rgba(165,226,207,0.35)',
         borderRadius: 10,
         backdropFilter: 'blur(12px)',
         padding: '16px 18px',
-        color: '#e2e8f0',
-        fontFamily: 'sans-serif',
+        color: 'var(--product-text)',
+        fontFamily: 'var(--product-font)',
       }}
     >
       {/* Header row */}
@@ -60,10 +61,10 @@ const RegionInfoPanel: React.FC = () => {
             boxShadow: `0 0 6px ${region.color}88`,
           }} />
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, lineHeight: 1.3, color: '#f1f5f9' }}>
+            <div style={{ fontSize: 13, fontWeight: 700, lineHeight: 1.3, color: 'var(--product-text)' }}>
               {region.name}
             </div>
-            <div style={{ fontSize: 10, color: 'var(--product-muted)', letterSpacing: 0.5, marginTop: 1 }}>
+            <div style={{ fontSize: 12, color: 'var(--product-muted)', letterSpacing: 0.5, marginTop: 1 }}>
               {region.acronym}
             </div>
           </div>
@@ -82,12 +83,12 @@ const RegionInfoPanel: React.FC = () => {
           display: 'inline-block',
           padding: '2px 8px',
           borderRadius: 4,
-          fontSize: 10,
+          fontSize: 12,
           fontWeight: 600,
           letterSpacing: 0.6,
-          background: 'rgba(59,130,246,0.15)',
+          background: 'rgba(165,226,207,0.15)',
           color: 'var(--product-accent)',
-          border: '1px solid rgba(59,130,246,0.25)',
+          border: '1px solid rgba(165,226,207,0.25)',
           textTransform: 'uppercase',
         }}>
           {region.category}
@@ -95,44 +96,44 @@ const RegionInfoPanel: React.FC = () => {
       </div>
 
       {/* Metadata */}
-      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 12, lineHeight: 1.6 }}>
+      <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 12, lineHeight: 1.6 }}>
         {region.parentName && (
           <div style={{ display: 'flex', gap: 6 }}>
             <span style={{ color: 'var(--product-muted)', minWidth: 64 }}>Parent</span>
-            <span style={{ color: '#cbd5e1' }}>{region.parentName}</span>
+            <span style={{ color: 'var(--product-text)' }}>{region.parentName}</span>
           </div>
         )}
         <div style={{ display: 'flex', gap: 6 }}>
           <span style={{ color: 'var(--product-muted)', minWidth: 64 }}>Depth</span>
-          <span style={{ color: '#cbd5e1' }}>Level {region.depth}</span>
+          <span style={{ color: 'var(--product-text)' }}>Level {region.depth}</span>
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
           <span style={{ color: 'var(--product-muted)', minWidth: 64 }}>Label ID</span>
-          <span style={{ color: '#cbd5e1' }}>{region.dataset?.startsWith('spl-') ? `SPL ${region.sourceId}` : region.labelId}</span>
+          <span style={{ color: 'var(--product-text)' }}>{region.dataset?.startsWith('spl-') ? `SPL ${region.sourceId}` : region.labelId}</span>
         </div>
       </div>
 
-      {region.dataset === 'spl-head-neck-2016-09' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>Illustrative SPL Head and Neck Atlas preview. Cross-subject placement and complete vessel courses remain unvalidated; anatomical accuracy is unquantified. Not for clinical decisions. <a href="/models/spl-head-neck/vessel-validation.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Technical checks</a> · <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
+      {region.dataset === 'spl-head-neck-2016-09' && <p style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--product-muted)' }}>Illustrative SPL Head and Neck Atlas preview. Cross-subject placement and complete vessel courses remain unvalidated; anatomical accuracy is unquantified. Not for clinical decisions. <a href="/models/spl-head-neck/vessel-validation.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Technical checks</a> · <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
 
-      {region.dataset === 'bodyparts3d-central-4' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>BodyParts3D central artery · experimental illustrative fit. Vessel position and lumen continuity are unvalidated; source bilateral geometry may be symmetric. Not for clinical decisions. <a href="/models/bodyparts3d-central/coverage-and-alignment.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Coverage & alignment</a> · <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
+      {region.dataset === 'bodyparts3d-central-4' && <p style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--product-muted)' }}>BodyParts3D central artery · experimental illustrative fit. Vessel position and lumen continuity are unvalidated; source bilateral geometry may be symmetric. Not for clinical decisions. <a href="/models/bodyparts3d-central/coverage-and-alignment.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Coverage & alignment</a> · <a href="#data-sources" onClick={() => useBrainStore.getState().setAppPage('data-sources')} style={{ color: '#93c5fd' }}>Source & licence</a></p>}
 
-      {region.dataset === 'z-anatomy-meninges' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#94a3b8' }}>Z-Anatomy / BodyParts3D · experimental illustrative fit, anatomically unvalidated. Source symmetric geometry may be present. Dural folds do not represent a complete dura shell. <a href="/models/z-anatomy-meninges/NOTICE.md" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Attribution & ShareAlike licence</a> · <a href="/models/z-anatomy-meninges/coverage-and-alignment.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Validation details</a></p>}
+      {region.dataset === 'z-anatomy-meninges' && <p style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--product-muted)' }}>Z-Anatomy / BodyParts3D · experimental illustrative fit, anatomically unvalidated. Source symmetric geometry may be present. Dural folds do not represent a complete dura shell. <a href="/models/z-anatomy-meninges/NOTICE.md" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Attribution & ShareAlike licence</a> · <a href="/models/z-anatomy-meninges/coverage-and-alignment.json" target="_blank" rel="noreferrer" style={{ color: '#93c5fd' }}>Validation details</a></p>}
 
-      {region.meshName === 'ZA_Straight_sinus' && <p style={{ fontSize: 11, lineHeight: 1.5, color: '#fbbf24' }}>Reconstructed placement: the source tube was repositioned and length-adjusted between source-defined endpoints, preserving cross-sectional dimensions. Expert review is required; this is not an original subject-specific segmentation.</p>}
+      {region.meshName === 'ZA_Straight_sinus' && <p style={{ fontSize: 12, lineHeight: 1.5, color: '#fbbf24' }}>Reconstructed placement: the source tube was repositioned and length-adjusted between source-defined endpoints, preserving cross-sectional dimensions. Expert review is required; this is not an original subject-specific segmentation.</p>}
 
       {/* Anatomical description from Allen Atlas */}
       {description && (
         <div style={{
-          background: 'rgba(15,23,42,0.6)',
-          border: '1px solid rgba(59,130,246,0.15)',
+          background: 'var(--product-surface)',
+          border: '1px solid rgba(165,226,207,0.15)',
           borderRadius: 6,
           padding: '8px 10px',
           marginBottom: 12,
         }}>
-          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 0.8, color: '#3b82f6', textTransform: 'uppercase', marginBottom: 4 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.8, color: 'var(--product-accent)', textTransform: 'uppercase', marginBottom: 4 }}>
             Description
           </div>
-          <p style={{ fontSize: 10, color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
+          <p style={{ fontSize: 12, color: 'var(--product-muted)', lineHeight: 1.6, margin: 0 }}>
             {description}
           </p>
         </div>
@@ -147,10 +148,10 @@ const RegionInfoPanel: React.FC = () => {
           onClick={() => setIsolatedRegion(isIsolated ? null : selectedRegion)}
           style={{
             flex: 1, padding: '6px 0', borderRadius: 6,
-            border: '1px solid rgba(59,130,246,0.4)',
-            background: isIsolated ? 'rgba(59,130,246,0.25)' : 'rgba(59,130,246,0.08)',
-            color: isIsolated ? '#93c5fd' : '#3b82f6',
-            fontSize: 11, cursor: 'pointer', fontWeight: 600, letterSpacing: 0.4,
+            border: '1px solid rgba(165,226,207,0.4)',
+            background: isIsolated ? 'rgba(165,226,207,0.25)' : 'rgba(165,226,207,0.08)',
+            color: 'var(--product-accent)',
+            fontSize: 12, cursor: 'pointer', fontWeight: 600, letterSpacing: 0.4,
           }}
         >
           {isIsolated ? 'Show All' : 'Isolate'}
@@ -161,7 +162,7 @@ const RegionInfoPanel: React.FC = () => {
             flex: 1, padding: '6px 0', borderRadius: 6,
             border: '1px solid rgba(100,116,139,0.3)',
             background: 'transparent', color: 'var(--product-muted)',
-            fontSize: 11, cursor: 'pointer', fontWeight: 600, letterSpacing: 0.4,
+            fontSize: 12, cursor: 'pointer', fontWeight: 600, letterSpacing: 0.4,
           }}
         >
           Deselect
@@ -170,7 +171,7 @@ const RegionInfoPanel: React.FC = () => {
 
       {/* Highlight color + paint mode */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-        <span style={{ fontSize: 10, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.4 }}>Highlight</span>
+        <span style={{ fontSize: 12, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.4 }}>Highlight</span>
         <input
           type="color"
           value={highlightColor ?? region.color}
@@ -182,7 +183,7 @@ const RegionInfoPanel: React.FC = () => {
           <button
             onClick={() => setHighlightColor(region.meshName, null)}
             style={{
-              fontSize: 9, padding: '2px 6px', borderRadius: 3,
+              fontSize: 12, padding: '2px 6px', borderRadius: 3,
               background: 'transparent', border: '1px solid rgba(100,116,139,0.2)',
               color: 'var(--product-muted)', cursor: 'pointer',
             }}
@@ -192,10 +193,10 @@ const RegionInfoPanel: React.FC = () => {
           onClick={() => setHighlightMode(!highlightMode)}
           title="Toggle paint mode — click regions to set their colour"
           style={{
-            marginLeft: 'auto', fontSize: 9, padding: '2px 7px', borderRadius: 3,
+            marginLeft: 'auto', fontSize: 12, padding: '2px 7px', borderRadius: 3,
             background: highlightMode ? 'rgba(34,211,238,0.15)' : 'transparent',
             border: `1px solid ${highlightMode ? 'rgba(34,211,238,0.4)' : 'rgba(100,116,139,0.2)'}`,
-            color: highlightMode ? '#22d3ee' : '#475569', cursor: 'pointer', fontWeight: 600,
+            color: highlightMode ? '#22d3ee' : 'var(--product-muted)', cursor: 'pointer', fontWeight: 600,
           }}
         >
           {highlightMode ? '🖌 Painting' : '🖌 Paint'}
@@ -209,7 +210,7 @@ const RegionInfoPanel: React.FC = () => {
           style={{
             width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer',
-            fontSize: 10, fontWeight: 700, letterSpacing: 0.6, padding: '4px 0',
+            fontSize: 12, fontWeight: 700, letterSpacing: 0.6, padding: '4px 0',
             textTransform: 'uppercase',
           }}
         >

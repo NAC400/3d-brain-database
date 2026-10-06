@@ -48,14 +48,14 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onSave, onDelete, autoFoc
   };
 
   const label: React.CSSProperties = {
-    fontSize: 9, fontWeight: 700, letterSpacing: 0.8,
-    color: '#475569', textTransform: 'uppercase',
+    fontSize: 12, fontWeight: 700, letterSpacing: 0.8,
+    color: 'var(--product-muted)', textTransform: 'uppercase',
   };
 
   return (
     <div style={{
-      background: 'rgba(15,23,42,0.6)',
-      border: '1px solid rgba(59,130,246,0.15)',
+      background: 'var(--product-surface)',
+      border: '1px solid rgba(165,226,207,0.15)',
       borderRadius: 8, padding: '12px 14px', marginBottom: 10,
     }}>
       {editing ? (
@@ -71,50 +71,50 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onSave, onDelete, autoFoc
               width: '100%', boxSizing: 'border-box',
               padding: '8px 10px', borderRadius: 6,
               background: 'rgba(7,11,22,0.9)',
-              border: '1px solid rgba(59,130,246,0.3)',
-              color: '#e2e8f0', fontSize: 12, lineHeight: 1.6,
-              resize: 'vertical', outline: 'none', fontFamily: 'monospace',
+              border: '1px solid rgba(165,226,207,0.3)',
+              color: 'var(--product-text)', fontSize: 12, lineHeight: 1.6,
+              resize: 'vertical', outline: 'none', fontFamily: 'var(--product-font)',
             }}
           />
           <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
             <button onClick={save} style={{
-              padding: '4px 14px', borderRadius: 5, fontSize: 11, fontWeight: 600,
-              background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)',
+              padding: '4px 14px', borderRadius: 5, fontSize: 12, fontWeight: 600,
+              background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.4)',
               color: '#60a5fa', cursor: 'pointer',
             }}>Save</button>
             <button onClick={discard} style={{
-              padding: '4px 10px', borderRadius: 5, fontSize: 11,
+              padding: '4px 10px', borderRadius: 5, fontSize: 12,
               background: 'transparent', border: '1px solid rgba(100,116,139,0.2)',
-              color: '#475569', cursor: 'pointer',
+              color: 'var(--product-muted)', cursor: 'pointer',
             }}>Discard</button>
           </div>
         </>
       ) : (
         <>
           <div
-            style={{ fontSize: 13, color: '#cbd5e1', lineHeight: 1.7, cursor: 'text', minHeight: 24 }}
+            style={{ fontSize: 13, color: 'var(--product-text)', lineHeight: 1.7, cursor: 'text', minHeight: 24 }}
             onClick={() => setEditing(true)}
             dangerouslySetInnerHTML={{ __html: note.content ? renderMarkdown(note.content) : '<span style="color:#334155">Click to edit…</span>' }}
           />
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 8 }}>
             <div style={{ display: 'flex', gap: 6 }}>
               <button onClick={() => setEditing(true)} style={{
-                padding: '2px 8px', borderRadius: 4, fontSize: 10,
+                padding: '2px 8px', borderRadius: 4, fontSize: 12,
                 background: 'transparent', border: '1px solid rgba(100,116,139,0.2)',
-                color: '#475569', cursor: 'pointer',
+                color: 'var(--product-muted)', cursor: 'pointer',
               }}>Edit</button>
               {note.versions.length > 0 && (
                 <button onClick={() => setShowHistory(!showHistory)} style={{
-                  padding: '2px 8px', borderRadius: 4, fontSize: 10,
+                  padding: '2px 8px', borderRadius: 4, fontSize: 12,
                   background: 'transparent', border: '1px solid rgba(100,116,139,0.2)',
-                  color: '#475569', cursor: 'pointer',
+                  color: 'var(--product-muted)', cursor: 'pointer',
                 }}>History ({note.versions.length})</button>
               )}
             </div>
             <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
               <span style={label}>{new Date(note.updatedAt).toLocaleDateString()}</span>
               <button onClick={onDelete} style={{
-                background: 'none', border: 'none', color: '#475569',
+                background: 'none', border: 'none', color: 'var(--product-muted)',
                 cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0,
               }}>×</button>
             </div>
@@ -133,18 +133,18 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onSave, onDelete, autoFoc
               padding: '6px 10px', borderRadius: 5, marginBottom: 4,
               background: 'rgba(7,11,22,0.6)', border: '1px solid rgba(30,41,59,0.6)',
             }}>
-              <div style={{ fontSize: 9, color: '#334155', marginBottom: 3 }}>
+              <div style={{ fontSize: 12, color: '#334155', marginBottom: 3 }}>
                 {new Date(v.savedAt).toLocaleString()}
               </div>
-              <div style={{ fontSize: 11, color: '#475569', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 12, color: 'var(--product-muted)', lineHeight: 1.5 }}>
                 {v.content.slice(0, 120)}{v.content.length > 120 ? '…' : ''}
               </div>
               <button
                 onClick={() => { setDraft(v.content); setEditing(true); }}
                 style={{
-                  marginTop: 4, padding: '2px 8px', borderRadius: 4, fontSize: 9,
-                  background: 'transparent', border: '1px solid rgba(59,130,246,0.2)',
-                  color: '#3b82f6', cursor: 'pointer',
+                  marginTop: 4, padding: '2px 8px', borderRadius: 4, fontSize: 12,
+                  background: 'transparent', border: '1px solid rgba(165,226,207,0.2)',
+                  color: 'var(--product-accent)', cursor: 'pointer',
                 }}
               >Restore</button>
             </div>
@@ -182,8 +182,8 @@ export const NoteList: React.FC<NoteListProps> = ({ notes, onAdd, onSave, onDele
       style={{
         width: '100%', padding: compact ? '5px 0' : '8px 0', borderRadius: 6,
         background: 'transparent',
-        border: '1px dashed rgba(59,130,246,0.25)',
-        color: '#3b82f6', fontSize: compact ? 11 : 12, cursor: 'pointer',
+        border: '1px dashed rgba(165,226,207,0.25)',
+        color: 'var(--product-accent)', fontSize: compact ? 11 : 12, cursor: 'pointer',
         letterSpacing: 0.3,
       }}
     >

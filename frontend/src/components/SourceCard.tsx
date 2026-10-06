@@ -23,8 +23,8 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
 
   return (
     <div style={{
-      background: 'rgba(30,41,59,0.6)',
-      border: '1px solid rgba(59,130,246,0.15)',
+      background: 'var(--product-line)',
+      border: '1px solid rgba(165,226,207,0.15)',
       borderRadius: 8,
       padding: compact ? '8px 10px' : '12px 14px',
       marginBottom: 8,
@@ -33,13 +33,13 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
-            style={{ fontSize: 12, fontWeight: 600, color: '#e2e8f0', lineHeight: 1.4, cursor: 'pointer' }}
+            style={{ fontSize: 12, fontWeight: 600, color: 'var(--product-text)', lineHeight: 1.4, cursor: 'pointer' }}
             onClick={() => { setViewingSourceId(source.id); onSelect?.(); }}
             title="Open source detail"
           >
             {source.title}
           </div>
-          <div style={{ fontSize: 10, color: 'var(--product-muted)', marginTop: 3 }}>
+          <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 3 }}>
             {source.authors.slice(0,3).join(', ')}{source.authors.length > 3 ? ' et al.' : ''}
             {source.journal && <span> · <em>{source.journal}</em></span>}
             {source.year ? <span> · {source.year}</span> : null}
@@ -51,8 +51,8 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
             <button
               onClick={() => setExpanded((current) => !current)}
               style={{
-                padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
-                background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)',
+                padding: '2px 7px', borderRadius: 4, fontSize: 12, fontWeight: 600,
+                background: 'rgba(165,226,207,0.12)', border: '1px solid rgba(165,226,207,0.3)',
                 color: 'var(--product-accent)', cursor: 'pointer',
               }}
             >
@@ -66,8 +66,8 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
               rel="noopener noreferrer"
               title="Open paper"
               style={{
-                padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
-                background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)',
+                padding: '2px 7px', borderRadius: 4, fontSize: 12, fontWeight: 600,
+                background: 'rgba(165,226,207,0.12)', border: '1px solid rgba(165,226,207,0.3)',
                 color: 'var(--product-accent)', textDecoration: 'none', letterSpacing: 0.4,
               }}
             >
@@ -79,7 +79,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
               if (window.confirm('Remove this source?')) removeSource(source.id);
             }}
             style={{
-              padding: '2px 6px', borderRadius: 4, fontSize: 10, lineHeight: 1,
+              padding: '2px 6px', borderRadius: 4, fontSize: 12, lineHeight: 1,
               background: 'transparent', border: '1px solid rgba(239,68,68,0.25)',
               color: '#ef4444', cursor: 'pointer',
             }}
@@ -91,7 +91,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
       {expanded && !compact && (
         <div style={{ marginTop: 10 }}>
           {source.abstract && (
-            <p style={{ fontSize: 11, color: '#94a3b8', lineHeight: 1.6, margin: '0 0 10px' }}>
+            <p style={{ fontSize: 12, color: 'var(--product-muted)', lineHeight: 1.6, margin: '0 0 10px' }}>
               {source.abstract.length > 300 ? source.abstract.slice(0, 300) + '…' : source.abstract}
             </p>
           )}
@@ -101,7 +101,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 8 }}>
               {source.tags.map((t) => (
                 <span key={t} style={{
-                  padding: '1px 6px', borderRadius: 3, fontSize: 9,
+                  padding: '1px 6px', borderRadius: 3, fontSize: 12,
                   background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.25)',
                   color: '#a5b4fc',
                 }}>{t}</span>
@@ -112,7 +112,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
           {/* Linked regions */}
           {linkedRegions.length > 0 && (
             <div>
-              <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: 1, color: 'var(--product-muted)', textTransform: 'uppercase', marginBottom: 4 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1, color: 'var(--product-muted)', textTransform: 'uppercase', marginBottom: 4 }}>
                 Linked Regions
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
@@ -121,7 +121,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
                     <button
                       onClick={() => jumpToRegion(link.regionMeshName)}
                       style={{
-                        padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
+                        padding: '2px 7px', borderRadius: 4, fontSize: 12, fontWeight: 600,
                         background: 'rgba(34,211,238,0.1)', border: '1px solid rgba(34,211,238,0.3)',
                         color: '#22d3ee', cursor: 'pointer',
                       }}
@@ -130,7 +130,7 @@ const SourceCard: React.FC<Props> = ({ source, linkedRegions = [], onSelect, com
                     </button>
                     <button
                       onClick={() => removeStructureLink(link.id)}
-                      style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 10, padding: 0 }}
+                      style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 12, padding: 0 }}
                     >×</button>
                   </div>
                 ))}

@@ -92,15 +92,15 @@ const RegionSearch: React.FC = () => {
           onFocus={() => setOpen(true)}
           placeholder="Search brain region…"
           style={{
-            width: 210,
+            width: '100%', minHeight: 38,
             padding: '6px 12px 6px 30px',
-            background: 'rgba(15,23,42,0.8)',
-            border: '1px solid rgba(59,130,246,0.3)',
+            background: 'var(--product-surface)',
+            border: '1px solid rgba(165,226,207,0.3)',
             borderRadius: 8,
-            color: '#e2e8f0',
-            fontSize: 12,
+            color: 'var(--product-text)',
+            fontSize: 14,
             outline: 'none',
-            boxShadow: open ? '0 0 0 2px rgba(59,130,246,0.2)' : 'none',
+            boxShadow: open ? '0 0 0 2px rgba(165,226,207,0.2)' : 'none',
           }}
           onKeyDown={(e) => {
             if (e.key === 'Escape') { setOpen(false); setQuery(''); }
@@ -127,7 +127,7 @@ const RegionSearch: React.FC = () => {
           right: 0,
           marginTop: 4,
           background: 'var(--product-surface)',
-          border: '1px solid rgba(59,130,246,0.25)',
+          border: '1px solid rgba(165,226,207,0.25)',
           borderRadius: 8,
           backdropFilter: 'blur(12px)',
           zIndex: 200,
@@ -146,7 +146,7 @@ const RegionSearch: React.FC = () => {
                 borderBottom: '1px solid rgba(30,41,59,0.6)',
                 transition: 'background 0.1s',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(59,130,246,0.1)')}
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(165,226,207,0.1)')}
               onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
@@ -157,10 +157,10 @@ const RegionSearch: React.FC = () => {
                   boxShadow: `0 0 4px ${region.color}88`,
                 }} />
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ fontSize: 11, color: '#e2e8f0', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <div style={{ fontSize: 12, color: 'var(--product-text)', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {region.name}
                   </div>
-                  <div style={{ fontSize: 9, color: 'var(--product-muted)', letterSpacing: 0.5 }}>
+                  <div style={{ fontSize: 12, color: 'var(--product-muted)', letterSpacing: 0.5 }}>
                     {region.acronym} · {region.category}
                   </div>
                 </div>
@@ -173,9 +173,9 @@ const RegionSearch: React.FC = () => {
                 style={{
                   flexShrink: 0, marginLeft: 8,
                   padding: '2px 7px', borderRadius: 4,
-                  border: '1px solid rgba(59,130,246,0.35)',
-                  background: 'rgba(59,130,246,0.1)',
-                  color: 'var(--product-accent)', fontSize: 9, fontWeight: 600,
+                  border: '1px solid rgba(165,226,207,0.35)',
+                  background: 'rgba(165,226,207,0.1)',
+                  color: 'var(--product-accent)', fontSize: 12, fontWeight: 600,
                   cursor: 'pointer', letterSpacing: 0.4,
                 }}
               >
@@ -190,8 +190,8 @@ const RegionSearch: React.FC = () => {
       {open && query.trim() && results.length === 0 && (
         <div style={{
           position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 4,
-          background: 'var(--product-surface)', border: '1px solid rgba(59,130,246,0.2)',
-          borderRadius: 8, padding: '12px', color: 'var(--product-muted)', fontSize: 11, textAlign: 'center',
+          background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.2)',
+          borderRadius: 8, padding: '12px', color: 'var(--product-muted)', fontSize: 12, textAlign: 'center',
           zIndex: 200,
         }}>
           No regions match "{query}"

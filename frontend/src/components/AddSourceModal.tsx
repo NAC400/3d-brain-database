@@ -153,8 +153,8 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
   const inputStyle: React.CSSProperties = {
     width: '100%', boxSizing: 'border-box',
     padding: '8px 12px', marginBottom: 8,
-    background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.25)',
-    borderRadius: 6, color: '#e2e8f0', fontSize: 12, outline: 'none',
+    background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.25)',
+    borderRadius: 6, color: 'var(--product-text)', fontSize: 12, outline: 'none',
   };
 
   return (
@@ -164,14 +164,14 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
     }}>
       <div style={{
-        width: 480, maxHeight: '85vh', overflowY: 'auto',
-        background: '#0f172a', border: '1px solid rgba(59,130,246,0.3)',
+        width: 480, maxWidth: 'calc(100vw - 32px)', maxHeight: '85vh', overflowY: 'auto',
+        background: 'var(--product-bg)', border: '1px solid rgba(165,226,207,0.3)',
         borderRadius: 12, padding: 24,
         boxShadow: '0 24px 64px rgba(0,0,0,0.7)',
       }}>
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9' }}>Add Research Source</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--product-text)' }}>Add Research Source</div>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 20, lineHeight: 1 }}>×</button>
         </div>
 
@@ -186,10 +186,10 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
               key={m.id}
               onClick={() => { setMode(m.id); setError(''); setSearchResults([]); }}
               style={{
-                flex: 1, padding: '7px 0', borderRadius: 6, fontSize: 11, fontWeight: 600,
-                border: `1px solid ${mode === m.id ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
-                background: mode === m.id ? 'rgba(59,130,246,0.18)' : 'transparent',
-                color: mode === m.id ? 'var(--product-accent)' : '#475569', cursor: 'pointer',
+                flex: 1, padding: '7px 0', borderRadius: 6, fontSize: 12, fontWeight: 600,
+                border: `1px solid ${mode === m.id ? 'rgba(165,226,207,0.6)' : 'rgba(100,116,139,0.2)'}`,
+                background: mode === m.id ? 'rgba(165,226,207,0.18)' : 'transparent',
+                color: mode === m.id ? 'var(--product-accent)' : 'var(--product-muted)', cursor: 'pointer',
               }}
             >{m.label}</button>
           ))}
@@ -198,12 +198,12 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
         {/* DOI mode */}
         {mode === 'doi' && (
           <div>
-            <div style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 8 }}>
+            <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 8 }}>
               Paste a DOI (e.g. 10.1016/j.neuron.2021.01.001) — metadata will be auto-filled from CrossRef.
             </div>
             <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
               <input value={doi} onChange={(e) => setDoi(e.target.value)} placeholder="10.xxxx/xxxxx" style={{ ...inputStyle, flex: 1, marginBottom: 0 }} onKeyDown={(e) => e.key === 'Enter' && handleDOILookup()} />
-              <button onClick={handleDOILookup} disabled={loading} style={{ padding: '8px 16px', borderRadius: 6, fontSize: 11, fontWeight: 600, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)', color: 'var(--product-accent)', cursor: 'pointer', flexShrink: 0 }}>
+              <button onClick={handleDOILookup} disabled={loading} style={{ padding: '8px 16px', borderRadius: 6, fontSize: 12, fontWeight: 600, background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.4)', color: 'var(--product-accent)', cursor: 'pointer', flexShrink: 0 }}>
                 {loading ? '…' : 'Import'}
               </button>
             </div>
@@ -215,7 +215,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
           <div>
             <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
               <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="e.g. thalamus working memory fMRI" style={{ ...inputStyle, flex: 1, marginBottom: 0 }} onKeyDown={(e) => e.key === 'Enter' && handleResearchSearch()} />
-              <button onClick={handleResearchSearch} disabled={loading} style={{ padding: '8px 16px', borderRadius: 6, fontSize: 11, fontWeight: 600, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)', color: 'var(--product-accent)', cursor: 'pointer', flexShrink: 0 }}>
+              <button onClick={handleResearchSearch} disabled={loading} style={{ padding: '8px 16px', borderRadius: 6, fontSize: 12, fontWeight: 600, background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.4)', color: 'var(--product-accent)', cursor: 'pointer', flexShrink: 0 }}>
                 {loading ? '…' : 'Search'}
               </button>
             </div>
@@ -225,12 +225,12 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
               <option value="crossref">Crossref</option>
               <option value="scholar">Google Scholar (opens Google Scholar)</option>
             </select>
-            {searchProvider === 'scholar' && <div style={{ fontSize: 10, color: 'var(--product-muted)', marginBottom: 10 }}>Google Scholar does not offer a supported browser import API, so this opens its results in a new tab.</div>}
+            {searchProvider === 'scholar' && <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 10 }}>Google Scholar does not offer a supported browser import API, so this opens its results in a new tab.</div>}
             {searchResults.map((r) => (
-              <div key={r.id} style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(59,130,246,0.15)', borderRadius: 6, padding: '10px 12px', marginBottom: 8, cursor: 'pointer' }} onClick={() => importSearchResult(r)}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: '#e2e8f0', marginBottom: 3 }}>{r.title}</div>
-                <div style={{ fontSize: 10, color: 'var(--product-muted)' }}>{r.authors.slice(0,3).join(', ')}{r.authors.length>3?' et al.':''} · {r.journal} · {r.year}</div>
-                <div style={{ fontSize: 9, color: '#3b82f6', marginTop: 4 }}>{r.provider} · Click to import ↗</div>
+              <div key={r.id} style={{ background: 'var(--product-line)', border: '1px solid rgba(165,226,207,0.15)', borderRadius: 6, padding: '10px 12px', marginBottom: 8, cursor: 'pointer' }} onClick={() => importSearchResult(r)}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--product-text)', marginBottom: 3 }}>{r.title}</div>
+                <div style={{ fontSize: 12, color: 'var(--product-muted)' }}>{r.authors.slice(0,3).join(', ')}{r.authors.length>3?' et al.':''} · {r.journal} · {r.year}</div>
+                <div style={{ fontSize: 12, color: 'var(--product-accent)', marginTop: 4 }}>{r.provider} · Click to import ↗</div>
               </div>
             ))}
           </div>
@@ -246,7 +246,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
               <input value={year} onChange={(e) => setYear(e.target.value)} placeholder="Year" type="number" style={{ ...inputStyle, width: 80, flex: 'none' }} />
             </div>
             <input value={manualDoi} onChange={(e) => setManualDoi(e.target.value)} placeholder="DOI (optional)" style={inputStyle} />
-            <textarea value={abstract} onChange={(e) => setAbstract(e.target.value)} placeholder="Abstract (optional)" rows={4} style={{ ...inputStyle, resize: 'vertical', fontFamily: 'inherit' }} />
+            <textarea value={abstract} onChange={(e) => setAbstract(e.target.value)} placeholder="Abstract (optional)" rows={4} style={{ ...inputStyle, resize: 'vertical', fontFamily: 'var(--product-font)' }} />
           </div>
         )}
 
@@ -277,29 +277,29 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
             style={{ ...inputStyle, marginBottom: 0 }}
           />
           {linkedRegion && (
-            <span style={{ position: 'absolute', right: 10, top: 8, fontSize: 10, color: '#22d3ee' }}>✓ {regionMap[linkedRegion]?.name}</span>
+            <span style={{ position: 'absolute', right: 10, top: 8, fontSize: 12, color: '#22d3ee' }}>✓ {regionMap[linkedRegion]?.name}</span>
           )}
           {regionDropOpen && regionMatches.length > 0 && (
-            <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#0f172a', border: '1px solid rgba(59,130,246,0.25)', borderRadius: 6, zIndex: 10, maxHeight: 160, overflowY: 'auto' }}>
+            <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--product-bg)', border: '1px solid rgba(165,226,207,0.25)', borderRadius: 6, zIndex: 10, maxHeight: 160, overflowY: 'auto' }}>
               {regionMatches.map((r) => (
                 <div key={r.meshName} onClick={() => { setLinkedRegion(r.meshName); setRegionSearch(r.name); setRegionDropOpen(false); }}
-                  style={{ padding: '7px 12px', fontSize: 11, color: '#e2e8f0', cursor: 'pointer', borderBottom: '1px solid rgba(30,41,59,0.5)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(59,130,246,0.1)')}
+                  style={{ padding: '7px 12px', fontSize: 12, color: 'var(--product-text)', cursor: 'pointer', borderBottom: '1px solid rgba(30,41,59,0.5)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(165,226,207,0.1)')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}>
-                  {r.name} <span style={{ color: 'var(--product-muted)', fontSize: 9 }}>{r.acronym}</span>
+                  {r.name} <span style={{ color: 'var(--product-muted)', fontSize: 12 }}>{r.acronym}</span>
                 </div>
               ))}
             </div>
           )}
         </div>
 
-        {error && <div style={{ fontSize: 11, color: '#f87171', marginBottom: 10 }}>{error}</div>}
+        {error && <div style={{ fontSize: 12, color: '#f87171', marginBottom: 10 }}>{error}</div>}
 
         {/* Save button (manual mode only — DOI/search results save on import) */}
         {mode === 'manual' && (
           <button
             onClick={handleManualSave}
-            style={{ width: '100%', padding: '10px 0', borderRadius: 8, fontSize: 13, fontWeight: 700, background: 'rgba(59,130,246,0.25)', border: '1px solid rgba(59,130,246,0.5)', color: 'var(--product-accent)', cursor: 'pointer' }}
+            style={{ width: '100%', padding: '10px 0', borderRadius: 8, fontSize: 13, fontWeight: 700, background: 'rgba(165,226,207,0.25)', border: '1px solid rgba(165,226,207,0.5)', color: 'var(--product-accent)', cursor: 'pointer' }}
           >
             Save Source
           </button>

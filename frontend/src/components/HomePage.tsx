@@ -7,7 +7,7 @@ import ContactLink from './ContactLink';
 const FEATURES: { title: string; description: string; page: BrainState['appPage']; action: string }[] = [
   { title: 'Explore anatomy', description: 'Explore both brain hemispheres in three dimensions. Isolate structures, filter anatomy, and explore cross-sections.', page: 'explorer', action: 'Open Brain Explorer' },
   { title: 'Connect the evidence', description: 'Import papers from PubMed or DOI, link sources to brain regions, and export citations.', page: 'library', action: 'View Research Library' },
-  { title: 'Build shared knowledge', description: 'Explore community contributions and share connections between brain structures and scientific literature.', page: 'community', action: 'Explore Community Atlas' },
+  { title: 'Community & forum', description: 'Explore shared evidence and discuss neuroscience with the community.', page: 'community', action: 'Explore Community Atlas' },
 ];
 
 const HomePage: React.FC = () => {
@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
     <div className="mapped-home">
       <a className="home-skip" href="#home-main">Skip to content</a>
       <header className="home-header">
-        <div className="home-brand"><span className="home-wordmark">MAPPED<span>.</span></span><span className="home-brand-caption">ANATOMY / EVIDENCE / DISCOVERY</span></div>
+        <div className="home-brand"><span className="home-wordmark">MAPPED<span>.</span></span><span className="home-brand-caption">Anatomy · Evidence · Discovery</span></div>
         <nav className="home-nav" aria-label="Main navigation">
           {(['explorer', 'library', 'community'] as const).map(page => <button key={page} onClick={() => setAppPage(page)}>{page.charAt(0).toUpperCase() + page.slice(1)}</button>)}
           <button className="home-account" onClick={() => setAppPage('auth')}>{user ? user.email.split('@')[0] : 'Sign In'}</button>
@@ -26,9 +26,9 @@ const HomePage: React.FC = () => {
       <main id="home-main" tabIndex={-1}>
         <section className="home-hero" aria-labelledby="home-title">
           <div className="home-intro">
-            <p className="home-eyebrow"><span className="home-alpha">ALPHA</span> Neuroscience research & learning</p>
+            <p className="home-eyebrow"><span className="home-alpha">Alpha</span> Neuroscience research & study</p>
             <h1 id="home-title">Explore brain anatomy.<br /><span>Connect it to evidence.</span></h1>
-            <p className="home-description">MAPPED connects brain anatomy with a community-curated collection of scientific evidence. Explore structures, organize research, and discover how they relate.</p>
+            <p className="home-description">A shared workspace for neuroscience research and study. Explore brain structures, organize scientific evidence, and connect what you read to what you see.</p>
             <div className="home-actions">
               <button className="home-primary" onClick={() => setAppPage('explorer')}>Open Brain Explorer <span aria-hidden="true">↗</span></button>
               <button className="home-secondary" onClick={() => setAppPage('library')}>View Research Library <span aria-hidden="true">→</span></button>
@@ -49,24 +49,23 @@ const HomePage: React.FC = () => {
               <g className="home-art-node"><circle cx="128" cy="78" r="3"/><circle cx="223" cy="121" r="3"/><circle cx="154" cy="80" r="3"/><circle cx="278" cy="126" r="3"/></g>
               <path className="home-art-link" d="M128 78L154 80L223 121L278 126"/>
             </svg>
-            <p className="home-eyebrow">ANATOMICAL FOUNDATION</p>
+            <p className="home-eyebrow">Anatomical foundation</p>
             <div className="home-atlas-count">{bilateral ? 233 : 141}<span>brain structures</span></div>
             <h2>{bilateral ? 'SPL/NAC Bilateral Brain Atlas' : 'Allen Human Reference Atlas'}</h2>
             <p className="home-atlas-meta">{bilateral ? 'Atlas release 2017 · Both hemispheres' : 'Atlas version 2020 · Original atlas'}</p>
             {bilateral && <p className="home-atlas-meta">Derived from the Brigham and Women’s Hospital SPL/NAC atlas. <a href="/models/spl-nac/LICENSE.txt" style={{ color: 'var(--home-accent)' }}>Licence and notices</a></p>}
             <div className="home-workspace">
-              <p className="home-eyebrow">YOUR WORKSPACE</p>
+              <p className="home-eyebrow">Your workspace</p>
               <dl><div><dt>Saved sources</dt><dd>{sources.length}</dd></div><div><dt>Region–source links</dt><dd>{structureLinks.length}</dd></div></dl>
               <p className="home-workspace-note">Counts reflect research saved in this browser.</p>
             </div>
           </aside>
         </section>
         <section className="home-workflows" aria-labelledby="home-workflows-title">
-          <p className="home-eyebrow">FROM STRUCTURE TO SOURCE</p>
+          <p className="home-eyebrow">From structure to source</p>
           <h2 id="home-workflows-title">Three ways to explore neuroscience.</h2>
           <div className="home-feature-grid">
-            {FEATURES.map((feature, index) => <article className="home-feature" key={feature.page}>
-              <span className="home-feature-number" aria-hidden="true">0{index + 1}</span>
+            {FEATURES.map((feature) => <article className="home-feature" key={feature.page}>
               <h3>{feature.title}</h3><p>{feature.description}</p>
               <button onClick={() => setAppPage(feature.page)}>{feature.action}<span aria-hidden="true">→</span></button>
             </article>)}

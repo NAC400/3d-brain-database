@@ -1,20 +1,20 @@
 .mapped-contact { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
-.mapped-contact-button { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 7px 12px; border: 1px solid #769ac65c; border-radius: 6px; background: #a3caff12; color: #d1e5ff; font-size: 12px; text-decoration: none; cursor: pointer; font-family: inherit; }
-.mapped-contact-button:hover { background: #a3caff26; border-color: #a3caff; }
-.mapped-contact-button:focus-visible { outline: 2px solid #a2d9ec; outline-offset: 3px; }
-.mapped-contact-email { color: #a7b5c2; font-size: 12px; overflow-wrap: anywhere; user-select: text; }
+.mapped-contact-button { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 7px 12px; border: 1px solid #769ac65c; border-radius: 6px; background: var(--product-tint); color: var(--product-accent); font-size: 12px; text-decoration: none; cursor: pointer; font-family: var(--product-font); }
+.mapped-contact-button:hover { background: #a5e2cf22; border-color: var(--product-accent); }
+.mapped-contact-button:focus-visible { outline: 2px solid var(--product-accent); outline-offset: 3px; }
+.mapped-contact-email { color: var(--product-muted); font-size: 12px; overflow-wrap: anywhere; user-select: text; }
 
 /* The dialog lives in a portal, so its styles do not depend on either app shell. */
-.mapped-contact-dialog { box-sizing: border-box; width: min(520px, calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; padding: 24px; border: 1px solid #769ac65c; border-radius: 14px; background: #132033; color: #edf2f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.mapped-contact-dialog { box-sizing: border-box; width: min(520px, calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; padding: 24px; border: 1px solid #769ac65c; border-radius: 14px; background: var(--product-surface); color: #edf2f5; font-family: var(--product-font); }
 .mapped-contact-dialog::backdrop { background: #050b18b3; }
 .mapped-contact-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .mapped-contact-heading h2 { margin: 0; font-size: 22px; }
 .mapped-contact-close { width: 36px; height: 36px; border: 1px solid #769ac65c; border-radius: 6px; background: transparent; color: #edf2f5; font-size: 24px; cursor: pointer; }
-.mapped-contact-dialog p { color: #a7b5c2; font-size: 13px; line-height: 1.7; }
+.mapped-contact-dialog p { color: var(--product-muted); font-size: 13px; line-height: 1.7; }
 .mapped-contact-dialog form { display: grid; gap: 16px; }
 .mapped-contact-dialog label { display: grid; gap: 8px; font-size: 13px; }
-.mapped-contact-dialog input, .mapped-contact-dialog select, .mapped-contact-dialog textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid #769ac65c; border-radius: 6px; background: #0b1320; color: #edf2f5; font: inherit; }
+.mapped-contact-dialog input, .mapped-contact-dialog select, .mapped-contact-dialog textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid #769ac65c; border-radius: 6px; background: var(--product-bg); color: #edf2f5; font: inherit; }
 .mapped-contact-dialog textarea { resize: vertical; }
-.mapped-contact-dialog textarea::placeholder { color: #a7b5c2; }
-.mapped-contact-dialog :focus-visible { outline: 2px solid #a2d9ec; outline-offset: 3px; }
+.mapped-contact-dialog textarea::placeholder { color: var(--product-muted); }
+.mapped-contact-dialog :focus-visible { outline: 2px solid var(--product-accent); outline-offset: 3px; }
 .mapped-contact-dialog .mapped-contact-note { margin: 0; font-size: 12px; overflow-wrap: anywhere; }

@@ -1,14 +1,14 @@
-.head-layer-panel { position:absolute; top:16px; left:16px; z-index:15; width:230px; max-width:calc(100% - 32px); max-height:calc(100% - 110px); overflow:auto; padding:12px; border:1px solid var(--product-line); border-radius:8px; background:#132033f2; color:var(--product-text); font-size:12px; }
+.head-layer-panel { position:absolute; top:16px; left:16px; z-index:15; width:230px; max-width:calc(100% - 32px); max-height:calc(100% - 110px); overflow:auto; padding:12px; border:1px solid var(--product-line); border-radius:8px; background:var(--product-surface)f2; color:var(--product-text); font-size:12px; }
 .head-layer-panel summary { cursor:pointer; font-weight:600; }
 .head-layer-panel p { color:var(--product-muted); line-height:1.5; margin:10px 0; }
 .head-layer-panel label { display:flex; align-items:center; gap:7px; margin:10px 0; flex-wrap:wrap; }
 .head-layer-panel input[type=range] { width:100%; accent-color:var(--product-accent); }
-.head-layer-panel select { width:100%; min-width:0; padding:6px; background:#132033; color:#e2e8f0; border:1px solid var(--product-line); border-radius:4px; }
-.head-layer-panel a { color:#93c5fd; }
-.head-layer-loading { display:block; padding:12px; border-radius:8px; background:#132033; color:#e8ddc5; white-space:nowrap; }
+.head-layer-panel select { width:100%; min-width:0; padding:6px; background:var(--product-surface); color:#e2e8f0; border:1px solid var(--product-line); border-radius:4px; }
+.head-layer-panel a { color:var(--product-accent); }
+.head-layer-loading { display:block; padding:12px; border-radius:8px; background:var(--product-surface); color:#e8ddc5; white-space:nowrap; }
 .head-layer-panel .head-layer-disclaimer { border-left: 3px solid #eab56d; padding-left: 9px; line-height: 1.55; color: #e8d4b8; }
 .head-source-views { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
-.head-source-views span { color: #b4c5da; font-size: 11px; }
-.head-source-views button { text-align: left; border: 1px solid #456181; border-radius: 5px; background: #1e3048; color: #dbeafe; padding: 8px; cursor: pointer; font: inherit; }
+.head-source-views span { color: var(--product-muted); font-size: 11px; }
+.head-source-views button { text-align: left; border: 1px solid #456181; border-radius: 5px; background: var(--product-raised); color: #dbeafe; padding: 8px; cursor: pointer; font: inherit; }
 .head-source-views button:hover { background: #2a4261; }
 .head-source-views button[aria-pressed="true"] { border-color: #60a5fa; background: #24446c; }

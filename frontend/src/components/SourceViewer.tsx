@@ -326,9 +326,9 @@ const SourceViewer: React.FC = () => {
   const inputStyle: React.CSSProperties = {
     width: '100%', boxSizing: 'border-box',
     padding: '7px 12px',
-    background: 'rgba(15,23,42,0.8)',
-    border: '1px solid rgba(59,130,246,0.25)',
-    borderRadius: 6, color: '#e2e8f0', fontSize: 12, outline: 'none',
+    background: 'var(--product-surface)',
+    border: '1px solid rgba(165,226,207,0.25)',
+    borderRadius: 6, color: 'var(--product-text)', fontSize: 12, outline: 'none',
   };
 
   return (
@@ -342,7 +342,7 @@ const SourceViewer: React.FC = () => {
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '12px 28px',
-        borderBottom: '1px solid rgba(59,130,246,0.2)',
+        borderBottom: '1px solid rgba(165,226,207,0.2)',
         background: 'var(--product-surface)',
         flexShrink: 0,
       }}>
@@ -357,7 +357,7 @@ const SourceViewer: React.FC = () => {
           ← Back
         </button>
 
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: '#3b82f6', textTransform: 'uppercase' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, color: 'var(--product-accent)', textTransform: 'uppercase' }}>
           Source Detail
         </div>
 
@@ -367,7 +367,7 @@ const SourceViewer: React.FC = () => {
               href={`https://pubmed.ncbi.nlm.nih.gov/${source.pmid}`}
               target="_blank" rel="noopener noreferrer"
               style={{
-                padding: '5px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600,
+                padding: '5px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600,
                 background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.35)',
                 color: '#34d399', textDecoration: 'none',
               }}
@@ -380,8 +380,8 @@ const SourceViewer: React.FC = () => {
               href={`https://doi.org/${source.doi}`}
               target="_blank" rel="noopener noreferrer"
               style={{
-                padding: '5px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600,
-                background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.35)',
+                padding: '5px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600,
+                background: 'rgba(165,226,207,0.12)', border: '1px solid rgba(165,226,207,0.35)',
                 color: 'var(--product-accent)', textDecoration: 'none',
               }}
             >
@@ -393,7 +393,7 @@ const SourceViewer: React.FC = () => {
             disabled={fullTextLoading || (!source.pmid && !source.doi && !(source.fullTextUrls?.length))}
             title="Download an open-access or publisher-provided PDF when available"
             style={{
-              padding: '5px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600,
+              padding: '5px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600,
               background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.35)',
               color: '#34d399', cursor: fullTextLoading ? 'wait' : 'pointer',
             }}
@@ -408,14 +408,14 @@ const SourceViewer: React.FC = () => {
         <div style={{ width: '100%', maxWidth: 800 }}>
 
           {/* Title */}
-          <h1 style={{ fontSize: 21, fontWeight: 700, color: '#f1f5f9', lineHeight: 1.35, margin: '0 0 10px' }}>
+          <h1 style={{ fontSize: 21, fontWeight: 700, color: 'var(--product-text)', lineHeight: 1.35, margin: '0 0 10px' }}>
             {source.title}
           </h1>
 
           {/* Authors / journal / year */}
           <div style={{ fontSize: 13, color: 'var(--product-muted)', marginBottom: 14, lineHeight: 1.6 }}>
             {source.authors.slice(0, 6).join(', ')}{source.authors.length > 6 ? ' et al.' : ''}
-            {source.journal && <span> · <em style={{ color: '#94a3b8' }}>{source.journal}</em></span>}
+            {source.journal && <span> · <em style={{ color: 'var(--product-muted)' }}>{source.journal}</em></span>}
             {source.year && <span> · {source.year}</span>}
           </div>
 
@@ -424,7 +424,7 @@ const SourceViewer: React.FC = () => {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 20 }}>
               {source.tags.map((t) => (
                 <span key={t} style={{
-                  padding: '2px 8px', borderRadius: 4, fontSize: 11,
+                  padding: '2px 8px', borderRadius: 4, fontSize: 12,
                   background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)',
                   color: '#a5b4fc',
                 }}>{t}</span>
@@ -435,17 +435,17 @@ const SourceViewer: React.FC = () => {
           {/* ID badges */}
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 24 }}>
             {source.doi && (
-              <div style={{ padding: '4px 12px', borderRadius: 5, fontSize: 11, background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(59,130,246,0.2)', color: 'var(--product-muted)' }}>
+              <div style={{ padding: '4px 12px', borderRadius: 5, fontSize: 12, background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.2)', color: 'var(--product-muted)' }}>
                 DOI: <span style={{ color: '#93c5fd', userSelect: 'all' }}>{source.doi}</span>
               </div>
             )}
             {source.pmid && (
-              <div style={{ padding: '4px 12px', borderRadius: 5, fontSize: 11, background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--product-muted)' }}>
+              <div style={{ padding: '4px 12px', borderRadius: 5, fontSize: 12, background: 'var(--product-surface)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--product-muted)' }}>
                 PMID: <span style={{ color: '#6ee7b7', userSelect: 'all' }}>{source.pmid}</span>
               </div>
             )}
-            <div style={{ padding: '4px 12px', borderRadius: 5, fontSize: 11, background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(59,130,246,0.15)', color: 'var(--product-muted)' }}>
-              Added: <span style={{ color: '#94a3b8' }}>{new Date(source.createdAt).toLocaleDateString()}</span>
+            <div style={{ padding: '4px 12px', borderRadius: 5, fontSize: 12, background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.15)', color: 'var(--product-muted)' }}>
+              Added: <span style={{ color: 'var(--product-muted)' }}>{new Date(source.createdAt).toLocaleDateString()}</span>
             </div>
           </div>
 
@@ -458,7 +458,7 @@ const SourceViewer: React.FC = () => {
                 style={{
                   padding: '8px 18px', fontSize: 12, fontWeight: 600,
                   background: 'transparent', border: 'none', cursor: 'pointer',
-                  color: tab === t.id ? 'var(--product-accent)' : '#475569',
+                  color: tab === t.id ? 'var(--product-accent)' : 'var(--product-muted)',
                   borderBottom: tab === t.id ? '2px solid #3b82f6' : '2px solid transparent',
                   letterSpacing: 0.3,
                 }}
@@ -475,26 +475,26 @@ const SourceViewer: React.FC = () => {
                 </div>
               ) : source.abstract ? (
                 <div style={{
-                  background: 'rgba(30,41,59,0.5)',
-                  border: '1px solid rgba(59,130,246,0.15)',
+                  background: 'var(--product-line)',
+                  border: '1px solid rgba(165,226,207,0.15)',
                   borderRadius: 10, padding: '20px 24px',
                 }}>
-                  <p style={{ fontSize: 14, color: '#cbd5e1', lineHeight: 1.8, margin: 0 }}>
+                  <p style={{ fontSize: 14, color: 'var(--product-text)', lineHeight: 1.8, margin: 0 }}>
                     {source.abstract}
                   </p>
                 </div>
               ) : (
                 <div style={{
                   padding: '32px', textAlign: 'center',
-                  background: 'rgba(30,41,59,0.3)',
-                  border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10,
+                  background: 'var(--product-line)',
+                  border: '1px solid rgba(165,226,207,0.1)', borderRadius: 10,
                   color: 'var(--product-muted)', fontSize: 13,
                 }}>
                   <div>{source.pmid || source.doi
                     ? abstractError || 'Abstract could not be retrieved from the available research databases.'
                     : 'No abstract stored. Add one by editing this source, or use DOI/research search import.'}</div>
                   {(source.pmid || source.doi) && (
-                    <button onClick={loadAbstract} style={{ marginTop: 12, padding: '6px 12px', borderRadius: 6, border: '1px solid rgba(59,130,246,0.35)', background: 'rgba(59,130,246,0.12)', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 11 }}>
+                    <button onClick={loadAbstract} style={{ marginTop: 12, padding: '6px 12px', borderRadius: 6, border: '1px solid rgba(165,226,207,0.35)', background: 'rgba(165,226,207,0.12)', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 12 }}>
                       Retry abstract lookup
                     </button>
                   )}
@@ -514,7 +514,7 @@ const SourceViewer: React.FC = () => {
               >
                 {fullTextLoading ? 'Looking for available PDF…' : 'Download Available PDF'}
               </button>
-              {fullTextMessage && <div style={{ marginBottom: 14, padding: '10px 12px', borderRadius: 7, background: 'rgba(30,41,59,0.5)', border: '1px solid rgba(59,130,246,0.16)', color: '#94a3b8', fontSize: 12 }}>{fullTextMessage}</div>}
+              {fullTextMessage && <div style={{ marginBottom: 14, padding: '10px 12px', borderRadius: 7, background: 'var(--product-line)', border: '1px solid rgba(165,226,207,0.16)', color: 'var(--product-muted)', fontSize: 12 }}>{fullTextMessage}</div>}
               {source.doi ? (
                 <div>
                   <p style={{ fontSize: 13, color: 'var(--product-muted)', marginBottom: 16 }}>
@@ -522,7 +522,7 @@ const SourceViewer: React.FC = () => {
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {[
-                      { label: 'Publisher page (DOI)', href: `https://doi.org/${source.doi}`, color: 'var(--product-accent)', border: 'rgba(59,130,246,0.35)' },
+                      { label: 'Publisher page (DOI)', href: `https://doi.org/${source.doi}`, color: 'var(--product-accent)', border: 'rgba(165,226,207,0.35)' },
                       { label: 'Unpaywall (Open Access)', href: `https://unpaywall.org/${source.doi}`, color: '#34d399', border: 'rgba(16,185,129,0.35)' },
                       { label: 'Europe PMC', href: `https://europepmc.org/search?query=doi:${source.doi}`, color: '#a78bfa', border: 'rgba(139,92,246,0.35)' },
                     ].map((link) => (
@@ -533,7 +533,7 @@ const SourceViewer: React.FC = () => {
                         style={{
                           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                           padding: '14px 18px', borderRadius: 8,
-                          background: 'rgba(15,23,42,0.7)',
+                          background: 'var(--product-surface)',
                           border: `1px solid ${link.border}`,
                           color: link.color, textDecoration: 'none',
                           fontSize: 13, fontWeight: 600,
@@ -551,7 +551,7 @@ const SourceViewer: React.FC = () => {
                       style={{
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                         padding: '14px 18px', borderRadius: 8, marginTop: 10,
-                        background: 'rgba(15,23,42,0.7)',
+                        background: 'var(--product-surface)',
                         border: '1px solid rgba(16,185,129,0.35)',
                         color: '#34d399', textDecoration: 'none',
                         fontSize: 13, fontWeight: 600,
@@ -563,7 +563,7 @@ const SourceViewer: React.FC = () => {
                   )}
                 </div>
               ) : (
-                <div style={{ padding: '32px', textAlign: 'center', background: 'rgba(30,41,59,0.3)', border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10, color: 'var(--product-muted)', fontSize: 13 }}>
+                <div style={{ padding: '32px', textAlign: 'center', background: 'var(--product-line)', border: '1px solid rgba(165,226,207,0.1)', borderRadius: 10, color: 'var(--product-muted)', fontSize: 13 }}>
                   No DOI stored — cannot look up full text.
                 </div>
               )}
@@ -608,16 +608,16 @@ const SourceViewer: React.FC = () => {
                   style={inputStyle}
                 />
                 {regionDropOpen && regionMatches.length > 0 && (
-                  <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 2, background: '#0f172a', border: '1px solid rgba(59,130,246,0.25)', borderRadius: 6, zIndex: 10, maxHeight: 200, overflowY: 'auto' }}>
+                  <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 2, background: 'var(--product-bg)', border: '1px solid rgba(165,226,207,0.25)', borderRadius: 6, zIndex: 10, maxHeight: 200, overflowY: 'auto' }}>
                     {regionMatches.map((r) => (
                       <div
                         key={r.meshName}
                         onClick={() => { addLink(r.meshName); setRegionSearch(''); setRegionDropOpen(false); }}
-                        style={{ padding: '7px 12px', fontSize: 11, color: '#e2e8f0', cursor: 'pointer', borderBottom: '1px solid rgba(30,41,59,0.5)' }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(59,130,246,0.1)')}
+                        style={{ padding: '7px 12px', fontSize: 12, color: 'var(--product-text)', cursor: 'pointer', borderBottom: '1px solid rgba(30,41,59,0.5)' }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(165,226,207,0.1)')}
                         onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                       >
-                        {r.name} <span style={{ color: 'var(--product-muted)', fontSize: 9 }}>{r.acronym}</span>
+                        {r.name} <span style={{ color: 'var(--product-muted)', fontSize: 12 }}>{r.acronym}</span>
                       </div>
                     ))}
                   </div>
@@ -651,10 +651,10 @@ const SourceViewer: React.FC = () => {
                     key={fmt}
                     onClick={() => setCiteFormat(fmt)}
                     style={{
-                      padding: '4px 14px', borderRadius: 5, fontSize: 11, fontWeight: 600, cursor: 'pointer',
-                      border: `1px solid ${citeFormat === fmt ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
-                      background: citeFormat === fmt ? 'rgba(59,130,246,0.18)' : 'transparent',
-                      color: citeFormat === fmt ? 'var(--product-accent)' : '#475569',
+                      padding: '4px 14px', borderRadius: 5, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                      border: `1px solid ${citeFormat === fmt ? 'rgba(165,226,207,0.6)' : 'rgba(100,116,139,0.2)'}`,
+                      background: citeFormat === fmt ? 'rgba(165,226,207,0.18)' : 'transparent',
+                      color: citeFormat === fmt ? 'var(--product-accent)' : 'var(--product-muted)',
                     }}
                   >{fmt}</button>
                 ))}
@@ -662,11 +662,11 @@ const SourceViewer: React.FC = () => {
 
               {/* Citation text */}
               <div style={{
-                background: 'rgba(15,23,42,0.8)',
-                border: '1px solid rgba(59,130,246,0.2)',
+                background: 'var(--product-surface)',
+                border: '1px solid rgba(165,226,207,0.2)',
                 borderRadius: 8, padding: '16px 20px', marginBottom: 12,
                 fontFamily: citeFormat === 'BibTeX' ? 'monospace' : 'inherit',
-                fontSize: 13, color: '#cbd5e1', lineHeight: 1.8,
+                fontSize: 13, color: 'var(--product-text)', lineHeight: 1.8,
                 whiteSpace: 'pre-wrap', wordBreak: 'break-word',
               }}>
                 {citations[citeFormat]}
@@ -676,8 +676,8 @@ const SourceViewer: React.FC = () => {
                 onClick={copyCitation}
                 style={{
                   padding: '7px 20px', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer',
-                  background: copied ? 'rgba(16,185,129,0.18)' : 'rgba(59,130,246,0.18)',
-                  border: `1px solid ${copied ? 'rgba(16,185,129,0.4)' : 'rgba(59,130,246,0.4)'}`,
+                  background: copied ? 'rgba(16,185,129,0.18)' : 'rgba(165,226,207,0.18)',
+                  border: `1px solid ${copied ? 'rgba(16,185,129,0.4)' : 'rgba(165,226,207,0.4)'}`,
                   color: copied ? '#34d399' : 'var(--product-accent)',
                   transition: 'all 0.2s',
                 }}
@@ -692,7 +692,7 @@ const SourceViewer: React.FC = () => {
             <button
               onClick={handleDelete}
               style={{
-                padding: '6px 16px', borderRadius: 6, fontSize: 11, fontWeight: 600,
+                padding: '6px 16px', borderRadius: 6, fontSize: 12, fontWeight: 600,
                 background: 'transparent', border: '1px solid rgba(239,68,68,0.3)',
                 color: '#ef4444', cursor: 'pointer',
               }}

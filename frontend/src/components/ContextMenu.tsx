@@ -33,7 +33,7 @@ const ContextMenu: React.FC = () => {
 
   const close = () => setContextMenu(null);
 
-  const item = (label: string, onClick: () => void, color = '#94a3b8') => (
+  const item = (label: string, onClick: () => void, color = 'var(--product-muted)') => (
     <button
       key={label}
       onClick={() => { onClick(); close(); }}
@@ -43,7 +43,7 @@ const ContextMenu: React.FC = () => {
         color, fontSize: 12, cursor: 'pointer',
         borderRadius: 4,
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(59,130,246,0.1)')}
+      onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(165,226,207,0.1)')}
       onMouseLeave={(e) => (e.currentTarget.style.background = 'none')}
     >
       {label}
@@ -60,8 +60,8 @@ const ContextMenu: React.FC = () => {
       ref={ref}
       style={{
         position: 'fixed', left, top, zIndex: 1000,
-        background: 'rgba(15,23,42,0.98)',
-        border: '1px solid rgba(59,130,246,0.3)',
+        background: 'var(--product-surface)',
+        border: '1px solid rgba(165,226,207,0.3)',
         borderRadius: 8, padding: '6px 4px',
         boxShadow: '0 8px 32px rgba(0,0,0,0.7)',
         backdropFilter: 'blur(12px)',
@@ -70,14 +70,14 @@ const ContextMenu: React.FC = () => {
     >
       {/* Header */}
       <div style={{ padding: '4px 14px 8px', borderBottom: '1px solid rgba(30,41,59,0.8)', marginBottom: 4 }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#f1f5f9' }}>{region.name}</div>
-        <div style={{ fontSize: 9, color: '#475569', letterSpacing: 0.5 }}>{region.acronym} · {region.category}</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--product-text)' }}>{region.name}</div>
+        <div style={{ fontSize: 12, color: 'var(--product-muted)', letterSpacing: 0.5 }}>{region.acronym} · {region.category}</div>
       </div>
 
       {item('Select', () => setSelectedRegion(meshName), '#60a5fa')}
       {item('Isolate region', () => { setSelectedRegion(meshName); setIsolatedRegion(meshName); }, '#60a5fa')}
 
-      <div style={{ height: 1, background: 'rgba(30,41,59,0.8)', margin: '4px 8px' }} />
+      <div style={{ height: 1, background: 'var(--product-line)', margin: '4px 8px' }} />
 
       {item('Add note', () => {
         const now = new Date().toISOString();
@@ -87,10 +87,10 @@ const ContextMenu: React.FC = () => {
 
       {firstSource && item(`View source: ${firstSource.title.slice(0, 28)}…`, () => setViewingSourceId(firstSource.id), '#a5b4fc')}
 
-      <div style={{ height: 1, background: 'rgba(30,41,59,0.8)', margin: '4px 8px' }} />
+      <div style={{ height: 1, background: 'var(--product-line)', margin: '4px 8px' }} />
 
       <div style={{ padding: '4px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ fontSize: 11, color: '#475569' }}>Highlight</span>
+        <span style={{ fontSize: 12, color: 'var(--product-muted)' }}>Highlight</span>
         <input
           type="color"
           defaultValue={highlightColors[meshName] ?? region.color}
@@ -100,7 +100,7 @@ const ContextMenu: React.FC = () => {
         {highlightColors[meshName] && (
           <button
             onClick={() => { setHighlightColor(meshName, null); close(); }}
-            style={{ fontSize: 9, padding: '2px 6px', borderRadius: 3, background: 'transparent', border: '1px solid rgba(100,116,139,0.2)', color: '#475569', cursor: 'pointer' }}
+            style={{ fontSize: 12, padding: '2px 6px', borderRadius: 3, background: 'transparent', border: '1px solid rgba(100,116,139,0.2)', color: 'var(--product-muted)', cursor: 'pointer' }}
           >Clear</button>
         )}
       </div>

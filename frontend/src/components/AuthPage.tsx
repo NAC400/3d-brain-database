@@ -106,28 +106,28 @@ const AuthPage: React.FC = () => {
   const inputStyle: React.CSSProperties = {
     width: '100%', boxSizing: 'border-box',
     padding: '10px 14px', borderRadius: 8,
-    background: 'rgba(15,23,42,0.8)',
-    border: '1px solid rgba(59,130,246,0.25)',
-    color: '#e2e8f0', fontSize: 14, outline: 'none',
+    background: 'var(--product-surface)',
+    border: '1px solid rgba(165,226,207,0.25)',
+    color: 'var(--product-text)', fontSize: 14, outline: 'none',
   };
 
   // ── Signed-in view ──
   if (user && mode !== 'reset') {
     return (
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="auth-page" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{
-          width: 400, background: 'rgba(15,23,42,0.95)',
-          border: '1px solid rgba(59,130,246,0.3)', borderRadius: 16,
+          width: 400, background: 'var(--product-surface)',
+          border: '1px solid rgba(165,226,207,0.3)', borderRadius: 16,
           padding: '40px 36px', textAlign: 'center',
         }}>
           <div style={{ fontSize: 32, marginBottom: 16 }}>👤</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>
+          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--product-text)', marginBottom: 6 }}>
             {user.email}
           </div>
           <div style={{
             display: 'inline-block', padding: '3px 12px', borderRadius: 99,
-            background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.3)',
-            color: 'var(--product-accent)', fontSize: 11, fontWeight: 700, letterSpacing: 0.6,
+            background: 'rgba(165,226,207,0.15)', border: '1px solid rgba(165,226,207,0.3)',
+            color: 'var(--product-accent)', fontSize: 12, fontWeight: 700, letterSpacing: 0.6,
             textTransform: 'uppercase', marginBottom: 28,
           }}>
             {user.plan} plan
@@ -137,7 +137,7 @@ const AuthPage: React.FC = () => {
               onClick={() => setAppPage('explorer')}
               style={{
                 padding: '10px 0', borderRadius: 8, fontWeight: 600, cursor: 'pointer',
-                background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)',
+                background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.4)',
                 color: 'var(--product-accent)', fontSize: 14,
               }}
             >Back to Explorer</button>
@@ -156,30 +156,30 @@ const AuthPage: React.FC = () => {
   }
 
   return (
-    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className="auth-page" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{
-        width: 420, background: 'rgba(15,23,42,0.95)',
-        border: '1px solid rgba(59,130,246,0.3)', borderRadius: 16,
+        width: 420, background: 'var(--product-surface)',
+        border: '1px solid rgba(165,226,207,0.3)', borderRadius: 16,
         padding: '40px 36px',
       }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <span className="product-wordmark">MAPPED<span>.</span><small>NEUROSCIENCE RESEARCH & LEARNING</small></span>
+          <span className="product-wordmark">MAPPED<span>.</span><small>Neuroscience research & study</small></span>
         </div>
 
         {mode === 'reset' ? (
           <div style={{ marginBottom: 24, textAlign: 'center' }}>
-            <div style={{ fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}>Choose a new password</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--product-text)' }}>Choose a new password</div>
             <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 6 }}>Use at least 8 characters.</div>
           </div>
         ) : (
-        <div style={{ display: 'flex', marginBottom: 24, borderRadius: 8, overflow: 'hidden', border: '1px solid rgba(59,130,246,0.2)' }}>
+        <div style={{ display: 'flex', marginBottom: 24, borderRadius: 8, overflow: 'hidden', border: '1px solid rgba(165,226,207,0.2)' }}>
           {(['signin', 'signup'] as const).map((m) => (
             <button key={m} onClick={() => setMode(m)} style={{
               flex: 1, padding: '9px 0', fontSize: 13, fontWeight: 600, cursor: 'pointer',
               border: 'none',
-              background: mode === m ? 'rgba(59,130,246,0.2)' : 'transparent',
-              color: mode === m ? 'var(--product-accent)' : '#475569',
+              background: mode === m ? 'rgba(165,226,207,0.2)' : 'transparent',
+              color: mode === m ? 'var(--product-accent)' : 'var(--product-muted)',
             }}>
               {m === 'signin' ? 'Sign In' : 'Create Account'}
             </button>
@@ -199,11 +199,11 @@ const AuthPage: React.FC = () => {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {mode !== 'reset' && <div>
-            <label style={{ fontSize: 11, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>EMAIL</label>
+            <label style={{ fontSize: 12, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>EMAIL</label>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} required placeholder="your@email.com" />
           </div>}
           <div>
-            <label style={{ fontSize: 11, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>{mode === 'reset' ? 'NEW PASSWORD' : 'PASSWORD'}</label>
+            <label style={{ fontSize: 12, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>{mode === 'reset' ? 'NEW PASSWORD' : 'PASSWORD'}</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={inputStyle} required placeholder="••••••••" />
           </div>
 
@@ -219,7 +219,7 @@ const AuthPage: React.FC = () => {
           )}
 
           {canResend && (
-            <button type="button" onClick={handleResendConfirmation} disabled={loading} style={{ padding: '8px 0', borderRadius: 7, background: 'transparent', border: '1px solid rgba(59,130,246,0.35)', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 12 }}>
+            <button type="button" onClick={handleResendConfirmation} disabled={loading} style={{ padding: '8px 0', borderRadius: 7, background: 'transparent', border: '1px solid rgba(165,226,207,0.35)', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 12 }}>
               Resend verification email
             </button>
           )}
@@ -229,8 +229,8 @@ const AuthPage: React.FC = () => {
             disabled={loading || !isSupabaseConfigured()}
             style={{
               padding: '11px 0', borderRadius: 8, fontSize: 14, fontWeight: 700, cursor: loading ? 'wait' : 'pointer',
-              background: 'linear-gradient(135deg, rgba(59,130,246,0.8), rgba(30,64,175,0.8))',
-              border: '1px solid rgba(59,130,246,0.5)', color: '#e0eaff',
+              background: 'var(--product-accent)',
+              border: '1px solid rgba(165,226,207,0.5)', color: '#122b26',
               opacity: loading ? 0.7 : 1,
             }}
           >
@@ -239,14 +239,14 @@ const AuthPage: React.FC = () => {
         </form>
 
         {mode === 'signin' && <div style={{ textAlign: 'center', marginTop: 14 }}>
-          <button type="button" onClick={handlePasswordReset} disabled={loading} style={{ background: 'none', border: 'none', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 11 }}>
+          <button type="button" onClick={handlePasswordReset} disabled={loading} style={{ background: 'none', border: 'none', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 12 }}>
             Forgot password?
           </button>
         </div>}
 
-        {mode !== 'reset' && <p style={{ fontSize: 11, color: 'var(--product-muted)', textAlign: 'center', marginTop: 20 }}>
+        {mode !== 'reset' && <p style={{ fontSize: 12, color: 'var(--product-muted)', textAlign: 'center', marginTop: 20 }}>
           {mode === 'signin' ? 'No account? ' : 'Already have an account? '}
-          <button onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')} style={{ background: 'none', border: 'none', color: '#3b82f6', cursor: 'pointer', fontSize: 11 }}>
+          <button onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')} style={{ background: 'none', border: 'none', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 12 }}>
             {mode === 'signin' ? 'Create one' : 'Sign in'}
           </button>
         </p>}

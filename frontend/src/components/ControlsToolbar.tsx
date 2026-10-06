@@ -34,7 +34,7 @@ const CATEGORY_GROUPS: CategoryGroup[] = [
   },
   {
     // Diencephalon now expanded into 4 subdivisions + catch-all
-    id: 'diencephalon', label: 'Diencephalon', color: '#3b82f6',
+    id: 'diencephalon', label: 'Diencephalon', color: 'var(--product-accent)',
     children: [
       'Diencephalon – Thalamus',
       'Diencephalon – Hypothalamus',
@@ -60,7 +60,7 @@ const CATEGORY_GROUPS: CategoryGroup[] = [
     children: ['Metencephalon (Cerebellum)'],
   },
   {
-    id: 'whiteMatter', label: 'White Matter', color: '#94a3b8',
+    id: 'whiteMatter', label: 'White Matter', color: 'var(--product-muted)',
     children: ['White Matter'],
   },
   {
@@ -168,7 +168,7 @@ const SubPopover: React.FC<PopoverProps> = ({ group, activeCategories, toggleCat
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: group.color, flexShrink: 0 }} />
-          <span style={{ fontSize: 11, fontWeight: 700, color: group.color, letterSpacing: 0.5 }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: group.color, letterSpacing: 0.5 }}>
             {group.label}
           </span>
         </div>
@@ -183,7 +183,7 @@ const SubPopover: React.FC<PopoverProps> = ({ group, activeCategories, toggleCat
               }
             }}
             style={{
-              fontSize: 9, fontWeight: 600, padding: '2px 7px', borderRadius: 4, cursor: 'pointer',
+              fontSize: 12, fontWeight: 600, padding: '2px 7px', borderRadius: 4, cursor: 'pointer',
               background: 'transparent',
               border: `1px solid ${group.color}55`,
               color: group.color, letterSpacing: 0.3,
@@ -213,9 +213,9 @@ const SubPopover: React.FC<PopoverProps> = ({ group, activeCategories, toggleCat
                 display: 'flex', alignItems: 'center', gap: 5,
                 padding: '4px 10px', borderRadius: 5,
                 border: `1px solid ${active ? color + '88' : 'rgba(100,116,139,0.2)'}`,
-                background: active ? color + '22' : 'rgba(15,23,42,0.5)',
-                color: active ? color : '#64748b',
-                fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                background: active ? color + '22' : 'var(--product-surface)',
+                color: active ? color : 'var(--product-muted)',
+                fontSize: 12, fontWeight: 600, cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.12s',
               }}
@@ -289,33 +289,33 @@ const ShortcutsPopover: React.FC<{ anchorRef: React.RefObject<HTMLButtonElement 
         zIndex: 500, width: 300, maxWidth: 'calc(100vw - 16px)',
         maxHeight: `calc(100vh - ${pos.bottom + 8}px)`, overflowY: 'auto',
         background: 'var(--product-surface)',
-        border: '1px solid rgba(59,130,246,0.35)',
+        border: '1px solid rgba(165,226,207,0.35)',
         borderRadius: 10, padding: '14px 16px',
         boxShadow: '0 -8px 32px rgba(0,0,0,0.7)',
         backdropFilter: 'blur(12px)',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--product-accent)', letterSpacing: 0.5 }}>KEYBOARD SHORTCUTS</span>
+        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--product-accent)', letterSpacing: 0.5 }}>KEYBOARD SHORTCUTS</span>
         <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 14, lineHeight: 1, padding: 0 }}>×</button>
       </div>
       {shortcuts.map(({ key, desc, action }) => (
         <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
           <kbd style={{
             display: 'inline-block', minWidth: 60, padding: '2px 6px', borderRadius: 4,
-            background: 'rgba(30,41,59,0.9)', border: '1px solid rgba(59,130,246,0.25)',
-            color: '#94a3b8', fontSize: 10, fontWeight: 700, textAlign: 'center',
-            fontFamily: 'monospace', flexShrink: 0, letterSpacing: 0.3,
+            background: 'var(--product-line)', border: '1px solid rgba(165,226,207,0.25)',
+            color: 'var(--product-muted)', fontSize: 12, fontWeight: 700, textAlign: 'center',
+            fontFamily: 'var(--product-font)', flexShrink: 0, letterSpacing: 0.3,
           }}>
             {key}
           </kbd>
-          <span style={{ fontSize: 11, color: 'var(--product-muted)', flex: 1 }}>{desc}</span>
+          <span style={{ fontSize: 12, color: 'var(--product-muted)', flex: 1 }}>{desc}</span>
           {action && (
             <button
               onClick={() => { action(); onClose(); }}
               style={{
-                padding: '2px 8px', borderRadius: 4, fontSize: 10, fontWeight: 600, cursor: 'pointer',
-                background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.25)',
+                padding: '2px 8px', borderRadius: 4, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                background: 'rgba(165,226,207,0.12)', border: '1px solid rgba(165,226,207,0.25)',
                 color: 'var(--product-accent)', flexShrink: 0,
               }}
             >
@@ -393,7 +393,7 @@ const ControlsToolbar: React.FC = () => {
             its assets. Saved research retains the original structure IDs. */}
         <select aria-label="Brain atlas" value={brainAtlas}
           onChange={event => setBrainAtlas(event.target.value as 'spl' | 'allen')}
-          style={{ padding: '4px 8px', marginRight: 12, borderRadius: 5, background: '#132033', color: '#d1e5ff', border: '1px solid #769ac65c', fontSize: 11 }}>
+          style={{ padding: '4px 8px', marginRight: 12, borderRadius: 5, background: 'var(--product-surface)', color: 'var(--product-accent)', border: '1px solid #769ac65c', fontSize: 12 }}>
           <option value="spl">SPL/NAC · bilateral brain</option>
           <option value="allen" disabled={!ALLEN_ATLAS_ENABLED}>Allen · {ALLEN_ATLAS_ENABLED ? 'original atlas' : 'archived'}</option>
         </select>
@@ -402,16 +402,16 @@ const ControlsToolbar: React.FC = () => {
 
         {/* ── Explode slider ── */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, marginRight: 16 }}>
-          <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1, color: '#3b82f6', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1, color: 'var(--product-accent)', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
             Explode
           </span>
           <input
             type="range" min={0} max={1} step={0.01}
             value={explodeAmount}
             onChange={(e) => setExplodeAmount(parseFloat(e.target.value))}
-            style={{ width: 90, accentColor: '#3b82f6', cursor: 'pointer' }}
+            style={{ width: 90, accentColor: 'var(--product-accent)', cursor: 'pointer' }}
           />
-          <span style={{ fontSize: 10, color: 'var(--product-muted)', width: 26, flexShrink: 0 }}>
+          <span style={{ fontSize: 12, color: 'var(--product-muted)', width: 26, flexShrink: 0 }}>
             {Math.round(explodeAmount * 100)}%
           </span>
         </div>
@@ -426,10 +426,10 @@ const ControlsToolbar: React.FC = () => {
               onClick={() => setMode(m)}
               style={{
                 padding: '3px 10px', borderRadius: 5,
-                border: `1px solid ${mode === m ? 'rgba(59,130,246,0.7)' : 'rgba(100,116,139,0.25)'}`,
-                background: mode === m ? 'rgba(59,130,246,0.18)' : 'transparent',
-                color: mode === m ? 'var(--product-accent)' : '#475569',
-                fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                border: `1px solid ${mode === m ? 'rgba(165,226,207,0.7)' : 'rgba(100,116,139,0.25)'}`,
+                background: mode === m ? 'rgba(165,226,207,0.18)' : 'transparent',
+                color: mode === m ? 'var(--product-accent)' : 'var(--product-muted)',
+                fontSize: 12, fontWeight: 600, cursor: 'pointer',
                 letterSpacing: 0.5, textTransform: 'uppercase', whiteSpace: 'nowrap',
               }}
             >
@@ -458,8 +458,8 @@ const ControlsToolbar: React.FC = () => {
                     padding: '3px 9px', borderRadius: 4,
                     border: `1px solid ${isActive || isOpen ? group.color + '66' : 'rgba(100,116,139,0.2)'}`,
                     background: isActive || isOpen ? group.color + '18' : 'transparent',
-                    color: isActive || isOpen ? group.color : '#475569',
-                    fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                    color: isActive || isOpen ? group.color : 'var(--product-muted)',
+                    fontSize: 12, fontWeight: 600, cursor: 'pointer',
                     whiteSpace: 'nowrap', flexShrink: 0,
                     opacity: (activeCategories.size > 0 && !isActive) ? 0.4 : 1,
                   }}
@@ -482,7 +482,7 @@ const ControlsToolbar: React.FC = () => {
                 onClick={() => Array.from(activeCategories).forEach((c) => toggleCategory(c))}
                 title="Clear filter — show all regions"
                 style={{
-                  padding: '2px 8px', borderRadius: 4, fontSize: 9, fontWeight: 700,
+                  padding: '2px 8px', borderRadius: 4, fontSize: 12, fontWeight: 700,
                   background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.35)',
                   color: '#f87171', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
                   letterSpacing: 0.3, marginLeft: 4,
@@ -516,7 +516,7 @@ const ControlsToolbar: React.FC = () => {
                     }}
                   />
                   <div style={{ opacity: enabled ? 1 : 0.4 }}>
-                    <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 0.8, color, textTransform: 'uppercase', lineHeight: 1 }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.8, color, textTransform: 'uppercase', lineHeight: 1 }}>
                       {label}
                     </div>
                     <div style={{ fontSize: 8, color: 'var(--product-muted)', lineHeight: 1, marginTop: 1 }}>{sublabel}</div>
@@ -531,7 +531,7 @@ const ControlsToolbar: React.FC = () => {
                     }}
                     style={{ width: 90, accentColor: color, cursor: 'pointer', opacity: enabled ? 1 : 0.35 }}
                   />
-                  <span style={{ fontSize: 9, color: 'var(--product-muted)', width: 36, flexShrink: 0, opacity: enabled ? 1 : 0.35 }}>
+                  <span style={{ fontSize: 12, color: 'var(--product-muted)', width: 36, flexShrink: 0, opacity: enabled ? 1 : 0.35 }}>
                     {clampedValue.toFixed(2)}
                   </span>
                 </div>
@@ -545,7 +545,7 @@ const ControlsToolbar: React.FC = () => {
                   padding: '3px 10px', borderRadius: 5, flexShrink: 0,
                   border: '1px solid rgba(248,113,113,0.35)',
                   background: 'transparent', color: '#f87171',
-                  fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                  fontSize: 12, fontWeight: 600, cursor: 'pointer',
                   letterSpacing: 0.4, whiteSpace: 'nowrap',
                 }}
               >
@@ -566,9 +566,9 @@ const ControlsToolbar: React.FC = () => {
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 26, height: 26, borderRadius: '50%',
-              border: `1px solid ${showShortcuts ? 'rgba(59,130,246,0.5)' : 'rgba(100,116,139,0.3)'}`,
-              background: showShortcuts ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: showShortcuts ? 'var(--product-accent)' : '#475569',
+              border: `1px solid ${showShortcuts ? 'rgba(165,226,207,0.5)' : 'rgba(100,116,139,0.3)'}`,
+              background: showShortcuts ? 'rgba(165,226,207,0.15)' : 'transparent',
+              color: showShortcuts ? 'var(--product-accent)' : 'var(--product-muted)',
               fontSize: 12, fontWeight: 700, cursor: 'pointer',
             }}
           >

@@ -23,7 +23,7 @@ const ContribCard: React.FC<{ contrib: GlobalContribution }> = ({ contrib }) => 
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? 'rgba(34,211,238,0.06)' : 'rgba(15,23,42,0.6)',
+        background: hovered ? 'rgba(34,211,238,0.06)' : 'var(--product-surface)',
         border: `1px solid ${hovered ? 'rgba(34,211,238,0.3)' : 'rgba(34,211,238,0.12)'}`,
         borderRadius: 8, padding: '10px 12px', marginBottom: 8,
         transition: 'all 0.12s',
@@ -31,14 +31,14 @@ const ContribCard: React.FC<{ contrib: GlobalContribution }> = ({ contrib }) => 
     >
       {/* Title */}
       <div style={{
-        fontSize: 12, fontWeight: 600, color: '#e2e8f0',
+        fontSize: 12, fontWeight: 600, color: 'var(--product-text)',
         marginBottom: 3, lineHeight: 1.4,
       }}>
         {contrib.title}
       </div>
 
       {/* Authors · journal · year */}
-      <div style={{ fontSize: 10, color: 'var(--product-muted)', marginBottom: 6 }}>
+      <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 6 }}>
         {contrib.authors}
         {contrib.journal && <span> · <em>{contrib.journal}</em></span>}
         {contrib.year && <span> · {contrib.year}</span>}
@@ -48,21 +48,21 @@ const ContribCard: React.FC<{ contrib: GlobalContribution }> = ({ contrib }) => 
       <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', alignItems: 'center' }}>
         {contrib.verified && (
           <span style={{
-            padding: '1px 6px', borderRadius: 3, fontSize: 9,
+            padding: '1px 6px', borderRadius: 3, fontSize: 12,
             background: 'rgba(34,211,238,0.1)', border: '1px solid rgba(34,211,238,0.25)',
             color: '#22d3ee',
           }}>verified</span>
         )}
         {(contrib.ai_score ?? 0) > 0 && (
           <span style={{
-            padding: '1px 6px', borderRadius: 3, fontSize: 9,
+            padding: '1px 6px', borderRadius: 3, fontSize: 12,
             background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)',
             color: '#a5b4fc',
           }}>score {contrib.ai_score}</span>
         )}
         {contrib.abstract && (
           <span style={{
-            padding: '1px 6px', borderRadius: 3, fontSize: 9,
+            padding: '1px 6px', borderRadius: 3, fontSize: 12,
             background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)',
             color: '#34d399',
           }}>abstract</span>
@@ -73,8 +73,8 @@ const ContribCard: React.FC<{ contrib: GlobalContribution }> = ({ contrib }) => 
             target="_blank" rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             style={{
-              padding: '1px 6px', borderRadius: 3, fontSize: 9,
-              background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)',
+              padding: '1px 6px', borderRadius: 3, fontSize: 12,
+              background: 'rgba(165,226,207,0.08)', border: '1px solid rgba(165,226,207,0.2)',
               color: 'var(--product-accent)', textDecoration: 'none',
             }}
           >DOI ↗</a>
@@ -84,7 +84,7 @@ const ContribCard: React.FC<{ contrib: GlobalContribution }> = ({ contrib }) => 
       {/* Abstract preview */}
       {contrib.abstract && (
         <div style={{
-          marginTop: 6, fontSize: 10, color: 'var(--product-muted)',
+          marginTop: 6, fontSize: 12, color: 'var(--product-muted)',
           lineHeight: 1.5, display: '-webkit-box',
           WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden',
         }}>
@@ -224,7 +224,7 @@ const ResearchPanel: React.FC = () => {
           ? '2px solid rgba(34,211,238,0.35)'
           : selectedRegionData
             ? `2px solid ${selectedRegionData.color}99`
-            : '1px solid rgba(59,130,246,0.25)',
+            : '1px solid rgba(165,226,207,0.25)',
         boxShadow: isCommunity
           ? 'inset 4px 0 16px rgba(34,211,238,0.06)'
           : selectedRegionData
@@ -249,11 +249,11 @@ const ResearchPanel: React.FC = () => {
                     background: '#22d3ee', flexShrink: 0,
                     boxShadow: '0 0 5px #22d3ee88',
                   }} />
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--product-text)' }}>
                     Community Atlas
                   </div>
                 </div>
-                <div style={{ fontSize: 10, color: 'var(--product-muted)', marginTop: 2, paddingLeft: 16 }}>
+                <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 2, paddingLeft: 16 }}>
                   {isSupabaseConfigured()
                     ? `${allCount} verified source${allCount !== 1 ? 's' : ''}`
                     : 'Community service unavailable'}
@@ -267,20 +267,20 @@ const ResearchPanel: React.FC = () => {
                     background: selectedRegionData.color, flexShrink: 0,
                     boxShadow: `0 0 5px ${selectedRegionData.color}`,
                   }} />
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--product-text)' }}>
                     {selectedRegionData.name}
                   </div>
                 </div>
-                <div style={{ fontSize: 10, color: 'var(--product-muted)', marginTop: 2, paddingLeft: 16 }}>
+                <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 2, paddingLeft: 16 }}>
                   Research Sources · {sources.length} total
                 </div>
               </>
             ) : (
               <>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, color: '#3b82f6', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1.5, color: 'var(--product-accent)', textTransform: 'uppercase' }}>
                   Research Sources
                 </div>
-                <div style={{ fontSize: 10, color: 'var(--product-muted)', marginTop: 1 }}>
+                <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 1 }}>
                   {sources.length} source{sources.length !== 1 ? 's' : ''} · {structureLinks.length} link{structureLinks.length !== 1 ? 's' : ''}
                 </div>
               </>
@@ -291,8 +291,8 @@ const ResearchPanel: React.FC = () => {
               <button
                 onClick={() => setAddModalOpen(true)}
                 style={{
-                  padding: '5px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600,
-                  background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)',
+                  padding: '5px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600,
+                  background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.4)',
                   color: 'var(--product-accent)', cursor: 'pointer',
                 }}
               >
@@ -319,9 +319,9 @@ const ResearchPanel: React.FC = () => {
               key={t.id}
               onClick={() => setTab(t.id)}
               style={{
-                flex: 1, padding: '9px 4px', fontSize: 10, fontWeight: 600,
+                flex: 1, padding: '9px 4px', fontSize: 12, fontWeight: 600,
                 background: 'transparent', border: 'none', cursor: 'pointer',
-                color: tab === t.id ? (isCommunity ? '#22d3ee' : 'var(--product-accent)') : '#475569',
+                color: tab === t.id ? (isCommunity ? '#22d3ee' : 'var(--product-accent)') : 'var(--product-muted)',
                 borderBottom: tab === t.id
                   ? `2px solid ${isCommunity ? '#22d3ee' : '#3b82f6'}`
                   : '2px solid transparent',
@@ -356,15 +356,15 @@ const ResearchPanel: React.FC = () => {
                     <>
                       {/* Region info card */}
                       <div style={{
-                        background: 'rgba(30,41,59,0.5)',
+                        background: 'var(--product-line)',
                         border: '1px solid rgba(34,211,238,0.2)',
                         borderRadius: 8, padding: '10px 12px', marginBottom: 12,
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                           <span style={{ width: 10, height: 10, borderRadius: '50%', background: selectedRegionData.color, flexShrink: 0 }} />
                           <div>
-                            <div style={{ fontSize: 12, fontWeight: 700, color: '#f1f5f9' }}>{selectedRegionData.name}</div>
-                            <div style={{ fontSize: 9, color: 'var(--product-muted)' }}>{selectedRegionData.acronym} · {selectedRegionData.category}</div>
+                            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--product-text)' }}>{selectedRegionData.name}</div>
+                            <div style={{ fontSize: 12, color: 'var(--product-muted)' }}>{selectedRegionData.acronym} · {selectedRegionData.category}</div>
                           </div>
                         </div>
                       </div>
@@ -398,8 +398,8 @@ const ResearchPanel: React.FC = () => {
                     style={{
                       width: '100%', boxSizing: 'border-box',
                       padding: '8px 12px', marginBottom: 12,
-                      background: 'rgba(30,41,59,0.8)', border: '1px solid rgba(34,211,238,0.25)',
-                      borderRadius: 8, color: '#e2e8f0', fontSize: 12, outline: 'none',
+                      background: 'var(--product-line)', border: '1px solid rgba(34,211,238,0.25)',
+                      borderRadius: 8, color: 'var(--product-text)', fontSize: 12, outline: 'none',
                     }}
                   />
                   {searchQuery.trim() ? (
@@ -444,19 +444,19 @@ const ResearchPanel: React.FC = () => {
                     <>
                       {/* Region info card */}
                       <div style={{
-                        background: 'rgba(30,41,59,0.5)',
-                        border: '1px solid rgba(59,130,246,0.2)',
+                        background: 'var(--product-line)',
+                        border: '1px solid rgba(165,226,207,0.2)',
                         borderRadius: 8, padding: '10px 12px', marginBottom: 12,
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                           <span style={{ width: 10, height: 10, borderRadius: '50%', background: selectedRegionData.color, flexShrink: 0 }} />
                           <div>
-                            <div style={{ fontSize: 12, fontWeight: 700, color: '#f1f5f9' }}>{selectedRegionData.name}</div>
-                            <div style={{ fontSize: 9, color: 'var(--product-muted)' }}>{selectedRegionData.acronym} · {selectedRegionData.category}</div>
+                            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--product-text)' }}>{selectedRegionData.name}</div>
+                            <div style={{ fontSize: 12, color: 'var(--product-muted)' }}>{selectedRegionData.acronym} · {selectedRegionData.category}</div>
                           </div>
                         </div>
                         {selectedRegionData.parentName && (
-                          <div style={{ fontSize: 10, color: 'var(--product-muted)', marginTop: 6 }}>
+                          <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 6 }}>
                             Parent: <span style={{ color: 'var(--product-muted)' }}>{selectedRegionData.parentName}</span>
                           </div>
                         )}
@@ -469,8 +469,8 @@ const ResearchPanel: React.FC = () => {
                           <button
                             onClick={() => setAddModalOpen(true)}
                             style={{
-                              marginTop: 12, padding: '6px 16px', borderRadius: 6, fontSize: 11, fontWeight: 600,
-                              background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.3)',
+                              marginTop: 12, padding: '6px 16px', borderRadius: 6, fontSize: 12, fontWeight: 600,
+                              background: 'rgba(165,226,207,0.15)', border: '1px solid rgba(165,226,207,0.3)',
                               color: 'var(--product-accent)', cursor: 'pointer',
                             }}
                           >
@@ -505,8 +505,8 @@ const ResearchPanel: React.FC = () => {
                     style={{
                       width: '100%', boxSizing: 'border-box',
                       padding: '8px 12px', marginBottom: 12,
-                      background: 'rgba(30,41,59,0.8)', border: '1px solid rgba(59,130,246,0.25)',
-                      borderRadius: 8, color: '#e2e8f0', fontSize: 12, outline: 'none',
+                      background: 'var(--product-line)', border: '1px solid rgba(165,226,207,0.25)',
+                      borderRadius: 8, color: 'var(--product-text)', fontSize: 12, outline: 'none',
                     }}
                   />
                   {searchQuery.trim() ? (

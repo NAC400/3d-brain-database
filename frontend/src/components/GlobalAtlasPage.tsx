@@ -11,7 +11,7 @@ import ForumFeed from './ForumFeed';
 // ---------------------------------------------------------------------------
 /** Maps a 0–1 intensity to a monochromatic red heatmap: pale rose → deep crimson */
 function heatmapColor(t: number): string {
-  if (t <= 0) return 'rgba(30,41,59,0.55)';
+  if (t <= 0) return 'var(--product-line)';
   // 4-stop red scale: pale pink → rose → vivid red → deep crimson
   const stops: [number, number, number][] = [
     [254, 205, 211],  // #fecdd3 pale rose
@@ -74,15 +74,15 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', boxSizing: 'border-box', padding: '8px 12px',
-    background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.25)',
-    borderRadius: 6, color: '#e2e8f0', fontSize: 12, outline: 'none',
+    background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.25)',
+    borderRadius: 6, color: 'var(--product-text)', fontSize: 12, outline: 'none',
   };
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 600, background: 'rgba(7,11,22,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: 500, background: 'var(--product-surface)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 16, padding: '32px 28px' }}>
+      <div style={{ width: 500, maxWidth: 'calc(100vw - 32px)', background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.3)', borderRadius: 16, padding: '32px 28px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#f1f5f9' }}>Contribute to Global Atlas</div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--product-text)' }}>Contribute to Global Atlas</div>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 18 }}>×</button>
         </div>
 
@@ -91,19 +91,19 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             <div style={{ fontSize: 32, marginBottom: 12 }}>✅</div>
             <div style={{ fontSize: 15, fontWeight: 600, color: '#34d399', marginBottom: 8 }}>Contribution submitted!</div>
             <div style={{ fontSize: 12, color: 'var(--product-muted)' }}>Your contribution is pending curator review.</div>
-            <button onClick={onClose} style={{ marginTop: 20, padding: '8px 24px', borderRadius: 6, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)', color: 'var(--product-accent)', cursor: 'pointer', fontWeight: 600 }}>Close</button>
+            <button onClick={onClose} style={{ marginTop: 20, padding: '8px 24px', borderRadius: 6, background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.4)', color: 'var(--product-accent)', cursor: 'pointer', fontWeight: 600 }}>Close</button>
           </div>
         ) : (
           <>
             <div style={{ marginBottom: 14 }}>
-              <label style={{ fontSize: 11, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>SOURCE</label>
+              <label style={{ fontSize: 12, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>SOURCE</label>
               <select value={sourceId} onChange={(e) => setSourceId(e.target.value)} style={inputStyle}>
                 <option value="">Select a source from your library…</option>
                 {sources.map((s) => <option key={s.id} value={s.id}>{s.title.slice(0,60)}</option>)}
               </select>
             </div>
             <div style={{ marginBottom: 20 }}>
-              <label style={{ fontSize: 11, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>BRAIN REGION</label>
+              <label style={{ fontSize: 12, color: 'var(--product-muted)', fontWeight: 600, letterSpacing: 0.5, display: 'block', marginBottom: 5 }}>BRAIN REGION</label>
               <select value={meshName} onChange={(e) => setMeshName(e.target.value)} style={inputStyle}>
                 <option value="">Select a brain region…</option>
                 {brainRegions.map((r) => <option key={r.meshName} value={r.meshName}>{r.name} ({r.acronym})</option>)}
@@ -118,7 +118,7 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             )}
 
             {!isSupabaseConfigured() && (
-              <div style={{ padding: '8px 12px', borderRadius: 6, marginBottom: 14, background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', color: '#fbbf24', fontSize: 11 }}>
+              <div style={{ padding: '8px 12px', borderRadius: 6, marginBottom: 14, background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', color: '#fbbf24', fontSize: 12 }}>
                 Supabase not configured — contributions will not be persisted.
               </div>
             )}
@@ -128,8 +128,8 @@ const ContributeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               disabled={status === 'verifying' || status === 'submitting'}
               style={{
                 width: '100%', padding: '11px 0', borderRadius: 8, fontWeight: 700, cursor: 'pointer',
-                background: 'linear-gradient(135deg, rgba(59,130,246,0.8), rgba(30,64,175,0.8))',
-                border: '1px solid rgba(59,130,246,0.5)', color: '#e0eaff', fontSize: 14,
+                background: 'var(--product-accent)',
+                border: '1px solid rgba(165,226,207,0.5)', color: '#122b26', fontSize: 14,
                 opacity: status !== 'idle' && status !== 'error' ? 0.7 : 1,
               }}
             >
@@ -198,19 +198,19 @@ const GlobalAtlasPage: React.FC = () => {
   const statCard = (label: string, value: string | number, color = 'var(--product-accent)') => (
     <div style={{
       flex: 1, padding: '16px 20px', borderRadius: 10,
-      background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.15)',
+      background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.15)',
       textAlign: 'center',
     }}>
       <div style={{ fontSize: 26, fontWeight: 700, color }}>{value}</div>
-      <div style={{ fontSize: 11, color: 'var(--product-muted)', marginTop: 3, letterSpacing: 0.5 }}>{label}</div>
+      <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 3, letterSpacing: 0.5 }}>{label}</div>
     </div>
   );
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div className="community-page" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
       {/* Tab bar */}
-      <div style={{
+      <div className="community-tabs" style={{
         display: 'flex', alignItems: 'center', gap: 4,
         padding: '0 32px',
         borderBottom: '1px solid rgba(30,41,59,0.8)',
@@ -223,11 +223,12 @@ const GlobalAtlasPage: React.FC = () => {
         ] as { id: 'atlas' | 'forum'; label: string }[]).map((t) => (
           <button
             key={t.id}
+            aria-pressed={tab === t.id}
             onClick={() => setTab(t.id)}
             style={{
               padding: '12px 16px', fontSize: 12, fontWeight: tab === t.id ? 700 : 400, cursor: 'pointer',
               background: 'transparent', border: 'none',
-              color: tab === t.id ? 'var(--product-accent)' : '#475569',
+              color: tab === t.id ? 'var(--product-accent)' : 'var(--product-muted)',
               borderBottom: tab === t.id ? '2px solid #3b82f6' : '2px solid transparent',
               marginBottom: -1,
             }}
@@ -244,12 +245,12 @@ const GlobalAtlasPage: React.FC = () => {
 
       {/* Atlas tab */}
       {tab === 'atlas' && (
-      <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px', maxWidth: 1100, margin: '0 auto', width: '100%' }}>
+      <div className="community-body" style={{ flex: 1, overflowY: 'auto', padding: '28px 32px', maxWidth: 1100, margin: '0 auto', width: '100%' }}>
 
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 28 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: '#f1f5f9', margin: 0 }}>Community Atlas</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700, color: 'var(--product-text)', margin: 0 }}>Community Atlas</h1>
           <p style={{ fontSize: 13, color: 'var(--product-muted)', marginTop: 5 }}>
             Verified source-to-structure links contributed by the MAPPED community.
           </p>
@@ -258,8 +259,8 @@ const GlobalAtlasPage: React.FC = () => {
           onClick={() => user ? setShowContribute(true) : setAppPage('auth')}
           style={{
             padding: '9px 20px', borderRadius: 8, fontWeight: 700, cursor: 'pointer',
-            background: 'linear-gradient(135deg, rgba(59,130,246,0.8), rgba(30,64,175,0.8))',
-            border: '1px solid rgba(59,130,246,0.5)', color: '#e0eaff', fontSize: 13,
+            background: 'var(--product-accent)',
+            border: '1px solid rgba(165,226,207,0.5)', color: '#122b26', fontSize: 13,
           }}
         >
           + Contribute
@@ -267,7 +268,7 @@ const GlobalAtlasPage: React.FC = () => {
       </div>
 
       {/* Stats row */}
-      <div style={{ display: 'flex', gap: 14, marginBottom: 28 }}>
+      <div className="community-stats" style={{ display: 'flex', gap: 14, marginBottom: 28 }}>
         {statCard('Global contributions', contributions.length, 'var(--product-accent)')}
         {statCard('Regions covered', Object.keys(heatmap).length, '#34d399')}
         {statCard('Your local links', structureLinks.length, '#c084fc')}
@@ -277,21 +278,21 @@ const GlobalAtlasPage: React.FC = () => {
       {/* Research heatmap legend */}
       <div style={{
         padding: '16px 20px', borderRadius: 10,
-        background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.15)',
+        background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.15)',
         marginBottom: 28,
       }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, letterSpacing: 0.6 }}>RESEARCH DENSITY HEATMAP</div>
-        <p style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--product-muted)', marginBottom: 12, letterSpacing: 0.6 }}>Research density heatmap</div>
+        <p style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 14 }}>
           Regions coloured by relative research density —{' '}
-          <span style={{ color: '#fb7185' }}>pale rose</span> → <span style={{ color: '#e11d48' }}>red</span> → <span style={{ color: '#881337' }}>deep crimson</span> = low → high.
+          <span style={{ color: '#fecdd3' }}>pale rose</span> → <span style={{ color: '#fb7185' }}>red</span> → <span style={{ color: '#f0bcc9' }}>deep crimson</span> = low → high.
           Hover a chip to see actual source count. Click to explore in the 3D viewer.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {brainRegions.map((r) => {
             const intensity = heatmap[r.meshName] ?? localHeatmap[r.meshName] ?? 0;
             const color = heatmapColor(intensity);
-            const textColor = intensity > 0.35 ? '#fff' : '#475569';
-            const borderColor = intensity > 0 ? `${color.replace('rgb', 'rgba').replace(')', ',0.45)')}` : 'rgba(30,41,59,0.4)';
+            const textColor = intensity === 0 ? 'var(--product-muted)' : intensity < 0.6 ? '#401b28' : '#fff';
+            const borderColor = intensity > 0 ? `${color.replace('rgb', 'rgba').replace(')', ',0.45)')}` : 'var(--product-line)';
             return (
               <button
                 key={r.meshName}
@@ -304,7 +305,7 @@ const GlobalAtlasPage: React.FC = () => {
                 })()}
                 onClick={() => { setSelectedRegion(r.meshName); setAppPage('explorer'); }}
                 style={{
-                  padding: '2px 7px', borderRadius: 4, fontSize: 9, fontWeight: 600,
+                  padding: '2px 7px', borderRadius: 4, fontSize: 12, fontWeight: 600,
                   background: color, color: textColor,
                   border: `1px solid ${borderColor}`,
                   cursor: 'pointer',
@@ -317,20 +318,20 @@ const GlobalAtlasPage: React.FC = () => {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
+      <div className="community-columns" style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
 
         {/* Discovery feed */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 0.6 }}>DISCOVERY FEED</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--product-muted)', letterSpacing: 0.6 }}>Discovery feed</div>
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Filter by title or region…"
               style={{
                 padding: '5px 12px', borderRadius: 6,
-                background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.2)',
-                color: '#e2e8f0', fontSize: 11, outline: 'none', width: 200,
+                background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.2)',
+                color: 'var(--product-text)', fontSize: 12, outline: 'none', width: 200,
               }}
             />
           </div>
@@ -340,7 +341,7 @@ const GlobalAtlasPage: React.FC = () => {
           ) : filtered.length === 0 ? (
             <div style={{
               padding: 32, textAlign: 'center',
-              background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(59,130,246,0.1)', borderRadius: 10,
+              background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.1)', borderRadius: 10,
               color: 'var(--product-muted)', fontSize: 13,
             }}>
               {isSupabaseConfigured()
@@ -352,14 +353,14 @@ const GlobalAtlasPage: React.FC = () => {
               {filtered.map((c) => (
                 <div key={c.id} style={{
                   padding: '14px 18px', borderRadius: 10,
-                  background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.12)',
+                  background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.12)',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0', marginBottom: 3, lineHeight: 1.4 }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--product-text)', marginBottom: 3, lineHeight: 1.4 }}>
                         {c.title.length > 80 ? c.title.slice(0,80) + '…' : c.title}
                       </div>
-                      <div style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 6 }}>
+                      <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 6 }}>
                         {c.authors}{c.journal ? ` · ${c.journal}` : ''}{c.year ? ` · ${c.year}` : ''}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -367,7 +368,7 @@ const GlobalAtlasPage: React.FC = () => {
                           title={`Explore ${c.region_name} in 3D viewer`}
                           onClick={() => { setSelectedRegion(c.mesh_name); setAppPage('explorer'); }}
                           style={{
-                            padding: '2px 8px', borderRadius: 4, fontSize: 10, fontWeight: 600,
+                            padding: '2px 8px', borderRadius: 4, fontSize: 12, fontWeight: 600,
                             background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.25)',
                             color: '#22d3ee', cursor: 'pointer',
                           }}
@@ -375,11 +376,11 @@ const GlobalAtlasPage: React.FC = () => {
                           {c.region_name}
                         </button>
                         {(c.ai_score ?? 0) > 0 && (
-                          <span style={{ fontSize: 10, color: 'var(--product-muted)' }}>
+                          <span style={{ fontSize: 12, color: 'var(--product-muted)' }}>
                             AI: {c.ai_score}/100
                           </span>
                         )}
-                        <span style={{ fontSize: 10, color: 'var(--product-muted)', marginLeft: 'auto' }}>
+                        <span style={{ fontSize: 12, color: 'var(--product-muted)', marginLeft: 'auto' }}>
                           {timeAgo(c.created_at)}
                         </span>
                       </div>
@@ -396,9 +397,9 @@ const GlobalAtlasPage: React.FC = () => {
 
         {/* Sidebar: top regions */}
         <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 0.6, marginBottom: 14 }}>TOP STUDIED REGIONS</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--product-muted)', letterSpacing: 0.6, marginBottom: 14 }}>Top studied regions</div>
           {topRegions.length === 0 ? (
-            <div style={{ fontSize: 11, color: 'var(--product-muted)', padding: '16px 0' }}>No data yet.</div>
+            <div style={{ fontSize: 12, color: 'var(--product-muted)', padding: '16px 0' }}>No data yet.</div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {topRegions.map((r, i) => (
@@ -409,17 +410,17 @@ const GlobalAtlasPage: React.FC = () => {
                   style={{
                     display: 'flex', alignItems: 'center', gap: 10,
                     padding: '10px 14px', borderRadius: 8,
-                    background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.12)',
+                    background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.12)',
                     cursor: 'pointer', textAlign: 'left', width: '100%',
                   }}
                 >
-                  <span style={{ fontSize: 11, color: 'var(--product-muted)', width: 18, textAlign: 'center', fontWeight: 700 }}>{i+1}</span>
+                  <span style={{ fontSize: 12, color: 'var(--product-muted)', width: 18, textAlign: 'center', fontWeight: 700 }}>{i+1}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 12, color: '#e2e8f0', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
-                    <div style={{ fontSize: 10, color: 'var(--product-muted)' }}>{r.count} source{r.count !== 1 ? 's' : ''}</div>
+                    <div style={{ fontSize: 12, color: 'var(--product-text)', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
+                    <div style={{ fontSize: 12, color: 'var(--product-muted)' }}>{r.count} source{r.count !== 1 ? 's' : ''}</div>
                   </div>
                   <div style={{
-                    width: 40, height: 4, borderRadius: 2, background: 'rgba(30,41,59,0.8)', overflow: 'hidden',
+                    width: 40, height: 4, borderRadius: 2, background: 'var(--product-line)', overflow: 'hidden',
                   }}>
                     <div style={{ height: '100%', width: `${heatmap[Object.keys(heatmap).find((k) => k.includes(r.name.slice(0,4))) ?? ''] ?? 0}%`, background: '#3b82f6' }} />
                   </div>

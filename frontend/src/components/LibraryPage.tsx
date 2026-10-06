@@ -54,7 +54,7 @@ const LibraryPage: React.FC = () => {
       flex: 1, display: 'flex', flexDirection: 'column',
       background: 'transparent', overflow: 'hidden',
     }}>
-<div className="product-page-heading"><p>YOUR WORKSPACE</p><h1>Research Library</h1><span>Organize sources and connect scientific evidence to brain anatomy.</span></div>
+<div className="product-page-heading"><p>Your workspace</p><h1>Research Library</h1><span>Organize sources and connect scientific evidence to brain anatomy.</span></div>
       {/* ── Toolbar ── */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: 12,
@@ -70,10 +70,10 @@ const LibraryPage: React.FC = () => {
             <button
               onClick={() => setActiveProjectId(null)}
               style={{
-                padding: '3px 10px', borderRadius: 20, fontSize: 10, fontWeight: 600, cursor: 'pointer',
-                border: `1px solid ${!activeProjectId ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
-                background: !activeProjectId ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: !activeProjectId ? 'var(--product-accent)' : '#475569',
+                padding: '3px 10px', borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                border: `1px solid ${!activeProjectId ? 'rgba(165,226,207,0.6)' : 'rgba(100,116,139,0.2)'}`,
+                background: !activeProjectId ? 'rgba(165,226,207,0.15)' : 'transparent',
+                color: !activeProjectId ? 'var(--product-accent)' : 'var(--product-muted)',
               }}
             >All</button>
             {projects.map((p) => (
@@ -82,10 +82,10 @@ const LibraryPage: React.FC = () => {
                 onClick={() => setActiveProjectId(activeProjectId === p.id ? null : p.id)}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 5,
-                  padding: '3px 10px', borderRadius: 20, fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                  padding: '3px 10px', borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: 'pointer',
                   border: `1px solid ${activeProjectId === p.id ? p.color + '80' : 'rgba(100,116,139,0.2)'}`,
                   background: activeProjectId === p.id ? p.color + '22' : 'transparent',
-                  color: activeProjectId === p.id ? p.color : '#475569',
+                  color: activeProjectId === p.id ? p.color : 'var(--product-muted)',
                 }}
               >
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: p.color, flexShrink: 0 }} />
@@ -105,9 +105,9 @@ const LibraryPage: React.FC = () => {
             style={{
               width: '100%', boxSizing: 'border-box',
               padding: '7px 12px 7px 30px',
-              background: 'rgba(15,23,42,0.8)',
-              border: '1px solid rgba(59,130,246,0.25)',
-              borderRadius: 7, color: '#e2e8f0', fontSize: 12, outline: 'none',
+              background: 'var(--product-surface)',
+              border: '1px solid rgba(165,226,207,0.25)',
+              borderRadius: 7, color: 'var(--product-text)', fontSize: 12, outline: 'none',
             }}
           />
         </div>
@@ -117,9 +117,9 @@ const LibraryPage: React.FC = () => {
           value={filterTag}
           onChange={(e) => setFilterTag(e.target.value)}
           style={{
-            padding: '7px 10px', borderRadius: 6, fontSize: 11,
-            background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.2)',
-            color: filterTag ? 'var(--product-accent)' : '#64748b', cursor: 'pointer', outline: 'none',
+            padding: '7px 10px', borderRadius: 6, fontSize: 12,
+            background: 'var(--product-surface)', border: '1px solid rgba(165,226,207,0.2)',
+            color: filterTag ? 'var(--product-accent)' : 'var(--product-muted)', cursor: 'pointer', outline: 'none',
           }}
         >
           <option value="">All tags</option>
@@ -133,10 +133,10 @@ const LibraryPage: React.FC = () => {
               key={key}
               onClick={() => setSortBy(key)}
               style={{
-                padding: '5px 10px', borderRadius: 5, fontSize: 10, fontWeight: 600, cursor: 'pointer',
-                border: `1px solid ${sortBy === key ? 'rgba(59,130,246,0.6)' : 'rgba(100,116,139,0.2)'}`,
-                background: sortBy === key ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: sortBy === key ? 'var(--product-accent)' : '#475569',
+                padding: '5px 10px', borderRadius: 5, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                border: `1px solid ${sortBy === key ? 'rgba(165,226,207,0.6)' : 'rgba(100,116,139,0.2)'}`,
+                background: sortBy === key ? 'rgba(165,226,207,0.15)' : 'transparent',
+                color: sortBy === key ? 'var(--product-accent)' : 'var(--product-muted)',
                 textTransform: 'uppercase', letterSpacing: 0.5,
               }}
             >{key}</button>
@@ -144,7 +144,7 @@ const LibraryPage: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div style={{ fontSize: 11, color: 'var(--product-muted)', marginLeft: 'auto', whiteSpace: 'nowrap' }}>
+        <div style={{ fontSize: 12, color: 'var(--product-muted)', marginLeft: 'auto', whiteSpace: 'nowrap' }}>
           {filtered.length} / {sources.length} sources
         </div>
       </div>
@@ -162,7 +162,7 @@ const LibraryPage: React.FC = () => {
               onClick={() => setAppPage('explorer')}
               style={{
                 padding: '10px 24px', borderRadius: 8, fontSize: 13, fontWeight: 700,
-                background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.5)',
+                background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.5)',
                 color: 'var(--product-accent)', cursor: 'pointer',
               }}
             >
@@ -215,8 +215,8 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
       style={{
         display: 'flex', alignItems: 'flex-start', gap: 16,
         padding: '14px 18px', borderRadius: 8, cursor: 'pointer',
-        background: hovered ? 'rgba(30,41,59,0.7)' : 'rgba(15,23,42,0.6)',
-        border: `1px solid ${hovered ? 'rgba(59,130,246,0.25)' : 'rgba(30,41,59,0.6)'}`,
+        background: hovered ? 'var(--product-line)' : 'var(--product-surface)',
+        border: `1px solid ${hovered ? 'rgba(165,226,207,0.25)' : 'var(--product-line)'}`,
         transition: 'all 0.12s',
       }}
     >
@@ -224,8 +224,8 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
       <div style={{
         width: 36, height: 36, borderRadius: 6, flexShrink: 0,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: source.doi ? 'rgba(59,130,246,0.12)' : 'rgba(100,116,139,0.1)',
-        border: `1px solid ${source.doi ? 'rgba(59,130,246,0.2)' : 'rgba(100,116,139,0.15)'}`,
+        background: source.doi ? 'rgba(165,226,207,0.12)' : 'rgba(100,116,139,0.1)',
+        border: `1px solid ${source.doi ? 'rgba(165,226,207,0.2)' : 'rgba(100,116,139,0.15)'}`,
         fontSize: 16,
       }}>
         {source.doi ? '📄' : '📝'}
@@ -234,13 +234,13 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
       {/* Middle: metadata */}
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
-          fontSize: 13, fontWeight: 600, color: '#e2e8f0',
+          fontSize: 13, fontWeight: 600, color: 'var(--product-text)',
           marginBottom: 3, lineHeight: 1.35,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>
           {source.title}
         </div>
-        <div style={{ fontSize: 11, color: 'var(--product-muted)', marginBottom: 6 }}>
+        <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 6 }}>
           {source.authors.slice(0, 4).join(', ')}{source.authors.length > 4 ? ' et al.' : ''}
           {source.journal && <span> · <em>{source.journal}</em></span>}
           {source.year && <span> · {source.year}</span>}
@@ -250,14 +250,14 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
         <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
           {source.tags.slice(0, 4).map((t) => (
             <span key={t} style={{
-              padding: '1px 6px', borderRadius: 3, fontSize: 9,
+              padding: '1px 6px', borderRadius: 3, fontSize: 12,
               background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.2)',
               color: '#a5b4fc',
             }}>{t}</span>
           ))}
           {linkedCount > 0 && (
             <span style={{
-              padding: '1px 6px', borderRadius: 3, fontSize: 9,
+              padding: '1px 6px', borderRadius: 3, fontSize: 12,
               background: 'rgba(34,211,238,0.1)', border: '1px solid rgba(34,211,238,0.2)',
               color: '#22d3ee',
             }}>
@@ -266,7 +266,7 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
           )}
           {source.abstract && (
             <span style={{
-              padding: '1px 6px', borderRadius: 3, fontSize: 9,
+              padding: '1px 6px', borderRadius: 3, fontSize: 12,
               background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)',
               color: '#34d399',
             }}>abstract</span>
@@ -285,8 +285,8 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
             target="_blank" rel="noopener noreferrer"
             title="Open paper"
             style={{
-              padding: '3px 8px', borderRadius: 4, fontSize: 9, fontWeight: 600,
-              background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.25)',
+              padding: '3px 8px', borderRadius: 4, fontSize: 12, fontWeight: 600,
+              background: 'rgba(165,226,207,0.1)', border: '1px solid rgba(165,226,207,0.25)',
               color: 'var(--product-accent)', textDecoration: 'none',
             }}
           >DOI ↗</a>
@@ -294,7 +294,7 @@ const SourceRow: React.FC<RowProps> = ({ source, linkedCount, onOpen, onDelete }
         <button
           onClick={(e) => { e.stopPropagation(); onDelete(); }}
           style={{
-            padding: '3px 7px', borderRadius: 4, fontSize: 11,
+            padding: '3px 7px', borderRadius: 4, fontSize: 12,
             background: 'transparent', border: '1px solid rgba(239,68,68,0.2)',
             color: '#ef4444', cursor: 'pointer',
           }}

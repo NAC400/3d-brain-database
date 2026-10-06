@@ -19,7 +19,7 @@ const ProgressFallback: React.FC = () => {
     <Html center>
       <div style={{
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
-        fontFamily: 'sans-serif',
+        fontFamily: 'var(--product-font)',
       }}>
         <div style={{ color: '#60a5fa', fontSize: 13, letterSpacing: 0.5 }}>
           Loading brain model…
