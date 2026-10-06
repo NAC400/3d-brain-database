@@ -59,10 +59,38 @@ require the separate local root package. You can also run
 6. Record the actual assigned `https://<project>.pages.dev` URL.
 7. Keep the Netlify deployment as the rollback while testing the Pages URL.
 
-A Direct Upload project does not automatically deploy GitHub changes. Rebuild
-and upload a new bundle for updates. If automatic Git deployment is wanted
-later, create a new Git-integrated Pages project; Cloudflare does not allow
-converting the existing Direct Upload project to Git integration.
+A Direct Upload project has no built-in Git connection. It can still receive
+automatic deployments through GitHub Actions and Wrangler, retaining the
+same project and address. The workflow in `.github/workflows/deploy-pages.yml`
+implements this; it requires the secrets below before it can run successfully.
+
+## Automatic deployment from GitHub
+
+Pushes changing frontend/build-related files on `codex/home-ui-refinement`
+trigger a clean frontend install, production build, byte-for-byte model checks,
+and a Wrangler upload to the existing `mapped-brain` project. Wrangler uses
+`--branch=main`, the project's verified production environment; this does not
+mean the GitHub source branch is renamed. Other branches cannot deploy this
+workflow to production. Manual dispatch is also supported from that source branch.
+
+Required repository Actions secrets:
+
+- `CLOUDFLARE_API_TOKEN`: account-scoped token granting only Cloudflare Pages Write.
+- `CLOUDFLARE_ACCOUNT_ID`: the account containing the `mapped-brain` project.
+- `REACT_APP_SUPABASE_URL`: existing public frontend project URL.
+- `REACT_APP_SUPABASE_ANON_KEY`: existing public frontend anon/publishable key.
+
+Never put a Cloudflare token or Supabase service-role key in committed files.
+The workflow checks that all required values are present before building; it
+does not fall back to a database-free build. A failed build or geometry check
+does not upload a replacement, leaving the current deployment available.
+
+Automatic deployment is prepared locally but not yet activated or verified.
+Credential creation requires the owner's confirmation. After secrets are set,
+push the workflow and verify a successful Actions run plus the live brain view.
+
+GitHub Actions has its own usage allowances; this does not enable a paid plan.
+Reference: [Cloudflare continuous deployment guide](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/).
 
 ## Supabase configuration after the URL exists
 

@@ -1,0 +1,56 @@
+name: Deploy Cloudflare Pages
+
+on:
+  push:
+    branches: [codex/home-ui-refinement]
+    paths:
+      - 'frontend/**'
+      - 'scripts/build-pages.cjs'
+      - 'scripts/prepare-pages-assets.cjs'
+      - 'scripts/verify-pages-model.mjs'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # A manual run from another branch must not replace production.
+    if: github.ref == 'refs/heads/codex/home-ui-refinement'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      REACT_APP_SUPABASE_URL: ${{ secrets.REACT_APP_SUPABASE_URL }}
+      REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.REACT_APP_SUPABASE_ANON_KEY }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Check required configuration
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          for name in REACT_APP_SUPABASE_URL REACT_APP_SUPABASE_ANON_KEY CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Missing repository secret: $name"
+              exit 1
+            fi
+          done
+      - run: npm ci --prefix frontend --no-audit --no-fund
+      - run: npm run build:pages --prefix frontend
+      - run: node scripts/verify-pages-model.mjs
+      - name: Deploy to the existing production site
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy frontend/build --project-name=mapped-brain --branch=main
