@@ -41,7 +41,7 @@ const HomePage: React.FC = () => {
           <div className="home-intro">
             <p className="home-eyebrow"><span className="home-alpha">Alpha</span> Neuroscience research & study</p>
             <h1 id="home-title">Visualize and Explore.<br />Manage your research.<br />Share your contribution.</h1>
-            <p className="home-description">A workspace for the scientific community. Explore a 3D anatomical model, deepen your understanding, and revisit what you know as you research and organize your projects.</p>
+            <p className="home-description">A workspace for the scientific community. Explore a 3D anatomical model, deepen your understanding, and revisit anatomical functionality as you research and organize your projects.</p>
             <p className="home-description home-mission">Whether you’re a first-year medical or science student or an established researcher, MAPPED aims to bring your tools, evidence, and connections together in one hub.</p>
             <p className="home-built-by">Built by students, for students and colleagues.</p>
             <div className="home-actions">
