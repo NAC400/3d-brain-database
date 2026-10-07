@@ -6,48 +6,13 @@ import { useBrainStore } from '../store/brainStore';
 import type { BrainRegion, BrainBounds } from '../store/brainStore';
 import { fetchAllenStructures, getAllenDescriptions } from '../lib/allenApi';
 import { ALLEN_ATLAS_ENABLED } from '../lib/atlasAvailability';
+import { refineCategory, categoryIsVisible } from '../lib/brainLayers';
 
 const MODEL_URL = '/models/brain.glb';
 // Pages builds use the same geometry in standard glTF files below its 25 MiB limit.
 const SPL_MODEL_URL = process.env.REACT_APP_PAGES_BUILD === 'true'
   ? '/models/spl-nac/brain.pages.gltf'
   : '/models/spl-nac/brain.glb';
-
-// ---------------------------------------------------------------------------
-// Derive finer sub-categories from the Allen hierarchy already in regions.json.
-// regions.json stores parentName for each structure (sourced from Allen API),
-// so we can walk the name/parentName chain without an extra API call.
-// This replaces the flat 'Diencephalon' and 'Mesencephalon (Midbrain)' buckets
-// with the expanded structure from the Allen structure_id_path tree.
-// ---------------------------------------------------------------------------
-function refineCategory(
-  category: string,
-  name: string,
-  parentName: string | null,
-): string {
-  const n = name.toLowerCase();
-  const p = (parentName ?? '').toLowerCase();
-
-  if (category === 'Diencephalon') {
-    // Order matters: check epithalamus and subthalamus before thalamus
-    // to avoid false positives from "ventral thalamus" → subthalamus pathway.
-    if (n.includes('epithalamus') || p.includes('epithalamus'))   return 'Diencephalon – Epithalamus';
-    if (n.includes('subthalamus') || p.includes('subthalamus'))   return 'Diencephalon – Subthalamus';
-    if (n.includes('hypothalamus') || p.includes('hypothalamus')) return 'Diencephalon – Hypothalamus';
-    if (n.includes('thalamus') || p.includes('thalamus'))         return 'Diencephalon – Thalamus';
-    return 'Diencephalon';
-  }
-
-  if (category === 'Mesencephalon (Midbrain)') {
-    if (n.includes('substantia nigra') || p.includes('substantia nigra')) return 'Mesencephalon – Substantia Nigra';
-    if (n.includes('tectum') || p.includes('tectum') ||
-        n.includes('superior colliculus') || n.includes('inferior colliculus')) return 'Mesencephalon – Tectum';
-    if (n.includes('tegmentum') || p.includes('tegmentum'))               return 'Mesencephalon – Tegmentum';
-    return 'Mesencephalon (Midbrain)';
-  }
-
-  return category;
-}
 
 // The brain.glb has vertices in MNI millimeter space (~200mm wide).
 // Scale 0.01 converts mm → ~2 scene units, fitting the default camera.
@@ -102,7 +67,7 @@ const RegionMesh: React.FC<RegionMeshProps> = ({ mesh, basePosition, centroidDir
 
   // Opt-in filter: empty = all visible; non-empty = only selected categories visible
   const isCategoryFiltered = regionData
-    ? (activeCategories.size > 0 && !activeCategories.has(regionData.category))
+    ? !categoryIsVisible(regionData.category, activeCategories)
     : false;
   const isVisible  = !isCategoryFiltered && (isolatedRegion === null || isolatedRegion === meshName);
 

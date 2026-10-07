@@ -12,14 +12,16 @@ type SearchProvider = 'all' | 'pubmed' | 'crossref' | 'scholar';
 interface Props {
   onClose: () => void;
   prelinkedRegion?: string;   // mesh name to pre-link on save
+  initialMode?: Mode;
+  initialTags?: string[];
 }
 
 const genId = newId;
 
-const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
-  const { addSource, addStructureLink, regionMap, brainRegions, projects, activeProjectId } = useBrainStore();
+const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion, initialMode = 'doi', initialTags = [] }) => {
+  const { sources, addSource, addStructureLink, regionMap, brainRegions, projects, activeProjectId } = useBrainStore();
 
-  const [mode, setMode]         = useState<Mode>('doi');
+  const [mode, setMode]         = useState<Mode>(initialMode);
   const [doi, setDoi]           = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchProvider, setSearchProvider] = useState<SearchProvider>('all');
@@ -34,7 +36,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
   const [year, setYear]       = useState('');
   const [abstract, setAbstract] = useState('');
   const [manualDoi, setManualDoi] = useState('');
-  const [tags, setTags]       = useState('');
+  const [tags, setTags]       = useState(initialTags.join(', '));
 
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(activeProjectId ?? null);
 
@@ -52,11 +54,19 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
     : [];
 
   const saveSource = (partial: Partial<Source>) => {
+    const normalizedDoi = partial.doi?.trim().replace(/^https?:\/\/(?:dx\.)?doi\.org\//i, '').toLowerCase();
+    if (sources.some((s) =>
+      (normalizedDoi && s.doi?.trim().replace(/^https?:\/\/(?:dx\.)?doi\.org\//i, '').toLowerCase() === normalizedDoi) ||
+      (partial.pmid && s.pmid === partial.pmid)
+    )) {
+      setError('This paper is already in your library. Open it there to organize it.');
+      return;
+    }
     const source: Source = {
       id: genId(),
       title: partial.title ?? '',
       authors: partial.authors ?? [],
-      doi: partial.doi,
+      doi: normalizedDoi || undefined,
       url: partial.url,
       abstract: partial.abstract,
       journal: partial.journal,
@@ -66,7 +76,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
       pages: partial.pages,
       fullTextUrls: partial.fullTextUrls,
       pmid: partial.pmid,
-      tags: (tags.split(',').map((t) => t.trim()).filter(Boolean)),
+      tags: Array.from(new Set(tags.split(',').map((t) => t.trim()).filter(Boolean))),
       isGlobal: false,
       createdAt: new Date().toISOString(),
       notes: [],
@@ -163,7 +173,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
       background: 'rgba(0,0,0,0.7)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
     }}>
-      <div style={{
+      <div role="dialog" aria-modal="true" aria-label="Add Research Source" style={{
         width: 480, maxWidth: 'calc(100vw - 32px)', maxHeight: '85vh', overflowY: 'auto',
         background: 'var(--product-bg)', border: '1px solid rgba(165,226,207,0.3)',
         borderRadius: 12, padding: 24,
@@ -172,7 +182,7 @@ const AddSourceModal: React.FC<Props> = ({ onClose, prelinkedRegion }) => {
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--product-text)' }}>Add Research Source</div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 20, lineHeight: 1 }}>×</button>
+          <button aria-label="Close add source" onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--product-muted)', cursor: 'pointer', fontSize: 20, lineHeight: 1 }}>×</button>
         </div>
 
         {/* Mode tabs */}

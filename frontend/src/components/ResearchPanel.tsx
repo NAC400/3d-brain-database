@@ -2,20 +2,23 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useBrainStore } from '../store/brainStore';
 import SourceCard from './SourceCard';
 import AddSourceModal from './AddSourceModal';
+import ResearchProjects from './ResearchProjects';
+import DeleteEngagementButton from './DeleteEngagementButton';
 import {
   fetchContributionsByRegion,
   fetchGlobalContributions,
   isSupabaseConfigured,
   type GlobalContribution,
+  deleteOwnEngagement,
 } from '../lib/supabase';
 
-type Tab = 'region' | 'all' | 'search';
+type Tab = 'region' | 'all' | 'search' | 'projects';
 
 // ---------------------------------------------------------------------------
 // Community contribution card (replaces SourceCard in community mode)
 // ---------------------------------------------------------------------------
 
-const ContribCard: React.FC<{ contrib: GlobalContribution }> = ({ contrib }) => {
+const ContribCard: React.FC<{ contrib: GlobalContribution; onRemove: (id: string) => void }> = ({ contrib, onRemove }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -46,6 +49,10 @@ const ContribCard: React.FC<{ contrib: GlobalContribution }> = ({ contrib }) => 
 
       {/* Badges */}
       <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', alignItems: 'center' }}>
+        <DeleteEngagementButton ownerId={contrib.user_id} label={`Delete contribution: ${contrib.title}`} confirmation="Remove this community contribution permanently?" onDelete={async () => {
+          await deleteOwnEngagement('global_contributions', contrib.id);
+          onRemove(contrib.id);
+        }} />
         {contrib.verified && (
           <span style={{
             padding: '1px 6px', borderRadius: 3, fontSize: 12,
@@ -122,9 +129,11 @@ const ResearchPanel: React.FC = () => {
   const [retry, setRetry] = useState(0);
 
   useEffect(() => {
-    setTab(selectedRegion ? 'region' : 'all');
+    setTab(selectedRegion ? 'region' : 'projects');
     setSearchQuery('');
   }, [explorerMode, selectedRegion]);
+
+  useEffect(() => { if (activeProjectId) setTab('projects'); }, [activeProjectId]);
 
   useEffect(() => {
     if (explorerMode !== 'community') return;
@@ -211,6 +220,10 @@ const ResearchPanel: React.FC = () => {
   // ── Derived counts for tab labels ──
   const regionCount = isCommunity ? communityRegion.length : regionSources.length;
   const allCount    = isCommunity ? communityAll.length    : sources.length;
+  const removeContribution = (id: string) => {
+    setCommunityAll((items) => items.filter((c) => c.id !== id));
+    setCommunityRegion((items) => items.filter((c) => c.id !== id));
+  };
 
   return (
     <>
@@ -311,6 +324,7 @@ const ResearchPanel: React.FC = () => {
         {/* ── Tabs ── */}
         <div style={{ display: 'flex', borderBottom: '1px solid rgba(30,41,59,0.8)', flexShrink: 0 }}>
           {([
+            { id: 'projects', label: 'Projects' },
             { id: 'region', label: selectedRegionData ? `Region (${regionCount})` : 'Region' },
             { id: 'search', label: 'Search' },
             { id: 'all',    label: `All (${allCount})` },
@@ -335,9 +349,10 @@ const ResearchPanel: React.FC = () => {
 
         {/* ── Content ── */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '12px 14px' }}>
+          {tab === 'projects' && <ResearchProjects />}
 
           {/* ── COMMUNITY MODE ── */}
-          {isCommunity && (
+          {isCommunity && tab !== 'projects' && (
             <>
               <div className="research-feedback" role="status" aria-live="polite" aria-atomic="true">
                 <strong>Community research</strong>
@@ -377,7 +392,7 @@ const ResearchPanel: React.FC = () => {
                           <div style={{ fontSize: 12, color: 'var(--product-muted)' }}>No community sources for this region yet.</div>
                         </div>
                       ) : (
-                        communityRegion.map((c) => <ContribCard key={c.id} contrib={c} />)
+                        communityRegion.map((c) => <ContribCard key={c.id} contrib={c} onRemove={removeContribution} />)
                       )}
                     </>
                   ) : (
@@ -404,7 +419,7 @@ const ResearchPanel: React.FC = () => {
                   />
                   {searchQuery.trim() ? (
                     communitySearch.length > 0 ? (
-                      communitySearch.map((c) => <ContribCard key={c.id} contrib={c} />)
+                      communitySearch.map((c) => <ContribCard key={c.id} contrib={c} onRemove={removeContribution} />)
                     ) : (
                       <div style={{ textAlign: 'center', color: 'var(--product-muted)', fontSize: 12, padding: '24px 0' }}>
                         No community sources match "{searchQuery}"
@@ -427,7 +442,7 @@ const ResearchPanel: React.FC = () => {
                     No community contributions yet. Be the first to share evidence from the Community page.
                   </div>
                 ) : (
-                  communityAll.map((c) => <ContribCard key={c.id} contrib={c} />)
+                  communityAll.map((c) => <ContribCard key={c.id} contrib={c} onRemove={removeContribution} />)
                 )
               )}
               </>}
@@ -435,7 +450,7 @@ const ResearchPanel: React.FC = () => {
           )}
 
           {/* ── PERSONAL MODE ── */}
-          {!isCommunity && (
+          {!isCommunity && tab !== 'projects' && (
             <>
               {/* REGION TAB */}
               {tab === 'region' && (

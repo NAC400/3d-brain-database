@@ -17,6 +17,7 @@
  */
 
 import { createClient, SupabaseClient, type User } from '@supabase/supabase-js';
+import type { Project, Source, StructureLink } from '../types/source';
 
 const url = process.env.REACT_APP_SUPABASE_URL;
 const key = process.env.REACT_APP_SUPABASE_ANON_KEY;
@@ -25,6 +26,75 @@ export const supabase: SupabaseClient | null =
   url && key ? createClient(url, key) : null;
 
 export const isSupabaseConfigured = (): boolean => !!supabase;
+
+export interface CommunityProjectPaper {
+  id: string;
+  title: string;
+  authors: string[];
+  journal?: string;
+  year?: number;
+  doi?: string;
+  tags: string[];
+  regions: { meshName: string; name: string }[];
+}
+
+export interface CommunityProject {
+  id: string;
+  user_id: string;
+  name: string;
+  description?: string;
+  color: string;
+  papers: CommunityProjectPaper[];
+  updated_at: string;
+}
+
+/** JSON snapshots are user supplied, even when returned by the database. */
+export function isCommunityProject(value: unknown): value is CommunityProject {
+  if (!value || typeof value !== 'object') return false;
+  const p = value as CommunityProject;
+  const strings = (items: unknown): items is string[] => Array.isArray(items) && items.every((s) => typeof s === 'string');
+  return typeof p.id === 'string' && typeof p.user_id === 'string' && typeof p.name === 'string' &&
+    (p.description == null || typeof p.description === 'string') && typeof p.color === 'string' &&
+    typeof p.updated_at === 'string' && Array.isArray(p.papers) && p.papers.every((s) =>
+      s && typeof s.id === 'string' && typeof s.title === 'string' && strings(s.authors) && strings(s.tags) &&
+      (s.doi == null || typeof s.doi === 'string') && (s.year == null || typeof s.year === 'number') &&
+      Array.isArray(s.regions) && s.regions.every((r) => r && typeof r.meshName === 'string' && typeof r.name === 'string')
+    );
+}
+
+/** Public snapshots deliberately omit private notes and other workspace state. */
+export function communityProjectPapers(projectId: string, sources: Source[], links: StructureLink[]): CommunityProjectPaper[] {
+  return sources.filter((s) => s.projectId === projectId).map((s) => ({
+    id: s.id, title: s.title, authors: s.authors, journal: s.journal,
+    year: s.year, doi: s.doi, tags: s.tags,
+    regions: links.filter((l) => l.sourceId === s.id).map((l) => ({ meshName: l.regionMeshName, name: l.regionName })),
+  }));
+}
+
+export async function fetchCommunityProjects(userId?: string): Promise<CommunityProject[]> {
+  if (!supabase) return [];
+  let query = supabase.from('community_projects').select('*');
+  if (userId) query = query.eq('user_id', userId);
+  const { data, error } = await query.order('updated_at', { ascending: false }).limit(100);
+  if (error) throw error;
+  if (data?.some((p) => !isCommunityProject(p))) throw new Error('Invalid community project metadata.');
+  return data ?? [];
+}
+
+export async function publishCommunityProject(project: Project, userId: string, sources: Source[], links: StructureLink[]) {
+  if (!supabase) throw new Error('Community service is unavailable.');
+  const { error } = await supabase.from('community_projects').upsert({
+    id: project.id, user_id: userId, name: project.name, description: project.description ?? null,
+    color: project.color, papers: communityProjectPapers(project.id, sources, links), updated_at: new Date().toISOString(),
+  });
+  if (error) throw error;
+}
+
+export async function unpublishCommunityProject(id: string) {
+  if (!supabase) throw new Error('Community service is unavailable.');
+  const { error } = await supabase.from('community_projects').delete().eq('id', id);
+  if (error) throw error;
+}
 
 // ---------------------------------------------------------------------------
 // Auth helpers (Phase 3A)
@@ -134,6 +204,14 @@ export async function fetchContributionsByRegion(meshName: string, reportErrors 
   return data ?? [];
 }
 
+/** Include pending submissions so authors can withdraw newly posted evidence. */
+export async function fetchOwnContributions(userId: string): Promise<GlobalContribution[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase.from('global_contributions').select('*').eq('user_id', userId).order('created_at', { ascending: false }).limit(100);
+  if (error) throw error;
+  return data ?? [];
+}
+
 // ---------------------------------------------------------------------------
 // Forum (Phase 3D)
 // ---------------------------------------------------------------------------
@@ -226,4 +304,14 @@ export async function fetchForumComments(postId: string): Promise<ForumComment[]
 export async function createForumComment(comment: Omit<ForumComment, 'id' | 'created_at' | 'upvotes'>) {
   if (!supabase) return { error: { message: 'Supabase not configured.' } };
   return supabase.from('forum_comments').insert({ ...comment, upvotes: 0 });
+}
+
+/** Check both session ownership and RLS; a zero-row delete is not a success. */
+export async function deleteOwnEngagement(table: 'forum_posts' | 'forum_comments' | 'global_contributions', id: string): Promise<void> {
+  if (!supabase) throw new Error('Community service unavailable.');
+  const { data: auth, error: authError } = await supabase.auth.getUser();
+  if (authError || !auth.user) throw new Error('Sign in to delete your content.');
+  const { data, error } = await supabase.from(table).delete().eq('id', id).eq('user_id', auth.user.id).select('id');
+  if (error) throw error;
+  if (!data?.length) throw new Error('Item unavailable or deletion not permitted.');
 }

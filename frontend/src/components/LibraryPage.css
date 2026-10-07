@@ -1,0 +1,21 @@
+.product-library button, .product-library select, .product-library input:not([type="checkbox"]) {
+  font: inherit;
+  font-size: 12px;
+  color: var(--product-text);
+  background: var(--product-surface);
+  border: 1px solid var(--product-line);
+  border-radius: 6px;
+  padding: 7px 10px;
+  max-width: 100%;
+}
+.product-library button, .product-library select { cursor: pointer; }
+.product-library button:disabled { opacity: .45; cursor: default; }
+.product-library :is(button, select, input):focus-visible {
+  outline: 2px solid var(--product-accent) !important;
+  outline-offset: 2px;
+}
+.product-library input[type="checkbox"] { accent-color: var(--product-accent); }
+.product-library label { color: var(--product-muted); font-size: 12px; }
+@media (max-width: 600px) {
+  .product-library select { max-width: 100%; }
+}

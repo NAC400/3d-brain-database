@@ -15,7 +15,7 @@ interface CategoryGroup {
   children: readonly string[];
 }
 
-const CATEGORY_GROUPS: CategoryGroup[] = [
+export const CATEGORY_GROUPS: CategoryGroup[] = [
   {
     id: 'telencephalon', label: 'Telencephalon', color: '#f59e0b',
     children: [
@@ -34,7 +34,7 @@ const CATEGORY_GROUPS: CategoryGroup[] = [
   },
   {
     // Diencephalon now expanded into 4 subdivisions + catch-all
-    id: 'diencephalon', label: 'Diencephalon', color: 'var(--product-accent)',
+    id: 'diencephalon', label: 'Diencephalon', color: '#a5e2cf',
     children: [
       'Diencephalon – Thalamus',
       'Diencephalon – Hypothalamus',
@@ -60,11 +60,11 @@ const CATEGORY_GROUPS: CategoryGroup[] = [
     children: ['Metencephalon (Cerebellum)'],
   },
   {
-    id: 'whiteMatter', label: 'White Matter', color: 'var(--product-muted)',
+    id: 'whiteMatter', label: 'White Matter', color: '#91a8be',
     children: ['White Matter'],
   },
   {
-    id: 'ventricles', label: 'Ventricles & CSF', color: 'var(--product-accent)',
+    id: 'ventricles', label: 'Ventricles & CSF', color: '#a5e2cf',
     children: ['Ventricles & CSF'],
   },
 ];
@@ -93,7 +93,7 @@ const SUB_COLORS: Record<string, string> = {
   'Diencephalon – Thalamus':               '#3b82f6',
   'Diencephalon – Hypothalamus':           '#818cf8',
   'Diencephalon – Epithalamus':            '#c084fc',
-  'Diencephalon – Subthalamus':            'var(--product-accent)',
+  'Diencephalon – Subthalamus':            '#a5e2cf',
   'Diencephalon':                          '#93c5fd',
   // Mesencephalon subdivisions
   'Mesencephalon – Tectum':               '#10b981',
@@ -149,6 +149,8 @@ const SubPopover: React.FC<PopoverProps> = ({ group, activeCategories, toggleCat
   return (
     <div
       ref={popRef}
+      role="group"
+      aria-label={`${group.label} subdivisions`}
       style={{
         position: 'fixed',
         left: pos.left,
@@ -208,6 +210,7 @@ const SubPopover: React.FC<PopoverProps> = ({ group, activeCategories, toggleCat
           return (
             <button
               key={cat}
+              aria-pressed={active}
               onClick={() => toggleCategory(cat)}
               style={{
                 display: 'flex', alignItems: 'center', gap: 5,
@@ -350,12 +353,15 @@ const ControlsToolbar: React.FC = () => {
     setClippingPlane, setPlaneEnabled, resetClipping,
     brainAtlas, setBrainAtlas,
     brainBounds,
+    brainRegions,
   } = useBrainStore();
 
   const [mode, setMode]             = useState<'layers' | 'crosssection'>('layers');
   const [openGroup, setOpenGroup]   = useState<string | null>(null);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const shortcutsBtnRef = useRef<HTMLButtonElement | null>(null);
+  const availableCategories = new Set(brainRegions.map((r) => r.category));
+  const categoryGroups = CATEGORY_GROUPS.map((g) => ({ ...g, children: g.children.filter((c) => availableCategories.has(c)) }));
 
   // One ref per group button so the popover can anchor to it
   const btnRefs = useRef<Record<string, React.RefObject<HTMLButtonElement | null>>>({});
@@ -368,12 +374,8 @@ const ControlsToolbar: React.FC = () => {
   const groupIsActive  = (g: CategoryGroup) => g.children.some((c) => activeCategories.has(c));
 
   const handleGroupClick = (group: CategoryGroup) => {
-    if (group.children.length === 1) {
-      // Single-child: toggle directly, no popover
-      toggleCategory(group.children[0]);
-    } else {
-      setOpenGroup(openGroup === group.id ? null : group.id);
-    }
+    const allActive = group.children.every((c) => activeCategories.has(c));
+    group.children.forEach((c) => { if (activeCategories.has(c) === allActive) toggleCategory(c); });
   };
 
   return (
@@ -442,16 +444,17 @@ const ControlsToolbar: React.FC = () => {
         {mode === 'layers' && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexWrap: 'nowrap', flexShrink: 0 }}>
 
-            {CATEGORY_GROUPS.map((group) => {
+            {categoryGroups.map((group) => {
               const isActive   = groupIsActive(group);
               const isOpen     = openGroup === group.id;
               const hasChildren = group.children.length > 1;
 
               return (
-                <button
-                  key={group.id}
+                <React.Fragment key={group.id}><button
                   ref={btnRefs.current[group.id]}
                   onClick={() => handleGroupClick(group)}
+                  disabled={!group.children.length}
+                  aria-pressed={isActive}
                   title={hasChildren ? `Filter by ${group.label}` : group.children[0]}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 5,
@@ -469,10 +472,9 @@ const ControlsToolbar: React.FC = () => {
                     background: isActive || isOpen ? group.color : '#334155', flexShrink: 0,
                   }} />
                   {group.label}
-                  {hasChildren && (
-                    <span style={{ fontSize: 8, opacity: 0.6 }}>{isOpen ? '▲' : '▾'}</span>
-                  )}
                 </button>
+                {hasChildren && <button aria-label={`Choose ${group.label} subdivisions`} aria-expanded={isOpen} onClick={() => setOpenGroup(isOpen ? null : group.id)} style={{ background: 'transparent', border: '1px solid var(--product-line)', color: group.color, cursor: 'pointer', padding: '3px 5px' }}>{isOpen ? '▲' : '▾'}</button>}
+                </React.Fragment>
               );
             })}
 
@@ -580,7 +582,7 @@ const ControlsToolbar: React.FC = () => {
 
       {/* ── Sub-category popover (rendered outside the toolbar to avoid overflow) ── */}
       {openGroup && (() => {
-        const group = CATEGORY_GROUPS.find((g) => g.id === openGroup);
+        const group = categoryGroups.find((g) => g.id === openGroup);
         if (!group || group.children.length <= 1) return null;
         return createPortal(
           <SubPopover

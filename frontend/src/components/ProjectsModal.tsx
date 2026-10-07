@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useBrainStore } from '../store/brainStore';
 import { newId } from '../lib/id';
 import type { Project } from '../types/source';
+import { fetchCommunityProjects, publishCommunityProject, unpublishCommunityProject, isSupabaseConfigured } from '../lib/supabase';
 
 const genId = newId;
 
@@ -10,10 +11,10 @@ const PRESET_COLORS = [
   '#f59e0b', '#ef4444', '#06b6d4', '#84cc16',
 ];
 
-interface Props { onClose: () => void; }
+interface Props { onClose: () => void; initialProjectId?: string; }
 
-const ProjectsModal: React.FC<Props> = ({ onClose }) => {
-  const { projects, addProject, removeProject, updateProject } = useBrainStore();
+const ProjectsModal: React.FC<Props> = ({ onClose, initialProjectId }) => {
+  const { projects, addProject, removeProject, updateProject, sources, structureLinks, user } = useBrainStore();
 
   const [editingId, setEditingId]       = useState<string | null>(null);
   const [name, setName]                 = useState('');
@@ -21,14 +22,58 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
   const [mode, setMode]                 = useState<'private' | 'community'>('private');
   const [color, setColor]               = useState(PRESET_COLORS[0]);
   const [formOpen, setFormOpen]         = useState(false);
+  const [publishedIds, setPublishedIds] = useState<string[]>([]);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [sharingMessage, setSharingMessage] = useState('');
+  const [publishPreview, setPublishPreview] = useState<Project | null>(null);
+
+  useEffect(() => {
+    const project = useBrainStore.getState().projects.find((p) => p.id === initialProjectId);
+    if (project) {
+      setEditingId(project.id); setName(project.name); setDescription(project.description ?? '');
+      setMode(project.mode); setColor(project.color); setFormOpen(true);
+    }
+  }, [initialProjectId]);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!user || !isSupabaseConfigured()) return;
+    fetchCommunityProjects(user.id).then((data) => { if (!cancelled) setPublishedIds(data.map((p) => p.id)); })
+      .catch(() => { if (!cancelled) setSharingMessage('Could not load public projects. Try again when the community service is available.'); });
+    return () => { cancelled = true; };
+  }, [user]);
+
+  const shareProject = async (project: Project, remove = false) => {
+    if (!user) return;
+    setBusyId(project.id); setSharingMessage('');
+    try {
+      if (remove) {
+        await unpublishCommunityProject(project.id);
+        setPublishedIds((ids) => ids.filter((id) => id !== project.id));
+      } else {
+        await publishCommunityProject(project, user.id, sources, structureLinks);
+        setPublishedIds((ids) => Array.from(new Set([...ids, project.id])));
+      }
+      setPublishPreview(null);
+      setSharingMessage(remove ? 'Public copy removed.' : 'Project published. Future changes stay local until you update the public copy.');
+    } catch {
+      setSharingMessage('Could not update the public project. Check your connection and community service, then try again.');
+    } finally { setBusyId(null); }
+  };
 
   const resetForm = () => {
     setName(''); setDescription(''); setMode('private'); setColor(PRESET_COLORS[0]);
     setEditingId(null); setFormOpen(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name.trim()) return;
+    if (editingId && mode === 'private' && publishedIds.includes(editingId)) {
+      setBusyId(editingId);
+      try { await unpublishCommunityProject(editingId); setPublishedIds((ids) => ids.filter((id) => id !== editingId)); }
+      catch { setSharingMessage('Could not remove the public copy. Try again before switching this published project to Personal.'); return; }
+      finally { setBusyId(null); }
+    }
     if (editingId) {
       updateProject(editingId, {
         name: name.trim(),
@@ -68,7 +113,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
       background: 'rgba(7,11,22,0.85)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
     }}>
-      <div style={{
+      <div role="dialog" aria-modal="true" aria-label="Project settings" style={{
         width: 480, maxWidth: 'calc(100vw - 32px)', maxHeight: '80vh', overflowY: 'auto',
         background: 'var(--product-surface)',
         border: '1px solid rgba(165,226,207,0.3)',
@@ -87,6 +132,14 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
         </div>
 
         {/* Project list */}
+        <p style={{ fontSize: 12, color: 'var(--product-muted)' }}>Publishing shares project details, paper metadata, topics, and brain links. Your notes stay private.</p>
+        <div role="status" style={{ fontSize: 12, color: 'var(--product-accent)', marginBottom: 8 }}>{sharingMessage}</div>
+        {publishPreview && <section style={{ border: '1px solid var(--product-line)', borderRadius: 6, padding: 12, marginBottom: 12 }}>
+          <strong>Publish {publishPreview.name}?</strong>
+          <p style={{ fontSize: 12 }}>{sources.filter((s) => s.projectId === publishPreview.id).length} papers and their topics and region links will be visible to everyone.</p>
+          <button disabled={busyId !== null} onClick={() => shareProject(publishPreview)}>Publish public copy</button>
+          <button disabled={busyId !== null} onClick={() => setPublishPreview(null)}>Cancel</button>
+        </section>}
         {projects.length === 0 && !formOpen && (
           <div style={{ textAlign: 'center', color: 'var(--product-muted)', fontSize: 12, padding: '24px 0' }}>
             No projects yet. Create one to organise your sources.
@@ -115,20 +168,28 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
               color: p.mode === 'community' ? '#22d3ee' : '#a5b4fc',
               letterSpacing: 0.3,
             }}>
-              {p.mode === 'community' ? 'Community' : 'Private'}
+              {p.mode === 'community' ? 'Community' : 'Personal'}
             </span>
             <button
+              disabled={busyId !== null}
               onClick={() => startEdit(p)}
               style={{ background: 'none', border: 'none', color: 'var(--product-accent)', cursor: 'pointer', fontSize: 12, padding: '2px 6px' }}
             >
               Edit
             </button>
             <button
+              disabled={busyId !== null || publishedIds.includes(p.id)}
+              title={publishedIds.includes(p.id) ? 'Unpublish the public copy before deleting this project.' : 'Delete local project'}
               onClick={() => { if (window.confirm(`Delete project "${p.name}"?`)) removeProject(p.id); }}
               style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: 12, padding: '2px 6px' }}
             >
               Del
             </button>
+            {(p.mode === 'community' || publishedIds.includes(p.id)) && <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <button disabled={!user || !isSupabaseConfigured() || busyId !== null} onClick={() => setPublishPreview(p)}>{publishedIds.includes(p.id) ? 'Update public copy' : 'Publish project'}</button>
+              {publishedIds.includes(p.id) && <button disabled={busyId !== null} onClick={() => shareProject(p, true)}>Unpublish</button>}
+              {(!user || !isSupabaseConfigured()) && <span style={{ fontSize: 11, color: 'var(--product-muted)' }}>{!isSupabaseConfigured() ? 'Community service unavailable' : 'Sign in to publish'}</span>}
+            </div>}
           </div>
         ))}
 
@@ -141,13 +202,13 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Project name *"
+              placeholder="Project name *" maxLength={120}
               style={inputStyle}
             />
             <input
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Description (optional)"
+              placeholder="Description (optional)" maxLength={4000}
               style={inputStyle}
             />
 
@@ -158,6 +219,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
                 {(['private', 'community'] as const).map((m) => (
                   <button
                     key={m}
+                    aria-pressed={mode === m}
                     onClick={() => setMode(m)}
                     style={{
                       flex: 1, padding: '8px 0', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer',
@@ -166,14 +228,14 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
                       color: mode === m ? 'var(--product-accent)' : 'var(--product-muted)',
                     }}
                   >
-                    {m === 'private' ? '🔒 Private Atlas' : '🌐 Community Atlas'}
+                    {m === 'private' ? 'Personal' : 'Community'}
                   </button>
                 ))}
               </div>
               <div style={{ fontSize: 12, color: 'var(--product-muted)', marginTop: 6 }}>
                 {mode === 'private'
-                  ? 'Sources stay local — not shared to the Community Atlas.'
-                  : 'Sources can be submitted to the global Community Atlas for peer review.'}
+                  ? 'Show this project in Personal research. Switching a published project to Personal removes its public copy.'
+                  : 'Show this project in your Community research workspace. Publish a public copy separately when ready.'}
               </div>
             </div>
 
@@ -211,7 +273,7 @@ const ProjectsModal: React.FC<Props> = ({ onClose }) => {
               </button>
               <button
                 onClick={handleSave}
-                disabled={!name.trim()}
+                disabled={!name.trim() || busyId !== null}
                 style={{
                   flex: 2, padding: '9px 0', borderRadius: 7, fontSize: 12, fontWeight: 700, cursor: 'pointer',
                   background: 'rgba(165,226,207,0.2)', border: '1px solid rgba(165,226,207,0.5)',

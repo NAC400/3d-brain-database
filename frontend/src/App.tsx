@@ -141,7 +141,7 @@ const App: React.FC = () => {
         {appPage === 'explorer' && (
           <div data-tour="research" style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
             {/* Personal / Community toggle */}
-            <div style={{
+            {researchPanelOpen && <div style={{
               display: 'flex', borderRadius: 6, overflow: 'hidden',
               border: '1px solid rgba(165,226,207,0.3)',
             }}>
@@ -150,7 +150,7 @@ const App: React.FC = () => {
                   key={m}
                   className="product-mode-button"
                   aria-pressed={explorerMode === m}
-                  onClick={() => { setExplorerMode(m); setResearchPanelOpen(true); }}
+                  onClick={() => { setExplorerMode(m); setResearchPanelOpen(true); if (activeProject && (activeProject.mode === 'community') !== (m === 'community')) setActiveProjectId(null); }}
                   title={m === 'personal' ? 'Your personal sources & notes' : 'Community-verified sources from the global atlas'}
                   style={{
                     padding: '5px 12px', fontSize: 12, fontWeight: explorerMode === m ? 700 : 400, cursor: 'pointer',
@@ -166,7 +166,7 @@ const App: React.FC = () => {
                   {m === 'personal' ? 'Personal' : 'Community'}
                 </button>
               ))}
-            </div>
+            </div>}
 
             {/* Research panel button */}
             <button
@@ -232,19 +232,19 @@ const App: React.FC = () => {
                 {projects.map((p) => (
                   <button
                     key={p.id}
-                    onClick={() => { setActiveProjectId(p.id); setProjectDropOpen(false); }}
+                    onClick={() => { setActiveProjectId(p.id); setProjectDropOpen(false); if (appPage === 'explorer') { setExplorerMode(p.mode === 'community' ? 'community' : 'personal'); setResearchPanelOpen(true); } }}
                     style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: activeProjectId === p.id ? 'rgba(165,226,207,0.08)' : 'transparent', border: 'none', color: activeProjectId === p.id ? 'var(--product-text)' : 'var(--product-muted)', cursor: 'pointer', fontWeight: activeProjectId === p.id ? 600 : 400 }}
                   >
                     <span style={{ width: 7, height: 7, borderRadius: '50%', background: p.color, flexShrink: 0 }} />
                     <span style={{ flex: 1 }}>{p.name}</span>
                     <span style={{ fontSize: 12, color: p.mode === 'community' ? '#22d3ee' : '#6366f1', opacity: 0.8 }}>
-                      {p.mode === 'community' ? 'Community' : 'Private'}
+                      {p.mode === 'community' ? 'Community' : 'Personal'}
                     </span>
                   </button>
                 ))}
                 <div style={{ borderTop: '1px solid rgba(30,41,59,0.6)' }} />
                 <button
-                  onClick={() => { setProjectDropOpen(false); setProjectsModalOpen(true); }}
+                  onClick={() => { setProjectDropOpen(false); if (appPage === 'explorer') setAppPage('library'); else setProjectsModalOpen(true); }}
                   style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 14px', fontSize: 12, background: 'transparent', border: 'none', color: 'var(--product-accent)', cursor: 'pointer', fontWeight: 600 }}
                 >
                   + Manage Projects

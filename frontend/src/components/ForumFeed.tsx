@@ -4,8 +4,10 @@ import {
   fetchForumPosts, createForumPost, upvoteForumPost,
   fetchForumComments, createForumComment,
   isSupabaseConfigured,
+  deleteOwnEngagement,
   type ForumPost, type ForumComment,
 } from '../lib/supabase';
+import DeleteEngagementButton from './DeleteEngagementButton';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -90,6 +92,8 @@ create policy "Auth users can insert posts"
   on forum_posts for insert with check (auth.uid() = user_id);
 create policy "Authors can update posts"
   on forum_posts for update using (auth.uid() = user_id);
+create policy "Authors delete own posts"
+  on forum_posts for delete using (auth.uid() = user_id);
 
 create table forum_comments (
   id          uuid primary key default gen_random_uuid(),
@@ -104,7 +108,9 @@ alter table forum_comments enable row level security;
 create policy "Anyone can read comments"
   on forum_comments for select using (true);
 create policy "Auth users can insert comments"
-  on forum_comments for insert with check (auth.uid() = user_id);`;
+  on forum_comments for insert with check (auth.uid() = user_id);
+create policy "Authors delete own comments"
+  on forum_comments for delete using (auth.uid() = user_id);`;
 
 const SetupBanner: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -362,6 +368,12 @@ const CommentThread: React.FC<{ postId: string; useLocal: boolean }> = ({ postId
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
                   <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--product-muted)' }}>{c.user_email.split('@')[0]}</span>
                   <span style={{ fontSize: 12, color: 'var(--product-muted)' }}>{timeAgo(c.created_at)}</span>
+                  <DeleteEngagementButton ownerId={c.user_id} label={`Delete comment: ${c.body}`} confirmation="Delete this comment permanently?" onDelete={async () => {
+                    if (useBrainStore.getState().user?.id !== c.user_id) throw new Error('Not the author.');
+                    if (useLocal) _localComments[postId] = (_localComments[postId] ?? []).filter((item) => item.id !== c.id);
+                    else await deleteOwnEngagement('forum_comments', c.id);
+                    setComments((items) => items.filter((item) => item.id !== c.id));
+                  }} />
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--product-text)', lineHeight: 1.6 }}>{c.body}</div>
               </div>
@@ -410,7 +422,8 @@ const PostCard: React.FC<{
   post: ForumPost;
   useLocal: boolean;
   onUpvote: (id: string, current: number) => void;
-}> = ({ post, useLocal, onUpvote }) => {
+  onDelete: (post: ForumPost) => Promise<void>;
+}> = ({ post, useLocal, onUpvote, onDelete }) => {
   const { setSelectedRegion, setAppPage } = useBrainStore();
   const [expanded, setExpanded] = useState(false);
 
@@ -479,6 +492,7 @@ const PostCard: React.FC<{
             >
               {expanded ? 'Hide' : 'Comments & Discussion'}
             </button>
+            <DeleteEngagementButton ownerId={post.user_id} label={`Delete post: ${post.title}`} confirmation="Delete this thread and all its comments permanently?" onDelete={() => onDelete(post)} />
           </div>
 
           {expanded && <CommentThread postId={post.id} useLocal={useLocal} />}
@@ -549,6 +563,17 @@ const ForumFeed: React.FC = () => {
     }
   }, [load]);
 
+  const handleDelete = async (post: ForumPost) => {
+    if (useBrainStore.getState().user?.id !== post.user_id) throw new Error('Not the author.');
+    if (useLocal) {
+      const index = _localPosts.findIndex((p) => p.id === post.id);
+      if (index !== -1) _localPosts.splice(index, 1);
+      // Match the database's ON DELETE CASCADE so replies cannot reappear later.
+      delete _localComments[post.id];
+    } else await deleteOwnEngagement('forum_posts', post.id);
+    setPosts((items) => items.filter((p) => p.id !== post.id));
+  };
+
   const filtered = posts.filter((p) =>
     !search ||
     p.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -607,7 +632,7 @@ const ForumFeed: React.FC = () => {
         </div>
       ) : (
         filtered.map((post) => (
-          <PostCard key={post.id} post={post} useLocal={useLocal} onUpvote={handleUpvote} />
+          <PostCard key={post.id} post={post} useLocal={useLocal} onUpvote={handleUpvote} onDelete={handleDelete} />
         ))
       )}
 

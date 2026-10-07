@@ -514,6 +514,7 @@ export const useBrainStore = create<BrainState>()(
   updateProject: (id, updates) =>
     set((state) => ({
       projects: state.projects.map((p) => p.id === id ? { ...p, ...updates } : p),
+      ...(state.activeProjectId === id && updates.mode ? { explorerMode: updates.mode === 'community' ? 'community' as const : 'personal' as const } : {}),
     })),
   setActiveProjectId: (id) => set({ activeProjectId: id }),
 

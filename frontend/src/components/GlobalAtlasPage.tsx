@@ -2,8 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useBrainStore } from '../store/brainStore';
 import {
   fetchGlobalContributions, submitGlobalContribution, isSupabaseConfigured,
-  type GlobalContribution,
+  type GlobalContribution, deleteOwnEngagement, fetchOwnContributions,
 } from '../lib/supabase';
+import DeleteEngagementButton from './DeleteEngagementButton';
 import ForumFeed from './ForumFeed';
 
 // ---------------------------------------------------------------------------
@@ -152,18 +153,24 @@ const GlobalAtlasPage: React.FC = () => {
   const [showContribute, setShowContribute] = useState(false);
   const [search, setSearch]       = useState('');
   const [tab, setTab]             = useState<'atlas' | 'forum'>('atlas');
+  const [loadError, setLoadError] = useState('');
 
   useEffect(() => {
+    let cancelled = false;
     setLoading(true);
-    fetchGlobalContributions(100)
-      .then(setContributions)
-      .finally(() => setLoading(false));
-  }, []);
+    setLoadError('');
+    // Public evidence and the author's pending submissions share delete controls.
+    Promise.all([fetchGlobalContributions(100), user ? fetchOwnContributions(user.id) : Promise.resolve([])])
+      .then(([publicItems, ownItems]) => { if (!cancelled) setContributions(Array.from(new Map([...publicItems, ...ownItems].map((c) => [c.id, c])).values())); })
+      .catch(() => { if (!cancelled) setLoadError('Could not load contributions. Refresh to try again.'); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, [user]);
 
   // Heatmap: count contributions per region, normalised 0–1
   const { heatmap, rawCounts } = useMemo(() => {
     const counts: Record<string, number> = {};
-    for (const c of contributions) counts[c.mesh_name] = (counts[c.mesh_name] ?? 0) + 1;
+    for (const c of contributions) if (c.verified) counts[c.mesh_name] = (counts[c.mesh_name] ?? 0) + 1;
     const max = Math.max(1, ...Object.values(counts));
     const norm: Record<string, number> = {};
     for (const [k, v] of Object.entries(counts)) norm[k] = v / max;
@@ -189,6 +196,7 @@ const GlobalAtlasPage: React.FC = () => {
   const topRegions = useMemo(() => {
     const counts: Record<string, { name: string; meshName: string; count: number }> = {};
     for (const c of contributions) {
+      if (!c.verified) continue; // Pending personal submissions are not global evidence.
       if (!counts[c.mesh_name]) counts[c.mesh_name] = { name: c.region_name, meshName: c.mesh_name, count: 0 };
       counts[c.mesh_name].count++;
     }
@@ -269,7 +277,7 @@ const GlobalAtlasPage: React.FC = () => {
 
       {/* Stats row */}
       <div className="community-stats" style={{ display: 'flex', gap: 14, marginBottom: 28 }}>
-        {statCard('Global contributions', contributions.length, 'var(--product-accent)')}
+        {statCard('Global contributions', contributions.filter((c) => c.verified).length, 'var(--product-accent)')}
         {statCard('Regions covered', Object.keys(heatmap).length, '#34d399')}
         {statCard('Your local links', structureLinks.length, '#c084fc')}
         {statCard('Your sources', sources.length, '#f59e0b')}
@@ -336,6 +344,7 @@ const GlobalAtlasPage: React.FC = () => {
             />
           </div>
 
+          {loadError && <p role="alert">{loadError}</p>}
           {loading ? (
             <div style={{ textAlign: 'center', color: 'var(--product-muted)', padding: 40 }}>Loading contributions…</div>
           ) : filtered.length === 0 ? (
@@ -362,8 +371,13 @@ const GlobalAtlasPage: React.FC = () => {
                       </div>
                       <div style={{ fontSize: 12, color: 'var(--product-muted)', marginBottom: 6 }}>
                         {c.authors}{c.journal ? ` · ${c.journal}` : ''}{c.year ? ` · ${c.year}` : ''}
+                        {!c.verified && <span> · Your submission: {c.status}</span>}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <DeleteEngagementButton ownerId={c.user_id} label={`Delete contribution: ${c.title}`} confirmation="Remove this contribution from the Community Atlas permanently?" onDelete={async () => {
+                          await deleteOwnEngagement('global_contributions', c.id);
+                          setContributions((items) => items.filter((item) => item.id !== c.id));
+                        }} />
                         <button
                           title={`Explore ${c.region_name} in 3D viewer`}
                           onClick={() => { setSelectedRegion(c.mesh_name); setAppPage('explorer'); }}
