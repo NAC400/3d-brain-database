@@ -54,7 +54,7 @@ const App: React.FC = () => {
   // ── Keyboard shortcuts ──
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (document.querySelector('[data-explorer-tour-open="true"]')) return;
+      if (document.querySelector('[data-explorer-tour-open="true"], dialog[open]')) return;
       const tag = (e.target as HTMLElement).tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       switch (e.key.toLowerCase()) {

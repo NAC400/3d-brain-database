@@ -1,0 +1,15 @@
+.feedback-widget { position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(60px, env(safe-area-inset-bottom)); z-index: 80; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; font-family: var(--product-font); color: var(--product-text); }
+.feedback-launch, .feedback-action { border: 1px solid var(--product-accent); border-radius: 24px; padding: 11px 18px; min-height: 44px; background: var(--product-accent); color: #122b26; cursor: pointer; font-size: 14px; font-weight: 650; box-shadow: 0 4px 20px #0003; }
+.feedback-prompt { position: relative; box-sizing: border-box; width: min(320px, calc(100vw - 32px)); max-height: calc(100dvh - 150px); overflow-y: auto; padding: 22px; border: 1px solid var(--product-line); border-radius: 16px; background: var(--product-surface); box-shadow: 0 12px 40px #0005; }
+.feedback-prompt h2 { margin: 0 28px 10px 0; font-size: 18px; }
+.feedback-prompt p { color: var(--product-muted); font-size: 14px; line-height: 1.5; }
+.feedback-close { border: 0; background: transparent; color: var(--product-text); min-width: 44px; min-height: 44px; font-size: 24px; cursor: pointer; }
+.feedback-prompt > .feedback-close { position: absolute; top: 5px; right: 5px; }
+.feedback-note { font-size: 12px !important; line-height: 1.5; color: var(--product-muted); }
+.feedback-dialog { box-sizing: border-box; width: min(720px, calc(100vw - 24px)); height: min(850px, calc(100dvh - 24px)); max-height: calc(100dvh - 24px); padding: 18px; border: 1px solid var(--product-line); border-radius: 16px; background: var(--product-surface); color: var(--product-text); font-family: var(--product-font); }
+.feedback-dialog[open] { display: flex; flex-direction: column; }
+.feedback-dialog::backdrop { background: #050b18b3; }
+.feedback-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.feedback-heading h2 { margin: 0; font-size: 20px; }
+.feedback-dialog a { color: var(--product-accent); font-size: 13px; margin-bottom: 14px; }
+.feedback-dialog iframe { width: 100%; flex: 1; min-height: 0; border: 0; border-radius: 8px; background: white; }
