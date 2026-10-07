@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
       <header className="home-header">
         <div className="home-brand"><span className="home-wordmark">MAPPED<span>.</span></span><span className="home-brand-caption">Anatomy · Evidence · Discovery</span></div>
         <nav className="home-nav" aria-label="Main navigation">
-          {(['explorer', 'library', 'community'] as const).map(page => <button key={page} onClick={() => setAppPage(page)}>{page.charAt(0).toUpperCase() + page.slice(1)}</button>)}
+          {(['explorer', 'library', 'community'] as const).map(page => <button key={page} onClick={() => setAppPage(page)}>{page === 'explorer' ? '3D explorer' : page.charAt(0).toUpperCase() + page.slice(1)}</button>)}
           <button className="home-account" onClick={() => setAppPage('auth')}>{user ? user.email.split('@')[0] : 'Sign In'}</button>
         </nav>
       </header>
