@@ -9,10 +9,10 @@ test('visitors can reject, reopen preferences, and accept without losing access 
   HTMLDialogElement.prototype.showModal = function () { this.setAttribute('open', ''); };
   HTMLDialogElement.prototype.close = function () { this.removeAttribute('open'); };
   render(<><main>Research workspace</main><AnalyticsConsent /></>);
-  const banner = screen.getByRole('region', { name: 'Optional analytics' });
-  fireEvent.click(banner.querySelectorAll('button')[1]);
+  expect(screen.getByRole('dialog', { name: 'Help us improve MAPPED' })).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Reject analytics' }));
   expect(setAnalyticsConsent).toHaveBeenLastCalledWith('rejected');
-  expect(screen.queryByRole('region', { name: 'Optional analytics' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   expect(screen.getByText('Research workspace')).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: 'Analytics preferences' }));
   expect(screen.getByRole('dialog', { name: 'Analytics preferences' })).toBeVisible();
