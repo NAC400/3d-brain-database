@@ -1,170 +1,62 @@
-# 3D Brain Research Platform
+# MAPPED
 
-A comprehensive 3D visualization platform for storing, accessing, and analyzing neural research data mapped to anatomical brain structures.
+MAPPED connects interactive 3D anatomy with scientific research, helping students and researchers explore structures, discover relevant papers, and organise their work.
 
-The original Allen atlas is preserved in a verified compressed archive outside
-the deployed assets. See [archive and restore instructions](archive/allen-atlas/README.md).
-SPL/NAC remains the active atlas; saved Allen research links are retained.
+The long-term aim is to cover **the full anatomy of the human body**. For now, MAPPED is being trialled with **the brain** to test the anatomy and research workflows before expanding to other body systems.
 
-## 🧠 Project Overview
+**[Try the web app](https://mapped-brain.pages.dev/)** · **[Contact](mailto:mapped.nac@gmail.com)**
 
-This platform provides:
-- **Detailed 3D Brain Model**: High-resolution, anatomically accurate brain visualization
-- **Layered Visualization**: Toggle between skull, vasculature, and brain tissue layers
-- **Anatomical Mapping**: Precise highlighting of brain regions (cortex, basal ganglia, etc.)
-- **Research Data Integration**: Store and visualize research data mapped to specific brain areas
-- **Cross-sectional Views**: Multiple viewing modes for comprehensive analysis
-- **Collaborative Features**: Share findings and annotations with research teams
+## What you can do
 
-## 🚀 Technology Stack
+- **Explore the brain in 3D:** browse 233 selectable structures in the bilateral SPL/NAC atlas, search regions, and inspect them with isolation, anatomy layers, explode, and cross-section controls.
+- **Build a paper library:** find and import papers through PubMed, Crossref, DOI lookup, or manual entry. Organise papers with projects, topic tags, and brain-region links; papers can also be saved without an anatomical link.
+- **Connect research to anatomy:** view research associated with a selected structure and work in personal or community contexts. Community contributions go through moderation.
+- **Share selected work:** publish explicit project snapshots containing paper metadata, topics, and anatomical links, while keeping private notes out of the public copy.
+- **Join the discussion and give feedback:** use the community forum and in-app feedback survey to help shape the pilot.
 
-### Frontend
-- **React 18** with TypeScript
-- **Three.js** for 3D rendering
-- **React Three Fiber** for React integration
-- **Tailwind CSS** for styling
-- **Zustand** for state management
+## Current scope
 
-### Backend
-- **Node.js** with Express
-- **TypeScript**
-- **PostgreSQL** with spatial extensions
-- **Prisma ORM**
+MAPPED is an early, desktop-focused pilot. Full-body coverage is a future goal, and the current collections do not represent complete brain or head anatomy.
 
-### 3D Assets
-- **GLTF/GLB** format for optimized 3D models
-- **Anatomical atlases** from research institutions
-- **High-resolution textures** and materials
+Alongside the main brain atlas, the explorer includes experimental source views for SPL skull and neck vessels, BodyParts3D central arteries, and Z-Anatomy dural folds and sinuses. These come from different datasets; combined views are illustrative, and their alignment and connections are not yet validated.
 
-## 📁 Project Structure
+Personal workspace data is stored in the browser. Account and community features use Supabase and depend on the deployed database configuration. Recent community features require the migrations documented in [Research workspace changes](https://github.com/NAC400/MAPPED/blob/codex/home-ui-refinement/docs/RESEARCH_WORKSPACE_CHANGES.md); production authentication checks are tracked in the [deployment notes](https://github.com/NAC400/MAPPED/blob/codex/home-ui-refinement/docs/CLOUDFLARE_PAGES_SETUP.md).
 
-```
-3d-brain-research-platform/
-├── frontend/              # React + Three.js application
-├── backend/              # Express API server
-├── database/             # Database schemas and migrations
-├── assets/              # 3D models, textures, anatomical data
-├── docs/                # Documentation and research references
-└── research-data/       # Sample research data and structures
-```
+## Run locally
 
-## 🛠️ Development Setup
+The app uses React 19, TypeScript, Three.js, React Three Fiber, Tailwind CSS, Zustand, and Supabase. The frontend is hosted on Cloudflare Pages.
 
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-- PostgreSQL 14+
-
-### Installation
-
-1. **Clone and setup**:
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-2. **Setup backend**:
-   ```bash
-   cd backend
-   npm install
-   ```
-
-3. **Setup database**:
-   ```bash
-   cd database
-   # Database setup instructions will be provided
-   ```
-
-### Development Commands
+The current app and deployment source is on `codex/home-ui-refinement`. With Node.js and npm installed:
 
 ```bash
-# Start frontend development server
-cd frontend && npm start
-
-# Start backend development server
-cd backend && npm run dev
-
-# Run database migrations
-cd backend && npm run migrate
+git clone --branch codex/home-ui-refinement https://github.com/NAC400/MAPPED.git
+cd MAPPED
+npm ci --prefix frontend
+npm start --prefix frontend
 ```
 
-## 🧭 Roadmap
+Open [localhost:3000](http://localhost:3000). For account and community features, configure `REACT_APP_SUPABASE_URL` and `REACT_APP_SUPABASE_ANON_KEY` in `frontend/.env.local` using your own Supabase project. Only use the public browser key. See [Supabase setup](https://github.com/NAC400/MAPPED/blob/codex/home-ui-refinement/supabase/README.md) for the schema and migrations.
 
-### Phase 1: Foundation (Weeks 1-2)
-- [x] Project structure setup
-- [ ] React + Three.js basic setup
-- [ ] 3D scene initialization
-- [ ] Basic brain model loading
+```bash
+# Standard production build
+npm run build --prefix frontend
 
-### Phase 2: 3D Model Integration (Weeks 3-6)
-- [ ] High-quality brain model integration
-- [ ] Anatomical structure segmentation
-- [ ] Interactive selection system
-- [ ] Basic lighting and materials
+# Cloudflare Pages build (packages the brain model for Pages asset limits)
+npm run build:pages --prefix frontend
 
-### Phase 3: Advanced Visualization (Weeks 7-10)
-- [ ] Multi-layer visualization system
-- [ ] Cross-sectional views
-- [ ] Advanced interaction controls
-- [ ] Annotation system
+# Frontend tests
+npm test --prefix frontend
+```
 
-### Phase 4: Data Management (Weeks 11-14)
-- [ ] Database schema implementation
-- [ ] Research data integration
-- [ ] User management system
-- [ ] Data visualization overlays
+## Anatomy sources and documentation
 
-### Phase 5: Advanced Features (Weeks 15-18)
-- [ ] Heatmap visualizations
-- [ ] Time-series data support
-- [ ] Export functionality
-- [ ] Collaboration features
+Dataset attribution and licence details are available in the app's **Data sources & licences** page, [ATTRIBUTIONS.md](https://github.com/NAC400/MAPPED/blob/codex/home-ui-refinement/ATTRIBUTIONS.md), and the notices bundled with each model. Dataset licences apply to their respective assets; they do not establish a licence for the application code.
 
-### Phase 6: Polish & Deployment (Weeks 19-20)
-- [ ] Performance optimization
-- [ ] Testing suite
-- [ ] Documentation
-- [ ] Production deployment
+- [Explorer source views and guide](https://github.com/NAC400/MAPPED/blob/codex/home-ui-refinement/docs/EXPLORER_SOURCE_VIEWS_AND_GUIDE.md)
+- [Research library, projects, and community changes](https://github.com/NAC400/MAPPED/blob/codex/home-ui-refinement/docs/RESEARCH_WORKSPACE_CHANGES.md)
+- [Cloudflare Pages deployment](https://github.com/NAC400/MAPPED/blob/codex/home-ui-refinement/docs/CLOUDFLARE_PAGES_SETUP.md)
+- [Archived Allen atlas and restoration](https://github.com/NAC400/MAPPED/blob/codex/home-ui-refinement/archive/allen-atlas/README.md)
 
-## 🔬 Data Sources
+## Contact
 
-- **Allen Brain Institute**: Comprehensive brain atlases
-- **Human Connectome Project**: Neuroimaging datasets
-- **NIH 3D Print Exchange**: Anatomical 3D models
-- **BrainInfo Database**: Neuroanatomical references
-
-## 📚 Key Features
-
-### Anatomical Visualization
-- Detailed cortical and subcortical structures
-- Precise basal ganglia modeling
-- Complete ventricular system
-- White and gray matter differentiation
-
-### Data Integration
-- Research study mapping to brain regions
-- Multi-modal data support (fMRI, DTI, etc.)
-- Temporal data visualization
-- Statistical analysis integration
-
-### User Interface
-- Intuitive 3D navigation
-- Context-sensitive menus
-- Real-time search and filtering
-- Responsive design for multiple devices
-
-## 🤝 Contributing
-
-This is a research platform designed for neuroscientific applications. Contributions are welcome for:
-- 3D model improvements
-- New visualization features
-- Performance optimizations
-- Documentation enhancements
-
-## 📄 License
-
-[License to be determined based on research collaboration requirements]
-
-## 📞 Contact
-
-Project maintained by: [Research Team Contact Information]
+For feedback, questions, or collaboration enquiries: **[mapped.nac@gmail.com](mailto:mapped.nac@gmail.com)**.
