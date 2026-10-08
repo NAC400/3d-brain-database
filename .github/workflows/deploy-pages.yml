@@ -27,6 +27,9 @@ jobs:
     env:
       REACT_APP_SUPABASE_URL: ${{ secrets.REACT_APP_SUPABASE_URL }}
       REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.REACT_APP_SUPABASE_ANON_KEY }}
+      # Public ingestion token; repository secrets can override the project defaults.
+      REACT_APP_POSTHOG_KEY: ${{ secrets.REACT_APP_POSTHOG_KEY || 'phc_trVywSmoiq6J65J8Q5fTRqTekwpQh4deoHtzHMEDSdSP' }}
+      REACT_APP_POSTHOG_HOST: ${{ secrets.REACT_APP_POSTHOG_HOST || 'https://eu.i.posthog.com' }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -47,6 +50,9 @@ jobs:
           done
       - run: npm ci --prefix frontend --no-audit --no-fund
       - run: npm run build:pages --prefix frontend
+        env:
+          # PostHog ships maps referencing absent source files; CRA treats these as CI errors.
+          GENERATE_SOURCEMAP: 'false'
       - run: node scripts/verify-pages-model.mjs
       - name: Deploy to the existing production site
         uses: cloudflare/wrangler-action@v4

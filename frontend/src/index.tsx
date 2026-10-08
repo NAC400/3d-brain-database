@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import FeedbackSurvey from './components/FeedbackSurvey';
+import AnalyticsConsent from './components/AnalyticsConsent';
 import reportWebVitals from './reportWebVitals';
+import { initAnalytics } from './lib/analytics';
+
+initAnalytics();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,6 +16,7 @@ root.render(
   <React.StrictMode>
     <App />
     <FeedbackSurvey />
+    <AnalyticsConsent />
   </React.StrictMode>
 );
 

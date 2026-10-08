@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useBrainStore } from '../store/brainStore';
+import { captureEvent } from '../lib/analytics';
 import {
   signInWithEmail, signUpWithEmail, signOut,
   onAuthStateChange, isSupabaseConfigured, resendConfirmationEmail,
@@ -67,6 +68,7 @@ const AuthPage: React.FC = () => {
           setMode('signin');
         } else {
           setMessage('Account created. Check your email to verify it, then sign in.');
+          captureEvent('signup_submitted');
           setMode('signin');
         }
       } else if (result.data && 'user' in result.data && result.data.user) {

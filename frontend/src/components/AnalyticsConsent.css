@@ -1,0 +1,14 @@
+.analytics-banner, .analytics-dialog { color: #e8f2ef; background: #101f26; border: 1px solid #7da99d; border-radius: 12px; padding: 20px; font: 14px/1.6 system-ui, sans-serif; box-shadow: 0 8px 32px #0006; }
+.analytics-banner { position: fixed; z-index: 10000; bottom: 48px; left: 16px; width: min(480px, calc(100vw - 32px)); box-sizing: border-box; max-height: calc(100dvh - 80px); overflow: auto; }
+.analytics-banner p, .analytics-dialog p { margin: 10px 0 16px; }
+.analytics-banner a, .analytics-dialog a { color: #b8eddb; text-decoration: underline; }
+.analytics-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.analytics-actions button, .analytics-close { cursor: pointer; padding: 10px 16px; border: 1px solid #a5e2cf; border-radius: 6px; background: #18352f; color: #e8f2ef; font: inherit; }
+.analytics-links { position: fixed; z-index: 9999; bottom: 8px; left: 12px; display: flex; gap: 14px; padding: 4px 8px; border-radius: 5px; background: #101f26; font: 12px/1.5 system-ui, sans-serif; }
+.analytics-links a, .analytics-links button { color: #b8eddb; }
+.analytics-links button { border: 0; padding: 0; background: none; text-decoration: underline; cursor: pointer; font: inherit; }
+.analytics-dialog { width: min(480px, calc(100vw - 48px)); max-height: calc(100dvh - 48px); box-sizing: border-box; }
+.analytics-dialog::backdrop { background: #0009; }
+.analytics-dialog h2 { margin: 0; font-size: 20px; }
+.analytics-close { margin-top: 16px; }
+.analytics-actions button:focus-visible, .analytics-links a:focus-visible, .analytics-links button:focus-visible, .analytics-close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
